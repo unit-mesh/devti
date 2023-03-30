@@ -13,6 +13,8 @@ slf4j = "2.0.5"
 
 clikt = "3.5.1"
 
+kaml = "0.51.0"
+
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 checksum = "org.gradle.crypto.checksum:1.4.0"
@@ -44,6 +46,8 @@ logging-slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "sl
 logging-logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
 
 clikt = { group = "com.github.ajalt.clikt", name = "clikt", version.ref = "clikt" }
+
+kaml = { group = "com.charleskorn.kaml", name = "kaml", version.ref = "kaml" }
 
 # Testing
 test-junit-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }

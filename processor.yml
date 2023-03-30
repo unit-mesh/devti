@@ -1,7 +1,7 @@
 scm:
-  - repo: https://github.com/gocd/gocd
+  - repository: https://github.com/gocd/gocd
     branch: master
-  - repo: https://github.com/thoughtworks/metrik
+  - repository: https://github.com/thoughtworks/metrik
     branch: main
-  - repo: https://github.com/thoughtworks/tramchester
+  - repository: https://github.com/thoughtworks/tramchester
     branch: master

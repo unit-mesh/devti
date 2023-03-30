@@ -14,7 +14,7 @@ class GitCommandManager(var workingDirectory: String = ".") {
 
     private val exec = Command()
 
-    fun clone(url: String, branch: String = "master"): GitOutput {
+    fun shallowClone(url: String, branch: String = "master"): GitOutput {
         val args = mutableListOf("clone", url, "--branch", branch, "--single-branch", "--depth", "1", ".")
         return execGit(args)
     }

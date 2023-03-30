@@ -21,6 +21,8 @@ dependencies {
     implementation(libs.logging.slf4j.api)
     implementation(libs.logging.logback.classic)
 
+    implementation(libs.kaml)
+
     // java parser
     implementation(libs.javaparser)
     implementation(libs.javaparser.serialization)

@@ -11,6 +11,7 @@ import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.com.intellij.psi.PsiErrorElement
 import org.jetbrains.kotlin.idea.KotlinLanguage
 import org.jetbrains.kotlin.psi.KtFile
+import org.jetbrains.kotlin.psi.psiUtil.children
 
 internal typealias LineAndColumn = Pair<Int, Int>
 
@@ -23,6 +24,14 @@ class CodeSnippetContext private constructor(
     val rootNode: FileASTNode,
     val positionInTextLocator: (offset: Int) -> LineAndColumn,
 ) {
+    fun allImports(): List<ASTNode> {
+        return rootNode
+            .findChildByType(KtNodeTypes.IMPORT_LIST)
+            ?.children()
+            ?.toList()
+            ?: emptyList()
+    }
+
     fun functionByName(functionName: String): ASTNode? {
         val functionNode = rootNode
             .findChildByType(KtNodeTypes.FUN)

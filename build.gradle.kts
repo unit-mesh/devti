@@ -1,5 +1,7 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("jvm") version "1.8.0"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.shadow)
     application
 }
 
@@ -11,6 +13,9 @@ repositories {
 }
 
 dependencies {
+    implementation(libs.picocli)
+    implementation(libs.kotlin.compiler)
+
     testImplementation(kotlin("test"))
 }
 
@@ -22,6 +27,13 @@ kotlin {
     jvmToolchain(11)
 }
 
+tasks.jar {
+    manifest {
+        attributes("Main-Class" to "org.unitmesh.processor.Main")
+        attributes("Implementation-Version" to version)
+    }
+}
+
 application {
-    mainClass.set("MainKt")
+    mainClass.set("org.unitmesh.processor.MainKt")
 }

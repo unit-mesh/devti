@@ -19,5 +19,6 @@
 1. read config with repositories
 2. clone all repositories depth=1
 3. filter all tests file
-4. parse all to data
+4. split test cases to different output
+5. parse all to data
 

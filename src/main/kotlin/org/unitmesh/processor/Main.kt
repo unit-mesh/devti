@@ -42,15 +42,13 @@ class Runner : CliktCommand(help = "Action Runner") {
         }
 
         logger.info("Start to Filter Test Cases")
-        // walkdir in `origindatasets` and filter test cases
         File("origindatasets").walkTopDown().forEach {
             // if a file ends with `Test.java` or `Tests.java`, then copy it to `datasets`
             if (it.isFile && (it.name.endsWith("Test.java") || it.name.endsWith("Tests.java"))) {
-                val targetPath = "datasets" + File.separator + it.path.split(File.separator).last()
+                val targetPath = "datasets" + File.separator + "origin" + File.separator + it.path.split(File.separator).last()
                 it.copyTo(File(targetPath), true)
             }
         }
-
 
         logger.info("Runner finished")
     }

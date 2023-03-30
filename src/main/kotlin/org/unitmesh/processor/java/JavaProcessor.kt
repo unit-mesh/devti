@@ -25,4 +25,8 @@ class JavaProcessor(val code: String) : JvmProcessor {
 
         return false
     }
+
+    fun isAnnotationWith(name: String): Boolean {
+        return unit.findFirst(ClassOrInterfaceDeclaration::class.java).orElseThrow().annotations.any { it.name.identifier == name }
+    }
 }

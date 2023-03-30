@@ -1,9 +1,15 @@
 package org.unitmesh.processor
 
-fun main(args: Array<String>) {
-    println("Hello World!")
+import com.github.ajalt.clikt.core.CliktCommand
+import org.slf4j.Logger
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+fun main(args: Array<String>) = Runner().main(args)
+class Runner : CliktCommand(help = "Action Runner") {
+    override fun run() {
+        logger.info("Runner started")
+    }
+
+    companion object {
+        val logger: Logger = org.slf4j.LoggerFactory.getLogger(Runner::class.java)
+    }
 }

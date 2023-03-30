@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.shadow)
+    alias(libs.plugins.serialization)
     application
 }
 
@@ -13,8 +14,12 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.picocli)
+    implementation(libs.clikt)
     implementation(libs.kotlin.compiler)
+
+    // Logging
+    implementation(libs.logging.slf4j.api)
+    implementation(libs.logging.logback.classic)
 
     // java parser
     implementation(libs.javaparser)
@@ -34,13 +39,20 @@ kotlin {
     jvmToolchain(11)
 }
 
-tasks.jar {
-    manifest {
-        attributes("Main-Class" to "org.unitmesh.processor.Main")
-        attributes("Implementation-Version" to version)
-    }
-}
-
 application {
     mainClass.set("org.unitmesh.processor.MainKt")
+}
+
+tasks {
+    shadowJar {
+        manifest {
+            attributes(Pair("Main-Class", "org.unitmesh.processor.MainKt"))
+        }
+        // minimize()
+        dependencies {
+            exclude(dependency("org.junit.jupiter:.*:.*"))
+            exclude(dependency("org.junit:.*:.*"))
+            exclude(dependency("junit:.*:.*"))
+        }
+    }
 }

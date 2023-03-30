@@ -17,6 +17,8 @@ dependencies {
     implementation(libs.kotlin.compiler)
 
     testImplementation(kotlin("test"))
+
+    testImplementation(libs.bundles.test)
 }
 
 tasks.test {

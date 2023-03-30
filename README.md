@@ -14,3 +14,10 @@
   output:
 ```
 
+## PreProcessor
+
+1. read config with repositories
+2. clone all repositories depth=1
+3. filter all tests file
+4. parse all to data
+

@@ -8,12 +8,9 @@ import org.unitmesh.processor.swagger.converter.SwaggerProcessor
 import java.io.File
 import kotlin.system.exitProcess
 
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-@Serializable
-data class ApiOutput(val string: String)
 
 fun main(args: Array<String>) = Runner().main(args)
 class Runner : CliktCommand(help = "Action Runner") {
@@ -26,7 +23,7 @@ class Runner : CliktCommand(help = "Action Runner") {
             exitProcess(1)
         }
 
-        val output: List<ApiOutput> = apisDir.walkTopDown().filter {
+        val output: List<ApiTagOutput> = apisDir.walkTopDown().filter {
             it.isFile && (it.extension == "yaml" || it.extension == "yml" || it.extension == "json")
         }.map {
             val openAPI = getProcessor(it)
@@ -36,7 +33,7 @@ class Runner : CliktCommand(help = "Action Runner") {
             } else {
                 ApiDetails.formatApiDetailsByTag(openAPI.mergeByTags())
             }
-        }.filterNotNull().map { ApiOutput(it) }.toList()
+        }.filterNotNull().flatten().toList()
 
         val outputFile = File(rootDir + "datasets" + File.separator + "swagger-merged.json")
         outputFile.writeText(Json.encodeToString(output))

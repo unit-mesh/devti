@@ -17,8 +17,7 @@ class Swagger2ProcessorTest {
 
         val expected = """Users
 GET /users Returns a list of users.
-
 """.trimIndent()
-        assertEquals(expected, ApiDetails.formatApiDetailsByTag(result))
+        assertEquals(expected, ApiDetails.formatApiDetailsByTag(result)[0].toString())
     }
 }

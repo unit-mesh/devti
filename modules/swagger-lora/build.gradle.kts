@@ -13,10 +13,15 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.picocli)
+    implementation(libs.clikt)
     implementation(libs.kotlin.compiler)
 
+    // Logging
+    implementation(libs.logging.slf4j.api)
+    implementation(libs.logging.logback.classic)
+
     // java parser
+    implementation(libs.swagger.parser)
     implementation(libs.javaparser)
     implementation(libs.javaparser.serialization)
     implementation(libs.javaparser.symbol.solver.core)
@@ -34,14 +39,21 @@ kotlin {
     jvmToolchain(11)
 }
 
-tasks.jar {
-    manifest {
-        attributes("Main-Class" to "org.unitmesh.processor.Main")
-        attributes("Implementation-Version" to version)
-    }
-}
 
 application {
-    mainClass.set("org.unitmesh.processor.MainKt")
+    mainClass.set("org.unitmesh.processor.swagger.MainKt")
 }
 
+tasks {
+    shadowJar {
+        manifest {
+            attributes(Pair("Main-Class", "org.unitmesh.processor.swagger.MainKt"))
+        }
+        // minimize()
+        dependencies {
+            exclude(dependency("org.junit.jupiter:.*:.*"))
+            exclude(dependency("org.junit:.*:.*"))
+            exclude(dependency("junit:.*:.*"))
+        }
+    }
+}

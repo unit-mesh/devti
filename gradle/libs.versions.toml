@@ -57,5 +57,8 @@ test-kotlintest-assertions = { module = "io.kotest:kotest-assertions-core", vers
 test-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 test-assertj = { group = "org.assertj", name = "assertj-core", version.ref = "assertj" }
 
+# // https://mvnrepository.com/artifact/io.swagger.parser.v3/swagger-parser-v3
+swagger-parser = "io.swagger.parser.v3:swagger-parser-v3:2.1.12"
+
 [bundles]
 test = ["test-junit-params", "test-kotlintest-assertions", "test-mockk", "test-assertj"]

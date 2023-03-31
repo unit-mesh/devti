@@ -1,12 +1,10 @@
 package org.unitmesh.processor.swagger.converter
 
-import io.swagger.oas.models.OpenAPI
-import io.swagger.parser.OpenAPIParser
-import io.swagger.parser.models.SwaggerParseResult
+import io.swagger.v3.parser.OpenAPIV3Parser;
+import io.swagger.v3.oas.models.OpenAPI
 import java.io.File
 
-
-class Swagger2Processor(private val api: OpenAPI) : SwaggerProcessor {
+class Swagger3Processor(private val api: OpenAPI) : SwaggerProcessor {
     override fun mergeByTags(): List<ApiDetails> {
         val result = mutableListOf<ApiDetails>()
         api.paths.forEach { (path, pathItem) ->
@@ -26,12 +24,8 @@ class Swagger2Processor(private val api: OpenAPI) : SwaggerProcessor {
     }
 
     companion object {
-        fun fromFile(it: File): OpenAPI? {
-            val result: SwaggerParseResult =
-                OpenAPIParser().readContents(it.readText(), null, null)
-            val openAPI = result.openAPI
-            if (result.messages != null) result.messages.forEach(System.err::println); // validation errors and warnings
-            return openAPI
+        fun fromFile(file: File): OpenAPI? {
+            return  OpenAPIV3Parser().read(file.absolutePath)
         }
     }
 }

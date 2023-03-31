@@ -5,16 +5,10 @@ import io.swagger.oas.models.OpenAPI
 import io.swagger.parser.OpenAPIParser;
 import io.swagger.parser.models.SwaggerParseResult
 import org.slf4j.Logger
+import org.unitmesh.processor.swagger.converter.Swagger2Processor
 import java.io.File
 import kotlin.system.exitProcess
 
-fun fromFile(it: File): OpenAPI? {
-    val result: SwaggerParseResult =
-        OpenAPIParser().readContents(it.readText(), null, null)
-    val openAPI = result.openAPI
-    if (result.messages != null) result.messages.forEach(System.err::println); // validation errors and warnings
-    return openAPI
-}
 
 fun main(args: Array<String>) = Runner().main(args)
 class Runner : CliktCommand(help = "Action Runner") {
@@ -31,7 +25,7 @@ class Runner : CliktCommand(help = "Action Runner") {
             it.isFile && (it.extension == "yaml" || it.extension == "yml" || it.extension == "json")
         }.forEach {
             try {
-                val openAPI = fromFile(it)!!
+                val openAPI = Swagger2Processor.fromFile(it)!!
 
                 logger.info("API: ${openAPI.info.title}")
             } catch (e: Exception) {

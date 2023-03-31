@@ -7,14 +7,25 @@ import org.unitmesh.processor.JvmProcessor
 
 
 class TestProcessor(val code: String) : JvmProcessor {
-    private var cu: CompilationUnit = StaticJavaParser.parse(code)
+    private var cu: CompilationUnit = try {
+        StaticJavaParser.parse(code)
+    } catch (e: Exception) {
+        throw e
+    }
 
-    fun removeLicenseInfoBeforeImport() {
+    fun removeLicenseInfoBeforeImport(): TestProcessor {
         cu.allComments.forEach { comment ->
             if (comment.content.contains("Licensed to the Apache Software Foundation (ASF) under one")) {
                 comment.remove()
             }
         }
+
+        return this
+    }
+
+    // todos
+    fun removeExtraBlankLines(): TestProcessor {
+        return this
     }
 
     fun splitTests(): List<String> {
@@ -32,6 +43,7 @@ class TestProcessor(val code: String) : JvmProcessor {
                 tests.add(test.toString())
             }
         }
+
         return tests
     }
 

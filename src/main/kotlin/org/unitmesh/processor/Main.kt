@@ -3,6 +3,7 @@ package org.unitmesh.processor
 import com.charleskorn.kaml.Yaml
 import com.github.ajalt.clikt.core.CliktCommand
 import org.slf4j.Logger
+import org.unitmesh.processor.java.TestProcessor
 import org.unitmesh.processor.toolsets.GitCommandManager
 import java.io.File
 import kotlin.system.exitProcess
@@ -42,16 +43,42 @@ class Runner : CliktCommand(help = "Action Runner") {
         }
 
         logger.info("Start to Filter Test Cases")
-        File("origindatasets").walkTopDown().forEach {
-            // if a file ends with `Test.java` or `Tests.java`, then copy it to `datasets`
-            if (it.isFile && (it.name.endsWith("Test.java") || it.name.endsWith("Tests.java"))) {
-                val targetPath = "datasets" + File.separator + "origin" + File.separator + it.path.split(File.separator).last()
-                it.copyTo(File(targetPath), true)
+        // clean old datasets under datasets/origin
+        File("datasets" + File.separator + "origin").walkTopDown().forEach {
+            if (it.isFile) {
+                it.delete()
             }
         }
 
+        val originFileCount = File("origindatasets").walkTopDown().count { it.isFile }
+        File("origindatasets").walkTopDown().forEach {
+            // if a file ends with `Test.java` or `Tests.java`, then copy it to `datasets`
+            if (it.isFile && (it.name.endsWith("Test.java") || it.name.endsWith("Tests.java"))) {
+                val fileName = it.nameWithoutExtension
+                val targetPath = getTargetPath(fileName)
+                val testProcessor: TestProcessor
+                try {
+                    testProcessor = TestProcessor(it.readText())
+                } catch (e: Exception) {
+                    logger.error("Failed to parse ${it.absolutePath}")
+                    return@forEach
+                }
+
+                testProcessor.removeLicenseInfoBeforeImport().splitTests().forEachIndexed { index, test ->
+                    File("$targetPath$index.${it.extension}").writeText(test)
+                }
+            }
+        }
+        val targetFileCount = File("datasets").walkTopDown().count { it.isFile }
+
+        logger.info("Origin file count: $originFileCount")
+        logger.info("Target file count: $targetFileCount")
+
         logger.info("Runner finished")
     }
+
+    private fun getTargetPath(fileName: String) =
+        "datasets" + File.separator + "origin" + File.separator + fileName
 
     private fun clonedPath(path: String) = "origindatasets" + File.separator + path
 

@@ -22,6 +22,7 @@ dependencies {
 
     // java parser
     implementation(libs.swagger.parser)
+    implementation(libs.swagger.parser.v3)
     implementation(libs.javaparser)
     implementation(libs.javaparser.serialization)
     implementation(libs.javaparser.symbol.solver.core)

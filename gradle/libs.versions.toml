@@ -58,7 +58,8 @@ test-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 test-assertj = { group = "org.assertj", name = "assertj-core", version.ref = "assertj" }
 
 # // https://mvnrepository.com/artifact/io.swagger.parser.v3/swagger-parser-v3
-swagger-parser = "io.swagger.parser.v3:swagger-parser-v3:2.1.12"
+swagger-parser-v3 = "io.swagger.parser.v3:swagger-parser-v3:2.1.12"
+swagger-parser = "io.swagger:swagger-parser:2.0.0-rc1"
 
 [bundles]
 test = ["test-junit-params", "test-kotlintest-assertions", "test-mockk", "test-assertj"]

@@ -1,4 +1,5 @@
 scm:
+# Thoughtworks Projects
   - repository: https://github.com/gocd/gocd
     branch: master
     language: java
@@ -26,7 +27,44 @@ scm:
   - repository: https://github.com/AppiumTestDistribution/AppiumTestDistribution
     branch: master
     language: java
-# Todo: fix with Kotlin
+
+# Test Frameworks
+  - repository: https://github.com/junit-team/junit5
+    branch: main
+    language: java
+  - repository: https://github.com/junit-team/junit4
+    branch: main
+    language: java
+  - repository: https://github.com/mockito/mockito
+    branch: main
+    language: java
+  - repository: https://github.com/mockito/mockito-testng
+    branch: main
+    language: java
+  - repository: https://github.com/cbeust/testng
+    branch: master
+    language: java
+  - repository: https://github.com/assertj/assertj
+    branch: main
+    language: java
+
+# Frameworks
+  - repository: https://github.com/spring-projects/spring-boot
+    branch: main
+    language: java
+
+# Thoughtworks Training
+  - repository: https://github.com/techops-recsys-lateral-hiring/developer-joyofenergy-java
+    branch: master
+    language: java
+  - repository: https://github.com/techops-recsys-lateral-hiring/dataengineer-transformations-java
+    branch: master
+    language: java
+  - repository: https://github.com/afs-training/unit-test-basic-answer
+    branch: main
+    language: java
+
+# Todo: add support for with Kotlin
 #  - repository: https://github.com/thoughtworks/metrik
 #    branch: main
 #    language: kotlin

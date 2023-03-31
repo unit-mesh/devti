@@ -19,5 +19,5 @@ data class PreProcessorConfig(
 data class Scm(
     val repository: String,
     val branch: String,
-    val commit: String
+    val language: String
 )

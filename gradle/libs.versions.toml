@@ -2,6 +2,8 @@
 kotlin = "1.8.10"
 kotlinDev = "1.8.20-Beta"
 
+kotlinxSerialization = "1.5.0"
+
 junit = "5.9.1"
 kotlinTest = "5.5.4"
 mockk = "1.13.3"
@@ -38,6 +40,9 @@ junit5 = "org.junit.jupiter:junit-jupiter:5.9.2"
 assertj = "org.assertj:assertj-core:3.24.2"
 sarif4k = "io.github.detekt.sarif4k:sarif4k:0.2.0"
 jimfs = "com.google.jimfs:jimfs:1.2"
+
+serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
 javaparser = { module = "com.github.javaparser:javaparser-core", version.ref = "javaparser" }
 javaparser-serialization = { module = "com.github.javaparser:javaparser-core-serialization", version.ref = "javaparser" }
 javaparser-symbol-solver-core = { module = "com.github.javaparser:javaparser-symbol-solver-core", version.ref = "javaparser" }

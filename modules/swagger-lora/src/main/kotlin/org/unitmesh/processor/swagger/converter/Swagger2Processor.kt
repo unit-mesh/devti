@@ -3,6 +3,7 @@ package org.unitmesh.processor.swagger.converter
 import io.swagger.oas.models.OpenAPI
 import io.swagger.parser.OpenAPIParser
 import io.swagger.parser.models.SwaggerParseResult
+import org.unitmesh.processor.swagger.ApiDetails
 import java.io.File
 
 

@@ -2,6 +2,7 @@ package org.unitmesh.processor.swagger.converter
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.unitmesh.processor.swagger.ApiDetails
 import java.io.File
 
 class Swagger2ProcessorTest {

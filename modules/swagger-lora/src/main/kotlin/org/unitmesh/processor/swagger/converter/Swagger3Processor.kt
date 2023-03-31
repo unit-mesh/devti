@@ -2,6 +2,7 @@ package org.unitmesh.processor.swagger.converter
 
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import io.swagger.v3.oas.models.OpenAPI
+import org.unitmesh.processor.swagger.ApiDetails
 import java.io.File
 
 class Swagger3Processor(private val api: OpenAPI) : SwaggerProcessor {

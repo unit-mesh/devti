@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.shadow)
+    alias(libs.plugins.serialization)
     application
 }
 
@@ -15,6 +16,8 @@ repositories {
 dependencies {
     implementation(libs.clikt)
     implementation(libs.kotlin.compiler)
+
+    implementation(libs.serialization.json)
 
     // Logging
     implementation(libs.logging.slf4j.api)

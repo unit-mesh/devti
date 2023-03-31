@@ -30,8 +30,9 @@ GET /users Returns a list of users.
         val result = processor.mergeByTags()
         assertEquals(66, result.size)
 
-        ApiDetails.formatApiDetailsByTag(result).forEach {
-            println(it)
-        }
+        val byTag = ApiDetails.formatApiDetailsByTag(result)
+        assertEquals("""Login
+POST login() /users/login Login with REST API
+POST register() /users/register Register with REST API""", byTag[0].toString())
     }
 }

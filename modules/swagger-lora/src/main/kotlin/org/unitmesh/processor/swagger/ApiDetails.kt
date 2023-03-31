@@ -35,12 +35,18 @@ data class ApiDetails(
             apiDetails.groupBy { it.tags }.forEach { (tags, apiDetails) ->
                 val tag = tags.joinToString(", ")
                 val apiDetailsString = apiDetails.joinToString("\n") {
-                    "${it.method} ${it.operationId}${ioParameters(it)} ${it.path} ${it.summary}"
+                    "${it.method}${operationInformation(it)} ${it.path} ${it.summary}"
                 }
                 result += listOf(ApiTagOutput("$tag\n$apiDetailsString"))
             }
 
             return result
+        }
+
+        private fun operationInformation(it: ApiDetails): String {
+            if (it.operationId.isEmpty()) return ""
+
+            return " ${it.operationId}${ioParameters(it)}"
         }
 
         private fun ioParameters(details: ApiDetails): String {

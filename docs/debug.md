@@ -81,4 +81,63 @@
     3.  Test case for `readReadings` API:
       - Test reading meter readings for a valid smart meter ID and verify that the response status code is `200 OK`.
       - Test reading meter readings for an invalid smart meter ID and verify that the response status code is `404 Not Found`.
+- input: |
+    Please according all APIs in MeterReadingController, design all testcases `storeReadings` API, and write a test case as example for `storeReadings` API.
+
+    API and callees：
+
+    ```java
+    MeterReadingController
+      - ResponseEntity storeReadings(@RequestBody MeterReadings meterReadings)
+      - boolean isMeterReadingsValid(MeterReadings meterReadings)
+      - ResponseEntity readReadings(@PathVariable String smartMeterId)
+
+    callees: 
+    - MeterReadings(String smartMeterId, List<ElectricityReading> electricityReadings)
+    - ElectricityReading(Instant time, BigDecimal reading)
+    ```
+  output: |
+    Sure, here's an example test case for the storeReadings API:
+
+    ```java
+    public class MeterReadingControllerTest {
+
+      private MockMvc mockMvc;
+
+      @Autowired
+      private MeterReadingController meterReadingController;
+
+      @BeforeEach
+      void setUp() {
+          mockMvc = MockMvcBuilders.standaloneSetup(meterReadingController).build();
+      }
+
+      @Test
+      void testStoreValidMeterReadings() throws Exception {
+          // Create valid meter readings
+          List<ElectricityReading> electricityReadings = new ArrayList<>();
+          electricityReadings.add(new ElectricityReading(Instant.now(), new BigDecimal("100.50")));
+          electricityReadings.add(new ElectricityReading(Instant.now().minus(Duration.ofDays(1)), new BigDecimal("150.20")));
+          MeterReadings meterReadings = new MeterReadings("1234567890", electricityReadings);
+
+          // Send POST request to store meter readings
+          mockMvc.perform(post("/storeReadings")
+                  .contentType(MediaType.APPLICATION_JSON)
+                  .content(new ObjectMapper().writeValueAsString(meterReadings)))
+                  .andExpect(status().isOk());
+      }
+
+      @Test
+      void testStoreInvalidMeterReadings() throws Exception {
+          // Create invalid meter readings with empty list of electricity readings
+          MeterReadings meterReadings = new MeterReadings("1234567890", new ArrayList<>());
+
+          // Send POST request to store meter readings
+          mockMvc.perform(post("/storeReadings")
+                  .contentType(MediaType.APPLICATION_JSON)
+                  .content(new ObjectMapper().writeValueAsString(meterReadings)))
+                  .andExpect(status().isBadRequest());
+      }
+  }
+  ```
 ```

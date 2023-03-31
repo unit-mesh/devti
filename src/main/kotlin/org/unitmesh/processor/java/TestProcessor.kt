@@ -5,6 +5,13 @@ import com.github.javaparser.ast.CompilationUnit
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import org.unitmesh.processor.JvmProcessor
 
+//
+val LICENSES = listOf(
+    "Licensed under the Apache License,",
+    "Licensed to the Apache Software Foundation (ASF) under one",
+    "under the terms of the MIT License."
+)
+
 class TestProcessor(val code: String) : JvmProcessor {
     private var cu: CompilationUnit = try {
         StaticJavaParser.parse(code)
@@ -14,8 +21,10 @@ class TestProcessor(val code: String) : JvmProcessor {
 
     fun removeLicenseInfoBeforeImport(): TestProcessor {
         cu.allComments.forEach { comment ->
-            if (comment.content.contains("Licensed to the Apache Software Foundation (ASF) under one")) {
-                comment.remove()
+            LICENSES.forEach { license ->
+                if (comment.content.contains(license)) {
+                    comment.remove()
+                }
             }
         }
 

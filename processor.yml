@@ -64,39 +64,39 @@ scm:
     branch: master
     language: java
   - repository: https://github.com/techops-recsys-lateral-hiring/dataengineer-transformations-java
-    branch: master
+    branch: main
     language: java
   - repository: https://github.com/afs-training/unit-test-basic-answer
     branch: main
     language: java
 
   # Test Frameworks
-  - repository: https://github.com/junit-team/junit5
-    branch: main
-    language: java
-  - repository: https://github.com/junit-team/junit4
-    branch: main
-    language: java
-  - repository: https://github.com/mockito/mockito
-    branch: main
-    language: java
-  - repository: https://github.com/mockito/mockito-testng
-    branch: main
-    language: java
-  - repository: https://github.com/cbeust/testng
-    branch: master
-    language: java
-  - repository: https://github.com/assertj/assertj
-    branch: main
-    language: java
-  - repository: https://github.com/wiremock/wiremock
-    branch: master
-    language: java
+#  - repository: https://github.com/junit-team/junit5
+#    branch: main
+#    language: java
+#  - repository: https://github.com/junit-team/junit4
+#    branch: main
+#    language: java
+#  - repository: https://github.com/mockito/mockito
+#    branch: main
+#    language: java
+#  - repository: https://github.com/mockito/mockito-testng
+#    branch: master
+#    language: java
+#  - repository: https://github.com/cbeust/testng
+#    branch: master
+#    language: java
+#  - repository: https://github.com/assertj/assertj
+#    branch: main
+#    language: java
+#  - repository: https://github.com/wiremock/wiremock
+#    branch: master
+#    language: java
 
   # Frameworks
-  - repository: https://github.com/spring-projects/spring-boot
-    branch: main
-    language: java
+#  - repository: https://github.com/spring-projects/spring-boot
+#    branch: main
+#    language: java
 
 # Todo: add support for with Kotlin
 #  - repository: https://github.com/thoughtworks/metrik

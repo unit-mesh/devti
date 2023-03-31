@@ -45,7 +45,12 @@ class Runner : CliktCommand(help = "Action Runner") {
         // 3. filter test cases
         logger.info("Start to Filter Test Cases")
         // clean old datasets under datasets/origin
-        File("datasets" + File.separator + "origin").walkTopDown().forEach {
+        val outputDir = File("datasets" + File.separator + "origin")
+        if (outputDir.exists()) {
+            outputDir.deleteRecursively()
+        }
+        outputDir.mkdirs()
+        outputDir.walkTopDown().forEach {
             if (it.isFile) {
                 it.delete()
             }

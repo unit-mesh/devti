@@ -37,8 +37,11 @@ class Runner : CliktCommand(help = "Action Runner") {
             }
         }.filterNotNull().flatten().toList()
 
+        // check if there are any duplicate ApiTagOutput
+        val finalOutput = output.distinctBy { it.string }
+
         val outputFile = File(rootDir + "datasets" + File.separator + "swagger-merged.json")
-        outputFile.writeText(Json.encodeToString(output))
+        outputFile.writeText(Json.encodeToString(finalOutput))
     }
 
     private fun getProcessor(it: File): SwaggerProcessor? {

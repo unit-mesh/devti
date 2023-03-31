@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/modules" />
             <option value="$PROJECT_DIR$/modules/swagger-lora" />
+            <option value="$PROJECT_DIR$/modules/web-spring-lora" />
           </set>
         </option>
       </GradleProjectSettings>

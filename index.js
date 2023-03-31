@@ -36,16 +36,26 @@ while (continueFlag) {
                 const item = items[i];
                 const url = item.html_url.replace("https://github.com/", "https://raw.githubusercontent.com/").replace("/blob", "");
                 const response = await fetch(url);
-                const text = await response.text();
-                const documents = YAML.parseAllDocuments(text);
-                if (documents && documents.length) {
-                    for (const i in documents) {
-                        const document = documents[i];
-                        if ((document.has("swagger") || document.has("openapi"))&& document.has("paths")) {
-                            const filename = "./results/" + item.repository.full_name.replaceAll("/", "_") + "_" + i + "_" + item.name;
-                            console.log(filename);
-                            writeFileSync(filename, document.toString());
+
+                if (!item.html_url.endsWith(".json")) {
+                    const text = await response.text();
+                    const documents = YAML.parseAllDocuments(text);
+                    if (documents && documents.length) {
+                        for (const i in documents) {
+                            const document = documents[i];
+                            if ((document.has("swagger") || document.has("openapi"))&& document.has("paths")) {
+                                const filename = "./results/" + item.repository.full_name.replaceAll("/", "_") + "_" + i + "_" + item.name;
+                                console.log(filename);
+                                writeFileSync(filename, document.toString());
+                            }
                         }
+                    }
+                } else {
+                    const node = await response.json();
+                    if ((node["swagger"] || node["openapi"])&& node["paths"]) {
+                        const filename = "./results/" + item.repository.full_name.replaceAll("/", "_") + "_" + i + "_" + item.name;
+                        console.log(filename);
+                        writeFileSync(filename, JSON.stringify(node, null, 2));
                     }
                 }
             }

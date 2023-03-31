@@ -70,7 +70,10 @@ class Runner : CliktCommand(help = "Action Runner") {
                     return@forEach
                 }
 
-                testProcessor.removeLicenseInfoBeforeImport().splitTests().forEachIndexed { index, test ->
+                testProcessor
+                    .removePackage()
+                    .removeAllImport()
+                    .removeLicenseInfoBeforeImport().splitTests().forEachIndexed { index, test ->
                     File("$targetPath$index.${it.extension}").writeText(test)
                 }
             }

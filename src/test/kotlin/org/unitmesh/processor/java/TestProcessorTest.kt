@@ -104,4 +104,80 @@ class TestProcessorTest {
          """.trimIndent()
     }
 
+    @Test
+    fun `should remove all import`() {
+        val code = """
+            package com.thoughtworks.go.server.messaging.scheduling;
+
+            import com.thoughtworks.go.domain.AgentRuntimeStatus;
+            import com.thoughtworks.go.helper.AgentMother;
+            import org.junit.jupiter.api.Test;
+            
+            class TestProcessorTest {
+                @Test
+                void test1() {
+                }
+                
+                @Test
+                void test2() {
+                }
+            }
+         """.trimIndent()
+
+        val processor = TestProcessor(code)
+        processor.removeAllImport()
+        val output = processor.output()
+        output shouldBe """
+            package com.thoughtworks.go.server.messaging.scheduling;
+
+            class TestProcessorTest {
+
+                @Test
+                void test1() {
+                }
+
+                @Test
+                void test2() {
+                }
+            }
+
+        """.trimIndent()
+    }
+
+    @Test
+    fun `should remove package`() {
+        val code = """
+            package com.thoughtworks.go.server.messaging.scheduling;
+
+            class TestProcessorTest {
+
+                @Test
+                void test1() {
+                }
+
+                @Test
+                void test2() {
+                }
+            }
+
+        """.trimIndent()
+
+        val processor = TestProcessor(code)
+        processor.removePackage()
+        val output = processor.output()
+        output shouldBe """
+            class TestProcessorTest {
+
+                @Test
+                void test1() {
+                }
+
+                @Test
+                void test2() {
+                }
+            }
+
+        """.trimIndent()
+    }
+
 }

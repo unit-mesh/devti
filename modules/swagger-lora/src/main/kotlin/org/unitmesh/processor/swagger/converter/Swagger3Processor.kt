@@ -26,7 +26,13 @@ class Swagger3Processor(private val api: OpenAPI) : SwaggerProcessor {
 
     companion object {
         fun fromFile(file: File): OpenAPI? {
-            return  OpenAPIV3Parser().read(file.absolutePath)
+            try {
+                return OpenAPIV3Parser().read(file.absolutePath)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            return null
         }
     }
 }

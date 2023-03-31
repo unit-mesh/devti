@@ -10,13 +10,15 @@ import kotlin.system.exitProcess
 
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlin.io.path.Path
 
 
 fun main(args: Array<String>) = Runner().main(args)
 class Runner : CliktCommand(help = "Action Runner") {
     override fun run() {
         logger.info("Runner started")
-        val rootDir = ".." + File.separator + ".." + File.separator
+        val rootDir = Path(".." + File.separator + "..").toAbsolutePath().normalize().toString() + File.separator
+        logger.info("Current directory: $rootDir")
         val apisDir = File(rootDir + "datasets" + File.separator + "swagger")
         if (!apisDir.exists()) {
             logger.error("APIs directory not found: ${apisDir.absolutePath}")

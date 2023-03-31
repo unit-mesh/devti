@@ -20,4 +20,18 @@ GET /users Returns a list of users.
 """.trimIndent()
         assertEquals(expected, ApiDetails.formatApiDetailsByTag(result)[0].toString())
     }
+
+    // for wekan
+    @Test
+    fun `should merge by tags for wekan`() {
+        val openAPI = Swagger2Processor.fromFile(File(javaClass.classLoader.getResource("v2-wekan.yml").file))!!
+        val processor = Swagger2Processor(openAPI)
+
+        val result = processor.mergeByTags()
+        assertEquals(66, result.size)
+
+        ApiDetails.formatApiDetailsByTag(result).forEach {
+            println(it)
+        }
+    }
 }

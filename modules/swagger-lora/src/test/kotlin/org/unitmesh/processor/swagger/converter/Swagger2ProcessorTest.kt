@@ -11,7 +11,7 @@ class Swagger2ProcessorTest {
         val openAPI = Swagger2Processor.fromFile(File(javaClass.classLoader.getResource("v2-hello-world.yml").file))!!
         val processor = Swagger2Processor(openAPI)
 
-        val result = processor.mergeByTags()
+        val result = processor.convertApi()
         assertEquals(1, result.size)
 
 
@@ -27,10 +27,13 @@ GET /users Returns a list of users.
         val openAPI = Swagger2Processor.fromFile(File(javaClass.classLoader.getResource("v2-wekan.yml").file))!!
         val processor = Swagger2Processor(openAPI)
 
-        val result = processor.mergeByTags()
+        val result = processor.convertApi()
         assertEquals(66, result.size)
 
-        val byTag = ApiDetails.formatApiDetailsByTag(result)
+        val tags = ApiDetails.formatApiDetailsByTag(result)
+        assertEquals(13, tags.size)
+
+        val byTag = tags
         assertEquals("""Login
 POST login() /users/login Login with REST API
 POST register() /users/register Register with REST API""", byTag[0].toString())

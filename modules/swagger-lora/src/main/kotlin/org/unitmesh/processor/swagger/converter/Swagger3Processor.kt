@@ -7,7 +7,7 @@ import org.unitmesh.processor.swagger.Parameter
 import java.io.File
 
 class Swagger3Processor(private val api: OpenAPI) : SwaggerProcessor {
-    override fun mergeByTags(): List<ApiDetails> {
+    override fun convertApi(): List<ApiDetails> {
         val result = mutableListOf<ApiDetails>()
         if (api.paths == null) return result
 

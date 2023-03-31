@@ -33,7 +33,7 @@ class Runner : CliktCommand(help = "Action Runner") {
                 logger.error("Failed to parse ${it.absolutePath}")
                 null
             } else {
-                ApiDetails.formatApiDetailsByTag(openAPI.mergeByTags())
+                ApiDetails.formatApiDetailsByTag(openAPI.convertApi())
             }
         }.filterNotNull().flatten().toList()
 

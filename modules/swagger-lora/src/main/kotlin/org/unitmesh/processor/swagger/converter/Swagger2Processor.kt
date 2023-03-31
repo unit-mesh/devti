@@ -9,7 +9,7 @@ import java.io.File
 
 
 class Swagger2Processor(private val api: OpenAPI) : SwaggerProcessor {
-    override fun mergeByTags(): List<ApiDetails> {
+    override fun convertApi(): List<ApiDetails> {
         val result = mutableListOf<ApiDetails>()
         if (api.paths == null) return result
 
@@ -42,6 +42,7 @@ class Swagger2Processor(private val api: OpenAPI) : SwaggerProcessor {
                 )
             }
         }
+
         return result
     }
 

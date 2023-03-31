@@ -10,7 +10,7 @@ class Swagger3ProcessorTest {
     fun `should merge by tags`() {
         val openAPI = Swagger3Processor.fromFile(File(javaClass.classLoader.getResource("v3-sample.yaml").file))!!
         val processor = Swagger3Processor(openAPI)
-        val result = processor.mergeByTags()
+        val result = processor.convertApi()
         assertEquals(1, result.size)
         val expected = """Users
 GET /list Returns a list of users.

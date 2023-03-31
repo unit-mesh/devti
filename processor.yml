@@ -5,3 +5,15 @@ scm:
     branch: main
   - repository: https://github.com/thoughtworks/tramchester
     branch: master
+  - repository: https://github.com/Bahmni/bahmni-core
+    branch: master
+  - repository: https://github.com/openmrs/openmrs-core
+    branch: master
+  - repository: https://github.com/openmrs/openmrs-module-webservices.rest
+    branch: master
+  - repository: https://github.com/openmrs/openmrs-module-fhir2
+    branch: master
+  - repository: https://github.com/ProjectEKA/consent-manager
+    branch: master
+  - repository: https://github.com/AppiumTestDistribution/AppiumTestDistribution
+    branch: master

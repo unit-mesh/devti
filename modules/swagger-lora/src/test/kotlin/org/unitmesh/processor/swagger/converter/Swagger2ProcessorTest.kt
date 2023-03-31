@@ -19,7 +19,7 @@ class Swagger2ProcessorTest {
 
     @Test
     fun `should merge by tags`() {
-        val openAPI = fromFile(File(javaClass.classLoader.getResource("hello-world.yml").file))
+        val openAPI = fromFile(File(javaClass.classLoader.getResource("v2-hello-world.yml").file))
         val processor = Swagger2Processor(openAPI)
 
         val result = processor.mergeByTags()
@@ -30,6 +30,6 @@ class Swagger2ProcessorTest {
 GET /users Returns a list of users.
 
 """.trimIndent()
-        assertEquals(expected, Swagger2Processor.formatApiDetailsByTag(result))
+        assertEquals(expected, ApiDetails.formatApiDetailsByTag(result))
     }
 }

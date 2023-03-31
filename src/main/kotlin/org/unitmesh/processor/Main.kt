@@ -12,7 +12,7 @@ fun main(args: Array<String>) = Runner().main(args)
 class Runner : CliktCommand(help = "Action Runner") {
     override fun run() {
         logger.info("Runner started")
-        //  load config `processor.yml` and start to scm
+        //  1. load config `processor.yml` and start to scm
         val file = File("processor.yml").let {
             if(!it.exists()) {
                 logger.error("Config file not found: ${it.absolutePath}")
@@ -25,9 +25,9 @@ class Runner : CliktCommand(help = "Action Runner") {
         val content = file.readText()
         val config = Yaml.default.decodeFromString(deserializer = PreProcessorConfig.serializer(), content)
 
+        // 2. clone all repositories
         logger.info("Start to Clone code from GitHub")
         config.scm.forEach {
-            // path from GitHub repository name
             val path = it.repository.split("/").last()
             val targetPath = clonedPath(path)
             // if directory exits and contains .git, then skip
@@ -42,6 +42,7 @@ class Runner : CliktCommand(help = "Action Runner") {
             gitCommandManager.shallowClone(it.repository, it.branch)
         }
 
+        // 3. filter test cases
         logger.info("Start to Filter Test Cases")
         // clean old datasets under datasets/origin
         File("datasets" + File.separator + "origin").walkTopDown().forEach {

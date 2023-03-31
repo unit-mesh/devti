@@ -26,3 +26,7 @@ scm:
   - repository: https://github.com/AppiumTestDistribution/AppiumTestDistribution
     branch: master
     language: java
+# Todo: fix with Kotlin
+#  - repository: https://github.com/thoughtworks/metrik
+#    branch: main
+#    language: kotlin

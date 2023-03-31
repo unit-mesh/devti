@@ -3,9 +3,6 @@ scm:
   - repository: https://github.com/gocd/gocd
     branch: master
     language: java
-  - repository: https://github.com/thoughtworks/metrik
-    branch: main
-    language: java
   - repository: https://github.com/thoughtworks/tramchester
     branch: master
     language: java

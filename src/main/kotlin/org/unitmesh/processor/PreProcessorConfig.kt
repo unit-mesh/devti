@@ -18,5 +18,6 @@ data class PreProcessorConfig(
 @Serializable
 data class Scm(
     val repository: String,
-    val branch: String
+    val branch: String,
+    val commit: String
 )

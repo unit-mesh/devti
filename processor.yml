@@ -1,19 +1,28 @@
 scm:
   - repository: https://github.com/gocd/gocd
     branch: master
+    language: java
   - repository: https://github.com/thoughtworks/metrik
     branch: main
+    language: java
   - repository: https://github.com/thoughtworks/tramchester
     branch: master
+    language: java
   - repository: https://github.com/Bahmni/bahmni-core
     branch: master
+    language: java
   - repository: https://github.com/openmrs/openmrs-core
     branch: master
+    language: java
   - repository: https://github.com/openmrs/openmrs-module-webservices.rest
     branch: master
+    language: java
   - repository: https://github.com/openmrs/openmrs-module-fhir2
     branch: master
+    language: java
   - repository: https://github.com/ProjectEKA/consent-manager
     branch: master
+    language: java
   - repository: https://github.com/AppiumTestDistribution/AppiumTestDistribution
     branch: master
+    language: java

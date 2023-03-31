@@ -5,7 +5,6 @@ import com.github.javaparser.ast.CompilationUnit
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import org.unitmesh.processor.JvmProcessor
 
-
 class TestProcessor(val code: String) : JvmProcessor {
     private var cu: CompilationUnit = try {
         StaticJavaParser.parse(code)
@@ -20,11 +19,6 @@ class TestProcessor(val code: String) : JvmProcessor {
             }
         }
 
-        return this
-    }
-
-    // todos
-    fun removeExtraBlankLines(): TestProcessor {
         return this
     }
 

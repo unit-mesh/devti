@@ -1,0 +1,29 @@
+scm:
+  # Fancy Projects
+  - repository: https://github.com/apolloconfig/apollo
+    branch: master
+    language: java
+  - repository: https://github.com/alibaba/nacos
+    branch: develop
+    language: java
+  - repository: https://github.com/seata/seata
+    branch: 2.x
+    language: java
+  - repository: https://github.com/pinpoint-apm/pinpoint
+    branch: master
+    language: java
+  - repository: https://github.com/alibaba/canal
+    branch: master
+    language: java
+
+  # Biz Projects
+  - repository: https://github.com/elunez/eladmin
+    branch: master
+    language: java
+  - repository: https://github.com/linlinjava/litemall
+    branch: master
+    language: java
+  - repository: https://github.com/taco-wang/TRSBANG
+    branch: master
+    language: java
+

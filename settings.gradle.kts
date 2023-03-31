@@ -6,5 +6,6 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "PreProcessor"
 
 include(
-    ":modules:swagger-lora"
+    ":modules:swagger-lora",
+    ":modules:web-spring-lora"
 )

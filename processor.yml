@@ -28,7 +28,23 @@ scm:
     branch: master
     language: java
 
-# Test Frameworks
+# Thoughtworks Community
+  - repository: https://github.com/domain-driven-design/ddd-lite-example
+    branch: main
+    language: java
+
+# Thoughtworks Training
+  - repository: https://github.com/techops-recsys-lateral-hiring/developer-joyofenergy-java
+    branch: master
+    language: java
+  - repository: https://github.com/techops-recsys-lateral-hiring/dataengineer-transformations-java
+    branch: master
+    language: java
+  - repository: https://github.com/afs-training/unit-test-basic-answer
+    branch: main
+    language: java
+
+  # Test Frameworks
   - repository: https://github.com/junit-team/junit5
     branch: main
     language: java
@@ -48,19 +64,8 @@ scm:
     branch: main
     language: java
 
-# Frameworks
+  # Frameworks
   - repository: https://github.com/spring-projects/spring-boot
-    branch: main
-    language: java
-
-# Thoughtworks Training
-  - repository: https://github.com/techops-recsys-lateral-hiring/developer-joyofenergy-java
-    branch: master
-    language: java
-  - repository: https://github.com/techops-recsys-lateral-hiring/dataengineer-transformations-java
-    branch: master
-    language: java
-  - repository: https://github.com/afs-training/unit-test-basic-answer
     branch: main
     language: java
 

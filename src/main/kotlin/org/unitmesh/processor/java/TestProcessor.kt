@@ -10,7 +10,8 @@ import org.unitmesh.processor.JvmProcessor
 val LICENSES = listOf(
     "Licensed under the Apache License,",
     "Licensed to the Apache Software Foundation (ASF) under one",
-    "under the terms of the MIT License."
+    "under the terms of the MIT License.",
+    "Mozilla Public License"
 )
 
 class TestProcessor(val code: String) : JvmProcessor {

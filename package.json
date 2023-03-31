@@ -1,0 +1,17 @@
+{
+  "name": "github-swagger-crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "octokit": "^2.0.14",
+    "yaml": "^2.2.1"
+  }
+}

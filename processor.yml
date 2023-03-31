@@ -33,6 +33,32 @@ scm:
     branch: main
     language: java
 
+# Thoughtworker side projects
+  - repository: https://github.com/MTWGA/thoughtworks-code-review-tools
+    branch: master
+    language: java
+  - repository: https://github.com/Feature-Flip/flips
+    branch: master
+    language: java
+  - repository: https://github.com/rawls238/Scientist4J
+    branch: master
+    language: java
+  - repository: https://github.com/liquibase/liquigraph
+    branch: 4.x
+    language: java
+  - repository: https://github.com/ajitsing/Sherlock
+    branch: master
+    language: java
+  - repository: https://gitlab.com/sultanahamer/OpenContacts
+    branch: master
+    language: java
+  - repository: https://github.com/RobWin/assertj-swagger
+    branch: master
+    language: java
+  - repository: https://github.com/appium/java-client
+    branch: master
+    language: java
+
 # Thoughtworks Training
   - repository: https://github.com/techops-recsys-lateral-hiring/developer-joyofenergy-java
     branch: master
@@ -62,6 +88,9 @@ scm:
     language: java
   - repository: https://github.com/assertj/assertj
     branch: main
+    language: java
+  - repository: https://github.com/wiremock/wiremock
+    branch: master
     language: java
 
   # Frameworks

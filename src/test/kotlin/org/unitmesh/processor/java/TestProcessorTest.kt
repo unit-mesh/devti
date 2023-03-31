@@ -1,7 +1,6 @@
 package org.unitmesh.processor.java
 
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 class TestProcessorTest {
@@ -48,4 +47,61 @@ class TestProcessorTest {
 
          """.trimIndent()
     }
+
+    @Test
+    fun `should split tests`() {
+        val code = """
+            package com.thoughtworks.go.server.messaging.scheduling;
+
+            import com.thoughtworks.go.domain.AgentRuntimeStatus;
+            import com.thoughtworks.go.helper.AgentMother;
+            import org.junit.jupiter.api.Test;
+            
+            class TestProcessorTest {
+                @Test
+                void test1() {
+                }
+                
+                @Test
+                void test2() {
+                }
+            }
+         """.trimIndent()
+
+        val processor = TestProcessor(code)
+        val tests = processor.splitTests()
+        tests.size shouldBe 2
+        tests[0] shouldBe """
+            package com.thoughtworks.go.server.messaging.scheduling;
+
+            import com.thoughtworks.go.domain.AgentRuntimeStatus;
+            import com.thoughtworks.go.helper.AgentMother;
+            import org.junit.jupiter.api.Test;
+            
+            class TestProcessorTest {
+            
+                @Test
+                void test1() {
+                }
+            }
+
+         """.trimIndent()
+
+        tests[1] shouldBe """
+            package com.thoughtworks.go.server.messaging.scheduling;
+
+            import com.thoughtworks.go.domain.AgentRuntimeStatus;
+            import com.thoughtworks.go.helper.AgentMother;
+            import org.junit.jupiter.api.Test;
+            
+            class TestProcessorTest {
+            
+                @Test
+                void test2() {
+                }
+            }
+
+         """.trimIndent()
+    }
+
 }

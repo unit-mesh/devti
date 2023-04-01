@@ -3,6 +3,8 @@ package org.unitmesh.processor.java
 import com.github.javaparser.StaticJavaParser
 import com.github.javaparser.ast.CompilationUnit
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
+import com.github.javaparser.ast.body.ConstructorDeclaration
+import com.github.javaparser.ast.body.FieldDeclaration
 import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.expr.MarkerAnnotationExpr
 import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr
@@ -29,4 +31,23 @@ class JavaProcessor(val code: String) : JvmProcessor {
     fun isAnnotationWith(name: String): Boolean {
         return unit.findFirst(ClassOrInterfaceDeclaration::class.java).orElseThrow().annotations.any { it.name.identifier == name }
     }
+
+    fun toShortClass(): ShortClass {
+        val cls = unit.findFirst(ClassOrInterfaceDeclaration::class.java).orElseThrow()
+        val packageName = unit.packageDeclaration.map { it.nameAsString }.orElse(null)
+        val fields = cls.fields.map {
+            ShortField(it.nameAsString, it.typeAsString)
+        }
+        val methods = cls.methods.map { ShortMethod(it.nameAsString, it.typeAsString, it.parameters.map { ShortParameter(it.nameAsString, it.typeAsString) }) }
+        val constructors = cls.constructors.map { ShortParameter(it.nameAsString, it.typeAsString) }
+        return ShortClass(cls.nameAsString, packageName, fields, methods, constructors)
+    }
 }
+
+private val FieldDeclaration.nameAsString: String
+    get() = this.variables.first().nameAsString
+private val FieldDeclaration.typeAsString: String
+    get() = this.elementType.toString()
+
+private val ConstructorDeclaration.typeAsString: String
+    get() = this.parameters.joinToString(", ") { it.typeAsString }

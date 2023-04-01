@@ -16,6 +16,7 @@ repositories {
 dependencies {
     implementation(libs.clikt)
     implementation(libs.kotlin.compiler)
+    implementation(libs.serialization.json)
 
     // Logging
     implementation(libs.logging.slf4j.api)

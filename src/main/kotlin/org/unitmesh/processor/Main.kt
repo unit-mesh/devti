@@ -2,6 +2,9 @@ package org.unitmesh.processor
 
 import com.charleskorn.kaml.Yaml
 import com.github.ajalt.clikt.core.CliktCommand
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.slf4j.Logger
 import org.unitmesh.processor.java.JavaProcessor
 import org.unitmesh.processor.java.ShortClass
@@ -10,6 +13,7 @@ import org.unitmesh.processor.toolsets.GitCommandManager
 import java.io.File
 import kotlin.system.exitProcess
 
+@Serializable
 data class TestFilePrompt(
     val classInfo: String,
     val testMethod: String
@@ -53,6 +57,13 @@ class Runner : CliktCommand(help = "Action Runner") {
             testApiDir.deleteRecursively()
         }
 
+        generateTestsPrompts(testApiDir, config)
+
+//        processTestCases()
+        logger.info("Runner finished")
+    }
+
+    private fun generateTestsPrompts(testApiDir: File, config: PreProcessorConfig) {
         testApiDir.mkdirs()
         // generate prompt for test methods
         config.scm.forEach { file ->
@@ -106,7 +117,14 @@ class Runner : CliktCommand(help = "Action Runner") {
                                     classInfo = shortClass.toString(),
                                     testMethod = test
                                 ).let { prompt ->
-                                    File("$targetPath$index.prompt").writeText(prompt.toString())
+                                    val output = Json.encodeToString(prompt)
+                                    // https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them
+                                    // inorder to avoid 400 error, we need to limit the length of prompt
+                                    if (output.length > 3600 * 4) {
+                                        logger.warn("Prompt is too long: ${output.length}, will skip it")
+                                    } else {
+                                        File("$targetPath$index.prompt").writeText(output)
+                                    }
                                 }
                             }
                     }
@@ -114,9 +132,6 @@ class Runner : CliktCommand(help = "Action Runner") {
                 }
             }
         }
-
-        processTestCases()
-        logger.info("Runner finished")
     }
 
     private fun cloneAllRepositories(config: PreProcessorConfig) {

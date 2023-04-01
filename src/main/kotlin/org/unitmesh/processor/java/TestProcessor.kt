@@ -21,6 +21,10 @@ class TestProcessor(val code: String) : JvmProcessor {
         throw e
     }
 
+    fun packageName(): String? {
+        return cu.packageDeclaration.map { it.nameAsString }.orElse(null)
+    }
+
     fun removeLicenseInfoBeforeImport(): TestProcessor {
         cu.allComments.forEach { comment ->
             LICENSES.forEach { license ->

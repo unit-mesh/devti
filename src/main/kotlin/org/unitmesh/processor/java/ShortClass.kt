@@ -10,6 +10,8 @@ data class ShortClass(
     val methods: List<ShortMethod> = listOf(),
     val constructors: List<ShortParameter> = listOf()
 ) {
+    val name = packageName?.let { "$it.$className" } ?: className
+
     override fun toString(): String {
         val classInfo =
             """${packageName?.let { "$it." } ?: ""}$className(${constructors.joinToString(", ") { it.dataType }})"""

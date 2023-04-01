@@ -3,10 +3,17 @@ package org.unitmesh.processor
 import com.charleskorn.kaml.Yaml
 import com.github.ajalt.clikt.core.CliktCommand
 import org.slf4j.Logger
+import org.unitmesh.processor.java.JavaProcessor
+import org.unitmesh.processor.java.ShortClass
 import org.unitmesh.processor.java.TestProcessor
 import org.unitmesh.processor.toolsets.GitCommandManager
 import java.io.File
 import kotlin.system.exitProcess
+
+data class TestFilePrompt(
+    val classInfo: String,
+    val testMethod: String
+)
 
 fun main(args: Array<String>) = Runner().main(args)
 class Runner : CliktCommand(help = "Action Runner") {
@@ -14,7 +21,7 @@ class Runner : CliktCommand(help = "Action Runner") {
         logger.info("Runner started")
         //  1. load config `processor.yml` and start to scm
         val file = File("processor.yml").let {
-            if(!it.exists()) {
+            if (!it.exists()) {
                 logger.error("Config file not found: ${it.absolutePath}")
                 exitProcess(1)
             }
@@ -37,6 +44,74 @@ class Runner : CliktCommand(help = "Action Runner") {
         outputDir.walkTopDown().forEach {
             if (it.isFile) {
                 it.delete()
+            }
+        }
+
+        // create dir datasets/test-api
+        val testApiDir = File("datasets" + File.separator + "test-api")
+        if (testApiDir.exists()) {
+            testApiDir.deleteRecursively()
+        }
+
+        testApiDir.mkdirs()
+        // generate prompt for test methods
+        config.scm.forEach { file ->
+            // 1. get all java files
+            val classMap = mutableMapOf<String, ShortClass>()
+            File("origindatasets").walkTopDown().forEach { file ->
+                // file path should under src/main/java
+                val isJavaPath = file.absolutePath.contains("src" + File.separator + "main" + File.separator + "java")
+                if (file.isFile && isJavaPath && file.extension == "java") {
+                    try {
+                        JavaProcessor(file.readText()).toShortClass()?.let { shortClass ->
+                            classMap[shortClass.name] = shortClass
+                        }
+                    } catch (e: Exception) {
+                        logger.error("Failed to parse ${file.absolutePath}")
+                        return@forEach
+                    }
+                }
+            }
+
+            // 2. get all test files
+            File("origindatasets").walkTopDown().forEach { file ->
+                // file path should under src/test/java
+                val isUnderTestPath =
+                    file.absolutePath.contains("src" + File.separator + "test" + File.separator + "java")
+                val isTestFile = file.name.endsWith("Test.java") || file.name.endsWith("Tests.java")
+                if (file.isFile && isUnderTestPath && isTestFile) {
+                    val fileName = file.nameWithoutExtension
+                    val targetPath = getTargetPath(fileName, "test-api")
+                    val testProcessor: TestProcessor
+                    try {
+                        testProcessor = TestProcessor(file.readText())
+                    } catch (e: Exception) {
+                        logger.error("Failed to parse ${file.absolutePath}")
+                        return@forEach
+                    }
+
+                    val fullName =
+                        testProcessor.packageName() + "." + fileName.removeSuffix("Test").removeSuffix("Tests")
+                    // 2. check is exists in classMap
+                    if (classMap.containsKey(fullName)) {
+                        val shortClass = classMap[fullName]!!
+
+                        // 3. generate prompt
+                        testProcessor
+                            .removePackage()
+                            .removeAllImport()
+                            .removeLicenseInfoBeforeImport()
+                            .splitTests().forEachIndexed { index, test ->
+                                TestFilePrompt(
+                                    classInfo = shortClass.toString(),
+                                    testMethod = test
+                                ).let { prompt ->
+                                    File("$targetPath$index.prompt").writeText(prompt.toString())
+                                }
+                            }
+                    }
+
+                }
             }
         }
 
@@ -70,7 +145,7 @@ class Runner : CliktCommand(help = "Action Runner") {
             // if a file ends with `Test.java` or `Tests.java`, then copy it to `datasets`
             if (it.isFile && (it.name.endsWith("Test.java") || it.name.endsWith("Tests.java"))) {
                 val fileName = it.nameWithoutExtension
-                val targetPath = getTargetPath(fileName)
+                val targetPath = getTargetPath(fileName, "origin")
                 val testProcessor: TestProcessor
                 try {
                     testProcessor = TestProcessor(it.readText())
@@ -95,8 +170,8 @@ class Runner : CliktCommand(help = "Action Runner") {
 
     }
 
-    private fun getTargetPath(fileName: String) =
-        "datasets" + File.separator + "origin" + File.separator + fileName
+    private fun getTargetPath(fileName: String, targetType: String) =
+        "datasets" + File.separator + targetType + File.separator + fileName
 
     private fun clonedPath(path: String) = "origindatasets" + File.separator + path
 

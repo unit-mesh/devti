@@ -32,12 +32,13 @@ class JavaProcessor(val code: String) : JvmProcessor {
         return unit.findFirst(ClassOrInterfaceDeclaration::class.java).orElseThrow().annotations.any { it.name.identifier == name }
     }
 
-    fun toShortClass(): ShortClass {
-        val cls = unit.findFirst(ClassOrInterfaceDeclaration::class.java).orElseThrow()
+    fun toShortClass(): ShortClass? {
+        val cls = unit.findFirst(ClassOrInterfaceDeclaration::class.java).orElse(null) ?: return null
+
         val packageName = unit.packageDeclaration.map { it.nameAsString }.orElse(null)
-        val fields = cls.fields.map {
+        val fields = cls.fields?.map {
             ShortField(it.nameAsString, it.typeAsString)
-        }
+        } ?: emptyList()
         val methods = cls.methods.map { ShortMethod(it.nameAsString, it.typeAsString, it.parameters.map { ShortParameter(it.nameAsString, it.typeAsString) }) }
         val constructors = cls.constructors.map { ShortParameter(it.nameAsString, it.typeAsString) }
         return ShortClass(cls.nameAsString, packageName, fields, methods, constructors)

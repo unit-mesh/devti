@@ -30,7 +30,7 @@ class JavaProcessorTest {
     fun `to short class`() {
         val code = SampleClass.trimIndent()
         val processor = JavaProcessor(code)
-        val shortClass = processor.toShortClass()
+        val shortClass = processor.toShortClass()!!
         val expected = """
 org.unitmesh.processor.java.JavaProcessor()
 - methods: test(): String

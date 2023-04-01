@@ -26,6 +26,25 @@ class Runner : CliktCommand(help = "Action Runner") {
         val config = Yaml.default.decodeFromString(deserializer = PreProcessorConfig.serializer(), content)
 
         // 2. clone all repositories
+        cloneAllRepositories(config)
+
+        // clean old datasets under datasets/origin
+        val outputDir = File("datasets" + File.separator + "origin")
+        if (outputDir.exists()) {
+            outputDir.deleteRecursively()
+        }
+        outputDir.mkdirs()
+        outputDir.walkTopDown().forEach {
+            if (it.isFile) {
+                it.delete()
+            }
+        }
+
+        processTestCases()
+        logger.info("Runner finished")
+    }
+
+    private fun cloneAllRepositories(config: PreProcessorConfig) {
         logger.info("Start to Clone code from GitHub")
         config.scm.forEach {
             val path = it.repository.split("/").last()
@@ -41,21 +60,11 @@ class Runner : CliktCommand(help = "Action Runner") {
             val gitCommandManager = GitCommandManager(targetPath)
             gitCommandManager.shallowClone(it.repository, it.branch)
         }
+    }
 
+    private fun processTestCases() {
         // 3. filter test cases
         logger.info("Start to Filter Test Cases")
-        // clean old datasets under datasets/origin
-        val outputDir = File("datasets" + File.separator + "origin")
-        if (outputDir.exists()) {
-            outputDir.deleteRecursively()
-        }
-        outputDir.mkdirs()
-        outputDir.walkTopDown().forEach {
-            if (it.isFile) {
-                it.delete()
-            }
-        }
-
         val originFileCount = File("origindatasets").walkTopDown().count { it.isFile }
         File("origindatasets").walkTopDown().forEach {
             // if a file ends with `Test.java` or `Tests.java`, then copy it to `datasets`
@@ -74,16 +83,16 @@ class Runner : CliktCommand(help = "Action Runner") {
                     .removePackage()
                     .removeAllImport()
                     .removeLicenseInfoBeforeImport().splitTests().forEachIndexed { index, test ->
-                    File("$targetPath$index.${it.extension}").writeText(test)
-                }
+                        File("$targetPath$index.${it.extension}").writeText(test)
+                    }
             }
         }
         val targetFileCount = File("datasets").walkTopDown().count { it.isFile }
 
+
         logger.info("Origin file count: $originFileCount")
         logger.info("Target file count: $targetFileCount")
 
-        logger.info("Runner finished")
     }
 
     private fun getTargetPath(fileName: String) =

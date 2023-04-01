@@ -51,7 +51,7 @@ application {
 tasks {
     shadowJar {
         manifest {
-            attributes(Pair("Main-Class", "org.unitmesh.processor.swagger.MainKt"))
+            attributes(Pair("Main.kt-Class", "org.unitmesh.processor.swagger.MainKt"))
         }
         // minimize()
         dependencies {

@@ -25,4 +25,23 @@ class SpringProcessor(code: String) : JavaProcessor(code) {
     fun isAnnotationWith(name: String): Boolean {
         return unit.findFirst(ClassOrInterfaceDeclaration::class.java).orElseThrow().annotations.any { it.name.identifier == name }
     }
+
+    fun splitControllerMethods(): List<String> {
+        val methods = mutableListOf<String>()
+        unit.findAll(ClassOrInterfaceDeclaration::class.java).forEach { cls ->
+            cls.methods.filter{
+                it.annotations.any { annotation ->
+                    annotation.nameAsString == "RequestMapping"
+                }
+            }.map { method ->
+                val test = unit.clone()
+                test.findAll(ClassOrInterfaceDeclaration::class.java).forEach { cls ->
+                    cls.methods.filter { it != method }.forEach { it.remove() }
+                }
+                methods.add(test.toString())
+            }
+        }
+
+        return methods
+    }
 }

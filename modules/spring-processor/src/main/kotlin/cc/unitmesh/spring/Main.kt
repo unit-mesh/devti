@@ -35,7 +35,8 @@ class Runner : CliktCommand(help = "Action Runner") {
                 // check is a Spring Controller
                 val isController = file.name.endsWith("Controller.java")
                 if (file.isFile && isJavaPath && isController) {
-
+                    val outputFile = File(outputDir.absolutePath + File.separator + file.name)
+                    file.copyTo(outputFile, true)
                 }
             }
         }

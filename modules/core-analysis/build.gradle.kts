@@ -14,18 +14,18 @@ repositories {
 }
 
 dependencies {
-    implementation(projects.modules.coreAnalysis)
     implementation(libs.clikt)
     implementation(libs.kotlin.compiler)
+
     implementation(libs.serialization.json)
 
     // Logging
     implementation(libs.logging.slf4j.api)
     implementation(libs.logging.logback.classic)
 
-    implementation(libs.kaml)
-
     // java parser
+    implementation(libs.swagger.parser)
+    implementation(libs.swagger.parser.v3)
     implementation(libs.javaparser)
     implementation(libs.javaparser.serialization)
     implementation(libs.javaparser.symbol.solver.core)
@@ -41,22 +41,4 @@ tasks.test {
 
 kotlin {
     jvmToolchain(11)
-}
-
-application {
-    mainClass.set("org.unitmesh.processor.MainKt")
-}
-
-tasks {
-    shadowJar {
-        manifest {
-            attributes(Pair("Main-Class", "org.unitmesh.processor.MainKt"))
-        }
-        // minimize()
-        dependencies {
-            exclude(dependency("org.junit.jupiter:.*:.*"))
-            exclude(dependency("org.junit:.*:.*"))
-            exclude(dependency("junit:.*:.*"))
-        }
-    }
 }

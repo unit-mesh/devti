@@ -11,6 +11,7 @@ repositories {
 }
 
 dependencies {
+    implementation(projects.modules.coreAnalysis)
     implementation(libs.clikt)
     implementation(libs.kotlin.compiler)
 

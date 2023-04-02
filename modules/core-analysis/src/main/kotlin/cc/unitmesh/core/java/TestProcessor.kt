@@ -1,61 +1,18 @@
 package cc.unitmesh.core.java
 
-import com.github.javaparser.StaticJavaParser
-import com.github.javaparser.ast.CompilationUnit
-import com.github.javaparser.ast.ImportDeclaration
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
-import cc.unitmesh.core.JvmProcessor
 
-//
-val LICENSES = listOf(
-    "Licensed under the Apache License,",
-    "Licensed to the Apache Software Foundation (ASF) under one",
-    "under the terms of the MIT License.",
-    "Mozilla Public License"
-)
-
-class TestProcessor(val code: String) : JvmProcessor {
-    private var cu: CompilationUnit = try {
-        StaticJavaParser.parse(code)
-    } catch (e: Exception) {
-        throw e
-    }
-
-    fun packageName(): String? {
-        return cu.packageDeclaration.map { it.nameAsString }.orElse(null)
-    }
-
-    fun removeLicenseInfoBeforeImport(): TestProcessor {
-        cu.allComments.forEach { comment ->
-            LICENSES.forEach { license ->
-                if (comment.content.contains(license)) {
-                    comment.remove()
-                }
-            }
-        }
-
-        return this
-    }
-
-    fun removePackage(): TestProcessor {
-        cu.packageDeclaration.ifPresent { it.remove() }
-        return this
-    }
-
-    fun removeAllImport(): TestProcessor {
-        cu.findAll(ImportDeclaration::class.java).forEach { it.remove() }
-        return this
-    }
+class TestProcessor(code: String) : JavaProcessor(code) {
 
     fun splitTests(): List<String> {
         val tests = mutableListOf<String>()
-        cu.findAll(ClassOrInterfaceDeclaration::class.java).forEach { cls ->
+        unit.findAll(ClassOrInterfaceDeclaration::class.java).forEach { cls ->
             cls.methods.filter{
                 it.annotations.any { annotation ->
                     annotation.nameAsString == "Test"
                 }
             }.map { method ->
-                val test = cu.clone()
+                val test = unit.clone()
                 test.findAll(ClassOrInterfaceDeclaration::class.java).forEach { cls ->
                     cls.methods.filter { it != method }.forEach { it.remove() }
                 }
@@ -67,6 +24,6 @@ class TestProcessor(val code: String) : JvmProcessor {
     }
 
     fun output(): String {
-        return cu.toString()
+        return unit.toString()
     }
 }

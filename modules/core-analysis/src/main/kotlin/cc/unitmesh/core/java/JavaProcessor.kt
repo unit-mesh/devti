@@ -3,9 +3,17 @@ package cc.unitmesh.core.java
 import cc.unitmesh.core.JvmProcessor
 import com.github.javaparser.StaticJavaParser
 import com.github.javaparser.ast.CompilationUnit
+import com.github.javaparser.ast.ImportDeclaration
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 import com.github.javaparser.ast.body.ConstructorDeclaration
 import com.github.javaparser.ast.body.FieldDeclaration
+
+val LICENSES = listOf(
+    "Licensed under the Apache License,",
+    "Licensed to the Apache Software Foundation (ASF) under one",
+    "under the terms of the MIT License.",
+    "Mozilla Public License"
+)
 
 open class JavaProcessor(open val code: String) : JvmProcessor {
     var unit: CompilationUnit
@@ -33,6 +41,32 @@ open class JavaProcessor(open val code: String) : JvmProcessor {
         }
         val constructors = cls.constructors.map { ShortParameter(it.nameAsString, it.typeAsString) }
         return ShortClass(cls.nameAsString, packageName, fields, methods, constructors)
+    }
+
+    fun packageName(): String? {
+        return unit.packageDeclaration.map { it.nameAsString }.orElse(null)
+    }
+
+    fun removeLicenseInfoBeforeImport(): JavaProcessor {
+        unit.allComments.forEach { comment ->
+            LICENSES.forEach { license ->
+                if (comment.content.contains(license)) {
+                    comment.remove()
+                }
+            }
+        }
+
+        return this
+    }
+
+    fun removePackage(): JavaProcessor {
+        unit.packageDeclaration.ifPresent { it.remove() }
+        return this
+    }
+
+    fun removeAllImport(): JavaProcessor {
+        unit.findAll(ImportDeclaration::class.java).forEach { it.remove() }
+        return this
     }
 }
 

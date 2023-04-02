@@ -1,25 +1,17 @@
-# PreProcessor 
+# Unit PreProcessor 
 
-用途：
+> Unit Processor 是一个代码分析和处理引擎，用于在 AI 编程的前半部分的代码分析和处理。
 
-1. 对源码的 Controller 进行语法分析，分解出不同的 API Unit
-2. 使用 AI 对不同的 API Unit 进行自然语言分析，生成语义
-3. 结合 API 生成数据，类似于 `alpaca-lora`
+主要用于对 Unit Mesh 所需要的代码结果进行预处理，比如对 Unit 进行语法分析，生成对应的格式。
 
-最终 Output 数据：
+1. 结合 Unit Crawler（暂未开源）从 GitHub 上爬取模块
+2. 对源码进行语法分析，分解出不同的 API Unit
+   - Controller, Service, Model, Repository, etc.
+   - Swagger
+   - Test
+3. 根据 Unit Prompter （暂未开源）的 prompt 生成对应的格式
 
-```yaml
-- instruction:
-  input:
-  output:
-```
 
-## PreProcessor
+## LICENSE
 
-1. read config with repositories
-2. clone all repositories depth = 1
-3. filter all tests file
-   - remove license for reduce prompt size 
-   - split test cases to different output
-4. parse all to data
-
+This code is distributed under the MPL 2.0 license. See `LICENSE` in this directory.

@@ -6,8 +6,9 @@
 
 1. 结合 Unit Crawler （由于法律原因，只考虑部分开源，规划中）从 GitHub 上爬取模块
 2. 对源码进行语法分析，分解出不同的 API Unit
+   - Swagger (API Design)
    - Controller, Service, Model, Repository, etc.
-   - Swagger
+   - User Story
    - Test
 3. 根据 Unit Prompter（暂未开源）的 prompt 生成对应的格式
 

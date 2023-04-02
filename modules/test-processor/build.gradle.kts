@@ -6,9 +6,6 @@ plugins {
     application
 }
 
-group = "org.unitmesh"
-version = "1.0-SNAPSHOT"
-
 repositories {
     mavenCentral()
 }
@@ -44,7 +41,7 @@ kotlin {
 }
 
 application {
-    mainClass.set("org.unitmesh.processor.MainKt")
+    mainClass.set("cc.unitmesh.processor.MainKt")
 }
 
 tasks {

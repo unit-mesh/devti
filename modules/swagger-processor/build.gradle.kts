@@ -6,9 +6,6 @@ plugins {
     application
 }
 
-group = "org.unitmesh"
-version = "1.0-SNAPSHOT"
-
 repositories {
     mavenCentral()
 }

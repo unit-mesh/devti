@@ -6,14 +6,12 @@ plugins {
     application
 }
 
-group = "org.unitmesh"
-version = "1.0-SNAPSHOT"
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    implementation(projects.modules.coreAnalysis)
     implementation(libs.clikt)
     implementation(libs.kotlin.compiler)
 

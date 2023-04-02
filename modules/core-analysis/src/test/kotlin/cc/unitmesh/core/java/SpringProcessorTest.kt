@@ -3,7 +3,7 @@ package cc.unitmesh.core.java
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-class JavaProcessorTest {
+class SpringProcessorTest {
     private val SampleClass = """
                 package org.unitmesh.processor.java;
                 
@@ -20,14 +20,9 @@ class JavaProcessorTest {
             """
 
     @Test
-    fun `to short class`() {
+    fun `search spring class`() {
         val code = SampleClass.trimIndent()
-        val processor = JavaProcessor(code)
-        val shortClass = processor.toShortClass()!!
-        val expected = """
-org.unitmesh.processor.java.JavaProcessor()
-- methods: test(): String
-        """.trimIndent()
-        shortClass.toString() shouldBe expected
+        val processor = SpringProcessor(code)
+        processor.isSpringController() shouldBe true
     }
 }

@@ -32,7 +32,9 @@ class Runner : CliktCommand(help = "Action Runner") {
         config.scm.forEach { file ->
             File("origindatasets").walkTopDown().forEach { file ->
                 val isJavaPath = file.absolutePath.contains("src" + File.separator + "main" + File.separator + "java")
-                if (file.isFile && isJavaPath && file.extension == "java") {
+                // check is a Spring Controller
+                val isController = file.name.endsWith("Controller.java")
+                if (file.isFile && isJavaPath && isController) {
 
                 }
             }

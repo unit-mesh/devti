@@ -97,11 +97,13 @@ class Runner : CliktCommand(help = "Action Runner") {
                     if (classMap.containsKey(fullName)) {
                         val shortClass = classMap[fullName]!!
 
-                        // 3. generate prompt
+                        // 3. clean data
                         testProcessor
                             .removePackage()
                             .removeAllImport()
                             .removeLicenseInfoBeforeImport()
+
+                        testProcessor
                             .splitTests().forEachIndexed { index, test ->
                                 TestFilePrompt(
                                     classInfo = shortClass.toString(),
@@ -144,7 +146,9 @@ class Runner : CliktCommand(help = "Action Runner") {
                 testProcessor
                     .removePackage()
                     .removeAllImport()
-                    .removeLicenseInfoBeforeImport().splitTests().forEachIndexed { index, test ->
+                    .removeLicenseInfoBeforeImport()
+
+                testProcessor.splitTests().forEachIndexed { index, test ->
                         File("$targetPath$index.${it.extension}").writeText(test)
                     }
             }

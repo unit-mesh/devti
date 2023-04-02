@@ -1,7 +1,5 @@
 package com.pinterest.ktlint.rule
 
-internal typealias LineAndColumn = Pair<Int, Int>
-
 /**
  * Builds function to locate position in text - line and column based on offset from the text start.
  */

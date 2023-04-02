@@ -1,6 +1,5 @@
-package org.unitmesh.processor
+package com.pinterest.ktlint.rule
 
-import com.pinterest.ktlint.rule.Code
 import org.junit.jupiter.api.Test
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe

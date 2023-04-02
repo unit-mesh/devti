@@ -1,9 +1,5 @@
-package org.unitmesh.processor
+package com.pinterest.ktlint.rule
 
-import com.pinterest.ktlint.rule.Code
-import com.pinterest.ktlint.rule.KotlinPsiFileFactoryProvider
-import com.pinterest.ktlint.rule.KtLintParseException
-import com.pinterest.ktlint.rule.buildPositionInTextLocator
 import org.jetbrains.kotlin.KtNodeTypes
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.lang.FileASTNode

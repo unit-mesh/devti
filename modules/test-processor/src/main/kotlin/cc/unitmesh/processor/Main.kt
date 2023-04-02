@@ -1,6 +1,6 @@
 package cc.unitmesh.processor
 
-import com.charleskorn.kaml.Yaml
+import cc.unitmesh.core.cli.ProcessorConfig
 import com.github.ajalt.clikt.core.CliktCommand
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
@@ -10,9 +10,8 @@ import cc.unitmesh.core.java.JavaProcessor
 import cc.unitmesh.core.java.ShortClass
 import cc.unitmesh.core.java.TestProcessor
 import cc.unitmesh.core.model.PreProcessorConfig
-import cc.unitmesh.core.git.GitCommandManager
+import org.slf4j.LoggerFactory
 import java.io.File
-import kotlin.system.exitProcess
 
 @Serializable
 data class TestFilePrompt(
@@ -25,10 +24,10 @@ class Runner : CliktCommand(help = "Action Runner") {
     override fun run() {
         logger.info("Runner started")
         //  1. load config `processor.yml` and start to scm
-        val config = Companion.preProcessorConfig()
+        val config = ProcessorConfig.loadConfig()
 
         // 2. clone all repositories
-        cloneAllRepositories(this, config)
+        ProcessorConfig.cloneAllRepositories(config)
 
         // clean old datasets under datasets/origin
         val outputDir = File("datasets" + File.separator + "origin")
@@ -161,41 +160,7 @@ class Runner : CliktCommand(help = "Action Runner") {
     private fun getTargetPath(fileName: String, targetType: String) =
         "datasets" + File.separator + targetType + File.separator + fileName
 
-    private fun clonedPath(path: String) = "origindatasets" + File.separator + path
-
     companion object {
-        val logger: Logger = org.slf4j.LoggerFactory.getLogger(Runner::class.java)
-        fun cloneAllRepositories(runner: Runner, config: PreProcessorConfig) {
-            logger.info("Start to Clone code from GitHub")
-            config.scm.forEach {
-                val path = it.repository.split("/").last()
-                val targetPath = runner.clonedPath(path)
-                // if directory exits and contains .git, then skip
-                if (File(targetPath).exists() && File(targetPath + File.separator + ".git").exists()) {
-                    logger.info("Skip $targetPath")
-                    return@forEach
-                }
-
-                File(targetPath).mkdirs()
-
-                val gitCommandManager = GitCommandManager(targetPath)
-                gitCommandManager.shallowClone(it.repository, it.branch)
-            }
-        }
-
-        fun preProcessorConfig(): PreProcessorConfig {
-            val file = File("processor.yml").let {
-                if (!it.exists()) {
-                    logger.error("Config file not found: ${it.absolutePath}")
-                    exitProcess(1)
-                }
-
-                it
-            }
-
-            val content = file.readText()
-            val config = Yaml.default.decodeFromString(deserializer = PreProcessorConfig.serializer(), content)
-            return config
-        }
+        val logger: Logger = LoggerFactory.getLogger(Runner::class.java)
     }
 }

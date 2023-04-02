@@ -1,4 +1,4 @@
-package org.unitmesh.processor.java
+package cc.unitmesh.core.java
 
 import kotlinx.serialization.Serializable
 

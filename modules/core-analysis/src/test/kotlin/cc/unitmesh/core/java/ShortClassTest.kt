@@ -1,4 +1,4 @@
-package org.unitmesh.processor.java
+package cc.unitmesh.core.java
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

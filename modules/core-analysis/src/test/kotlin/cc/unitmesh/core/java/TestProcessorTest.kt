@@ -1,4 +1,4 @@
-package org.unitmesh.processor.java
+package cc.unitmesh.core.java
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test

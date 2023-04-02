@@ -1,8 +1,4 @@
-package org.unitmesh.processor.toolsets
-
-import org.unitmesh.processor.command.Command
-import org.unitmesh.processor.command.ExecOptions
-import org.unitmesh.processor.command.StringListExecListeners
+package cc.unitmesh.core.git
 
 class GitCommandManager(var workingDirectory: String = ".") {
     private val gitEnv: MutableMap<String, String> = mutableMapOf(

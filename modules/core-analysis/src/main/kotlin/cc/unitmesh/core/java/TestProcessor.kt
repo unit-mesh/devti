@@ -1,10 +1,10 @@
-package org.unitmesh.processor.java
+package cc.unitmesh.core.java
 
 import com.github.javaparser.StaticJavaParser
 import com.github.javaparser.ast.CompilationUnit
 import com.github.javaparser.ast.ImportDeclaration
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
-import org.unitmesh.processor.JvmProcessor
+import cc.unitmesh.core.JvmProcessor
 
 //
 val LICENSES = listOf(

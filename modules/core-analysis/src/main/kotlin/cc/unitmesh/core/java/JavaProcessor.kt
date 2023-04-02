@@ -1,4 +1,4 @@
-package org.unitmesh.processor.java
+package cc.unitmesh.core.java
 
 import com.github.javaparser.StaticJavaParser
 import com.github.javaparser.ast.CompilationUnit
@@ -8,7 +8,7 @@ import com.github.javaparser.ast.body.FieldDeclaration
 import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.expr.MarkerAnnotationExpr
 import com.github.javaparser.ast.expr.SingleMemberAnnotationExpr
-import org.unitmesh.processor.JvmProcessor
+import cc.unitmesh.core.JvmProcessor
 
 class JavaProcessor(val code: String) : JvmProcessor {
     private var unit: CompilationUnit = StaticJavaParser.parse(code)

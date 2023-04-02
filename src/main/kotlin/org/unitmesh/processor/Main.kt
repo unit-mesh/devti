@@ -6,10 +6,11 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.slf4j.Logger
-import org.unitmesh.processor.java.JavaProcessor
-import org.unitmesh.processor.java.ShortClass
-import org.unitmesh.processor.java.TestProcessor
-import org.unitmesh.processor.toolsets.GitCommandManager
+import cc.unitmesh.core.java.JavaProcessor
+import cc.unitmesh.core.java.ShortClass
+import cc.unitmesh.core.java.TestProcessor
+import cc.unitmesh.core.model.PreProcessorConfig
+import cc.unitmesh.core.git.GitCommandManager
 import java.io.File
 import kotlin.system.exitProcess
 

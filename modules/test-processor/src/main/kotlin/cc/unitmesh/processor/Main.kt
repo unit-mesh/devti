@@ -1,6 +1,6 @@
 package cc.unitmesh.processor
 
-import cc.unitmesh.core.cli.ProcessorConfig
+import cc.unitmesh.core.cli.ProcessorUtils
 import com.github.ajalt.clikt.core.CliktCommand
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
@@ -9,7 +9,7 @@ import org.slf4j.Logger
 import cc.unitmesh.core.java.JavaProcessor
 import cc.unitmesh.core.java.ShortClass
 import cc.unitmesh.core.java.TestProcessor
-import cc.unitmesh.core.model.PreProcessorConfig
+import cc.unitmesh.core.cli.PreProcessorConfig
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -24,10 +24,10 @@ class Runner : CliktCommand(help = "Action Runner") {
     override fun run() {
         logger.info("Runner started")
         //  1. load config `processor.yml` and start to scm
-        val config = ProcessorConfig.loadConfig()
+        val config = ProcessorUtils.loadConfig()
 
         // 2. clone all repositories
-        ProcessorConfig.cloneAllRepositories(config)
+        ProcessorUtils.cloneAllRepositories(config)
 
         // clean old datasets under datasets/origin
         val outputDir = File("datasets" + File.separator + "origin")

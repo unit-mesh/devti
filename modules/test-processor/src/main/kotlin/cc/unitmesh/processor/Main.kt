@@ -1,4 +1,4 @@
-package org.unitmesh.processor
+package cc.unitmesh.processor
 
 import com.charleskorn.kaml.Yaml
 import com.github.ajalt.clikt.core.CliktCommand

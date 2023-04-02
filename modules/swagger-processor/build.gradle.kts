@@ -45,13 +45,13 @@ kotlin {
 
 
 application {
-    mainClass.set("org.unitmesh.processor.swagger.MainKt")
+    mainClass.set("cc.unitmesh.processor.swagger.MainKt")
 }
 
 tasks {
     shadowJar {
         manifest {
-            attributes(Pair("Main-Class", "org.unitmesh.processor.swagger.MainKt"))
+            attributes(Pair("Main-Class", "cc.unitmesh.processor.swagger.MainKt"))
         }
         // minimize()
         dependencies {

@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/modules" />
             <option value="$PROJECT_DIR$/modules/core-analysis" />
+            <option value="$PROJECT_DIR$/modules/requirements-diff-processor" />
             <option value="$PROJECT_DIR$/modules/spring-processor" />
             <option value="$PROJECT_DIR$/modules/swagger-processor" />
             <option value="$PROJECT_DIR$/modules/test-processor" />

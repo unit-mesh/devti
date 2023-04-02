@@ -25,20 +25,10 @@ class Runner : CliktCommand(help = "Action Runner") {
     override fun run() {
         logger.info("Runner started")
         //  1. load config `processor.yml` and start to scm
-        val file = File("processor.yml").let {
-            if (!it.exists()) {
-                logger.error("Config file not found: ${it.absolutePath}")
-                exitProcess(1)
-            }
-
-            it
-        }
-
-        val content = file.readText()
-        val config = Yaml.default.decodeFromString(deserializer = PreProcessorConfig.serializer(), content)
+        val config = Companion.preProcessorConfig()
 
         // 2. clone all repositories
-        cloneAllRepositories(config)
+        cloneAllRepositories(this, config)
 
         // clean old datasets under datasets/origin
         val outputDir = File("datasets" + File.separator + "origin")
@@ -135,24 +125,6 @@ class Runner : CliktCommand(help = "Action Runner") {
         }
     }
 
-    private fun cloneAllRepositories(config: PreProcessorConfig) {
-        logger.info("Start to Clone code from GitHub")
-        config.scm.forEach {
-            val path = it.repository.split("/").last()
-            val targetPath = clonedPath(path)
-            // if directory exits and contains .git, then skip
-            if (File(targetPath).exists() && File(targetPath + File.separator + ".git").exists()) {
-                logger.info("Skip $targetPath")
-                return@forEach
-            }
-
-            File(targetPath).mkdirs()
-
-            val gitCommandManager = GitCommandManager(targetPath)
-            gitCommandManager.shallowClone(it.repository, it.branch)
-        }
-    }
-
     private fun processTestCases() {
         // 3. filter test cases
         logger.info("Start to Filter Test Cases")
@@ -193,5 +165,37 @@ class Runner : CliktCommand(help = "Action Runner") {
 
     companion object {
         val logger: Logger = org.slf4j.LoggerFactory.getLogger(Runner::class.java)
+        fun cloneAllRepositories(runner: Runner, config: PreProcessorConfig) {
+            logger.info("Start to Clone code from GitHub")
+            config.scm.forEach {
+                val path = it.repository.split("/").last()
+                val targetPath = runner.clonedPath(path)
+                // if directory exits and contains .git, then skip
+                if (File(targetPath).exists() && File(targetPath + File.separator + ".git").exists()) {
+                    logger.info("Skip $targetPath")
+                    return@forEach
+                }
+
+                File(targetPath).mkdirs()
+
+                val gitCommandManager = GitCommandManager(targetPath)
+                gitCommandManager.shallowClone(it.repository, it.branch)
+            }
+        }
+
+        fun preProcessorConfig(): PreProcessorConfig {
+            val file = File("processor.yml").let {
+                if (!it.exists()) {
+                    logger.error("Config file not found: ${it.absolutePath}")
+                    exitProcess(1)
+                }
+
+                it
+            }
+
+            val content = file.readText()
+            val config = Yaml.default.decodeFromString(deserializer = PreProcessorConfig.serializer(), content)
+            return config
+        }
     }
 }

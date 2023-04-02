@@ -1,4 +1,4 @@
-package org.unitmesh.spring
+package cc.unitmesh.spring
 
 import com.github.ajalt.clikt.core.CliktCommand
 import org.slf4j.Logger

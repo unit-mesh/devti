@@ -8,6 +8,6 @@ rootProject.name = "PreProcessor"
 include(
     ":modules:core-analysis",
     ":modules:swagger-processor",
-    ":modules:web-spring-processor",
+    ":modules:spring-processor",
     ":modules:test-processor"
 )

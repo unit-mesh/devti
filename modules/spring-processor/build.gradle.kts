@@ -11,7 +11,6 @@ repositories {
 }
 
 dependencies {
-    implementation(projects.modules.coreAnalysis)
     implementation(libs.clikt)
     implementation(libs.kotlin.compiler)
 
@@ -43,13 +42,13 @@ kotlin {
 
 
 application {
-    mainClass.set("org.unitmesh.spring.MainKt")
+    mainClass.set("cc.unitmesh.spring.MainKt")
 }
 
 tasks {
     shadowJar {
         manifest {
-            attributes(Pair("Main.kt-Class", "org.unitmesh.spring.MainKt"))
+            attributes(Pair("Main-Class", "cc.unitmesh.spring.MainKt"))
         }
         // minimize()
         dependencies {

@@ -48,24 +48,24 @@ org.unitmesh.processor.java.JavaProcessor()
         val processor = JavaProcessor(code)
         val methods = processor.splitMethods()
         methods.size shouldBe 2
-        methods[0] shouldBe """
+        methods["test1"] shouldBe """
             class TestProcessorTest {
             
                 @Test
                 void test1() {
                 }
             }
-
+            
         """.trimIndent()
 
-        methods[1] shouldBe """
+        methods["test2"] shouldBe """
             class TestProcessorTest {
             
                 @Test
                 void test2() {
                 }
             }
-
+            
         """.trimIndent()
     }
 

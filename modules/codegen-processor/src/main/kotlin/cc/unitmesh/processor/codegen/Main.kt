@@ -8,6 +8,8 @@ import cc.unitmesh.core.java.JavaProcessor
 import cc.unitmesh.core.java.ShortClass
 import cc.unitmesh.core.java.TestProcessor
 import cc.unitmesh.core.cli.PreProcessorConfig
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -90,13 +92,27 @@ class Runner : CliktCommand(help = "Action Runner") {
                         return@forEach
                     }
 
+                    val shotClass = javaProcessor.toShortClass() ?: return@forEach
+
                     javaProcessor
                         .removePackage()
                         .removeAllImport()
                         .removeLicenseInfoBeforeImport()
 
-//                    javaProcessor.splitMethods()
-
+                    javaProcessor.splitMethods().forEach { (key, value) ->
+                        CodegenPrompt(
+                            instruction = "Implement the method $key",
+                            input = shotClass.toString(),
+                            output = value
+                        ).let { prompt ->
+                            val output = Json.encodeToString(prompt)
+                            if (output.length > 2048) {
+                                logger.warn("Prompt is too long: ${output.length}, will skip it")
+                            } else {
+                                File("$targetPath${key}.json").writeText(output)
+                            }
+                        }
+                    }
                 }
             }
         }

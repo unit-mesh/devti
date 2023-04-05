@@ -69,15 +69,16 @@ open class JavaProcessor(open val code: String) : JvmProcessor {
         return this
     }
 
-    fun splitMethods(): List<String> {
-        val results = mutableListOf<String>()
+    fun splitMethods(): MutableMap<String, String> {
+        // map to method name and method body
+        val results = mutableMapOf<String, String>()
         unit.findAll(ClassOrInterfaceDeclaration::class.java).forEach { cls ->
             cls.methods.map { method ->
                 val unit = unit.clone()
                 unit.findAll(ClassOrInterfaceDeclaration::class.java).forEach { cls ->
                     cls.methods.filter { it != method }.forEach { it.remove() }
                 }
-                results.add(unit.toString())
+                results[method.nameAsString] = unit.toString()
             }
         }
 

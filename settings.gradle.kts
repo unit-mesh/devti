@@ -7,6 +7,8 @@ rootProject.name = "UnitProcessor"
 
 include(
     ":modules:core-analysis",
+
+    ":modules:codegen-processor",
     ":modules:swagger-processor",
     ":modules:spring-processor",
     ":modules:test-processor",

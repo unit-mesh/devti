@@ -68,6 +68,21 @@ open class JavaProcessor(open val code: String) : JvmProcessor {
         unit.findAll(ImportDeclaration::class.java).forEach { it.remove() }
         return this
     }
+
+    fun splitMethods(): List<String> {
+        val results = mutableListOf<String>()
+        unit.findAll(ClassOrInterfaceDeclaration::class.java).forEach { cls ->
+            cls.methods.map { method ->
+                val unit = unit.clone()
+                unit.findAll(ClassOrInterfaceDeclaration::class.java).forEach { cls ->
+                    cls.methods.filter { it != method }.forEach { it.remove() }
+                }
+                results.add(unit.toString())
+            }
+        }
+
+        return results
+    }
 }
 
 private val FieldDeclaration.nameAsString: String

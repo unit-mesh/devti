@@ -10,7 +10,7 @@ def json_to_jsonl(source, target, ext='.json'):
         for root, dirs, files in walkdir:
             for file in files:
                 if file.endswith(ext):
-                    if index == 10000:
+                    if index == 20000:
                         sys.exit(0)
 
                     index += 1

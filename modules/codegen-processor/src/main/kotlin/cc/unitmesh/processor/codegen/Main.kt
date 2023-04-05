@@ -43,7 +43,7 @@ class Runner : CliktCommand(help = "Action Runner") {
         }
 
         // create dir datasets/test-api
-        val testApiDir = File("datasets" + File.separator + "test-api")
+        val testApiDir = File("datasets" + File.separator + "codegen")
         if (testApiDir.exists()) {
             testApiDir.deleteRecursively()
         }

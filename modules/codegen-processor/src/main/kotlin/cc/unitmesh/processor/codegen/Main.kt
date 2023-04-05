@@ -106,11 +106,7 @@ class Runner : CliktCommand(help = "Action Runner") {
                             output = value
                         ).let { prompt ->
                             val output = Json.encodeToString(prompt)
-                            if (output.length > 2048) {
-                                logger.warn("Prompt is too long: ${output.length}, will skip it")
-                            } else {
-                                File("$targetPath${key}.json").writeText(output)
-                            }
+                            File("$targetPath${key}.json").writeText(output)
                         }
                     }
                 }

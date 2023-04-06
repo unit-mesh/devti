@@ -43,4 +43,4 @@ bin/
 origindatasets
 datasets
 processor.yml
-codegen.jsonl
+*.jsonl

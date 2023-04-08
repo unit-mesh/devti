@@ -19,11 +19,6 @@ dependencies {
 
     implementation(libs.kaml)
 
-    // java parser
-    implementation(libs.javaparser)
-    implementation(libs.javaparser.serialization)
-    implementation(libs.javaparser.symbol.solver.core)
-
     testImplementation(kotlin("test"))
 
     testImplementation(libs.bundles.test)

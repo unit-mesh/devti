@@ -10,7 +10,6 @@ repositories {
 
 dependencies {
     implementation(libs.clikt)
-    implementation(libs.kotlin.compiler)
     implementation(libs.serialization.json)
 
     // Logging

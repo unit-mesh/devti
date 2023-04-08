@@ -1,4 +1,4 @@
-package com.pinterest.ktlint.rule
+package rule
 
 import org.jetbrains.kotlin.KtNodeTypes
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode

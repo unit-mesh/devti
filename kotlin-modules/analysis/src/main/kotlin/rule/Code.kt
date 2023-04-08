@@ -1,4 +1,4 @@
-package com.pinterest.ktlint.rule
+package rule
 
 import org.jetbrains.kotlin.konan.file.file
 import java.io.File

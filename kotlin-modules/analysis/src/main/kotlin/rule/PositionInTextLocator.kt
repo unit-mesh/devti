@@ -1,4 +1,4 @@
-package com.pinterest.ktlint.rule
+package rule
 
 /**
  * Builds function to locate position in text - line and column based on offset from the text start.

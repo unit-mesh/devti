@@ -1,4 +1,4 @@
-package com.pinterest.ktlint.rule
+package rule
 
 /**
  * [KtLintParseException] is thrown whenever the kotlin code which is to be scanned contains a parsing error. Ensure

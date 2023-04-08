@@ -1,4 +1,4 @@
-package com.pinterest.ktlint.rule
+package rule
 
 import org.junit.jupiter.api.Test
 import io.kotest.matchers.shouldBe

@@ -8,13 +8,13 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/modules" />
-            <option value="$PROJECT_DIR$/modules/codegen-processor" />
-            <option value="$PROJECT_DIR$/modules/core-analysis" />
-            <option value="$PROJECT_DIR$/modules/requirements-diff-processor" />
-            <option value="$PROJECT_DIR$/modules/spring-processor" />
-            <option value="$PROJECT_DIR$/modules/swagger-processor" />
-            <option value="$PROJECT_DIR$/modules/test-processor" />
+            <option value="$PROJECT_DIR$/java-modules" />
+            <option value="$PROJECT_DIR$/java-modules/codegen-processor" />
+            <option value="$PROJECT_DIR$/java-modules/core-analysis" />
+            <option value="$PROJECT_DIR$/java-modules/requirements-diff-processor" />
+            <option value="$PROJECT_DIR$/java-modules/spring-processor" />
+            <option value="$PROJECT_DIR$/java-modules/swagger-processor" />
+            <option value="$PROJECT_DIR$/java-modules/test-processor" />
           </set>
         </option>
       </GradleProjectSettings>

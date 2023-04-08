@@ -15,6 +15,8 @@
             <option value="$PROJECT_DIR$/java-modules/spring-processor" />
             <option value="$PROJECT_DIR$/java-modules/swagger-processor" />
             <option value="$PROJECT_DIR$/java-modules/test-processor" />
+            <option value="$PROJECT_DIR$/kotlin-modules" />
+            <option value="$PROJECT_DIR$/kotlin-modules/analysis" />
           </set>
         </option>
       </GradleProjectSettings>

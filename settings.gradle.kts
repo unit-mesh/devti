@@ -6,6 +6,8 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "UnitProcessor"
 
 include(
+    ":kotlin-modules:analysis",
+
     ":java-modules:core-analysis",
 
     ":java-modules:codegen-processor",

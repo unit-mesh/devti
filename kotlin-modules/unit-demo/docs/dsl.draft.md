@@ -2,7 +2,6 @@
 
 ## API 要素 ？
 
-
 ### URI
 
 一个 API 请求
@@ -26,16 +25,17 @@ response:
 Endpoint
 
 ```java
+
 @RequestMapping("/users")
 class UserController {
     constructor(UserService userService) {
         this.userService = userService;
     }
-    
+
     @RequestMapping("/{id}")
     public User getUser(@PathVariable("id") int id) {
         return userService.getUser(id);
-    }   
+    }
 }
 ```
 
@@ -49,7 +49,7 @@ class UserService {
 }
 ```
 
-### 那么 
+### 那么
 
 ```java
 // Controller/Endpoint 
@@ -65,17 +65,45 @@ class UserService {
 
 [https://github.com/square/kotlinpoet](https://github.com/square/kotlinpoet)
 
-## Step 1. Text to SQL
+## Step 1. Text to Repository
 
 1. SQL to Text
 2. SQL Prompter
 3. Text to Prompt Template (with DB), Prompt to SQL
 
-## Step 2. Text to Repository
+Format:
 
+```java
+@Service
+public class UserService(Database database) {
+    public User getUser(int id) {
+        return database.queryForObject("SELECT * FROM users WHERE id = ?", User.class, id);
+    }
+}
+```
 
-## Step 3. Text to Service
+如果都是模板代码，就可以直接生成代码了 + Usecases
 
-## Step 4. Text to API
+```java
+@Service
+public class CreateUserUsecase(Database database) {
+    public User createUser(User user) {
+        return database.queryForObject("INSERT INTO users (name, age) VALUES (?, ?)", User.class, user.name, user.age);
+    }
+} 
+```
+
+或者 CreateBlogComment
+
+```java
+@Service
+public class CreateBlogCommentUsecase(Database database) {
+    public BlogComment createBlogComment(BlogComment blogComment) {
+        return database.queryForObject("INSERT INTO blog_comments (blog_id, user_id, content) VALUES (?, ?, ?)", BlogComment.class, blogComment.blogId, blogComment.userId, blogComment.content);
+    }
+} 
+```
+
+## Step 2. Text to API
 
 

@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfe68290-0273-4ac6-a0e1-1f0f9c6bbad2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kotlin-modules/unit-demo/docs/dsl.draft.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kotlin-modules/unit-demo/src/main/kotlin/unitmesh/cc/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-modules/unit-demo/src/main/kotlin/unitmesh/cc/Application.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kotlin-modules/unit-demo/src/main/kotlin/unitmesh/cc/plugins/Databases.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-modules/unit-demo/src/main/kotlin/unitmesh/cc/plugins/Databases.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kotlin-modules/unit-demo/src/main/kotlin/unitmesh/cc/plugins/Serialization.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-modules/unit-demo/src/main/kotlin/unitmesh/cc/plugins/Serialization.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -502,7 +498,7 @@
       <workItem from="1681017866428" duration="44000" />
       <workItem from="1681018248263" duration="1975000" />
       <workItem from="1681020292147" duration="238000" />
-      <workItem from="1681020536088" duration="361000" />
+      <workItem from="1681020536088" duration="2689000" />
     </task>
     <servers />
   </component>

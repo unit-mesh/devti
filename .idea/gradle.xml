@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/java-modules/test-processor" />
             <option value="$PROJECT_DIR$/kotlin-modules" />
             <option value="$PROJECT_DIR$/kotlin-modules/analysis" />
+            <option value="$PROJECT_DIR$/kotlin-modules/importer" />
             <option value="$PROJECT_DIR$/kotlin-modules/unit-demo" />
           </set>
         </option>

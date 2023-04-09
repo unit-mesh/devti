@@ -8,6 +8,7 @@ rootProject.name = "UnitProcessor"
 include(
     ":kotlin-modules:analysis",
     ":kotlin-modules:unit-demo",
+    ":kotlin-modules:importer",
 
     ":java-modules:core-analysis",
 

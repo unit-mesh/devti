@@ -26,7 +26,6 @@ class RepositoryFilterTest {
     }
 
     @Test
-    @Disabled
     fun should_get_method_name() {
         val filter = RepositoryFilter(unitContext.rootNode, dump.content)
         filter.allMethodHasAnnotation("Query") shouldBe true

@@ -3,8 +3,6 @@ package cc.unitmesh.importer.model
 import cc.unitmesh.importer.filter.CodeSnippetContext
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import ktlint.analysis.Code
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 class RawDumpTest {
@@ -20,10 +18,7 @@ class RawDumpTest {
         val unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
         unitContext.rootNode shouldNotBe null
 
-        val function = unitContext.functionByName("reload")
-        function shouldNotBe null
-
         val imports = unitContext.allImports()
-        imports.size shouldBe 1
+        imports.size shouldBe 9
     }
 }

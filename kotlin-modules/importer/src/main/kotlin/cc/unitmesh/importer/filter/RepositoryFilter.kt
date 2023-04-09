@@ -6,13 +6,18 @@ import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import org.jetbrains.kotlin.psi.psiUtil.children
 
 class RepositoryFilter(val rootNode: FileASTNode, val sourceCode: String) {
+    var allClasses: List<ASTNode> = listOf()
+    var allMethods: List<ASTNode> = listOf()
+    init {
+        allClasses = rootNode.allClasses()
+        allMethods = allClasses.flatMap {
+            it.allMethods()
+        }
+    }
+
     fun allMethodHasAnnotation(annotationName: String): Boolean {
         if (!sourceCode.contains("@${annotationName}")) {
             return false
-        }
-
-        val allMethods: List<ASTNode> = rootNode.allClasses().flatMap {
-            it.allMethods()
         }
 
         val modifiers = allMethods.mapNotNull {
@@ -33,15 +38,27 @@ class RepositoryFilter(val rootNode: FileASTNode, val sourceCode: String) {
     }
 
     fun getMethodByAnnotationName(annotationName: String): List<ASTNode> {
-        return rootNode
-            .children()
-            .filter { it.elementType == KtNodeTypes.FUN }
-            .map { funNode ->
-                funNode
-                    .findChildByType(KtNodeTypes.ANNOTATION_ENTRY)
-                    ?.takeIf { it.text.contains("@$annotationName") }
-                    ?.let { funNode }
-            }.filterNotNull().toList()
+        if (!sourceCode.contains("@${annotationName}")) {
+            return listOf()
+        }
+
+        return allMethods.filter {
+            val modifiers = allMethods.mapNotNull {
+                it.findChildByType(KtNodeTypes.MODIFIER_LIST)
+            }
+
+            val annotations = modifiers.mapNotNull {
+                it.findChildByType(KtNodeTypes.ANNOTATION_ENTRY)
+            }
+
+            val callees = annotations.flatMap {
+                it.children()
+            }.filter { it.elementType == KtNodeTypes.CONSTRUCTOR_CALLEE }
+
+            callees.any {
+                it.text == annotationName
+            }
+        }.toList()
     }
 }
 

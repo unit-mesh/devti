@@ -38,6 +38,9 @@ class CodeSnippetContext private constructor(
             .toList()
     }
 
+    /**
+     * file level function
+     */
     fun functionByName(functionName: String): ASTNode? {
         val functionNode = rootNode
             .findChildByType(KtNodeTypes.FUN)

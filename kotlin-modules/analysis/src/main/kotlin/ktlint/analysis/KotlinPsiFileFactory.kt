@@ -1,4 +1,4 @@
-package rule
+package ktlint.analysis
 
 import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
@@ -21,7 +21,9 @@ import org.jetbrains.kotlin.config.CompilerConfiguration
 import sun.reflect.ReflectionFactory
 import org.jetbrains.kotlin.com.intellij.openapi.diagnostic.Logger as DiagnosticLogger
 
-internal class KotlinPsiFileFactoryProvider {
+val KOTLIN_PSI_FILE_FACTORY_PROVIDER = KotlinPsiFileFactoryProvider()
+
+class KotlinPsiFileFactoryProvider {
     private lateinit var psiFileFactory: PsiFileFactory
 
     @Synchronized

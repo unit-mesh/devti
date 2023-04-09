@@ -1,5 +1,11 @@
-package rule
+package cc.unitmesh.importer
 
+import ktlint.analysis.Code
+import ktlint.analysis.KOTLIN_PSI_FILE_FACTORY_PROVIDER
+import ktlint.analysis.KtLintParseException
+import ktlint.analysis.LineAndColumn
+import ktlint.analysis.UTF8_BOM
+import ktlint.analysis.buildPositionInTextLocator
 import org.jetbrains.kotlin.KtNodeTypes
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
@@ -8,12 +14,6 @@ import org.jetbrains.kotlin.com.intellij.psi.PsiErrorElement
 import org.jetbrains.kotlin.idea.KotlinLanguage
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.psiUtil.children
-
-internal typealias LineAndColumn = Pair<Int, Int>
-
-internal const val UTF8_BOM = "\uFEFF"
-
-private val KOTLIN_PSI_FILE_FACTORY_PROVIDER = KotlinPsiFileFactoryProvider()
 
 class CodeSnippetContext private constructor(
     val code: Code,

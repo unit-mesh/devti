@@ -1,9 +1,14 @@
-package rule
+package ktlint.analysis
+
+
+typealias LineAndColumn = Pair<Int, Int>
+
+const val UTF8_BOM = "\uFEFF"
 
 /**
  * Builds function to locate position in text - line and column based on offset from the text start.
  */
-internal fun buildPositionInTextLocator(text: String): (offset: Int) -> LineAndColumn {
+fun buildPositionInTextLocator(text: String): (offset: Int) -> LineAndColumn {
     val textLength = text.length
     val arr = ArrayList<Int>()
 

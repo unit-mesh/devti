@@ -1,4 +1,4 @@
-package rule
+package ktlint.analysis
 
 import org.jetbrains.kotlin.konan.file.file
 import java.io.File

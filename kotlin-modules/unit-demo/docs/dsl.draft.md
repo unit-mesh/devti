@@ -107,3 +107,38 @@ public class CreateBlogCommentUsecase(Database database) {
 ## Step 2. Text to API
 
 
+## Prompt
+
+```
+请编写用户故事，能覆盖下面的代码功能，要求：1. 突出重点 2. 你返回的内容只有： 作为 xx，我想 xxx，以便于 xxx。
+
+###
+interface ItemRepository: JpaRepository<Item, Long> {
+    @Query("select i from Item i where i.user = :user and :before <= i.receiptDate and i.receiptDate <= :after")
+    fun searchItems(@Param("user") user: User, @Param("before") before: LocalDate, @Param("after") after: LocalDate): List<Item>
+}
+###
+```
+
+Demo 2：
+
+
+```
+请编写用户故事，能覆盖下面的代码功能，要求：1. 突出重点 2. 你返回的内容只有：我想 xxx，以便于 xxx。
+
+###
+@Repository
+interface StatisticsRepository : CrudRepository<Statistic, Long> {
+    @Query("select s from Statistic s where chatId = ?1 and postedDate >= ?2 and postedDate <= ?3 " +
+            "order by postedDate, messageCount desc")
+    fun findStatisticsBetweenDateRange(chatId: Long, since: LocalDate, until: LocalDate): List<Statistic>
+}  
+###
+```
+
+## 还需要考虑：
+
+```
+fun findStatisticByPostedDate(postedDate: LocalDate): List<Statistic>
+fun findStatisticByChatId(chatId: Long): List<Statistic>
+```

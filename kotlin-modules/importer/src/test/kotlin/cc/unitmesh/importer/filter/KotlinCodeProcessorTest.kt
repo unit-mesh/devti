@@ -32,4 +32,22 @@ class KotlinCodeProcessorTest {
         val nodes = filter.getMethodByAnnotationName("Query")
         nodes.size shouldBe 1
     }
+
+    @Test
+    fun should_keep_class_only() {
+        val filter = KotlinCodeProcessor(unitContext.rootNode, dump.content)
+        filter.allMethodHasAnnotation("Query") shouldBe true
+
+        val nodes = filter.getMethodByAnnotationName("Query")
+        nodes.size shouldBe 1
+
+        val classNode = filter.getClassNode()
+        classNode.size shouldBe 1
+
+        classNode.first().text shouldBe """interface ItemRepository: JpaRepository<Item, Long> {
+
+    @Query("select i from Item i where i.user = :user and :before <= i.receiptDate and i.receiptDate <= :after")
+    fun searchItems(@Param("user") user: User, @Param("before") before: LocalDate, @Param("after") after: LocalDate): List<Item>
+}"""
+    }
 }

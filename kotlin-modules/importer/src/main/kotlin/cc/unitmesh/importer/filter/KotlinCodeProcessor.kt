@@ -16,6 +16,10 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
         }
     }
 
+    fun getClassNode(): List<ASTNode> {
+        return allClasses
+    }
+
     fun allMethodHasAnnotation(annotationName: String): Boolean {
         if (!sourceCode.contains("@${annotationName}")) {
             return false

@@ -32,6 +32,7 @@ class Runner : CliktCommand(help = "Action Runner") {
             }
 
             val processor = KotlinCodeProcessor(snippet.rootNode, code.content)
+            // should contains @Query @Delete @Insert ....
             processor.getMethodByAnnotationName("Query").isNotEmpty()
         }
 

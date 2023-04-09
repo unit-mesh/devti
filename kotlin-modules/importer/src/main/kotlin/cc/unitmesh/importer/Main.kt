@@ -1,9 +1,12 @@
 package cc.unitmesh.importer
 
+import cc.unitmesh.importer.filter.CodeSnippetContext
+import cc.unitmesh.importer.filter.KotlinCodeProcessor
 import cc.unitmesh.importer.model.RawDump
 import com.github.ajalt.clikt.core.CliktCommand
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import ktlint.analysis.KtLintParseException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -16,7 +19,23 @@ class Runner : CliktCommand(help = "Action Runner") {
         }.toList()
 
         val codes: List<RawDump> = jsonFiles.flatMap(File::readLines).map(Json.Default::decodeFromString)
-        println(codes.size)
+
+        var count = 0
+        codes.map { code ->
+            val snippet: CodeSnippetContext
+            try {
+                snippet = CodeSnippetContext.createUnitContext(code.toCode())
+            } catch (e: KtLintParseException) {
+                return@map
+            }
+
+            val processor = KotlinCodeProcessor(snippet.rootNode, code.content)
+            processor.getMethodByAnnotationName("Query").map {
+                count++
+            }
+        }
+
+        println(count)
     }
 
     companion object {

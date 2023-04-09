@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import org.jetbrains.kotlin.psi.psiUtil.children
 
-class RepositoryFilter(private val rootNode: FileASTNode, private val sourceCode: String) {
+class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceCode: String) {
     private var allClasses: List<ASTNode> = listOf()
     private var allMethods: List<ASTNode> = listOf()
 

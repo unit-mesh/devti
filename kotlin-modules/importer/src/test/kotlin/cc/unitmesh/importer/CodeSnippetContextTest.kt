@@ -44,4 +44,27 @@ class CodeSnippetContextTest {
 
         imports.size shouldBe 1
     }
+
+    @Test
+    fun `class names`() {
+        val code = Code.fromSnippet(
+            content = """
+                package org.unitmesh.processor
+
+                import org.junit.jupiter.api.Test
+
+                class TestClass {
+                    fun main(args: Array<String>) {
+                        println("Hello World!")
+                    }
+                }
+            """.trimIndent(),
+            script = false,
+        )
+        val context = CodeSnippetContext.createUnitContext(code)
+        val classNames = context.classNames()
+
+        classNames.size shouldBe 1
+        classNames[0] shouldBe "TestClass"
+    }
 }

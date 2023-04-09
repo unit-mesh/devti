@@ -17,7 +17,6 @@ class RawDumpTest {
 
         val dump = RawDump.fromString(originText)
 
-
         val unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
         unitContext.rootNode shouldNotBe null
 

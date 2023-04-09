@@ -22,7 +22,7 @@ data class RawDump(
             content = content.trimIndent(),
             filePath = Path(path),
             fileName = path.substringAfterLast("/"),
-            script = false,
+            script = path.endsWith(".kts", ignoreCase = true),
             isStdIn = false
         )
     }

@@ -12,6 +12,7 @@ import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.com.intellij.psi.PsiErrorElement
 import org.jetbrains.kotlin.idea.KotlinLanguage
+import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.psiUtil.children
 
@@ -28,20 +29,21 @@ class CodeSnippetContext private constructor(
             ?: emptyList()
     }
 
+    fun classNames(): List<String> {
+        return rootNode
+            .children()
+            .filter { it.elementType == KtNodeTypes.CLASS }
+            .map { it.findChildByType(KtTokens.IDENTIFIER)?.text }
+            .filterNotNull()
+            .toList()
+    }
+
     fun functionByName(functionName: String): ASTNode? {
         val functionNode = rootNode
             .findChildByType(KtNodeTypes.FUN)
             ?.takeIf { it.text.contains("fun $functionName") }
 
         return functionNode
-    }
-
-    fun hasAnnotation(annotationName: String): Boolean {
-        return rootNode
-            .findChildByType(KtNodeTypes.ANNOTATION_ENTRY)
-            ?.takeIf { it.text.contains("@$annotationName") }
-            ?.let { true }
-            ?: false
     }
 
     companion object {

@@ -44,3 +44,4 @@ origindatasets
 datasets
 processor.yml
 *.jsonl
+.idea

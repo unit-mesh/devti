@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfe68290-0273-4ac6-a0e1-1f0f9c6bbad2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/kotlin-modules/unit-demo/docs/dsl.draft.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kotlin-modules/unit-demo/docs/dsl.draft.md" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-modules/unit-demo/docs/dsl.draft.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -498,7 +499,7 @@
       <workItem from="1681017866428" duration="44000" />
       <workItem from="1681018248263" duration="1975000" />
       <workItem from="1681020292147" duration="238000" />
-      <workItem from="1681020536088" duration="2689000" />
+      <workItem from="1681020536088" duration="3813000" />
     </task>
     <servers />
   </component>

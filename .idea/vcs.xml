@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/spring-processor/origindatasets/TRSBANG" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/spring-processor/origindatasets/apollo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/spring-processor/origindatasets/canal" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/spring-processor/origindatasets/eladmin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/spring-processor/origindatasets/litemall" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/spring-processor/origindatasets/nacos" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/spring-processor/origindatasets/pinpoint" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/spring-processor/origindatasets/seata" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/AppiumTestDistribution" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/OpenContacts" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/Scientist4J" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/Sherlock" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/TRSBANG" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/apollo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/assertj" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/assertj-swagger" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/bahmni-core" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/canal" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/consent-manager" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/dataengineer-transformations-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/ddd-lite-example" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/developer-joyofenergy-java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/eladmin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/flips" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/gocd" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/java-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/junit4" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/junit5" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/liquigraph" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/litemall" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/mockito" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/mockito-testng" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/nacos" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/openmrs-core" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/openmrs-module-fhir2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/openmrs-module-webservices.rest" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/pinpoint" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/seata" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/spring-boot" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/testng" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/thoughtworks-code-review-tools" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/tramchester" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/unit-test-basic-answer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/java-modules/test-processor/origindatasets/wiremock" vcs="Git" />
   </component>
 </project>

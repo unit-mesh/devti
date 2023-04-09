@@ -5,8 +5,11 @@ import cc.unitmesh.importer.filter.KotlinCodeProcessor
 import cc.unitmesh.importer.model.RawDump
 import com.github.ajalt.clikt.core.CliktCommand
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ktlint.analysis.KtLintParseException
+import org.jetbrains.kotlinx.dataframe.api.toDataFrame
+import org.jetbrains.kotlinx.dataframe.io.writeJson
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -20,22 +23,23 @@ class Runner : CliktCommand(help = "Action Runner") {
 
         val codes: List<RawDump> = jsonFiles.flatMap(File::readLines).map(Json.Default::decodeFromString)
 
-        var count = 0
-        codes.map { code ->
+        val outputs = codes.filter { code ->
             val snippet: CodeSnippetContext
             try {
                 snippet = CodeSnippetContext.createUnitContext(code.toCode())
             } catch (e: KtLintParseException) {
-                return@map
+                return@filter false
             }
 
             val processor = KotlinCodeProcessor(snippet.rootNode, code.content)
-            processor.getMethodByAnnotationName("Query").map {
-                count++
-            }
+            processor.getMethodByAnnotationName("Query").isNotEmpty()
         }
 
-        println(count)
+        val dataFrame = outputs.toDataFrame()
+        dataFrame.writeJson("datasets" + File.separator + "filtered.json")
+
+//        val outputFile = File("datasets" + File.separator + "filtered.json")
+//        outputFile.writeText(Json.Default.encodeToString(outputs))
     }
 
     companion object {

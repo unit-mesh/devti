@@ -61,9 +61,21 @@ class UserService {
 - AI 将逻辑转换为代码
 - Repository 模板 + SQL 查询
 
-
-
 ## Output
 
 [https://github.com/square/kotlinpoet](https://github.com/square/kotlinpoet)
+
+## Step 1. Text to SQL
+
+1. SQL to Text
+2. SQL Prompter
+3. Text to Prompt Template (with DB), Prompt to SQL
+
+## Step 2. Text to Repository
+
+
+## Step 3. Text to Service
+
+## Step 4. Text to API
+
 

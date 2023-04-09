@@ -44,4 +44,4 @@ origindatasets
 datasets
 processor.yml
 *.jsonl
-.idea
+.idea/workspace.xml

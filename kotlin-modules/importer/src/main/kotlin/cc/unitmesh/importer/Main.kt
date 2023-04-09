@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory
 fun main(args: Array<String>) = Runner().main(args)
 class Runner : CliktCommand(help = "Action Runner") {
     override fun run() {
-        // open datasets/rawdump/*.json
+        // open datasets/rawdump/*.json, json by lines
+        // for each line, parse json
+        // for each json, create a new CodeSnippetContext
     }
 
     companion object {

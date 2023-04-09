@@ -8,7 +8,7 @@ import kotlin.io.path.pathString
 /**
  * A representation of a block of code. Use one of the factory methods [fromFile], [fromPath], [fromSnippet] or [fromStdin] to instantiate.
  */
-public class Code private constructor(
+public class Code constructor(
     public val content: String,
     public val fileName: String?,
     public val filePath: Path?,

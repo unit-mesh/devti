@@ -1,4 +1,4 @@
-package cc.unitmesh.importer
+package cc.unitmesh.importer.filter
 
 import ktlint.analysis.Code
 import ktlint.analysis.KOTLIN_PSI_FILE_FACTORY_PROVIDER
@@ -34,6 +34,14 @@ class CodeSnippetContext private constructor(
             ?.takeIf { it.text.contains("fun $functionName") }
 
         return functionNode
+    }
+
+    fun hasAnnotation(annotationName: String): Boolean {
+        return rootNode
+            .findChildByType(KtNodeTypes.ANNOTATION_ENTRY)
+            ?.takeIf { it.text.contains("@$annotationName") }
+            ?.let { true }
+            ?: false
     }
 
     companion object {

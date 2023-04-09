@@ -1,6 +1,10 @@
 package cc.unitmesh.importer.model
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import ktlint.analysis.Code
+import kotlin.io.path.Path
 
 @Serializable
 data class RawDump(
@@ -11,5 +15,21 @@ data class RawDump(
     val size: String,
     val content: String,
     val license: String
-)
+) {
 
+    fun toCode(): Code {
+        return Code(
+            content = content.trimIndent(),
+            filePath = Path(path),
+            fileName = path.substringAfterLast("/"),
+            script = false,
+            isStdIn = false
+        )
+    }
+
+    companion object {
+        fun fromString(text: String): RawDump {
+            return Json.decodeFromString(text)
+        }
+    }
+}

@@ -1,9 +1,8 @@
 package cc.unitmesh.importer.model
 
-import cc.unitmesh.importer.CodeSnippetContext
+import cc.unitmesh.importer.filter.CodeSnippetContext
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import ktlint.analysis.Code
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -16,16 +15,16 @@ class RawDumpTest {
         val originText =
             """{"repo_name":"Cognifide/gradle-aem-plugin","path":"src/main/kotlin/com/cognifide/gradle/aem/instance/tasks/InstanceReload.kt","copies":"1","size":"1052","content":"$sourceCode,"license":"apache-2.0"}"""
 
-        val dump: RawDump = Json.decodeFromString(originText)
+        val dump = RawDump.fromString(originText)
 
-        assertEquals("Cognifide/gradle-aem-plugin", dump.repo_name)
 
-        val code = Code.fromSnippet(
-            content = dump.content.trimIndent(),
-            script = false,
-        )
-
-        val unitContext = CodeSnippetContext.createUnitContext(code)
+        val unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
         unitContext.rootNode shouldNotBe null
+
+        val function = unitContext.functionByName("reload")
+        function shouldNotBe null
+
+        val imports = unitContext.allImports()
+        imports.size shouldBe 1
     }
 }

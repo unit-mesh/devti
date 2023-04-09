@@ -21,13 +21,7 @@ class RepositoryFilter(private val rootNode: FileASTNode, private val sourceCode
             return false
         }
 
-        val modifiers = allMethods.mapNotNull {
-            it.findChildByType(KtNodeTypes.MODIFIER_LIST)
-        }
-
-        val annotations = modifiers.mapNotNull {
-            it.findChildByType(KtNodeTypes.ANNOTATION_ENTRY)
-        }
+        val annotations = allAnnotations()
 
         val callees = annotations.flatMap {
             it.children()
@@ -38,13 +32,17 @@ class RepositoryFilter(private val rootNode: FileASTNode, private val sourceCode
         }
     }
 
+    private fun allAnnotations(): List<ASTNode> {
+        return allMethods.flatMap(ASTNode::annotations)
+    }
+
     fun getMethodByAnnotationName(annotationName: String): List<ASTNode> {
         if (!sourceCode.contains("@${annotationName}")) {
             return listOf()
         }
 
-        return allMethods.filter {
-            val annotations = allMethods.flatMap(ASTNode::annotations)
+        return allMethods.filter { method ->
+            val annotations = method.annotations()
 
             val callees = annotations.flatMap {
                 it.children()

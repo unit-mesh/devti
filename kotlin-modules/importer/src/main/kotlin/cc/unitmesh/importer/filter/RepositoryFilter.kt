@@ -5,9 +5,10 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import org.jetbrains.kotlin.psi.psiUtil.children
 
-class RepositoryFilter(val rootNode: FileASTNode, val sourceCode: String) {
-    var allClasses: List<ASTNode> = listOf()
-    var allMethods: List<ASTNode> = listOf()
+class RepositoryFilter(private val rootNode: FileASTNode, private val sourceCode: String) {
+    private var allClasses: List<ASTNode> = listOf()
+    private var allMethods: List<ASTNode> = listOf()
+
     init {
         allClasses = rootNode.allClasses()
         allMethods = allClasses.flatMap {
@@ -43,13 +44,7 @@ class RepositoryFilter(val rootNode: FileASTNode, val sourceCode: String) {
         }
 
         return allMethods.filter {
-            val modifiers = allMethods.mapNotNull {
-                it.findChildByType(KtNodeTypes.MODIFIER_LIST)
-            }
-
-            val annotations = modifiers.mapNotNull {
-                it.findChildByType(KtNodeTypes.ANNOTATION_ENTRY)
-            }
+            val annotations = allMethods.flatMap(ASTNode::annotations)
 
             val callees = annotations.flatMap {
                 it.children()
@@ -73,4 +68,10 @@ fun ASTNode.allMethods(): List<ASTNode> {
         ?.children()
         ?.filter { it.elementType == KtNodeTypes.FUN }
         ?.toList() ?: listOf()
+}
+
+fun ASTNode.annotations(): List<ASTNode> {
+    return this.findChildByType(KtNodeTypes.MODIFIER_LIST)?.children()?.filter {
+        it.elementType == KtNodeTypes.ANNOTATION_ENTRY
+    }?.toList() ?: listOf()
 }

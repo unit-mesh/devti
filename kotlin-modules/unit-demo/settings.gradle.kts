@@ -1,0 +1,1 @@
+rootProject.name = "unitmesh.cc.unit-demo"

@@ -22,6 +22,10 @@ class KotlinCodeProcessorTest {
     @Test
     fun should_identifier_all_imports() {
         val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
+
+        val packageNAME = processor.packageName()
+        packageNAME shouldBe "jp.ac.kcg.repository"
+
         val imports = processor.allImports()
         imports.size shouldBe 6
         imports[0] shouldBe "import jp.ac.kcg.domain.Item"

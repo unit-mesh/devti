@@ -112,8 +112,9 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
     }
 }
 
-private fun FileASTNode.packageName(): String? {
+fun FileASTNode.packageName(): String? {
     return this.findChildByType(KtNodeTypes.PACKAGE_DIRECTIVE)
+        ?.findChildByType(KtNodeTypes.DOT_QUALIFIED_EXPRESSION)
         ?.text
 }
 

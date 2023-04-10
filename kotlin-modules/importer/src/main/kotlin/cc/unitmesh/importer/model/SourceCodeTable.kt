@@ -3,7 +3,7 @@ package cc.unitmesh.importer.model
 import org.jetbrains.exposed.sql.Table
 
 
-object SourceCode : Table() {
+object SourceCodeTable : Table() {
     val id = integer("id").autoIncrement()
     val identifierName = varchar("package_name", 255).default("")
     val repoName = varchar("repo_name", 255)

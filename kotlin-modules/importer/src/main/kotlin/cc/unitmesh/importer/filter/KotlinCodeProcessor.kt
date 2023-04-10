@@ -20,6 +20,10 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
         }
     }
 
+    fun packageName(): String {
+        return rootNode.packageName() ?: ""
+    }
+
     fun allClassNodes(): List<ASTNode> {
         return allClasses
     }
@@ -94,9 +98,23 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
         }
     }
 
-    companion object {
-        val logger: Logger = LoggerFactory.getLogger(KotlinCodeProcessor::class.java)
+    fun className(classNode: ASTNode): String {
+        return classNode.findChildByType(KtTokens.IDENTIFIER)?.text ?: ""
     }
+
+    fun allImports(): List<String> {
+        return rootNode.findChildByType(KtNodeTypes.IMPORT_LIST)
+            ?.children()
+            ?.filter { it.elementType == KtNodeTypes.IMPORT_DIRECTIVE }
+            ?.map { it.text }
+            ?.toList()
+            ?: listOf()
+    }
+}
+
+private fun FileASTNode.packageName(): String? {
+    return this.findChildByType(KtNodeTypes.PACKAGE_DIRECTIVE)
+        ?.text
 }
 
 fun ASTNode.removeComments() {

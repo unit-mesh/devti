@@ -20,6 +20,19 @@ class KotlinCodeProcessorTest {
     }
 
     @Test
+    fun should_identifier_all_imports() {
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
+        val imports = processor.allImports()
+        imports.size shouldBe 6
+        imports[0] shouldBe "import jp.ac.kcg.domain.Item"
+        imports[1] shouldBe "import jp.ac.kcg.domain.User"
+        imports[2] shouldBe "import org.springframework.data.jpa.repository.JpaRepository"
+        imports[3] shouldBe "import org.springframework.data.jpa.repository.Query"
+        imports[4] shouldBe "import org.springframework.data.repository.query.Param"
+        imports[5] shouldBe "import java.time.LocalDate"
+    }
+
+    @Test
     fun should_keep_class_only() {
         val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
 

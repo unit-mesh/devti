@@ -2,8 +2,9 @@ package cc.unitmesh.importer
 
 import cc.unitmesh.importer.filter.CodeSnippetContext
 import cc.unitmesh.importer.filter.KotlinCodeProcessor
+import cc.unitmesh.importer.model.CodeSnippet
 import cc.unitmesh.importer.model.RawDump
-import cc.unitmesh.importer.model.SourceCode
+import cc.unitmesh.importer.model.SourceCodeTable
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
 import kotlinx.serialization.decodeFromString
@@ -63,16 +64,16 @@ class Sqlite : CliktCommand(help = "Initialize the database") {
 
         transaction {
             addLogger(StdOutSqlLogger)
-            SchemaUtils.create(SourceCode)
+            SchemaUtils.create(SourceCodeTable)
 
-            SourceCode.batchInsert(codes) {
-                this[SourceCode.repoName] = it.repo_name
-                this[SourceCode.path] = it.path
-                this[SourceCode.identifierName] = it.identifierName()
-                this[SourceCode.copies] = it.copies
-                this[SourceCode.size] = it.size
-                this[SourceCode.content] = it.content
-                this[SourceCode.license] = it.license
+            SourceCodeTable.batchInsert(codes) {
+                this[SourceCodeTable.repoName] = it.repo_name
+                this[SourceCodeTable.path] = it.path
+                this[SourceCodeTable.identifierName] = it.identifierName()
+                this[SourceCodeTable.copies] = it.copies
+                this[SourceCodeTable.size] = it.size
+                this[SourceCodeTable.content] = it.content
+                this[SourceCodeTable.license] = it.license
             }
         }
     }
@@ -108,32 +109,42 @@ class Analysis : CliktCommand(help = "Action Runner") {
             logger.info("Skip analysis, because the output file already exists")
         }
 
-        val results: MutableList<RawDump> = mutableListOf();
+        val results: MutableList<CodeSnippet> = mutableListOf();
         val dumpList = Json.decodeFromString<List<RawDump>>(outputFile.readText())
-        dumpList.forEach {
+        dumpList.forEach { rawDump ->
             // split methods
             val snippet: CodeSnippetContext
             try {
-                snippet = CodeSnippetContext.createUnitContext(it.toCode())
+                snippet = CodeSnippetContext.createUnitContext(rawDump.toCode())
             } catch (e: KtLintParseException) {
                 return@forEach
             }
 
-            val processor = KotlinCodeProcessor(snippet.rootNode, it.content)
-            processor.allClassNodes().forEach { astNode ->
-                val methods = processor.splitClassMethodsToManyClass(astNode)
-                methods.map { method ->
-                    val code = it.copy()
-                    code.content = method.text
-                    code.path = code.path + "#" + method.text.hashCode()
-                    code.size = method.text.length
+            val processor = KotlinCodeProcessor(snippet.rootNode, rawDump.content)
+            processor.allClassNodes().forEach { classNode ->
+                val packageName = processor.packageName()
+                val className = processor.className(classNode)
 
-                    if (code.size > 2048) {
-                        logger.info("size too large: ${code.path}")
+                val methods = processor.splitClassMethodsToManyClass(classNode)
+                val imports = processor.allImports()
+                methods.map { method ->
+                    val content = method.text
+                    val size = method.text.length
+
+                    if (rawDump.size > 2048) {
+                        logger.info("size too large: ${rawDump.path}")
                         return@map null
                     }
 
-                    results.add(code)
+                    results.add(
+                        CodeSnippet(
+                            identifierName = """$packageName.$className""",
+                            content = content,
+                            path = rawDump.path + "#" + method.text.hashCode(),
+                            size = size,
+                            imports = imports
+                        )
+                    )
                 }
             }
         }

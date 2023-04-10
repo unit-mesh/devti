@@ -1,6 +1,6 @@
 package cc.unitmesh.importer.model
 
-import cc.unitmesh.importer.filter.CodeSnippetContext
+import cc.unitmesh.importer.processor.CodeSnippetContext
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.Test

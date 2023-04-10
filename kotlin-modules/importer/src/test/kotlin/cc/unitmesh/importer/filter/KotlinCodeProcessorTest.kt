@@ -1,9 +1,9 @@
 package cc.unitmesh.importer.processor
 
-import cc.unitmesh.importer.filter.CodeSnippetContext
-import cc.unitmesh.importer.filter.KotlinCodeProcessor
-import cc.unitmesh.importer.filter.allMethods
-import cc.unitmesh.importer.filter.classToConstructorText
+import cc.unitmesh.importer.processor.CodeSnippetContext
+import cc.unitmesh.importer.processor.KotlinCodeProcessor
+import cc.unitmesh.importer.processor.allMethods
+import cc.unitmesh.importer.processor.classToConstructorText
 import cc.unitmesh.importer.model.RawDump
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach

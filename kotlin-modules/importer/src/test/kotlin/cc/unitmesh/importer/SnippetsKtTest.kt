@@ -1,6 +1,9 @@
 package cc.unitmesh.importer
 
+import cc.unitmesh.importer.model.RawDump
 import io.kotest.matchers.shouldBe
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -42,5 +45,17 @@ class SnippetsKtTest {
 
         snippets[0].identifierName shouldBe "com.meiji.daily.data.local.dao.ZhuanlanDao"
         snippets[0].requiredType shouldBe listOf("com.meiji.daily.bean.ZhuanlanBean", "Long")
+    }
+
+    @Test
+    fun should_generate_prompts() {
+        val snippets = snippetsFromFile(File("src/test/resources/snippets.json"))
+        val typeStrings = File("src/test/resources/types.json").readText()
+        val types: List<RawDump> = Json.decodeFromString(typeStrings)
+
+        snippetToPrompts(
+            types,
+            snippets
+        ) shouldBe listOf("data class ZhuanlanBean( var followersCount: Int, var creator: Creator, var topics: List<Topic>, var activateState: String, var href: String, var acceptSubmission: Boolean, var firstTime: Boolean, var pendingName: String, var avatar: Avatar, var canManage: Boolean, var description: String, var nameCanEditUntil: Int, var reason: String, var banUntil: Int, @PrimaryKey var slug: String, var name: String, var url: String, var intro: String, var topicsCanEditUntil: Int, var activateAuthorRequested: String, var commentPermission: String, var following: Boolean, var postsCount: Int, var canPost: Boolean, var type: Int = 0 )")
     }
 }

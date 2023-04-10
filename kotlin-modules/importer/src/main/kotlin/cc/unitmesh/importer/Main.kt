@@ -1,11 +1,12 @@
 package cc.unitmesh.importer
 
-import cc.unitmesh.importer.filter.CodeSnippetContext
-import cc.unitmesh.importer.filter.KotlinCodeProcessor
+import cc.unitmesh.importer.processor.CodeSnippetContext
+import cc.unitmesh.importer.processor.KotlinCodeProcessor
 import cc.unitmesh.importer.model.CodeSnippet
 import cc.unitmesh.importer.model.PackageUtil
 import cc.unitmesh.importer.model.RawDump
 import cc.unitmesh.importer.model.SourceCodeTable
+import cc.unitmesh.importer.processor.classToConstructorText
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
 import kotlinx.serialization.decodeFromString
@@ -146,15 +147,16 @@ class Type : CliktCommand(help = "Generate TypeItem") {
 
 
 class Prompt : CliktCommand(help = "Generate Prompt") {
-    fun promptText(text: String): String {
-        return """"""
-    }
+
 
     override fun run() {
-        var types: List<RawDump> = Json.decodeFromString(File(typeFile).readText())
+        val types: List<RawDump> = Json.decodeFromString(File(typeFile).readText())
         val snippets: List<CodeSnippet> = Json.decodeFromString(splitFile.readText())
 
+        val prompts = snippetToPrompts(types, snippets)
 
+
+        logger.info("Prompt sizes: ${prompts.size}")
+        File("datasets" + File.separator + "prompts.json").writeText(Json.Default.encodeToString(prompts))
     }
-
 }

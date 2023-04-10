@@ -1,4 +1,4 @@
-package cc.unitmesh.importer.filter
+package cc.unitmesh.importer.processor
 
 import org.jetbrains.kotlin.KtNodeTypes
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
@@ -23,6 +23,17 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
     }
 
     fun allClassNodes(): List<ASTNode> {
+        // SCRIPT > BLOCK > CLASS
+        rootNode.findChildByType(KtNodeTypes.SCRIPT)?.let {
+            // find block in script
+            it.findChildByType(KtNodeTypes.BLOCK)?.let { block ->
+                // find class in block
+                return block.findChildByType(KtNodeTypes.CLASS)?.let { classNode ->
+                    listOf(classNode)
+                } ?: listOf()
+            }
+        }
+
         return allClasses
     }
 
@@ -197,6 +208,31 @@ fun ASTNode.classToConstructorText(): String {
     val className = this.findChildByType(KtTokens.IDENTIFIER)?.text ?: ""
     val constructor = this.findChildByType(KtNodeTypes.PRIMARY_CONSTRUCTOR)
 
+    // clone constructor and remove comments
+    constructor?.let {
+        val clone = it.clone() as ASTNode
+        clone.removeComments()
 
-    return "data class $className(${constructor?.text})"
+        // find VALUE_PARAMETER_LIST and remove comments
+        clone.findChildByType(KtNodeTypes.VALUE_PARAMETER_LIST)?.let { params ->
+            params.children().forEach {
+                params.findChildByType(KtTokens.EOL_COMMENT)?.let { comment ->
+                    params.removeChild(comment)
+                }
+                params.findChildByType(KtTokens.BLOCK_COMMENT)?.let { comment ->
+                    params.removeChild(comment)
+                }
+            }
+        }
+
+        return "data class $className${clone.text}".minify()
+    }
+
+    return "data class $className${constructor?.text}".minify()
+}
+
+private fun String.minify(): String {
+    // remove new line and continuous white space
+    return this.replace("\n", " ")
+        .replace(Regex("\\s+"), " ")
 }

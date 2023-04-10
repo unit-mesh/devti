@@ -57,7 +57,6 @@ kotlin {
 }
 
 application {
-//    applicationDefaultJvmArgs = listOf("--add-opens", "java.base/java.nio=ALL-UNNAMED")
     mainClass.set("cc.unitmesh.importer.MainKt")
 }
 

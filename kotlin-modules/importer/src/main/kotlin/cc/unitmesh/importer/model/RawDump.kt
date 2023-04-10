@@ -13,7 +13,7 @@ data class RawDump(
     val repo_name: String,
     var path: String,
     val copies: String,
-    val size: String,
+    var size: String,
     var content: String,
     val license: String
 ) {

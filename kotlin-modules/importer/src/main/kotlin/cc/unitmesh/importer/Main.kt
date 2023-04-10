@@ -126,6 +126,7 @@ class Analysis : CliktCommand(help = "Action Runner") {
                     val code = it.copy()
                     code.content = method.text
                     code.path = code.path + "#" + method.text.hashCode()
+                    code.size = method.text.length.toString()
                     results.add(code)
                 }
             }

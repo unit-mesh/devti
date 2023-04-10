@@ -8,7 +8,7 @@ object SourceCode : Table() {
     val identifierName = varchar("package_name", 255).default("")
     val repoName = varchar("repo_name", 255)
     val path = varchar("path", 255)
-    val size = varchar("size", 255)
+    val size = integer("size")
     val content = text("content")
     val license = varchar("license", 255)
     val copies = varchar("copies", 255)

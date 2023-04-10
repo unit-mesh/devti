@@ -126,7 +126,12 @@ class Analysis : CliktCommand(help = "Action Runner") {
                     val code = it.copy()
                     code.content = method.text
                     code.path = code.path + "#" + method.text.hashCode()
-                    code.size = method.text.length.toString()
+                    code.size = method.text.length
+
+                    if (code.size > 2048) {
+                        logger.info("size too large: ${code.path}")
+                    }
+
                     results.add(code)
                 }
             }

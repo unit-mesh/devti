@@ -7,6 +7,7 @@ import cc.unitmesh.importer.model.SourceCode
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ktlint.analysis.KtLintParseException
 import org.jetbrains.exposed.sql.Database
@@ -17,7 +18,6 @@ import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.kotlinx.dataframe.api.toDataFrame
 import org.jetbrains.kotlinx.dataframe.io.writeArrowFeather
-import org.jetbrains.kotlinx.dataframe.io.writeJson
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -79,23 +79,35 @@ class Sqlite : CliktCommand(help = "Initialize the database") {
 }
 
 class Analysis : CliktCommand(help = "Action Runner") {
-    override fun run() {
-        val codes: List<RawDump> = readDumpLists()
+    private val outputPath = "datasets" + File.separator + "filtered.json"
 
-        val outputs = codes.filter { code ->
-            val snippet: CodeSnippetContext
-            try {
-                snippet = CodeSnippetContext.createUnitContext(code.toCode())
-            } catch (e: KtLintParseException) {
-                return@filter false
+    override fun run() {
+        logger.info("Analysis Started")
+
+        logger.info("Analysis Prepare filter data")
+
+        val outputFile = File(outputPath)
+        if (!outputFile.exists()) {
+
+            val codes: List<RawDump> = readDumpLists()
+
+            val outputs = codes.filter { code ->
+                val snippet: CodeSnippetContext
+                try {
+                    snippet = CodeSnippetContext.createUnitContext(code.toCode())
+                } catch (e: KtLintParseException) {
+                    return@filter false
+                }
+
+                val processor = KotlinCodeProcessor(snippet.rootNode, code.content)
+                processor.getMethodByAnnotationName("Query").isNotEmpty()
             }
 
-            val processor = KotlinCodeProcessor(snippet.rootNode, code.content)
-            // should contains @Query @Delete @Insert ....
-            processor.getMethodByAnnotationName("Query").isNotEmpty()
+            outputFile.writeText(Json.Default.encodeToString(outputs))
+        } else {
+            logger.info("Skip analysis, because the output file already exists")
         }
 
-        val dataFrame = outputs.toDataFrame()
-        dataFrame.writeJson("datasets" + File.separator + "simple-repositories.json")
+        logger.info("Analysis finished")
     }
 }

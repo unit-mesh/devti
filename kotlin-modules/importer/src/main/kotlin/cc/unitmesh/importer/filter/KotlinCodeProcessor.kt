@@ -198,3 +198,11 @@ fun ASTNode.annotations(): List<ASTNode> {
         it.elementType == KtNodeTypes.ANNOTATION_ENTRY
     }?.toList() ?: listOf()
 }
+
+fun ASTNode.classToConstructorText(): String {
+    val className = this.findChildByType(KtTokens.IDENTIFIER)?.text ?: ""
+    val constructor = this.findChildByType(KtNodeTypes.PRIMARY_CONSTRUCTOR)
+
+
+    return "data class $className(${constructor?.text})"
+}

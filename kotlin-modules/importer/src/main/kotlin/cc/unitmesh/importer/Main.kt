@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory
 import java.io.File
 
 fun main(args: Array<String>) = Importer()
-    .subcommands(Arrow(), Sqlite(), Analysis(), Type())
+    .subcommands(Arrow(), Sqlite(), Analysis(), Type(), Prompt())
     .main(args)
 
 
@@ -185,4 +185,11 @@ class Type : CliktCommand(help = "Generate TypeItem") {
 
         File(typeFile).writeText(Json.Default.encodeToString(typeItems))
     }
+}
+
+class Prompt : CliktCommand(help = "Generate Prompt") {
+    override fun run() {
+        TODO("Not yet implemented")
+    }
+
 }

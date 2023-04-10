@@ -2,8 +2,10 @@ package cc.unitmesh.importer.processor
 
 import cc.unitmesh.importer.filter.CodeSnippetContext
 import cc.unitmesh.importer.filter.KotlinCodeProcessor
+import cc.unitmesh.importer.filter.classToConstructorText
 import cc.unitmesh.importer.model.RawDump
 import io.kotest.matchers.shouldBe
+import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -182,5 +184,24 @@ interface CardDao {
 
     
 }"""
+    }
+
+    @Test
+    fun should_create_constructor_only() {
+        val content = """"/*\n * Copyright 2017 twitter.com/PensatoAlex\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *     http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage net.pensato.data.cassandra.sample.domain\n\nimport org.springframework.cassandra.core.PrimaryKeyType\nimport org.springframework.data.cassandra.mapping.PrimaryKeyColumn\nimport org.springframework.data.cassandra.mapping.Table\n\n@Table\ndata class College(\n        @PrimaryKeyColumn(name = \"name\", ordinal = 1, type = PrimaryKeyType.PARTITIONED)\n        var name: String,\n        var city: String = \"\",\n        var disciplines: Set<String>\n)\n""""
+        val rawString =
+            """{"repo_name":"romannurik/muzei","path":"source-gallery/src/main/java/com/google/android/apps/muzei/gallery/ChosenPhotoDao.kt","copies":"2","size":"11222","content": $content,"license":"apache-2.0"}"""
+
+        dump = RawDump.fromString(rawString)
+        unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
+
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
+        processor.allClassNodes().size shouldBe 1
+        processor.allClassNodes().first().classToConstructorText() shouldBe """data class College((
+        @PrimaryKeyColumn(name = "name", ordinal = 1, type = PrimaryKeyType.PARTITIONED)
+        var name: String,
+        var city: String = "",
+        var disciplines: Set<String>
+))"""
     }
 }

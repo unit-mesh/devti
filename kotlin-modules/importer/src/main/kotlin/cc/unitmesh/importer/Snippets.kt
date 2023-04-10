@@ -41,7 +41,6 @@ fun snippetsFromFile(outputFile: File): MutableList<CodeSnippet> {
                     }
 
                     val requiredType = processor.methodRequiredTypes(method, imports)
-                    logger.info("requiredType: $requiredType")
 
                     results.add(
                         CodeSnippet(

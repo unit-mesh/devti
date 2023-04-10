@@ -106,9 +106,35 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
         return rootNode.findChildByType(KtNodeTypes.IMPORT_LIST)
             ?.children()
             ?.filter { it.elementType == KtNodeTypes.IMPORT_DIRECTIVE }
-            ?.map { it.text }
+            ?.map {
+                it.findChildByType(KtNodeTypes.DOT_QUALIFIED_EXPRESSION)?.text ?: it.text
+            }
             ?.toList()
             ?: listOf()
+    }
+
+    fun methodReturnType(methodNode: ASTNode): String {
+        val defaultRefs = methodNode.findChildByType(KtNodeTypes.TYPE_REFERENCE)
+        val userType = defaultRefs?.findChildByType(KtNodeTypes.USER_TYPE)
+
+        userType
+            ?.findChildByType(KtNodeTypes.TYPE_ARGUMENT_LIST)
+            ?.findChildByType(KtNodeTypes.TYPE_PROJECTION)
+            ?.let {
+                return it.text
+            }
+
+        return defaultRefs?.text ?: ""
+    }
+
+    fun fullReturnType(methodNode: ASTNode, imports: List<String>): String {
+        val methodReturnType = methodReturnType(methodNode)
+        val import = imports.find { it.endsWith(methodReturnType) }
+        return import ?: methodReturnType
+    }
+
+    companion object {
+        private val logger: Logger = LoggerFactory.getLogger(KotlinCodeProcessor::class.java)
     }
 }
 

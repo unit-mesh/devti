@@ -28,12 +28,26 @@ class KotlinCodeProcessorTest {
 
         val imports = processor.allImports()
         imports.size shouldBe 6
-        imports[0] shouldBe "import jp.ac.kcg.domain.Item"
-        imports[1] shouldBe "import jp.ac.kcg.domain.User"
-        imports[2] shouldBe "import org.springframework.data.jpa.repository.JpaRepository"
-        imports[3] shouldBe "import org.springframework.data.jpa.repository.Query"
-        imports[4] shouldBe "import org.springframework.data.repository.query.Param"
-        imports[5] shouldBe "import java.time.LocalDate"
+        imports[0] shouldBe "jp.ac.kcg.domain.Item"
+        imports[1] shouldBe "jp.ac.kcg.domain.User"
+        imports[2] shouldBe "org.springframework.data.jpa.repository.JpaRepository"
+        imports[3] shouldBe "org.springframework.data.jpa.repository.Query"
+        imports[4] shouldBe "org.springframework.data.repository.query.Param"
+        imports[5] shouldBe "java.time.LocalDate"
+    }
+
+
+    @Test
+    fun should_get_method_return_type() {
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
+
+        val nodes = processor.getMethodByAnnotationName("Query")
+        nodes.size shouldBe 1
+
+        val returnType = processor.methodReturnType(nodes.first())
+        returnType shouldBe "Item"
+        val fullReturnType = processor.fullReturnType(nodes.first(), processor.allImports())
+        fullReturnType shouldBe "jp.ac.kcg.domain.Item"
     }
 
     @Test

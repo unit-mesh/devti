@@ -140,7 +140,7 @@ class Analysis : CliktCommand(help = "Action Runner") {
                         return@map null
                     }
 
-                    val returnType = processor.fullReturnType(method, processor.allImports())
+                    val requiredType = processor.methodRequiredType(method, processor.allImports())
 
                     results.add(
                         CodeSnippet(
@@ -149,7 +149,7 @@ class Analysis : CliktCommand(help = "Action Runner") {
                             path = rawDump.path + "#" + method.text.hashCode(),
                             size = size,
                             imports = imports,
-                            requiredType = listOf(returnType),
+                            requiredType = requiredType,
                         )
                     )
                 }

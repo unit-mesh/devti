@@ -133,6 +133,30 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
         return import ?: methodReturnType
     }
 
+    fun methodInputType(methodNode: ASTNode): List<String> {
+        return methodNode.findChildByType(KtNodeTypes.VALUE_PARAMETER_LIST)
+            ?.children()
+            ?.filter { it.elementType == KtNodeTypes.VALUE_PARAMETER }
+            ?.map {
+                it.findChildByType(KtNodeTypes.TYPE_REFERENCE)?.text ?: ""
+            }
+            ?.toList()
+            ?: listOf()
+    }
+
+    fun methodRequiredType(methodNode: ASTNode, imports: List<String>): List<String> {
+        val methodReturnType = methodReturnType(methodNode)
+        val methodInputType = methodInputType(methodNode)
+
+        val allType = methodInputType + methodReturnType
+
+        val requiredType = allType.map { type ->
+            imports.find { it.endsWith(type) } ?: type
+        }.associateBy { it }.keys.toList()
+
+        return requiredType
+    }
+
     companion object {
         private val logger: Logger = LoggerFactory.getLogger(KotlinCodeProcessor::class.java)
     }

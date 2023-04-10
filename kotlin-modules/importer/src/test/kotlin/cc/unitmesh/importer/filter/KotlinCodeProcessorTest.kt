@@ -88,11 +88,12 @@ internal abstract class ChosenPhotoDao {
 }"""
     }
 
+    val multipleMethodSource =
+        """"package com.jamieadkins.gwent.database\n\nimport androidx.room.Dao\nimport androidx.room.Insert\nimport androidx.room.OnConflictStrategy\nimport androidx.room.Query\nimport androidx.room.Transaction\nimport com.jamieadkins.gwent.database.entity.CardEntity\nimport com.jamieadkins.gwent.database.entity.CardWithArtEntity\nimport com.jamieadkins.gwent.domain.GwentFaction\nimport io.reactivex.Flowable\nimport io.reactivex.Single\n\n@Dao\ninterface CardDao {\n\n    @Insert(onConflict = OnConflictStrategy.REPLACE)\n    fun insertCards(items: Collection<CardEntity>)\n\n    @Transaction\n    @Query(\"SELECT * FROM \" + GwentDatabase.CARD_TABLE)\n    fun getCardsOnce(): Single<List<CardWithArtEntity>>\n\n    @Transaction\n    @Query(\"SELECT * FROM \" + GwentDatabase.CARD_TABLE)\n    fun getCards(): Flowable<List<CardWithArtEntity>>\n\n    @Transaction\n    @Query(\"SELECT * FROM \" + GwentDatabase.CARD_TABLE + \" WHERE id=:cardId\")\n    fun getCard(cardId: String): Flowable<CardWithArtEntity>\n\n    @Transaction\n    @Query(\"SELECT * FROM \" + GwentDatabase.CARD_TABLE + \"  WHERE id IN(:ids)\")\n    fun getCards(ids: List<String>): Flowable<List<CardWithArtEntity>>\n\n    @Transaction\n    @Query(\"SELECT * FROM \" + GwentDatabase.CARD_TABLE + \" WHERE faction=:faction AND type='Leader'\")\n    fun getLeaders(faction: String): Flowable<List<CardWithArtEntity>>\n\n    @Transaction\n    @Query(\"SELECT * FROM \" + GwentDatabase.CARD_TABLE + \" WHERE faction IN(:factions) OR secondaryFaction IN(:factions)\")\n    fun getCardsInFactions(factions: List<String>): Flowable<List<CardWithArtEntity>>\n\n    @Query(\"SELECT COUNT(*) FROM \" + GwentDatabase.CARD_TABLE)\n    fun count(): Flowable<Int>\n}\n""""
+
     @Test
     fun split_by_multiple_methods() {
-        val sourceCode =
-            """"package com.jamieadkins.gwent.database\n\nimport androidx.room.Dao\nimport androidx.room.Insert\nimport androidx.room.OnConflictStrategy\nimport androidx.room.Query\nimport androidx.room.Transaction\nimport com.jamieadkins.gwent.database.entity.CardEntity\nimport com.jamieadkins.gwent.database.entity.CardWithArtEntity\nimport com.jamieadkins.gwent.domain.GwentFaction\nimport io.reactivex.Flowable\nimport io.reactivex.Single\n\n@Dao\ninterface CardDao {\n\n    @Insert(onConflict = OnConflictStrategy.REPLACE)\n    fun insertCards(items: Collection<CardEntity>)\n\n    @Transaction\n    @Query(\"SELECT * FROM \" + GwentDatabase.CARD_TABLE)\n    fun getCardsOnce(): Single<List<CardWithArtEntity>>\n\n    @Transaction\n    @Query(\"SELECT * FROM \" + GwentDatabase.CARD_TABLE)\n    fun getCards(): Flowable<List<CardWithArtEntity>>\n\n    @Transaction\n    @Query(\"SELECT * FROM \" + GwentDatabase.CARD_TABLE + \" WHERE id=:cardId\")\n    fun getCard(cardId: String): Flowable<CardWithArtEntity>\n\n    @Transaction\n    @Query(\"SELECT * FROM \" + GwentDatabase.CARD_TABLE + \"  WHERE id IN(:ids)\")\n    fun getCards(ids: List<String>): Flowable<List<CardWithArtEntity>>\n\n    @Transaction\n    @Query(\"SELECT * FROM \" + GwentDatabase.CARD_TABLE + \" WHERE faction=:faction AND type='Leader'\")\n    fun getLeaders(faction: String): Flowable<List<CardWithArtEntity>>\n\n    @Transaction\n    @Query(\"SELECT * FROM \" + GwentDatabase.CARD_TABLE + \" WHERE faction IN(:factions) OR secondaryFaction IN(:factions)\")\n    fun getCardsInFactions(factions: List<String>): Flowable<List<CardWithArtEntity>>\n\n    @Query(\"SELECT COUNT(*) FROM \" + GwentDatabase.CARD_TABLE)\n    fun count(): Flowable<Int>\n}\n""""
-        val newCode = """{"repo_name":"jamieadkins95/Roach","path":"database/src/main/java/com/jamieadkins/gwent/database/CardDao.kt","copies":"1","size":"1647","content":$sourceCode,"license":"apache-2.0"}"""
+        val newCode = """{"repo_name":"jamieadkins95/Roach","path":"database/src/main/java/com/jamieadkins/gwent/database/CardDao.kt","copies":"1","size":"1647","content":$multipleMethodSource,"license":"apache-2.0"}"""
         dump = RawDump.fromString(newCode)
         unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
 
@@ -106,6 +107,30 @@ interface CardDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCards(items: Collection<CardEntity>)
+
+    
+}"""
+    }
+
+    @Test
+    fun should_keep_query_only() {
+        val newCode = """{"repo_name":"jamieadkins95/Roach","path":"database/src/main/java/com/jamieadkins/gwent/database/CardDao.kt","copies":"1","size":"1647","content":$multipleMethodSource,"license":"apache-2.0"}"""
+        dump = RawDump.fromString(newCode)
+        unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
+
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
+        val firstClass = processor.allClassNodes().first()
+        val newNodes = processor.splitClassMethodsByAnnotationName(firstClass, "Query")
+
+        newNodes.size shouldBe 7
+        newNodes.first().text shouldBe """@Dao
+interface CardDao {
+
+    
+
+    @Transaction
+    @Query("SELECT * FROM " + GwentDatabase.CARD_TABLE)
+    fun getCardsOnce(): Single<List<CardWithArtEntity>>
 
     
 }"""

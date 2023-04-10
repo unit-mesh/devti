@@ -3,7 +3,6 @@ package cc.unitmesh.importer.filter
 import org.jetbrains.kotlin.KtNodeTypes
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
-import org.jetbrains.kotlin.kdoc.lexer.KDocToken
 import org.jetbrains.kotlin.kdoc.lexer.KDocTokens
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.psiUtil.children
@@ -48,17 +47,7 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
             return listOf()
         }
 
-        return allMethods.filter { method ->
-            val annotations = method.annotations()
-
-            val callees = annotations.flatMap {
-                it.children()
-            }.filter { it.elementType == KtNodeTypes.CONSTRUCTOR_CALLEE }
-
-            callees.any {
-                it.text == annotationName
-            }
-        }.toList()
+        return filterByAnnotation(allMethods, arrayOf(annotationName))
     }
 
     /**
@@ -69,7 +58,31 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
      */
     fun splitClassMethodsToManyClass(classNode: ASTNode): List<ASTNode> {
         val methods = classNode.allMethods()
+        return splitMethods(methods, classNode)
+    }
 
+    fun splitClassMethodsByAnnotationName(classNode: ASTNode, vararg annotationName: String): List<ASTNode> {
+        val methods = filterByAnnotation(classNode.allMethods(), annotationName)
+        return splitMethods(methods, allClasses.first())
+    }
+
+    private fun filterByAnnotation(funcNodes: List<ASTNode>, annotationName: Array<out String>) =
+        funcNodes.filter { method ->
+            val annotations = method.annotations()
+
+            val callees = annotations.flatMap {
+                it.children()
+            }.filter { it.elementType == KtNodeTypes.CONSTRUCTOR_CALLEE }
+
+            callees.any {
+                annotationName.contains(it.text)
+            }
+        }.toList()
+
+    private fun splitMethods(
+        methods: List<ASTNode>,
+        classNode: ASTNode
+    ): List<ASTNode> {
         return methods.map { method ->
             val newClassNode = classNode.clone() as ASTNode
             newClassNode.removeComments()
@@ -93,17 +106,6 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
                     classBody.removeChild(it)
                 }
             }
-
-            //remove KtTokens.WHITE_SPACE before lastChildren if it has two continuous KtTokens.WHITE_SPACE
-//            val lastChildren = children.lastOrNull()
-//            if (lastChildren != null && lastChildren.elementType == KtTokens.RBRACE) {
-//                val prev = lastChildren.treePrev
-//                val prevPrev = lastChildren.treePrev.treePrev
-//
-//                if (prev != null && prevPrev != null && prev.elementType == KtTokens.WHITE_SPACE && prevPrev.elementType == KtTokens.WHITE_SPACE) {
-//                    classBody.removeChild(prev)
-//                }
-//            }
 
             newClassNode
         }

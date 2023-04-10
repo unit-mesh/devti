@@ -29,43 +29,41 @@ fun main(args: Array<String>) = Importer()
 
 val logger: Logger = LoggerFactory.getLogger(Importer::class.java)
 
-class Importer: CliktCommand() {
+class Importer : CliktCommand() {
     override fun run() = Unit
 }
 
 // not working well
-class Arrow: CliktCommand(help="Initialize the database") {
+class Arrow : CliktCommand(help = "Initialize the database") {
     override fun run() {
         logger.info("Convert to Arrow")
-        val jsonFiles = File("datasets" + File.separator + "rawdump").walkTopDown().filter { file ->
-            file.name.endsWith(".json")
-        }.toList()
-
-        val codes: List<RawDump> = jsonFiles.flatMap(File::readLines).map {
-            Json.decodeFromString<RawDump>(it)
-        }.toList()
+        val codes: List<RawDump> = readDumpLists()
 
         val dfs = codes.toDataFrame()
         dfs.writeArrowFeather(File("datasets" + File.separator + "rawdump.arrow"))
     }
 }
 
-class Sqlite: CliktCommand(help="Initialize the database") {
+fun readDumpLists(): List<RawDump> {
+    val jsonFiles = File("datasets" + File.separator + "rawdump").walkTopDown().filter { file ->
+        file.name.endsWith(".json")
+    }.toList()
+
+    val codes: List<RawDump> = jsonFiles.flatMap(File::readLines).map(Json.Default::decodeFromString)
+
+    return codes
+}
+
+class Sqlite : CliktCommand(help = "Initialize the database") {
     override fun run() {
         logger.info("Initialize the database")
         Database.connect("jdbc:sqlite:datasets/data.db", "org.sqlite.JDBC")
 
-        val jsonFiles = File("datasets" + File.separator + "rawdump").walkTopDown().filter { file ->
-            file.name.endsWith(".json")
-        }.toList()
-
-        val codes: List<RawDump> = jsonFiles.flatMap(File::readLines).map {
-            Json.decodeFromString<RawDump>(it)
-        }.toList()
+        val codes: List<RawDump> = readDumpLists()
 
         transaction {
             addLogger(StdOutSqlLogger)
-            SchemaUtils.create (SourceCode)
+            SchemaUtils.create(SourceCode)
 
             SourceCode.batchInsert(codes) {
                 this[SourceCode.repoName] = it.repoName
@@ -82,11 +80,7 @@ class Sqlite: CliktCommand(help="Initialize the database") {
 
 class Analysis : CliktCommand(help = "Action Runner") {
     override fun run() {
-        val jsonFiles = File("datasets" + File.separator + "rawdump").walkTopDown().filter { file ->
-            file.name.endsWith(".json")
-        }.toList()
-
-        val codes: List<RawDump> = jsonFiles.flatMap(File::readLines).map(Json.Default::decodeFromString)
+        val codes: List<RawDump> = readDumpLists()
 
         val outputs = codes.filter { code ->
             val snippet: CodeSnippetContext
@@ -103,8 +97,5 @@ class Analysis : CliktCommand(help = "Action Runner") {
 
         val dataFrame = outputs.toDataFrame()
         dataFrame.writeJson("datasets" + File.separator + "filtered.json")
-
-//        val outputFile = File("datasets" + File.separator + "filtered.json")
-//        outputFile.writeText(Json.Default.encodeToString(outputs))
     }
 }

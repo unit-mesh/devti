@@ -53,7 +53,7 @@ class SnippetsKtTest {
         val typeStrings = File("src/test/resources/types.json").readText()
         val types: List<RawDump> = Json.decodeFromString(typeStrings)
 
-        val prompts = snippetToPrompts(
+        val prompts = snippetTypesToPrompts(
             types,
             snippets
         )

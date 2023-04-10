@@ -4,7 +4,6 @@ import cc.unitmesh.importer.processor.CodeSnippetContext
 import cc.unitmesh.importer.processor.KotlinCodeProcessor
 import cc.unitmesh.importer.processor.allMethods
 import cc.unitmesh.importer.model.CodeSnippet
-import cc.unitmesh.importer.model.PackageUtil
 import cc.unitmesh.importer.model.RawDump
 import cc.unitmesh.importer.processor.classToConstructorText
 import kotlinx.serialization.decodeFromString
@@ -63,7 +62,7 @@ fun snippetsFromFile(outputFile: File): MutableList<CodeSnippet> {
     return results
 }
 
-fun promptText(code: String, types: List<String>): String {
+fun typedPrompt(code: String, types: List<String>): String {
     return """请编写用户故事，能覆盖下面的代码功能，要求：1. 突出重点 2. 你返回的内容只有： 我想 xxx。
 
 ###
@@ -74,7 +73,7 @@ $code
 """.trimMargin()
 }
 
-fun snippetToPrompts(
+fun snippetTypesToPrompts(
     typesDump: List<RawDump>,
     snippets: List<CodeSnippet>
 ): List<String> {
@@ -99,7 +98,38 @@ fun snippetToPrompts(
             processor.allClassNodes()[0].classToConstructorText()
         }
 
-        promptText(snippet.content, typeStrings)
+        typedPrompt(snippet.content, typeStrings)
+    }
+
+    return prompts
+}
+
+
+fun promptForOpenAI(code: String): String {
+    return """请编写用户故事，能覆盖下面的代码功能，要求：1. 突出重点 2. 你返回的内容只有： 我想 xxx。
+
+###
+$code
+###
+""".trimMargin()
+}
+
+
+fun snippetToPrompts(
+    snippets: List<CodeSnippet>
+): List<String> {
+    val typeMapByIdentifier: MutableMap<String, RawDump> = mutableMapOf()
+
+    val prompts = snippets.map { snippet ->
+        snippet.requiredType.mapNotNull { type ->
+            typeMapByIdentifier[type]
+        }.map {
+            val createUnitContext = CodeSnippetContext.createUnitContext(it.toCode())
+            val processor = KotlinCodeProcessor(createUnitContext.rootNode, it.content)
+            processor.allClassNodes()[0].classToConstructorText()
+        }
+
+        promptForOpenAI(snippet.content)
     }
 
     return prompts

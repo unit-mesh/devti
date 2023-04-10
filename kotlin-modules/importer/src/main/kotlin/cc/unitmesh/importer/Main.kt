@@ -130,6 +130,7 @@ class Analysis : CliktCommand(help = "Action Runner") {
 
                     if (code.size > 2048) {
                         logger.info("size too large: ${code.path}")
+                        return@map null
                     }
 
                     results.add(code)

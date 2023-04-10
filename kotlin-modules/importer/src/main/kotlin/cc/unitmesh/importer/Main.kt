@@ -3,6 +3,7 @@ package cc.unitmesh.importer
 import cc.unitmesh.importer.filter.CodeSnippetContext
 import cc.unitmesh.importer.filter.KotlinCodeProcessor
 import cc.unitmesh.importer.model.CodeSnippet
+import cc.unitmesh.importer.model.PackageUtil
 import cc.unitmesh.importer.model.RawDump
 import cc.unitmesh.importer.model.SourceCodeTable
 import com.github.ajalt.clikt.core.CliktCommand
@@ -24,7 +25,7 @@ import org.slf4j.LoggerFactory
 import java.io.File
 
 fun main(args: Array<String>) = Importer()
-    .subcommands(Arrow(), Sqlite(), Analysis())
+    .subcommands(Arrow(), Sqlite(), Analysis(), Type())
     .main(args)
 
 
@@ -34,7 +35,7 @@ class Importer : CliktCommand() {
     override fun run() = Unit
 }
 
-// not working well
+// TODO: not working well
 class Arrow : CliktCommand(help = "Initialize the database") {
     override fun run() {
         logger.info("Convert to Arrow")
@@ -55,6 +56,7 @@ fun readDumpLists(): List<RawDump> {
     return codes
 }
 
+// TODO: not working well
 class Sqlite : CliktCommand(help = "Initialize the database") {
     override fun run() {
         logger.info("Initialize the database")
@@ -160,8 +162,24 @@ class Analysis : CliktCommand(help = "Action Runner") {
     }
 }
 
-class GenerateType : CliktCommand(help = "Generate TypeItem") {
+private val typeFile = "datasets" + File.separator + "types.json"
+
+class Type : CliktCommand(help = "Generate TypeItem") {
     override fun run() {
         val snippets: List<CodeSnippet> = Json.decodeFromString(splitFile.readText())
+
+        val types = snippets.flatMap { snippet ->
+            snippet.requiredType
+        }.distinct()
+
+        val rawdumpMap: Map<String, RawDump> =
+            readDumpLists().associateBy { PackageUtil.pathToIdentifier(it.path) }
+
+        val typeItems: List<RawDump> = types.map { type ->
+            val rawDump = rawdumpMap[type] ?: return@map null
+            rawDump.copy(path = type)
+        }.filterNotNull()
+
+        File(typeFile).writeText(Json.Default.encodeToString(typeItems))
     }
 }

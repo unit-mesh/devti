@@ -76,9 +76,15 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
                 classBody.removeChild(it)
             }
 
-            // remove all WHITE_SPACE before last Node
-            val lastNode = classBody.lastChildNode
-            val whiteSpace = lastNode.treePrev
+            // remove KtTokens.WHITE_SPACE if it has three continuous KtTokens.WHITE_SPACE
+            classBody.children().toList().filter { it.elementType == KtTokens.WHITE_SPACE }.forEach {
+                val prev = it.treePrev
+                val next = it.treeNext
+
+                if (prev != null && next != null && prev.elementType == KtTokens.WHITE_SPACE && next.elementType == KtTokens.WHITE_SPACE) {
+                    classBody.removeChild(it)
+                }
+            }
 
             newClassNode
         }

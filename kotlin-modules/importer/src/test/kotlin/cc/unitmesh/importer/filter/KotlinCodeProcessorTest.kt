@@ -64,10 +64,26 @@ class KotlinCodeProcessorTest {
         val firstClass = processor.allClassNodes().first()
         val newNodes = processor.splitClassMethodsToManyClass(firstClass)
         newNodes.size shouldBe 15
-//        newNodes.first().text shouldBe """interface ItemRepository: JpaRepository<Item, Long>
-//
-//    @Query("select i from Item i where i.user = :user and :before <= i.receiptDate and i.receiptDate <= :after")
-//    fun searchItems(@Param("user") user: User, @Param("before") before: LocalDate, @Param("after") after: LocalDate): List<Item>
-//}"""
+        newNodes.first().text shouldBe """/**
+ * Dao for [ChosenPhoto]
+ */
+@Dao
+internal abstract class ChosenPhotoDao {
+
+    companion object {
+        private const val TAG = "ChosenPhotoDao"
+    }
+
+    @get:Query("SELECT * FROM chosen_photos ORDER BY _id DESC")
+    internal abstract val chosenPhotosPaged: PagingSource<Int, ChosenPhoto>
+
+    @get:Query("SELECT * FROM chosen_photos ORDER BY _id DESC")
+    internal abstract val chosenPhotosLiveData: LiveData<List<ChosenPhoto>>
+
+    @get:Query("SELECT * FROM chosen_photos ORDER BY _id DESC")
+    internal abstract val chosenPhotosBlocking: List<ChosenPhoto>
+
+    
+}"""
     }
 }

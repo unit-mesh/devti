@@ -64,7 +64,7 @@ class KotlinCodeProcessorTest {
         inputType[1] shouldBe "LocalDate"
         inputType[2] shouldBe "LocalDate"
 
-        val fullInputType = processor.methodRequiredType(nodes.first(), processor.allImports())
+        val fullInputType = processor.methodRequiredTypes(nodes.first(), processor.allImports())
         fullInputType.size shouldBe 3
         fullInputType[0] shouldBe "jp.ac.kcg.domain.User"
         fullInputType[1] shouldBe "java.time.LocalDate"
@@ -227,7 +227,7 @@ interface CardDao {
         val firstNode = classNodes[0]
         val methodNodes = firstNode.allMethods()
 
-        val types = processor.methodRequiredType(methodNodes[0], processor.allImports())
+        val types = processor.methodRequiredTypes(methodNodes[0], processor.allImports())
         types.size shouldBe 2
         types[0] shouldBe "com.meiji.daily.bean.ZhuanlanBean"
         types[1] shouldBe "Long"

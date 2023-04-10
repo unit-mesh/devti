@@ -6,8 +6,6 @@ import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import org.jetbrains.kotlin.kdoc.lexer.KDocTokens
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.psiUtil.children
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceCode: String) {
     private var allClasses: List<ASTNode> = listOf()
@@ -144,7 +142,7 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
             ?: listOf()
     }
 
-    fun methodRequiredType(methodNode: ASTNode, imports: List<String>): List<String> {
+    fun methodRequiredTypes(methodNode: ASTNode, imports: List<String>): List<String> {
         val methodReturnType = methodReturnType(methodNode)
         val methodInputType = methodInputType(methodNode)
 

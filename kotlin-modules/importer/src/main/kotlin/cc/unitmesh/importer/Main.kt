@@ -110,54 +110,14 @@ class Analysis : CliktCommand(help = "Action Runner") {
             logger.info("Skip analysis, because the output file already exists")
         }
 
-        val results: MutableList<CodeSnippet> = mutableListOf();
-        val dumpList = Json.decodeFromString<List<RawDump>>(outputFile.readText())
-        dumpList.forEach { rawDump ->
-            val snippet: CodeSnippetContext
-            try {
-                snippet = CodeSnippetContext.createUnitContext(rawDump.toCode())
-            } catch (e: KtLintParseException) {
-                return@forEach
-            }
-
-            val processor = KotlinCodeProcessor(snippet.rootNode, rawDump.content)
-            processor.allClassNodes().forEach { classNode ->
-                val packageName = processor.packageName()
-                val className = processor.className(classNode)
-
-                val methods = processor.splitClassMethodsToManyClass(classNode)
-                val imports = processor.allImports()
-
-                methods.map { method ->
-                    val content = method.text
-                    val size = method.text.length
-
-                    if (size > 2048) {
-                        logger.info("size too large: ${rawDump.path}")
-                        return@map null
-                    }
-
-                    val requiredType = processor.methodRequiredType(method, processor.allImports())
-
-                    results.add(
-                        CodeSnippet(
-                            identifierName = """$packageName.$className""",
-                            content = content,
-                            path = rawDump.path + "#" + method.text.hashCode(),
-                            size = size,
-                            imports = imports,
-                            requiredType = requiredType,
-                        )
-                    )
-                }
-            }
-        }
+        val results: MutableList<CodeSnippet> = snippetsFromFile(outputFile)
 
         splitFile.writeText(Json.Default.encodeToString(results))
 
         logger.info("Analysis finished")
     }
 }
+
 
 private val typeFile = "datasets" + File.separator + "types.json"
 

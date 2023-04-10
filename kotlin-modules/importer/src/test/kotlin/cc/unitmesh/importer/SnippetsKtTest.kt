@@ -41,6 +41,6 @@ class SnippetsKtTest {
         assertEquals(4, snippets.size)
 
         snippets[0].identifierName shouldBe "com.meiji.daily.data.local.dao.ZhuanlanDao"
-        snippets[0].requiredType shouldBe listOf("com.meiji.daily.bean.ZhuanlanBean", "android.arch.persistence.room.Dao")
+        snippets[0].requiredType shouldBe listOf("com.meiji.daily.bean.ZhuanlanBean", "Long")
     }
 }

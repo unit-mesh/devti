@@ -51,9 +51,7 @@ fun readDumpLists(): List<RawDump> {
         file.name.endsWith(".json")
     }.toList()
 
-    val codes: List<RawDump> = jsonFiles.flatMap(File::readLines).map(Json.Default::decodeFromString)
-
-    return codes
+    return jsonFiles.flatMap(File::readLines).map(Json.Default::decodeFromString)
 }
 
 // TODO: not working well
@@ -115,7 +113,6 @@ class Analysis : CliktCommand(help = "Action Runner") {
         val results: MutableList<CodeSnippet> = mutableListOf();
         val dumpList = Json.decodeFromString<List<RawDump>>(outputFile.readText())
         dumpList.forEach { rawDump ->
-            // split methods
             val snippet: CodeSnippetContext
             try {
                 snippet = CodeSnippetContext.createUnitContext(rawDump.toCode())

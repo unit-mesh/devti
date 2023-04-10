@@ -2,10 +2,10 @@ package cc.unitmesh.importer.processor
 
 import cc.unitmesh.importer.filter.CodeSnippetContext
 import cc.unitmesh.importer.filter.KotlinCodeProcessor
+import cc.unitmesh.importer.filter.allMethods
 import cc.unitmesh.importer.filter.classToConstructorText
 import cc.unitmesh.importer.model.RawDump
 import io.kotest.matchers.shouldBe
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -188,7 +188,8 @@ interface CardDao {
 
     @Test
     fun should_create_constructor_only() {
-        val content = """"/*\n * Copyright 2017 twitter.com/PensatoAlex\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *     http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage net.pensato.data.cassandra.sample.domain\n\nimport org.springframework.cassandra.core.PrimaryKeyType\nimport org.springframework.data.cassandra.mapping.PrimaryKeyColumn\nimport org.springframework.data.cassandra.mapping.Table\n\n@Table\ndata class College(\n        @PrimaryKeyColumn(name = \"name\", ordinal = 1, type = PrimaryKeyType.PARTITIONED)\n        var name: String,\n        var city: String = \"\",\n        var disciplines: Set<String>\n)\n""""
+        val content =
+            """"/*\n * Copyright 2017 twitter.com/PensatoAlex\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *     http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage net.pensato.data.cassandra.sample.domain\n\nimport org.springframework.cassandra.core.PrimaryKeyType\nimport org.springframework.data.cassandra.mapping.PrimaryKeyColumn\nimport org.springframework.data.cassandra.mapping.Table\n\n@Table\ndata class College(\n        @PrimaryKeyColumn(name = \"name\", ordinal = 1, type = PrimaryKeyType.PARTITIONED)\n        var name: String,\n        var city: String = \"\",\n        var disciplines: Set<String>\n)\n""""
         val rawString =
             """{"repo_name":"romannurik/muzei","path":"source-gallery/src/main/java/com/google/android/apps/muzei/gallery/ChosenPhotoDao.kt","copies":"2","size":"11222","content": $content,"license":"apache-2.0"}"""
 
@@ -203,5 +204,32 @@ interface CardDao {
         var city: String = "",
         var disciplines: Set<String>
 ))"""
+    }
+
+    @Test
+    fun should_parse_bean_dao() {
+        val content = """{
+    "repo_name": "iMeiji/Daily",
+    "path": "app/src/main/java/com/meiji/daily/data/local/dao/ZhuanlanDao.kt",
+    "copies": "1",
+    "size": "774",
+    "content": "package com.meiji.daily.data.local.dao\n\n/**\n * Created by Meiji on 2017/11/28.\n */\n\nimport android.arch.persistence.room.Dao\nimport android.arch.persistence.room.Insert\nimport android.arch.persistence.room.OnConflictStrategy\nimport android.arch.persistence.room.Query\n\nimport com.meiji.daily.bean.ZhuanlanBean\n\nimport io.reactivex.Maybe\n\n@Dao\ninterface ZhuanlanDao {\n\n    @Insert(onConflict = OnConflictStrategy.IGNORE)\n    fun insert(zhuanlanBean: ZhuanlanBean): Long\n\n    @Insert(onConflict = OnConflictStrategy.IGNORE)\n    fun insert(list: MutableList<ZhuanlanBean>)\n\n    @Query(\"SELECT * FROM zhuanlans WHERE type = :type\")\n    fun query(type: Int): Maybe<MutableList<ZhuanlanBean>>\n\n    @Query(\"DELETE FROM zhuanlans WHERE slug = :slug\")\n    fun delete(slug: String)\n}\n",
+    "license": "apache-2.0"
+}"""
+
+        dump = RawDump.fromString(content)
+        unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
+
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
+        val classNodes = processor.allClassNodes()
+        classNodes.size shouldBe 1
+
+        val firstNode = classNodes[0]
+        val methodNodes = firstNode.allMethods()
+
+        val types = processor.methodRequiredType(methodNodes[0], processor.allImports())
+        types.size shouldBe 2
+        types[0] shouldBe "com.meiji.daily.bean.ZhuanlanBean"
+        types[1] shouldBe "Long"
     }
 }

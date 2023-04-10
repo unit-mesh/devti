@@ -156,10 +156,6 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
 
         return requiredType
     }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(KotlinCodeProcessor::class.java)
-    }
 }
 
 fun FileASTNode.packageName(): String? {

@@ -94,6 +94,17 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
                 }
             }
 
+            //remove KtTokens.WHITE_SPACE before lastChildren if it has two continuous KtTokens.WHITE_SPACE
+//            val lastChildren = children.lastOrNull()
+//            if (lastChildren != null && lastChildren.elementType == KtTokens.RBRACE) {
+//                val prev = lastChildren.treePrev
+//                val prevPrev = lastChildren.treePrev.treePrev
+//
+//                if (prev != null && prevPrev != null && prev.elementType == KtTokens.WHITE_SPACE && prevPrev.elementType == KtTokens.WHITE_SPACE) {
+//                    classBody.removeChild(prev)
+//                }
+//            }
+
             newClassNode
         }
     }

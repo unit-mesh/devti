@@ -96,6 +96,6 @@ class Analysis : CliktCommand(help = "Action Runner") {
         }
 
         val dataFrame = outputs.toDataFrame()
-        dataFrame.writeJson("datasets" + File.separator + "filtered.json")
+        dataFrame.writeJson("datasets" + File.separator + "simple-repositories.json")
     }
 }

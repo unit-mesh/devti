@@ -3,6 +3,8 @@ package cc.unitmesh.importer.filter
 import org.jetbrains.kotlin.KtNodeTypes
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
+import org.jetbrains.kotlin.kdoc.lexer.KDocToken
+import org.jetbrains.kotlin.kdoc.lexer.KDocTokens
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.psiUtil.children
 
@@ -70,6 +72,18 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
 
         return methods.map { method ->
             val newClassNode = classNode.clone() as ASTNode
+
+            // remove comments before class body
+            newClassNode.findChildByType(KtTokens.EOL_COMMENT)?.let {
+                newClassNode.removeChild(it)
+            }
+            newClassNode.findChildByType(KtTokens.BLOCK_COMMENT)?.let {
+                newClassNode.removeChild(it)
+            }
+            newClassNode.findChildByType(KDocTokens.KDOC)?.let {
+                newClassNode.removeChild(it)
+            }
+
             val classBody = newClassNode.findChildByType(KtNodeTypes.CLASS_BODY) ?: return@map newClassNode
 
             classBody.children().toList().filter { it.elementType == KtNodeTypes.FUN && it != method }.forEach {

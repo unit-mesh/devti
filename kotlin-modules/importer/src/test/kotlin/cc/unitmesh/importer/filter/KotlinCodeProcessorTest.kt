@@ -64,9 +64,7 @@ class KotlinCodeProcessorTest {
         val firstClass = processor.allClassNodes().first()
         val newNodes = processor.splitClassMethodsToManyClass(firstClass)
         newNodes.size shouldBe 15
-        newNodes.first().text shouldBe """/**
- * Dao for [ChosenPhoto]
- */
+        newNodes.first().text shouldBe """
 @Dao
 internal abstract class ChosenPhotoDao {
 

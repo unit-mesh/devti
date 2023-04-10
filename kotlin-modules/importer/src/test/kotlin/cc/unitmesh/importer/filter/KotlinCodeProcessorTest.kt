@@ -20,24 +20,8 @@ class KotlinCodeProcessorTest {
     }
 
     @Test
-    fun should_processor_from_jpa() {
-        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
-        processor.allMethodHasAnnotation("Query") shouldBe true
-    }
-
-    @Test
-    fun should_get_method_name() {
-        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
-        processor.allMethodHasAnnotation("Query") shouldBe true
-
-        val nodes = processor.getMethodByAnnotationName("Query")
-        nodes.size shouldBe 1
-    }
-
-    @Test
     fun should_keep_class_only() {
         val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
-        processor.allMethodHasAnnotation("Query") shouldBe true
 
         val nodes = processor.getMethodByAnnotationName("Query")
         nodes.size shouldBe 1

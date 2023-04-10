@@ -81,6 +81,9 @@ internal abstract class ChosenPhotoDao {
     @get:Query("SELECT * FROM chosen_photos ORDER BY _id DESC")
     internal abstract val chosenPhotosBlocking: List<ChosenPhoto>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    internal abstract suspend fun insertInternal(chosenPhoto: ChosenPhoto): Long
+
     
 }"""
     }

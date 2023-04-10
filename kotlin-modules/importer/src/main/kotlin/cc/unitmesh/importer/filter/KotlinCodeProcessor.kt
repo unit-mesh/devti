@@ -86,12 +86,18 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
 
             val classBody = newClassNode.findChildByType(KtNodeTypes.CLASS_BODY) ?: return@map newClassNode
 
-            classBody.children().toList().filter { it.elementType == KtNodeTypes.FUN && it != method }.forEach {
-                classBody.removeChild(it)
+            val children = classBody.children().toList()
+
+            children.filter { it.elementType == KtNodeTypes.FUN }.forEach {
+                if (it.text != method.text) {
+                    classBody.removeChild(it)
+                }
             }
 
+//            classBody.addChild(method, null)
+
             // remove KtTokens.WHITE_SPACE if it has three continuous KtTokens.WHITE_SPACE
-            classBody.children().toList().filter { it.elementType == KtTokens.WHITE_SPACE }.forEach {
+            children.filter { it.elementType == KtTokens.WHITE_SPACE }.forEach {
                 val prev = it.treePrev
                 val next = it.treeNext
 

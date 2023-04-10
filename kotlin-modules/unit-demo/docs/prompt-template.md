@@ -86,3 +86,16 @@ AND receiptDate BETWEEN [start_date] AND [end_date];
 
 如果没有符合条件的项目，这段代码将返回一个空列表。
 ```
+
+
+```
+请编写用户故事，能覆盖下面的代码功能，要求：1. 突出重点 2. 你返回的内容只有： 我想 xxx。
+
+###
+@Dao
+interface ZhuanlanDao {
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insert(zhuanlanBean: ZhuanlanBean): Long
+}
+###
+```

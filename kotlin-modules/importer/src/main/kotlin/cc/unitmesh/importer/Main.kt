@@ -187,9 +187,17 @@ class Type : CliktCommand(help = "Generate TypeItem") {
     }
 }
 
+
 class Prompt : CliktCommand(help = "Generate Prompt") {
+    fun promptText(text: String): String {
+        return """"""
+    }
+
     override fun run() {
-        TODO("Not yet implemented")
+        var types: List<RawDump> = Json.decodeFromString(File(typeFile).readText())
+        val snippets: List<CodeSnippet> = Json.decodeFromString(splitFile.readText())
+
+
     }
 
 }

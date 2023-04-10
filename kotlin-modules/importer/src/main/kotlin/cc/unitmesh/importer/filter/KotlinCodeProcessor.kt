@@ -3,6 +3,7 @@ package cc.unitmesh.importer.filter
 import org.jetbrains.kotlin.KtNodeTypes
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
+import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.psiUtil.children
 
 class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceCode: String) {
@@ -16,7 +17,7 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
         }
     }
 
-    fun getClassNode(): List<ASTNode> {
+    fun allClassNodes(): List<ASTNode> {
         return allClasses
     }
 
@@ -56,6 +57,31 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
                 it.text == annotationName
             }
         }.toList()
+    }
+
+    /**
+     * class Repository { fun method1() {} fun method2() {} }
+     * split to
+     * class Repository { fun method1() {} }
+     * class Repository { fun method2() {} }
+     */
+    fun splitClassMethodsToManyClass(classNode: ASTNode): List<ASTNode> {
+        val methods = classNode.allMethods()
+
+        return methods.map { method ->
+            val newClassNode = classNode.clone() as ASTNode
+            val classBody = newClassNode.findChildByType(KtNodeTypes.CLASS_BODY) ?: return@map newClassNode
+
+            classBody.children().toList().filter { it.elementType == KtNodeTypes.FUN && it != method }.forEach {
+                classBody.removeChild(it)
+            }
+
+            // remove all WHITE_SPACE before last Node
+            val lastNode = classBody.lastChildNode
+            val whiteSpace = lastNode.treePrev
+
+            newClassNode
+        }
     }
 }
 

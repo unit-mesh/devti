@@ -131,7 +131,7 @@ class Analysis : CliktCommand(help = "Action Runner") {
                     val content = method.text
                     val size = method.text.length
 
-                    if (rawDump.size > 2048) {
+                    if (size > 2048) {
                         logger.info("size too large: ${rawDump.path}")
                         return@map null
                     }

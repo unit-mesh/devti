@@ -63,7 +63,7 @@ fun snippetsFromFile(outputFile: File): MutableList<CodeSnippet> {
 }
 
 fun typedPrompt(code: String, types: List<String>): String {
-    return """请编写用户故事，能覆盖下面的代码功能，要求：1. 突出重点 2. 你返回的内容只有： 我想 xxx。
+    return """请编写用户故事，能覆盖下面的代码功能，要求：1. 分析其业务含义，突出重点  2. 你返回的内容只有： 我想 xxx。
 
 ###
 ${types.joinToString("\n")}
@@ -106,7 +106,7 @@ fun snippetTypesToPrompts(
 
 
 fun promptForOpenAI(code: String): String {
-    return """请编写用户故事，能覆盖下面的代码功能，要求：1. 突出重点 2. 你返回的内容只有： 我想 xxx。
+    return """请编写用户故事，能覆盖下面的代码功能，要求：1. 分析其业务含义，突出重点  2. 你返回的内容只有： 我想 xxx。
 
 ###
 $code

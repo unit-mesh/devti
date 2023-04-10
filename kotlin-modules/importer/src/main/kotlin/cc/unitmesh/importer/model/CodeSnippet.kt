@@ -9,5 +9,6 @@ data class CodeSnippet(
     val path: String,
     val content: String,
     val imports: List<String>,
+    // convert returnType and to String
+    val requiredType: List<String> = listOf()
 )
-

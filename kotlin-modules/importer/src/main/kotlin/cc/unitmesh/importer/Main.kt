@@ -79,15 +79,16 @@ class Sqlite : CliktCommand(help = "Initialize the database") {
     }
 }
 
-class Analysis : CliktCommand(help = "Action Runner") {
-    private val outputPath = "datasets" + File.separator + "filtered.json"
+val filteredFile = "datasets" + File.separator + "filtered.json"
+val splitFile = File("datasets" + File.separator + "split.json")
 
+class Analysis : CliktCommand(help = "Action Runner") {
     override fun run() {
         logger.info("Analysis Started")
 
         logger.info("Analysis Prepare filter data")
 
-        val outputFile = File(outputPath)
+        val outputFile = File(filteredFile)
         if (!outputFile.exists()) {
 
             val codes: List<RawDump> = readDumpLists()
@@ -127,6 +128,7 @@ class Analysis : CliktCommand(help = "Action Runner") {
 
                 val methods = processor.splitClassMethodsToManyClass(classNode)
                 val imports = processor.allImports()
+
                 methods.map { method ->
                     val content = method.text
                     val size = method.text.length
@@ -136,22 +138,30 @@ class Analysis : CliktCommand(help = "Action Runner") {
                         return@map null
                     }
 
+                    val returnType = processor.fullReturnType(method, processor.allImports())
+
                     results.add(
                         CodeSnippet(
                             identifierName = """$packageName.$className""",
                             content = content,
                             path = rawDump.path + "#" + method.text.hashCode(),
                             size = size,
-                            imports = imports
+                            imports = imports,
+                            requiredType = listOf(returnType),
                         )
                     )
                 }
             }
         }
 
-        val split = File("datasets" + File.separator + "split.json")
-        split.writeText(Json.Default.encodeToString(results))
+        splitFile.writeText(Json.Default.encodeToString(results))
 
         logger.info("Analysis finished")
+    }
+}
+
+class GenerateType : CliktCommand(help = "Generate TypeItem") {
+    override fun run() {
+        val snippets: List<CodeSnippet> = Json.decodeFromString(splitFile.readText())
     }
 }

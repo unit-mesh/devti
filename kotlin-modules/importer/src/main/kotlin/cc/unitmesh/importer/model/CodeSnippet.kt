@@ -12,3 +12,4 @@ data class CodeSnippet(
     // convert returnType and to String
     val requiredType: List<String> = listOf()
 )
+

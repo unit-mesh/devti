@@ -59,7 +59,7 @@ class SnippetsKtTest {
         )
 
         assertEquals(4, prompts.size)
-        prompts[0] shouldBe """请编写用户故事，能覆盖下面的代码功能，要求：1. 分析其业务含义，突出重点  2. 你返回的内容只有： 我想 xxx。
+        prompts[0] shouldBe """用户故事来描述如下的代码。要求：1. 只返回一句话 2. 突出重点 3. 不使用技术术语
 
 ###
 data class ZhuanlanBean( var followersCount: Int, var creator: Creator, var topics: List<Topic>, var activateState: String, var href: String, var acceptSubmission: Boolean, var firstTime: Boolean, var pendingName: String, var avatar: Avatar, var canManage: Boolean, var description: String, var nameCanEditUntil: Int, var reason: String, var banUntil: Int, @PrimaryKey var slug: String, var name: String, var url: String, var intro: String, var topicsCanEditUntil: Int, var activateAuthorRequested: String, var commentPermission: String, var following: Boolean, var postsCount: Int, var canPost: Boolean, var type: Int = 0 )

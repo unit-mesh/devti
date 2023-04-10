@@ -114,13 +114,12 @@ $code
 """.trimMargin()
 }
 
-
 fun snippetToPrompts(
     snippets: List<CodeSnippet>
-): List<String> {
+): List<SnippetPrompt> {
     val typeMapByIdentifier: MutableMap<String, RawDump> = mutableMapOf()
 
-    val prompts = snippets.map { snippet ->
+    return snippets.mapIndexed { index, snippet ->
         snippet.requiredType.mapNotNull { type ->
             typeMapByIdentifier[type]
         }.map {
@@ -129,8 +128,13 @@ fun snippetToPrompts(
             processor.allClassNodes()[0].classToConstructorText()
         }
 
-        promptForOpenAI(snippet.content)
+        val prompt = promptForOpenAI(snippet.content)
+        SnippetPrompt(
+            id = index,
+            identifierName = snippet.identifierName,
+            requiredType = snippet.requiredType,
+            content = snippet.content,
+            prompt = prompt,
+        )
     }
-
-    return prompts
 }

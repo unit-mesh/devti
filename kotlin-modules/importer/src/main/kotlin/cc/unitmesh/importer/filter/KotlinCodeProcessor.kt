@@ -6,6 +6,8 @@ import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import org.jetbrains.kotlin.kdoc.lexer.KDocTokens
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.psiUtil.children
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceCode: String) {
     private var allClasses: List<ASTNode> = listOf()
@@ -30,7 +32,7 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
         return filterByAnnotation(allMethods, annotationName).isNotEmpty()
     }
 
-    private fun filterByAnnotation(methodNodes: List<ASTNode>, vararg annotationName: String ) =
+    private fun filterByAnnotation(methodNodes: List<ASTNode>, vararg annotationName: String) =
         methodNodes.filter { method ->
             val annotations = method.annotations()
 
@@ -98,6 +100,10 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
 
             newClassNode
         }
+    }
+
+    companion object {
+        val logger: Logger = LoggerFactory.getLogger(KotlinCodeProcessor::class.java)
     }
 }
 

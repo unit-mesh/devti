@@ -10,12 +10,11 @@ import kotlin.io.path.Path
 @DataSchema
 @Serializable
 data class RawDump(
-    @kotlinx.serialization.SerialName("repo_name")
-    val repoName: String,
-    val path: String,
+    val repo_name: String,
+    var path: String,
     val copies: String,
     val size: String,
-    val content: String,
+    var content: String,
     val license: String
 ) {
     fun identifierName(): String {

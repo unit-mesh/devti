@@ -66,7 +66,7 @@ class Sqlite : CliktCommand(help = "Initialize the database") {
             SchemaUtils.create(SourceCode)
 
             SourceCode.batchInsert(codes) {
-                this[SourceCode.repoName] = it.repoName
+                this[SourceCode.repoName] = it.repo_name
                 this[SourceCode.path] = it.path
                 this[SourceCode.identifierName] = it.identifierName()
                 this[SourceCode.copies] = it.copies
@@ -107,6 +107,32 @@ class Analysis : CliktCommand(help = "Action Runner") {
         } else {
             logger.info("Skip analysis, because the output file already exists")
         }
+
+        val results: MutableList<RawDump> = mutableListOf();
+        val dumpList = Json.decodeFromString<List<RawDump>>(outputFile.readText())
+        dumpList.forEach {
+            // split methods
+            val snippet: CodeSnippetContext
+            try {
+                snippet = CodeSnippetContext.createUnitContext(it.toCode())
+            } catch (e: KtLintParseException) {
+                return@forEach
+            }
+
+            val processor = KotlinCodeProcessor(snippet.rootNode, it.content)
+            processor.allClassNodes().forEach { astNode ->
+                val methods = processor.splitClassMethodsToManyClass(astNode)
+                methods.map { method ->
+                    val code = it.copy()
+                    code.content = method.text
+                    code.path = code.path + "#" + method.text.hashCode()
+                    results.add(code)
+                }
+            }
+        }
+
+        val split = File("datasets" + File.separator + "split.json")
+        split.writeText(Json.Default.encodeToString(results))
 
         logger.info("Analysis finished")
     }

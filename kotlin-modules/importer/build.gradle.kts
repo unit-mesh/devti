@@ -1,10 +1,20 @@
+buildscript {
+    dependencies {
+        classpath(kotlin("gradle-plugin", version = "1.8.0"))
+    }
+}
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.shadow)
     alias(libs.plugins.serialization)
+    id("org.jetbrains.kotlinx.dataframe") version "0.9.1"
+    id("com.google.devtools.ksp") version "1.8.20-1.0.10"
     application
 }
+
+kotlin.sourceSets.getByName("main").kotlin.srcDir("build/generated/ksp/main/kotlin/")
 
 repositories {
     mavenCentral()
@@ -12,6 +22,9 @@ repositories {
 
 dependencies {
     implementation(projects.kotlinModules.analysis)
+
+    // KSP
+    implementation("com.google.devtools.ksp:symbol-processing-api:1.8.20-1.0.10")
 
     implementation(libs.clikt)
     implementation(libs.kotlin.compiler)

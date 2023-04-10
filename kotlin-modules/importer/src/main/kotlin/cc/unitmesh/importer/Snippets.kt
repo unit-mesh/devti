@@ -66,11 +66,12 @@ fun snippetsFromFile(outputFile: File): MutableList<CodeSnippet> {
 fun promptText(code: String, types: List<String>): String {
     return """请编写用户故事，能覆盖下面的代码功能，要求：1. 突出重点 2. 你返回的内容只有： 我想 xxx。
 
-|###
-${types.joinToString("\n")}
-${code}
 ###
-        """.trimMargin()
+${types.joinToString("\n")}
+
+$code
+###
+""".trimMargin()
 }
 
 fun snippetToPrompts(
@@ -89,14 +90,16 @@ fun snippetToPrompts(
         }
     }
 
-    val prompts = snippets.flatMap { snippet ->
-        snippet.requiredType.mapNotNull { type ->
+    val prompts = snippets.map { snippet ->
+        val typeStrings = snippet.requiredType.mapNotNull { type ->
             typeMapByIdentifier[type]
         }.map {
             val createUnitContext = CodeSnippetContext.createUnitContext(it.toCode())
             val processor = KotlinCodeProcessor(createUnitContext.rootNode, it.content)
             processor.allClassNodes()[0].classToConstructorText()
         }
+
+        promptText(snippet.content, typeStrings)
     }
 
     return prompts

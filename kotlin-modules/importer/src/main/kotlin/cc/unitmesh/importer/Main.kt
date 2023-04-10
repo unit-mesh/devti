@@ -10,6 +10,7 @@ import kotlinx.serialization.json.Json
 import ktlint.analysis.KtLintParseException
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.toDataFrame
+import org.jetbrains.kotlinx.dataframe.io.writeArrowFeather
 import org.jetbrains.kotlinx.dataframe.io.writeJson
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -33,11 +34,12 @@ class Arrow: CliktCommand(help="Initialize the database") {
             file.name.endsWith(".json")
         }.toList()
 
-        val dfs: DataFrame<RawDump> = jsonFiles.flatMap(File::readLines).map {
+        val codes: List<RawDump> = jsonFiles.flatMap(File::readLines).map {
             Json.decodeFromString<RawDump>(it)
-        }.toDataFrame()
+        }.toList()
 
-        dfs.writeJson("datasets" + File.separator + "rawdump.arrow")
+        val dfs = codes.toDataFrame()
+        dfs.writeArrowFeather(File("datasets" + File.separator + "rawdump.arrow"))
     }
 }
 

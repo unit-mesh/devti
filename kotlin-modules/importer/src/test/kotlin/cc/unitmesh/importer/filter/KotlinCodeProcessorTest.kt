@@ -197,13 +197,10 @@ interface CardDao {
         unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
 
         val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
-        processor.allClassNodes().size shouldBe 1
-        processor.allClassNodes().first().classToConstructorText() shouldBe """data class College((
-        @PrimaryKeyColumn(name = "name", ordinal = 1, type = PrimaryKeyType.PARTITIONED)
-        var name: String,
-        var city: String = "",
-        var disciplines: Set<String>
-))"""
+        val allClassNodes = processor.allClassNodes()
+        allClassNodes.size shouldBe 1
+        allClassNodes.first()
+            .classToConstructorText() shouldBe """data class College( @PrimaryKeyColumn(name = "name", ordinal = 1, type = PrimaryKeyType.PARTITIONED) var name: String, var city: String = "", var disciplines: Set<String> )"""
     }
 
     @Test

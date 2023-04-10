@@ -120,10 +120,10 @@ interface CardDao {
 
         val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
         val firstClass = processor.allClassNodes().first()
-        val newNodes = processor.splitClassMethodsByAnnotationName(firstClass, "Query")
+        val queryNodes = processor.splitClassMethodsByAnnotationName(firstClass, "Query")
 
-        newNodes.size shouldBe 7
-        newNodes.first().text shouldBe """@Dao
+        queryNodes.size shouldBe 7
+        queryNodes.first().text shouldBe """@Dao
 interface CardDao {
 
     
@@ -131,6 +131,17 @@ interface CardDao {
     @Transaction
     @Query("SELECT * FROM " + GwentDatabase.CARD_TABLE)
     fun getCardsOnce(): Single<List<CardWithArtEntity>>
+
+    
+}"""
+
+        val insertNodes = processor.splitClassMethodsByAnnotationName(firstClass, "Insert")
+        insertNodes.size shouldBe 1
+        insertNodes.first().text shouldBe """@Dao
+interface CardDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCards(items: Collection<CardEntity>)
 
     
 }"""

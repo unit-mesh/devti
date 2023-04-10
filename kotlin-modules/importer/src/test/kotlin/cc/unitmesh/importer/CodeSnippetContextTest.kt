@@ -20,7 +20,7 @@ class CodeSnippetContextTest {
             script = false,
         )
         val context = CodeSnippetContext.createUnitContext(code)
-        val mainFunc = context.functionByName("main")
+        val mainFunc = context.topLevelFunByName("main")
 
         mainFunc shouldNotBe null
     }

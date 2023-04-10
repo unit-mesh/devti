@@ -41,12 +41,10 @@ class CodeSnippetContext private constructor(
     /**
      * file level function
      */
-    fun functionByName(functionName: String): ASTNode? {
-        val functionNode = rootNode
+    fun topLevelFunByName(functionName: String): ASTNode? {
+        return rootNode
             .findChildByType(KtNodeTypes.FUN)
             ?.takeIf { it.text.contains("fun $functionName") }
-
-        return functionNode
     }
 
     companion object {

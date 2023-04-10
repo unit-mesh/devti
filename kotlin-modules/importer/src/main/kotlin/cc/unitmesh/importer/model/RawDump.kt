@@ -18,6 +18,13 @@ data class RawDump(
     val content: String,
     val license: String
 ) {
+    fun identifierName(): String {
+        // match the package name by regex `package com.cognifide.gradle.aem.instance.tasks`
+        val packageName = Regex("package\\s+(\\S+)").find(content)?.groupValues?.get(1)
+        // match class name by FilePath
+        val className = path.substringAfterLast("/").substringBeforeLast(".")
+        return "$packageName.$className"
+    }
 
     fun toCode(): Code {
         return Code(

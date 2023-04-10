@@ -172,6 +172,9 @@ class Type : CliktCommand(help = "Generate TypeItem") {
             snippet.requiredType
         }.distinct()
 
+        // write types for debug
+        File("datasets" + File.separator + "required-types.json").writeText(Json.Default.encodeToString(types))
+
         val rawdumpMap: Map<String, RawDump> =
             readDumpLists().associateBy { PackageUtil.pathToIdentifier(it.path) }
 

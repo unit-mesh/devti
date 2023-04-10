@@ -27,27 +27,29 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
             return false
         }
 
-        val annotations = allAnnotations()
-
-        val callees = annotations.flatMap {
-            it.children()
-        }.filter { it.elementType == KtNodeTypes.CONSTRUCTOR_CALLEE }
-
-        return callees.any {
-            it.text == annotationName
-        }
+        return filterByAnnotation(allMethods, annotationName).isNotEmpty()
     }
 
-    private fun allAnnotations(): List<ASTNode> {
-        return allMethods.flatMap(ASTNode::annotations)
-    }
+    private fun filterByAnnotation(methodNodes: List<ASTNode>, vararg annotationName: String ) =
+        methodNodes.filter { method ->
+            val annotations = method.annotations()
+
+            val callees = annotations.flatMap {
+                it.children()
+            }.filter { it.elementType == KtNodeTypes.CONSTRUCTOR_CALLEE }
+
+            callees.any {
+                annotationName.contains(it.text)
+            }
+        }.toList()
+
 
     fun getMethodByAnnotationName(annotationName: String): List<ASTNode> {
         if (!sourceCode.contains("@${annotationName}")) {
             return listOf()
         }
 
-        return filterByAnnotation(allMethods, arrayOf(annotationName))
+        return filterByAnnotation(allMethods, annotationName)
     }
 
     /**
@@ -62,22 +64,9 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
     }
 
     fun splitClassMethodsByAnnotationName(classNode: ASTNode, vararg annotationName: String): List<ASTNode> {
-        val methods = filterByAnnotation(classNode.allMethods(), annotationName)
+        val methods = filterByAnnotation(classNode.allMethods(), *annotationName)
         return splitMethods(methods, allClasses.first())
     }
-
-    private fun filterByAnnotation(funcNodes: List<ASTNode>, annotationName: Array<out String>) =
-        funcNodes.filter { method ->
-            val annotations = method.annotations()
-
-            val callees = annotations.flatMap {
-                it.children()
-            }.filter { it.elementType == KtNodeTypes.CONSTRUCTOR_CALLEE }
-
-            callees.any {
-                annotationName.contains(it.text)
-            }
-        }.toList()
 
     private fun splitMethods(
         methods: List<ASTNode>,

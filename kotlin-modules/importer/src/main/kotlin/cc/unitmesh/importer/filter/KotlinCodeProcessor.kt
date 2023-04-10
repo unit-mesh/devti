@@ -72,17 +72,7 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
 
         return methods.map { method ->
             val newClassNode = classNode.clone() as ASTNode
-
-            // remove comments before class body
-            newClassNode.findChildByType(KtTokens.EOL_COMMENT)?.let {
-                newClassNode.removeChild(it)
-            }
-            newClassNode.findChildByType(KtTokens.BLOCK_COMMENT)?.let {
-                newClassNode.removeChild(it)
-            }
-            newClassNode.findChildByType(KDocTokens.KDOC)?.let {
-                newClassNode.removeChild(it)
-            }
+            newClassNode.removeComments()
 
             val classBody = newClassNode.findChildByType(KtNodeTypes.CLASS_BODY) ?: return@map newClassNode
 
@@ -93,8 +83,6 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
                     classBody.removeChild(it)
                 }
             }
-
-//            classBody.addChild(method, null)
 
             // remove KtTokens.WHITE_SPACE if it has three continuous KtTokens.WHITE_SPACE
             children.filter { it.elementType == KtTokens.WHITE_SPACE }.forEach {
@@ -108,6 +96,18 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
 
             newClassNode
         }
+    }
+}
+
+fun ASTNode.removeComments() {
+    this.findChildByType(KtTokens.EOL_COMMENT)?.let {
+        this.removeChild(it)
+    }
+    this.findChildByType(KtTokens.BLOCK_COMMENT)?.let {
+        this.removeChild(it)
+    }
+    this.findChildByType(KDocTokens.KDOC)?.let {
+        this.removeChild(it)
     }
 }
 

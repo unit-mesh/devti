@@ -4,18 +4,44 @@ import cc.unitmesh.importer.filter.CodeSnippetContext
 import cc.unitmesh.importer.filter.KotlinCodeProcessor
 import cc.unitmesh.importer.model.RawDump
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.subcommands
 import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ktlint.analysis.KtLintParseException
+import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.toDataFrame
 import org.jetbrains.kotlinx.dataframe.io.writeJson
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 
-fun main(args: Array<String>) = Runner().main(args)
-class Runner : CliktCommand(help = "Action Runner") {
+fun main(args: Array<String>) = Importer()
+    .subcommands(Arrow(), Analysis())
+    .main(args)
+
+
+val logger: Logger = LoggerFactory.getLogger(Importer::class.java)
+
+class Importer: CliktCommand() {
+    override fun run() = Unit
+}
+
+class Arrow: CliktCommand(help="Initialize the database") {
+    override fun run() {
+        logger.info("Convert to Arrow")
+        val jsonFiles = File("datasets" + File.separator + "rawdump").walkTopDown().filter { file ->
+            file.name.endsWith(".json")
+        }.toList()
+
+        val dfs: DataFrame<RawDump> = jsonFiles.flatMap(File::readLines).map {
+            Json.decodeFromString<RawDump>(it)
+        }.toDataFrame()
+
+        dfs.writeJson("datasets" + File.separator + "rawdump.arrow")
+    }
+}
+
+class Analysis : CliktCommand(help = "Action Runner") {
     override fun run() {
         val jsonFiles = File("datasets" + File.separator + "rawdump").walkTopDown().filter { file ->
             file.name.endsWith(".json")
@@ -41,9 +67,5 @@ class Runner : CliktCommand(help = "Action Runner") {
 
 //        val outputFile = File("datasets" + File.separator + "filtered.json")
 //        outputFile.writeText(Json.Default.encodeToString(outputs))
-    }
-
-    companion object {
-        val logger: Logger = LoggerFactory.getLogger(Runner::class.java)
     }
 }

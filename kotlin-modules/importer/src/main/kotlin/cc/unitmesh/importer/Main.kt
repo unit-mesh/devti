@@ -110,7 +110,7 @@ class Analysis : CliktCommand(help = "Action Runner") {
             logger.info("Skip analysis, because the output file already exists")
         }
 
-        val results: MutableList<CodeSnippet> = Snippets.snippetsFromFile(outputFile)
+        val results: MutableList<CodeSnippet> = Snippets.fromFile(outputFile)
 
         splitFile.writeText(Json.Default.encodeToString(results))
 

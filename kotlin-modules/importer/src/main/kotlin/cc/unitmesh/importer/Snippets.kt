@@ -33,7 +33,7 @@ $code
 """.trimMargin()
     }
 
-    fun snippetsFromFile(outputFile: File): MutableList<CodeSnippet> {
+    fun fromFile(outputFile: File): MutableList<CodeSnippet> {
         val results: MutableList<CodeSnippet> = mutableListOf();
         val dumpList = Json.decodeFromString<List<RawDump>>(outputFile.readText())
         dumpList.forEach { rawDump ->
@@ -84,7 +84,7 @@ $code
         return results
     }
 
-    fun snippetTypesToPrompts(
+    fun toLLMPrompts(
         typesDump: List<RawDump>,
         snippets: List<CodeSnippet>
     ): List<String> {

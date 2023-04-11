@@ -100,7 +100,7 @@ def create_user_story_detail():
             continue
 
 
-def create_user_story_map():
+def create_user_tasks():
     domains = init_domains()
 
     os.makedirs(output_dir, exist_ok=True)

@@ -1,0 +1,10 @@
+[
+  {
+    "repo_name": "iMeiji/Daily",
+    "path": "app/src/main/java/com/meiji/daily/data/local/dao/ZhuanlanDao.kt",
+    "copies": "1",
+    "size": "774",
+    "content": "package com.meiji.daily.data.local.dao\n\n/**\n * Created by Meiji on 2017/11/28.\n */\n\nimport android.arch.persistence.room.Dao\nimport android.arch.persistence.room.Insert\nimport android.arch.persistence.room.OnConflictStrategy\nimport android.arch.persistence.room.Query\n\nimport com.meiji.daily.bean.ZhuanlanBean\n\nimport io.reactivex.Maybe\n\n@Dao\ninterface ZhuanlanDao {\n\n    @Insert(onConflict = OnConflictStrategy.IGNORE)\n    fun insert(zhuanlanBean: ZhuanlanBean): Long\n\n    @Insert(onConflict = OnConflictStrategy.IGNORE)\n    fun insert(list: MutableList<ZhuanlanBean>)\n\n    @Query(\"SELECT * FROM zhuanlans WHERE type = :type\")\n    fun query(type: Int): Maybe<MutableList<ZhuanlanBean>>\n\n    @Query(\"DELETE FROM zhuanlans WHERE slug = :slug\")\n    fun delete(slug: String)\n}\n",
+    "license": "apache-2.0"
+  }
+]

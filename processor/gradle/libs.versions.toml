@@ -1,0 +1,71 @@
+[versions]
+kotlin = "1.8.20"
+
+kotlinxSerialization = "1.5.0"
+
+junit = "5.9.1"
+kotlinTest = "5.5.4"
+mockk = "1.13.3"
+assertj = "3.22.0"
+javaparser = "3.25.1"
+
+logback = "1.4.5"
+slf4j = "2.0.5"
+
+clikt = "3.5.1"
+
+kaml = "0.51.0"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+checksum = "org.gradle.crypto.checksum:1.4.0"
+shadow = "com.github.johnrengelman.shadow:8.1.1"
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+[libraries]
+kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
+kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-plugin-dev = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+dokka = "org.jetbrains.dokka:dokka-gradle-plugin:1.7.20"
+# a mighty tiny command line interface
+picocli = "info.picocli:picocli:4.7.1"
+logging = "io.github.microutils:kotlin-logging-jvm:3.0.5"
+# Use logback-classic as the logger for kotlin-logging / slf4j as it allow changing the log level at runtime.
+logback = "ch.qos.logback:logback-classic:1.3.5"
+# Required for logback.xml conditional configuration
+janino = "org.codehaus.janino:janino:3.1.9"
+# Testing libraries
+junit5 = "org.junit.jupiter:junit-jupiter:5.9.2"
+assertj = "org.assertj:assertj-core:3.24.2"
+sarif4k = "io.github.detekt.sarif4k:sarif4k:0.2.0"
+jimfs = "com.google.jimfs:jimfs:1.2"
+
+dataframe = "org.jetbrains.kotlinx:dataframe:0.10.0-dev-1549"
+
+serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
+javaparser = { module = "com.github.javaparser:javaparser-core", version.ref = "javaparser" }
+javaparser-serialization = { module = "com.github.javaparser:javaparser-core-serialization", version.ref = "javaparser" }
+javaparser-symbol-solver-core = { module = "com.github.javaparser:javaparser-symbol-solver-core", version.ref = "javaparser" }
+
+logging-slf4j-api = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
+logging-logback-classic = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
+
+clikt = { group = "com.github.ajalt.clikt", name = "clikt", version.ref = "clikt" }
+
+kaml = { group = "com.charleskorn.kaml", name = "kaml", version.ref = "kaml" }
+
+# Testing
+test-junit-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
+test-junit-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit" }
+test-junit-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit" }
+test-kotlintest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotlinTest" }
+test-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+test-assertj = { group = "org.assertj", name = "assertj-core", version.ref = "assertj" }
+
+# // https://mvnrepository.com/artifact/io.swagger.parser.v3/swagger-parser-v3
+swagger-parser-v3 = "io.swagger.parser.v3:swagger-parser-v3:2.1.12"
+swagger-parser = "io.swagger:swagger-parser:2.0.0-rc1"
+
+[bundles]
+test = ["test-junit-params", "test-kotlintest-assertions", "test-mockk", "test-assertj"]

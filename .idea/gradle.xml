@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/java-modules" />
+            <option value="$PROJECT_DIR$/java-modules/codegen-processor" />
+            <option value="$PROJECT_DIR$/java-modules/core-analysis" />
+            <option value="$PROJECT_DIR$/java-modules/requirements-diff-processor" />
+            <option value="$PROJECT_DIR$/java-modules/spring-processor" />
+            <option value="$PROJECT_DIR$/java-modules/swagger-processor" />
+            <option value="$PROJECT_DIR$/java-modules/test-processor" />
+            <option value="$PROJECT_DIR$/kotlin-modules" />
+            <option value="$PROJECT_DIR$/kotlin-modules/analysis" />
+            <option value="$PROJECT_DIR$/kotlin-modules/importer" />
+            <option value="$PROJECT_DIR$/kotlin-modules/unit-demo" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

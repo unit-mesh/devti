@@ -1,8 +1,3 @@
-"""
-python -m swagger-user-story swagger_to_userstory
-python -m swagger-user-story userstory_to_swagger
-
-"""
 import json
 import os
 import openai

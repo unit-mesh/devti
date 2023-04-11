@@ -34,3 +34,19 @@ python user-story.py create_user_story_detail
 python user-story.py merge_userstory_details
 ```
 
+### 测试代码数据生成
+
+```bash
+# 合并 Processor 输出为 JSONL
+python test-to-code.py merge_test_to_jsonl
+
+# 从测试生成代码
+python test-to-code.py generate_code_from_tests
+
+# 合并为 JSONL
+python test-to-code.py merge_test_output_to_jsonl
+
+# 生成微调所需要的 instruction
+python test-to-code.py generate_for_lora
+```
+

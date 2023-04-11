@@ -25,6 +25,9 @@ jobs:
       - name: Execute Gradle Coverage
         run: ./gradlew check
 
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+
       - name: Execute Gradle Coverage
         if: runner.os == 'macOS'
         run: bash <(curl -s https://codecov.io/bash)

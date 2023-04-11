@@ -56,7 +56,7 @@ class Runner : CliktCommand(help = "Action Runner") {
     private fun generateTestsPrompts(testApiDir: File, config: PreProcessorConfig) {
         testApiDir.mkdirs()
         // generate prompt for test methods
-        config.scm.forEach { file ->
+        config.scm.forEach { _ ->
             // 1. get all java files
             val classMap = mutableMapOf<String, ShortClass>()
             File("origindatasets").walkTopDown().forEach { file ->

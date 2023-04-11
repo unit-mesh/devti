@@ -40,7 +40,7 @@ class SnippetsKtTest {
          * }
          *
          */
-        val snippets = snippetsFromFile(File("src/test/resources/snippets.json"))
+        val snippets = Snippets.snippetsFromFile(File("src/test/resources/snippets.json"))
         assertEquals(4, snippets.size)
 
         snippets[0].identifierName shouldBe "com.meiji.daily.data.local.dao.ZhuanlanDao"
@@ -49,11 +49,11 @@ class SnippetsKtTest {
 
     @Test
     fun should_generate_prompts() {
-        val snippets = snippetsFromFile(File("src/test/resources/snippets.json"))
+        val snippets = Snippets.snippetsFromFile(File("src/test/resources/snippets.json"))
         val typeStrings = File("src/test/resources/types.json").readText()
         val types: List<RawDump> = Json.decodeFromString(typeStrings)
 
-        val prompts = snippetTypesToPrompts(
+        val prompts = Snippets.snippetTypesToPrompts(
             types,
             snippets
         )

@@ -110,7 +110,7 @@ class Analysis : CliktCommand(help = "Action Runner") {
             logger.info("Skip analysis, because the output file already exists")
         }
 
-        val results: MutableList<CodeSnippet> = snippetsFromFile(outputFile)
+        val results: MutableList<CodeSnippet> = Snippets.snippetsFromFile(outputFile)
 
         splitFile.writeText(Json.Default.encodeToString(results))
 
@@ -151,7 +151,7 @@ class Prompt : CliktCommand(help = "Generate Prompt") {
     override fun run() {
         val snippets: List<CodeSnippet> = Json.decodeFromString(splitFile.readText())
 
-        val prompts = snippetToPrompts(snippets)
+        val prompts = Snippets.toOpenAIPrompts(snippets)
 
         logger.info("Prompt sizes: ${prompts.size}")
         File("datasets" + File.separator + "prompts.json").writeText(Json.Default.encodeToString(prompts))

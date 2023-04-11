@@ -1,31 +1,22 @@
 package cc.unitmesh.importer
 
-import cc.unitmesh.importer.processor.KotlinParserWrapper
-import cc.unitmesh.importer.processor.KotlinCodeProcessor
 import cc.unitmesh.importer.model.CodeSnippet
 import cc.unitmesh.importer.model.PackageUtil
 import cc.unitmesh.importer.model.RawDump
-import cc.unitmesh.importer.model.SourceCodeTable
+import cc.unitmesh.importer.processor.KotlinCodeProcessor
+import cc.unitmesh.importer.processor.KotlinParserWrapper
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ktlint.analysis.KtLintParseException
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.StdOutSqlLogger
-import org.jetbrains.exposed.sql.addLogger
-import org.jetbrains.exposed.sql.batchInsert
-import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.kotlinx.dataframe.api.toDataFrame
-import org.jetbrains.kotlinx.dataframe.io.writeArrowFeather
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 
 fun main(args: Array<String>) = Importer()
-    .subcommands(Arrow(), Sqlite(), Analysis(), Type(), Prompt())
+    .subcommands(Analysis(), Type(), Prompt())
     .main(args)
 
 
@@ -35,16 +26,6 @@ class Importer : CliktCommand() {
     override fun run() = Unit
 }
 
-// TODO: not working well
-class Arrow : CliktCommand(help = "Initialize the database") {
-    override fun run() {
-        logger.info("Convert to Arrow")
-        val codes: List<RawDump> = readDumpLists()
-
-        val dfs = codes.toDataFrame()
-        dfs.writeArrowFeather(File("datasets" + File.separator + "rawdump.arrow"))
-    }
-}
 
 fun readDumpLists(): List<RawDump> {
     val jsonFiles = File("datasets" + File.separator + "rawdump").walkTopDown().filter { file ->
@@ -52,31 +33,6 @@ fun readDumpLists(): List<RawDump> {
     }.toList()
 
     return jsonFiles.flatMap(File::readLines).map(Json.Default::decodeFromString)
-}
-
-// TODO: not working well
-class Sqlite : CliktCommand(help = "Initialize the database") {
-    override fun run() {
-        logger.info("Initialize the database")
-        Database.connect("jdbc:sqlite:datasets/data.db", "org.sqlite.JDBC")
-
-        val codes: List<RawDump> = readDumpLists()
-
-        transaction {
-            addLogger(StdOutSqlLogger)
-            SchemaUtils.create(SourceCodeTable)
-
-            SourceCodeTable.batchInsert(codes) {
-                this[SourceCodeTable.repoName] = it.repo_name
-                this[SourceCodeTable.path] = it.path
-                this[SourceCodeTable.identifierName] = it.identifierName()
-                this[SourceCodeTable.copies] = it.copies
-                this[SourceCodeTable.size] = it.size
-                this[SourceCodeTable.content] = it.content
-                this[SourceCodeTable.license] = it.license
-            }
-        }
-    }
 }
 
 val filteredFile = "datasets" + File.separator + "filtered.json"

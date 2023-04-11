@@ -4,10 +4,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import ktlint.analysis.Code
-import org.jetbrains.kotlinx.dataframe.annotations.DataSchema
 import kotlin.io.path.Path
 
-@DataSchema
 @Serializable
 data class RawDump(
     val repo_name: String,

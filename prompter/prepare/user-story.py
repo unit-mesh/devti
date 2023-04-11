@@ -125,22 +125,22 @@ def process_story(base_prompt, domain, idx):
 
     prompt = base_prompt.replace("${domain}", domain)
 
-    # try:
-    res = prompt_davinci(prompt)
+    try:
+        res = prompt_davinci(prompt)
 
-    output = {
-        "input": domain,
-        "output": res
-    }
+        output = {
+            "input": domain,
+            "output": res
+        }
 
-    # write to file in test_to_code
-    with open(f"{output_dir}/{idx}.json", 'w') as file:
-        json.dump(output, file)
+        # write to file in test_to_code
+        with open(f"{output_dir}/{idx}.json", 'w') as file:
+            json.dump(output, file)
 
-    # except Exception as e:
-    #     print(e)
-    #     print("Error, sleeping for 5 minutes")
-    #     time.sleep(300)
+    except Exception as e:
+        print(e)
+        print("Error, sleeping for 5 minutes")
+        time.sleep(30)
 
 
 def merge_userstory_details():
@@ -208,9 +208,8 @@ def user_story_format():
         parse_user_story(json.load(file))
 
 
-def parse_user_story(json):
-    domain = json['input']
-    output_str = json['output']
+def parse_user_story(item):
+    output_str = item['output']
     result = parse_string(output_str)
     print(result)
 
@@ -230,7 +229,7 @@ def parse_string(s):
         for section in sections:
             sub_dict[section] = None
 
-        parent_match = re.search(r"^\s*([^\s]+)\s*", match)
+        parent_match = re.search(r"^\s*(\S+)\s*", match)
 
         if parent_match:
             parent = parent_match.group(1)

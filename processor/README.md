@@ -4,14 +4,16 @@
 
 对源码进行语法分析，分解出不同的 API Unit
 
+- Common: Git, ProcessorConfig
 - Java
-  - Swagger (API Design)
   - Controller, Service, Model, Repository, etc.
   - User Story
   - Test
-  - Requirements Diff
 - Kotlin
-  - Repository (importer)
+  - Importer（Text to Repository）
+- Modules
+  - Requirements Diff
+  - Swagger (API Design)
 
 ## LICENSE
 

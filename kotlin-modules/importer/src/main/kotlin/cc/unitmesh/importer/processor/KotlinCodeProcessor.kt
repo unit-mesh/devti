@@ -1,5 +1,6 @@
 package cc.unitmesh.importer.processor
 
+import ktlint.analysis.CodeInfo
 import org.jetbrains.kotlin.KtNodeTypes
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
@@ -156,6 +157,13 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
         }.associateBy { it }.keys.toList()
 
         return requiredType
+    }
+
+    companion object {
+        fun create(codeInfo: CodeInfo): KotlinCodeProcessor {
+            val createUnitContext = KotlinParserWrapper.createUnitContext(codeInfo)
+            return KotlinCodeProcessor(createUnitContext.rootNode, codeInfo.content)
+        }
     }
 }
 

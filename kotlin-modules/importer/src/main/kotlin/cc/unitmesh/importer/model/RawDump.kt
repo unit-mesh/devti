@@ -3,7 +3,7 @@ package cc.unitmesh.importer.model
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import ktlint.analysis.Code
+import ktlint.analysis.CodeInfo
 import org.jetbrains.kotlinx.dataframe.annotations.DataSchema
 import kotlin.io.path.Path
 
@@ -25,8 +25,8 @@ data class RawDump(
         return "$packageName.$className"
     }
 
-    fun toCode(): Code {
-        return Code(
+    fun toCode(): CodeInfo {
+        return CodeInfo(
             content = content.trimIndent(),
             filePath = Path(path),
             fileName = path.substringAfterLast("/"),

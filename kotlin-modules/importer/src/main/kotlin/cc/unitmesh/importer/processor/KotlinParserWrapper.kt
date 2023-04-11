@@ -1,6 +1,6 @@
 package cc.unitmesh.importer.processor
 
-import ktlint.analysis.Code
+import ktlint.analysis.CodeInfo
 import ktlint.analysis.KOTLIN_PSI_FILE_FACTORY_PROVIDER
 import ktlint.analysis.KtLintParseException
 import ktlint.analysis.UTF8_BOM
@@ -12,18 +12,18 @@ import org.jetbrains.kotlin.idea.KotlinLanguage
 import org.jetbrains.kotlin.psi.KtFile
 
 class KotlinParserWrapper private constructor(
-    val code: Code,
+    val codeInfo: CodeInfo,
     val rootNode: FileASTNode,
 ) {
     companion object {
-        fun createUnitContext(code: Code): KotlinParserWrapper {
+        fun createUnitContext(codeInfo: CodeInfo): KotlinParserWrapper {
             val psiFileFactory = KOTLIN_PSI_FILE_FACTORY_PROVIDER.getKotlinPsiFileFactory(true)
 
-            val normalizedText = normalizeText(code.content)
+            val normalizedText = normalizeText(codeInfo.content)
             val positionInTextLocator = buildPositionInTextLocator(normalizedText)
             val psiFileName =
-                code.fileName
-                    ?: if (code.script) {
+                codeInfo.fileName
+                    ?: if (codeInfo.script) {
                         "File.kts"
                     } else {
                         "File.kt"
@@ -44,7 +44,7 @@ class KotlinParserWrapper private constructor(
             val rootNode = psiFile.node
 
             return KotlinParserWrapper(
-                code,
+                codeInfo,
                 rootNode,
             )
         }

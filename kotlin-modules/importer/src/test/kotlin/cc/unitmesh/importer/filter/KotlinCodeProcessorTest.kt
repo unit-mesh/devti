@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test
 class KotlinCodeProcessorTest {
     val rawData =
         """{"repo_name":"KcgPrj/HouseHoldAccountBook","path":"src/main/kotlin/jp/ac/kcg/repository/ItemRepository.kt","copies":"1","size":"584","content":"package jp.ac.kcg.repository\n\nimport jp.ac.kcg.domain.Item\nimport jp.ac.kcg.domain.User\nimport org.springframework.data.jpa.repository.JpaRepository\nimport org.springframework.data.jpa.repository.Query\nimport org.springframework.data.repository.query.Param\nimport java.time.LocalDate\n\ninterface ItemRepository: JpaRepository\u003cItem, Long\u003e {\n\n    @Query(\"select i from Item i where i.user = :user and :before \u003c= i.receiptDate and i.receiptDate \u003c= :after\")\n    fun searchItems(@Param(\"user\") user: User, @Param(\"before\") before: LocalDate, @Param(\"after\") after: LocalDate): List\u003cItem\u003e\n}\n","license":"mit"}"""
-    lateinit var unitContext: CodeSnippetContext
+    lateinit var unitContext: KotlinParserWrapper
     lateinit var dump: RawDump
 
     @BeforeEach
     fun setUp() {
         dump = RawDump.fromString(rawData)
-        unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
+        unitContext = KotlinParserWrapper.createUnitContext(dump.toCode())
     }
 
     @Test
@@ -78,7 +78,7 @@ class KotlinCodeProcessorTest {
         val newCode =
             """{"repo_name":"romannurik/muzei","path":"source-gallery/src/main/java/com/google/android/apps/muzei/gallery/ChosenPhotoDao.kt","copies":"2","size":"11222","content": $sourceCode,"license":"apache-2.0"}"""
         dump = RawDump.fromString(newCode)
-        unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
+        unitContext = KotlinParserWrapper.createUnitContext(dump.toCode())
 
         val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
         val firstClass = processor.allClassNodes().first()
@@ -116,7 +116,7 @@ internal abstract class ChosenPhotoDao {
         val newCode =
             """{"repo_name":"jamieadkins95/Roach","path":"database/src/main/java/com/jamieadkins/gwent/database/CardDao.kt","copies":"1","size":"1647","content":$multipleMethodSource,"license":"apache-2.0"}"""
         dump = RawDump.fromString(newCode)
-        unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
+        unitContext = KotlinParserWrapper.createUnitContext(dump.toCode())
 
         val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
         val firstClass = processor.allClassNodes().first()
@@ -138,7 +138,7 @@ interface CardDao {
         val newCode =
             """{"repo_name":"jamieadkins95/Roach","path":"database/src/main/java/com/jamieadkins/gwent/database/CardDao.kt","copies":"1","size":"1647","content":$multipleMethodSource,"license":"apache-2.0"}"""
         dump = RawDump.fromString(newCode)
-        unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
+        unitContext = KotlinParserWrapper.createUnitContext(dump.toCode())
 
         val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
         val firstClass = processor.allClassNodes().first()
@@ -177,7 +177,7 @@ interface CardDao {
             """{"repo_name":"romannurik/muzei","path":"source-gallery/src/main/java/com/google/android/apps/muzei/gallery/ChosenPhotoDao.kt","copies":"2","size":"11222","content": $content,"license":"apache-2.0"}"""
 
         dump = RawDump.fromString(rawString)
-        unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
+        unitContext = KotlinParserWrapper.createUnitContext(dump.toCode())
 
         val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
         val allClassNodes = processor.allClassNodes()
@@ -198,7 +198,7 @@ interface CardDao {
 }"""
 
         dump = RawDump.fromString(content)
-        unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
+        unitContext = KotlinParserWrapper.createUnitContext(dump.toCode())
 
         val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
         val classNodes = processor.allClassNodes()

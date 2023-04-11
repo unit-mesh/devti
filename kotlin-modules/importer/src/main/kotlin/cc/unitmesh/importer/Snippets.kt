@@ -1,6 +1,6 @@
 package cc.unitmesh.importer
 
-import cc.unitmesh.importer.processor.CodeSnippetContext
+import cc.unitmesh.importer.processor.KotlinParserWrapper
 import cc.unitmesh.importer.processor.KotlinCodeProcessor
 import cc.unitmesh.importer.processor.allMethods
 import cc.unitmesh.importer.model.CodeSnippet
@@ -37,9 +37,9 @@ $code
         val results: MutableList<CodeSnippet> = mutableListOf();
         val dumpList = Json.decodeFromString<List<RawDump>>(outputFile.readText())
         dumpList.forEach { rawDump ->
-            val snippet: CodeSnippetContext
+            val snippet: KotlinParserWrapper
             try {
-                snippet = CodeSnippetContext.createUnitContext(rawDump.toCode())
+                snippet = KotlinParserWrapper.createUnitContext(rawDump.toCode())
             } catch (e: KtLintParseException) {
                 return@forEach
             }
@@ -90,7 +90,7 @@ $code
     ): List<String> {
         val typeMapByIdentifier: MutableMap<String, RawDump> = mutableMapOf()
         typesDump.forEach { type ->
-            val createUnitContext = CodeSnippetContext.createUnitContext(type.toCode())
+            val createUnitContext = KotlinParserWrapper.createUnitContext(type.toCode())
             val processor = KotlinCodeProcessor(createUnitContext.rootNode, type.content)
             processor.allClassNodes().forEach { classNode ->
                 val packageName = processor.packageName()
@@ -104,7 +104,7 @@ $code
             val typeStrings = snippet.requiredType.mapNotNull { type ->
                 typeMapByIdentifier[type]
             }.map {
-                val createUnitContext = CodeSnippetContext.createUnitContext(it.toCode())
+                val createUnitContext = KotlinParserWrapper.createUnitContext(it.toCode())
                 val processor = KotlinCodeProcessor(createUnitContext.rootNode, it.content)
                 processor.allClassNodes()[0].classToConstructorText()
             }
@@ -124,7 +124,7 @@ $code
             snippet.requiredType.mapNotNull { type ->
                 typeMapByIdentifier[type]
             }.map {
-                val createUnitContext = CodeSnippetContext.createUnitContext(it.toCode())
+                val createUnitContext = KotlinParserWrapper.createUnitContext(it.toCode())
                 val processor = KotlinCodeProcessor(createUnitContext.rootNode, it.content)
                 processor.allClassNodes()[0].classToConstructorText()
             }

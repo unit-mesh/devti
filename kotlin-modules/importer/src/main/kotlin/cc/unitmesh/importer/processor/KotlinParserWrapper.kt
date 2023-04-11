@@ -3,11 +3,8 @@ package cc.unitmesh.importer.processor
 import ktlint.analysis.Code
 import ktlint.analysis.KOTLIN_PSI_FILE_FACTORY_PROVIDER
 import ktlint.analysis.KtLintParseException
-import ktlint.analysis.LineAndColumn
 import ktlint.analysis.UTF8_BOM
 import ktlint.analysis.buildPositionInTextLocator
-import org.jetbrains.kotlin.KtNodeTypes
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.com.intellij.lang.FileASTNode
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement
 import org.jetbrains.kotlin.com.intellij.psi.PsiErrorElement
@@ -16,13 +13,12 @@ import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.psiUtil.children
 
-class CodeSnippetContext private constructor(
+class KotlinParserWrapper private constructor(
     val code: Code,
     val rootNode: FileASTNode,
-    val positionInTextLocator: (offset: Int) -> LineAndColumn,
 ) {
     companion object {
-        fun createUnitContext(code: Code): CodeSnippetContext {
+        fun createUnitContext(code: Code): KotlinParserWrapper {
             val psiFileFactory = KOTLIN_PSI_FILE_FACTORY_PROVIDER.getKotlinPsiFileFactory(true)
 
             val normalizedText = normalizeText(code.content)
@@ -49,10 +45,9 @@ class CodeSnippetContext private constructor(
 
             val rootNode = psiFile.node
 
-            return CodeSnippetContext(
+            return KotlinParserWrapper(
                 code,
                 rootNode,
-                positionInTextLocator,
             )
         }
 

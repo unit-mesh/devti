@@ -1,6 +1,6 @@
 package cc.unitmesh.importer
 
-import cc.unitmesh.importer.processor.CodeSnippetContext
+import cc.unitmesh.importer.processor.KotlinParserWrapper
 import cc.unitmesh.importer.processor.KotlinCodeProcessor
 import cc.unitmesh.importer.model.CodeSnippet
 import cc.unitmesh.importer.model.PackageUtil
@@ -94,9 +94,9 @@ class Analysis : CliktCommand(help = "Action Runner") {
             val codes: List<RawDump> = readDumpLists()
 
             val outputs = codes.filter { code ->
-                val snippet: CodeSnippetContext
+                val snippet: KotlinParserWrapper
                 try {
-                    snippet = CodeSnippetContext.createUnitContext(code.toCode())
+                    snippet = KotlinParserWrapper.createUnitContext(code.toCode())
                 } catch (e: KtLintParseException) {
                     return@filter false
                 }

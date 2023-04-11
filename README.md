@@ -32,12 +32,14 @@ Instruction:
 
 ![DevTi](https://unitmesh.cc/images/devti.png)
 
+文档详细见各模块的 README.md
+
 模块：
 
-- Collector（Python, JavaScript），数据收集
-- Processor（Kotlin），数据处理
-- Prompter（Python），Prompt 设计、调整、优化等
-- Train（Python），训练相关的 Notebook
+- [Collector](./collector)（Python, JavaScript），数据收集
+- [Processor](./processor)（Kotlin），数据处理
+- [Prompter](./prompter)（Python），Prompt 设计、调整、优化等
+- [Train](./train)（Python），训练相关的 Notebook
 - Chain（Python），开发框架
 
 Todos：

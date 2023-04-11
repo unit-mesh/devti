@@ -2,25 +2,24 @@ package cc.unitmesh.importer.processor
 
 import cc.unitmesh.importer.model.RawDump
 import io.kotest.matchers.shouldBe
-import ktlint.analysis.CodeInfo
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class KotlinCodeProcessorTestInfo {
+class KotlinCodeProcessorTest {
     val rawData =
         """{"repo_name":"KcgPrj/HouseHoldAccountBook","path":"src/main/kotlin/jp/ac/kcg/repository/ItemRepository.kt","copies":"1","size":"584","content":"package jp.ac.kcg.repository\n\nimport jp.ac.kcg.domain.Item\nimport jp.ac.kcg.domain.User\nimport org.springframework.data.jpa.repository.JpaRepository\nimport org.springframework.data.jpa.repository.Query\nimport org.springframework.data.repository.query.Param\nimport java.time.LocalDate\n\ninterface ItemRepository: JpaRepository\u003cItem, Long\u003e {\n\n    @Query(\"select i from Item i where i.user = :user and :before \u003c= i.receiptDate and i.receiptDate \u003c= :after\")\n    fun searchItems(@Param(\"user\") user: User, @Param(\"before\") before: LocalDate, @Param(\"after\") after: LocalDate): List\u003cItem\u003e\n}\n","license":"mit"}"""
+    lateinit var unitContext: KotlinParserWrapper
     lateinit var dump: RawDump
-    lateinit var codeInfo: CodeInfo
 
     @BeforeEach
     fun setUp() {
         dump = RawDump.fromString(rawData)
-        codeInfo = dump.toCode()
+        unitContext = KotlinParserWrapper.createUnitContext(dump.toCode())
     }
 
     @Test
     fun should_identifier_all_imports() {
-        val processor = KotlinCodeProcessor.create(codeInfo)
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
 
         val packageNAME = processor.packageName()
         packageNAME shouldBe "jp.ac.kcg.repository"
@@ -37,7 +36,7 @@ class KotlinCodeProcessorTestInfo {
 
     @Test
     fun should_get_method_input_type() {
-        val processor = KotlinCodeProcessor.create(codeInfo)
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
 
         val nodes = processor.getMethodByAnnotationName("Query")
         nodes.size shouldBe 1
@@ -57,7 +56,7 @@ class KotlinCodeProcessorTestInfo {
 
     @Test
     fun should_keep_class_only() {
-        val processor = KotlinCodeProcessor.create(codeInfo)
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
 
         val nodes = processor.getMethodByAnnotationName("Query")
         nodes.size shouldBe 1
@@ -79,8 +78,9 @@ class KotlinCodeProcessorTestInfo {
         val newCode =
             """{"repo_name":"romannurik/muzei","path":"source-gallery/src/main/java/com/google/android/apps/muzei/gallery/ChosenPhotoDao.kt","copies":"2","size":"11222","content": $sourceCode,"license":"apache-2.0"}"""
         dump = RawDump.fromString(newCode)
+        unitContext = KotlinParserWrapper.createUnitContext(dump.toCode())
 
-        val processor = KotlinCodeProcessor.create(codeInfo)
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
         val firstClass = processor.allClassNodes().first()
         val newNodes = processor.splitClassMethodsToManyClass(firstClass)
         newNodes.size shouldBe 15
@@ -116,8 +116,9 @@ internal abstract class ChosenPhotoDao {
         val newCode =
             """{"repo_name":"jamieadkins95/Roach","path":"database/src/main/java/com/jamieadkins/gwent/database/CardDao.kt","copies":"1","size":"1647","content":$multipleMethodSource,"license":"apache-2.0"}"""
         dump = RawDump.fromString(newCode)
+        unitContext = KotlinParserWrapper.createUnitContext(dump.toCode())
 
-        val processor = KotlinCodeProcessor.create(codeInfo)
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
         val firstClass = processor.allClassNodes().first()
         val newNodes = processor.splitClassMethodsToManyClass(firstClass)
 
@@ -137,8 +138,9 @@ interface CardDao {
         val newCode =
             """{"repo_name":"jamieadkins95/Roach","path":"database/src/main/java/com/jamieadkins/gwent/database/CardDao.kt","copies":"1","size":"1647","content":$multipleMethodSource,"license":"apache-2.0"}"""
         dump = RawDump.fromString(newCode)
+        unitContext = KotlinParserWrapper.createUnitContext(dump.toCode())
 
-        val processor = KotlinCodeProcessor.create(codeInfo)
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
         val firstClass = processor.allClassNodes().first()
         val queryNodes = processor.splitClassMethodsByAnnotationName(firstClass, "Query")
 
@@ -175,8 +177,9 @@ interface CardDao {
             """{"repo_name":"romannurik/muzei","path":"source-gallery/src/main/java/com/google/android/apps/muzei/gallery/ChosenPhotoDao.kt","copies":"2","size":"11222","content": $content,"license":"apache-2.0"}"""
 
         dump = RawDump.fromString(rawString)
+        unitContext = KotlinParserWrapper.createUnitContext(dump.toCode())
 
-        val processor = KotlinCodeProcessor.create(codeInfo)
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
         val allClassNodes = processor.allClassNodes()
         allClassNodes.size shouldBe 1
         allClassNodes.first()
@@ -195,8 +198,9 @@ interface CardDao {
 }"""
 
         dump = RawDump.fromString(content)
+        unitContext = KotlinParserWrapper.createUnitContext(dump.toCode())
 
-        val processor = KotlinCodeProcessor.create(codeInfo)
+        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
         val classNodes = processor.allClassNodes()
         classNodes.size shouldBe 1
 

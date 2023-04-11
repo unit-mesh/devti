@@ -26,6 +26,16 @@ DevTi 的核心功能包括自动化代码生成、智能代码检查、自动�
 - 研发实践辅助导入
 - 研发规范自检内嵌
 
+## Usage
+
+Instruction:
+
+- 拆分任务。instruction：split user story tasks，input：折分用户故事任务
+- 需求细化。instruction：create Agile user story for following topic，input：功能的基本信息
+- 代码生成。instruction：Implement the method xxx，input：类的基本信息
+- 测试生成。instruction：Write test for follow code，input：类的基本信息
+- Repository 生成。instruction：text to repository with class，input：功能的基本信息
+
 ## Development
 
 ![DevTi](https://unitmesh.cc/images/devti.png)

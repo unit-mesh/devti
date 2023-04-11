@@ -1,9 +1,5 @@
 package cc.unitmesh.importer.processor
 
-import cc.unitmesh.importer.processor.CodeSnippetContext
-import cc.unitmesh.importer.processor.KotlinCodeProcessor
-import cc.unitmesh.importer.processor.allMethods
-import cc.unitmesh.importer.processor.classToConstructorText
 import cc.unitmesh.importer.model.RawDump
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
@@ -39,26 +35,13 @@ class KotlinCodeProcessorTest {
     }
 
     @Test
-    fun should_get_method_return_type() {
-        val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
-
-        val nodes = processor.getMethodByAnnotationName("Query")
-        nodes.size shouldBe 1
-
-        val returnType = processor.methodReturnType(nodes.first())
-        returnType shouldBe "Item"
-        val fullReturnType = processor.fullReturnType(nodes.first(), processor.allImports())
-        fullReturnType shouldBe "jp.ac.kcg.domain.Item"
-    }
-
-    @Test
     fun should_get_method_input_type() {
         val processor = KotlinCodeProcessor(unitContext.rootNode, dump.content)
 
         val nodes = processor.getMethodByAnnotationName("Query")
         nodes.size shouldBe 1
 
-        val inputType = processor.methodInputType(nodes.first())
+        val inputType = processor.methodParameterType(nodes.first())
         inputType.size shouldBe 3
         inputType[0] shouldBe "User"
         inputType[1] shouldBe "LocalDate"

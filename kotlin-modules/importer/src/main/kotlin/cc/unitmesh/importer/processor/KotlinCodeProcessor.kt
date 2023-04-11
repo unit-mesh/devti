@@ -25,9 +25,7 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
     fun allClassNodes(): List<ASTNode> {
         // SCRIPT > BLOCK > CLASS
         rootNode.findChildByType(KtNodeTypes.SCRIPT)?.let {
-            // find block in script
             it.findChildByType(KtNodeTypes.BLOCK)?.let { block ->
-                // find class in block
                 return block.findChildByType(KtNodeTypes.CLASS)?.let { classNode ->
                     listOf(classNode)
                 } ?: listOf()
@@ -122,7 +120,7 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
             ?: listOf()
     }
 
-    fun methodReturnType(methodNode: ASTNode): String {
+    private fun methodReturnType(methodNode: ASTNode): String {
         val defaultRefs = methodNode.findChildByType(KtNodeTypes.TYPE_REFERENCE)
         val userType = defaultRefs?.findChildByType(KtNodeTypes.USER_TYPE)
 
@@ -136,13 +134,7 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
         return defaultRefs?.text ?: ""
     }
 
-    fun fullReturnType(methodNode: ASTNode, imports: List<String>): String {
-        val methodReturnType = methodReturnType(methodNode)
-        val import = imports.find { it.endsWith(methodReturnType) }
-        return import ?: methodReturnType
-    }
-
-    fun methodInputType(methodNode: ASTNode): List<String> {
+    fun methodParameterType(methodNode: ASTNode): List<String> {
         return methodNode.findChildByType(KtNodeTypes.VALUE_PARAMETER_LIST)
             ?.children()
             ?.filter { it.elementType == KtNodeTypes.VALUE_PARAMETER }
@@ -155,7 +147,7 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
 
     fun methodRequiredTypes(methodNode: ASTNode, imports: List<String>): List<String> {
         val methodReturnType = methodReturnType(methodNode)
-        val methodInputType = methodInputType(methodNode)
+        val methodInputType = methodParameterType(methodNode)
 
         val allType = methodInputType + methodReturnType
 

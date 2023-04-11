@@ -29,15 +29,6 @@ class CodeSnippetContext private constructor(
             ?: emptyList()
     }
 
-    fun classNames(): List<String> {
-        return rootNode
-            .children()
-            .filter { it.elementType == KtNodeTypes.CLASS }
-            .map { it.findChildByType(KtTokens.IDENTIFIER)?.text }
-            .filterNotNull()
-            .toList()
-    }
-
     companion object {
         fun createUnitContext(code: Code): CodeSnippetContext {
             val psiFileFactory = KOTLIN_PSI_FILE_FACTORY_PROVIDER.getKotlinPsiFileFactory(true)

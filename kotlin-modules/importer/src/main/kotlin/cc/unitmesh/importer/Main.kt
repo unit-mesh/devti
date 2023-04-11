@@ -19,13 +19,11 @@ fun main(args: Array<String>) = Importer()
     .subcommands(Analysis(), Type(), Prompt())
     .main(args)
 
-
 val logger: Logger = LoggerFactory.getLogger(Importer::class.java)
 
 class Importer : CliktCommand() {
     override fun run() = Unit
 }
-
 
 fun readDumpLists(): List<RawDump> {
     val jsonFiles = File("datasets" + File.separator + "rawdump").walkTopDown().filter { file ->
@@ -77,7 +75,7 @@ class Analysis : CliktCommand(help = "Action Runner") {
 
 private val typeFile = "datasets" + File.separator + "types.json"
 
-class Type : CliktCommand(help = "Generate TypeItem") {
+class Type : CliktCommand(help = "Generate Type Items") {
     override fun run() {
         val snippets: List<CodeSnippet> = Json.decodeFromString(splitFile.readText())
 
@@ -102,8 +100,6 @@ class Type : CliktCommand(help = "Generate TypeItem") {
 
 
 class Prompt : CliktCommand(help = "Generate Prompt") {
-
-
     override fun run() {
         val snippets: List<CodeSnippet> = Json.decodeFromString(splitFile.readText())
 

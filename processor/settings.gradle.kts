@@ -6,6 +6,8 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "UnitProcessor"
 
 include(
+    ":common:core",
+
     ":kotlin-modules:analysis",
     ":kotlin-modules:unit-demo",
     ":kotlin-modules:importer",

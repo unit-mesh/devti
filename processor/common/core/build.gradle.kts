@@ -12,19 +12,17 @@ repositories {
 
 dependencies {
     implementation(projects.javaModules.coreAnalysis)
-    implementation(projects.common.core)
     implementation(libs.clikt)
     implementation(libs.kotlin.compiler)
-
     implementation(libs.serialization.json)
 
     // Logging
     implementation(libs.logging.slf4j.api)
     implementation(libs.logging.logback.classic)
 
+    implementation(libs.kaml)
+
     // java parser
-    implementation(libs.swagger.parser)
-    implementation(libs.swagger.parser.v3)
     implementation(libs.javaparser)
     implementation(libs.javaparser.serialization)
     implementation(libs.javaparser.symbol.solver.core)
@@ -42,15 +40,14 @@ kotlin {
     jvmToolchain(11)
 }
 
-
 application {
-    mainClass.set("cc.unitmesh.spring.MainKt")
+    mainClass.set("cc.unitmesh.processor.MainKt")
 }
 
 tasks {
     shadowJar {
         manifest {
-            attributes(Pair("Main-Class", "cc.unitmesh.spring.MainKt"))
+            attributes(Pair("Main-Class", "cc.unitmesh.processor.MainKt"))
         }
         // minimize()
         dependencies {

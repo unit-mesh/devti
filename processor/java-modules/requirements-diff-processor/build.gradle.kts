@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     implementation(projects.javaModules.coreAnalysis)
+    implementation(projects.common.core)
     implementation(libs.clikt)
     implementation(libs.kotlin.compiler)
     implementation(libs.serialization.json)

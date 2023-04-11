@@ -102,10 +102,15 @@ class Type : CliktCommand(help = "Generate Type Items") {
 class Prompt : CliktCommand(help = "Generate Prompt") {
     override fun run() {
         val snippets: List<CodeSnippet> = Json.decodeFromString(splitFile.readText())
+        val typesDump: List<RawDump> = Json.decodeFromString(File(typeFile).readText())
 
-        val prompts = Snippets.toOpenAIPrompts(snippets)
+        val openAiPrompts = Snippets.toOpenAIPrompts(snippets)
+        logger.info("Prompt sizes: ${openAiPrompts.size}")
+        File("datasets" + File.separator + "prompts.json").writeText(Json.Default.encodeToString(openAiPrompts))
+
+        val prompts = Snippets.toLLMPrompts(typesDump, snippets)
 
         logger.info("Prompt sizes: ${prompts.size}")
-        File("datasets" + File.separator + "prompts.json").writeText(Json.Default.encodeToString(prompts))
+        File("datasets" + File.separator + "llm-prompts.json").writeText(Json.Default.encodeToString(prompts))
     }
 }

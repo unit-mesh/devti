@@ -13,17 +13,6 @@ import java.io.File
 
 
 object Snippets {
-    private fun typedPrompt(code: String, types: List<String>): String {
-        return """用户故事来描述如下的代码。要求：1. 只返回一句话 2. 突出重点 3. 不使用技术术语
-
-###
-${types.joinToString("\n")}
-
-$code
-###
-""".trimMargin()
-    }
-
     private fun promptForOpenAI(code: String): String {
         return """用户故事来描述如下的代码。要求：1. 只返回一句话 2. 突出重点 3. 不使用技术术语
 
@@ -87,7 +76,7 @@ $code
     fun toLLMPrompts(
         typesDump: List<RawDump>,
         snippets: List<CodeSnippet>
-    ): List<String> {
+    ): List<SnippetPrompt> {
         val typeMapByIdentifier: MutableMap<String, RawDump> = mutableMapOf()
         typesDump.forEach { type ->
             val createUnitContext = KotlinParserWrapper.createUnitContext(type.toCode())
@@ -100,7 +89,7 @@ $code
             }
         }
 
-        val prompts = snippets.map { snippet ->
+        val prompts = snippets.mapIndexed { index, snippet ->
             val typeStrings = snippet.requiredType.mapNotNull { type ->
                 typeMapByIdentifier[type]
             }.map {
@@ -109,7 +98,13 @@ $code
                 processor.allClassNodes()[0].classToConstructorText()
             }
 
-            typedPrompt(snippet.content, typeStrings)
+            SnippetPrompt(
+                id = index,
+                identifierName = snippet.identifierName,
+                requiredType = typeStrings,
+                content = snippet.content,
+                prompt = "",
+            )
         }
 
         return prompts

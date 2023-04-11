@@ -13,10 +13,10 @@ include(
     ":kotlin-modules:importer",
 
     ":java-modules:core-analysis",
-
     ":java-modules:codegen-processor",
-    ":java-modules:swagger-processor",
     ":java-modules:spring-processor",
     ":java-modules:test-processor",
-    ":java-modules:requirements-diff-processor"
+
+    ":modules:swagger-processor",
+    ":modules:requirements-diff-processor"
 )

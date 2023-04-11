@@ -21,14 +21,6 @@ class CodeSnippetContext private constructor(
     val rootNode: FileASTNode,
     val positionInTextLocator: (offset: Int) -> LineAndColumn,
 ) {
-    fun allImports(): List<ASTNode> {
-        return rootNode
-            .findChildByType(KtNodeTypes.IMPORT_LIST)
-            ?.children()
-            ?.toList()
-            ?: emptyList()
-    }
-
     companion object {
         fun createUnitContext(code: Code): CodeSnippetContext {
             val psiFileFactory = KOTLIN_PSI_FILE_FACTORY_PROVIDER.getKotlinPsiFileFactory(true)

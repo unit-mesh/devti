@@ -14,11 +14,6 @@ class RawDumpTest {
             """{"repo_name":"Cognifide/gradle-aem-plugin","path":"src/main/kotlin/com/cognifide/gradle/aem/instance/tasks/InstanceReload.kt","copies":"1","size":"1052","content":"$sourceCode,"license":"apache-2.0"}"""
 
         val dump = RawDump.fromString(originText)
-
-        val unitContext = CodeSnippetContext.createUnitContext(dump.toCode())
-        unitContext.rootNode shouldNotBe null
-
-        val imports = unitContext.allImports()
-        imports.size shouldBe 9
+        dump.repo_name shouldBe "Cognifide/gradle-aem-plugin"
     }
 }

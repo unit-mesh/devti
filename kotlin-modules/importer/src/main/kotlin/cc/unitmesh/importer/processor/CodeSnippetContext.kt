@@ -38,15 +38,6 @@ class CodeSnippetContext private constructor(
             .toList()
     }
 
-    /**
-     * file level function
-     */
-    fun topLevelFunByName(functionName: String): ASTNode? {
-        return rootNode
-            .findChildByType(KtNodeTypes.FUN)
-            ?.takeIf { it.text.contains("fun $functionName") }
-    }
-
     companion object {
         fun createUnitContext(code: Code): CodeSnippetContext {
             val psiFileFactory = KOTLIN_PSI_FILE_FACTORY_PROVIDER.getKotlinPsiFileFactory(true)

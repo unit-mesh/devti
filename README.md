@@ -12,12 +12,7 @@ DevTi 的核心功能包括自动化代码生成、智能代码检查、自动�
 
 ## About DevTi
 
-模块：
-
-- Collector，数据收集
-- Processor，数据处理
-- Prompter，Prompt 设计、调整、优化等
-- Train，训练相关的 Notebook
+![DevTi](https://unitmesh.cc/images/devti-processes.png)
 
 特性:
 
@@ -31,6 +26,18 @@ DevTi 的核心功能包括自动化代码生成、智能代码检查、自动�
 - 研发实践辅助导入
 - 研发规范自检内嵌
 
+## Development
+
+![DevTi](https://unitmesh.cc/images/devti.png)
+
+模块：
+
+- Collector（Python, JavaScript），数据收集
+- Processor（Kotlin），数据处理
+- Prompter（Python），Prompt 设计、调整、优化等
+- Train（Python），训练相关的 Notebook
+- Chain（Python），开发框架
+
 Todos：
 
 - [x] 端到端的 AI 辅助生成
@@ -42,8 +49,6 @@ Todos：
 	- ...
 - [ ] 研发实践辅助导入
 - [ ] 研发规范自检内嵌
-
-## Development
 
 更新中...
 

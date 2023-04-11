@@ -46,3 +46,4 @@ processor.yml
 *.jsonl
 .idea/workspace.xml
 .idea/uiDesigner.xml
+.idea

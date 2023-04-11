@@ -13,23 +13,6 @@ import fire
 from utils import json_to_jsonl
 
 
-def encode_prompt(prompt_instructions):
-    """Encode multiple prompt instructions into a single string."""
-    prompt = open("self-instruct/prompt_cn.txt").read() + "\n"
-
-    for idx, task_dict in enumerate(prompt_instructions):
-        (instruction, input, output) = task_dict["instruction"], task_dict["input"], task_dict["output"]
-        instruction = re.sub(r"\s+", " ", instruction).strip().rstrip(":")
-        input = "<noinput>" if input.lower() == "" else input
-        prompt += f"###\n"
-        prompt += f"{idx + 1}. Instruction: {instruction}\n"
-        prompt += f"{idx + 1}. Input:\n{input}\n"
-        prompt += f"{idx + 1}. Output:\n{output}\n"
-    prompt += f"###\n"
-    prompt += f"{idx + 2}. Instruction:"
-    return prompt
-
-
 def prompt_gpt35(prompt, value):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",

@@ -34,6 +34,22 @@ python user-story.py create_user_story_detail
 python user-story.py merge_userstory_details
 ```
 
+### Swagger 数据生成
+
+```bash
+# 根据 Swagger 生成用户故事
+python swagger-user-story.py swagger_to_userstory
+
+# 合并为 JSONL
+python swagger-user-story.py merge_swagger_output
+
+# 根据用户故事生成 Swagger
+python swagger-user-story.py userstory_to_swagger
+
+# 合并为 JSONL
+python swagger-user-story.py merge_api_output
+```
+
 ### 测试代码数据生成
 
 ```bash
@@ -50,3 +66,13 @@ python test-to-code.py merge_test_output_to_jsonl
 python test-to-code.py generate_for_lora
 ```
 
+### Repository 代码数据生成
+
+```bash
+# 生成 Repository 代码
+python repository-to-prompt.py process_prompt
+```
+
+### 生成辅助代码
+
+不需要

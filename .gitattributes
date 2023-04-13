@@ -1,3 +1,2 @@
-*.ipynb -linguist-vendored
-**/*.ipynb -linguist-vendored
- 
+*.ipynb linguist-vendored
+*.ipynb linguist-detectable=false 

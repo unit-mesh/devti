@@ -10,6 +10,8 @@ class PostmanRequest {
     var header: List<PostmanHeader>? = null
     var body: PostmanBody? = null
     var url: PostmanUrl? = null
+    var description: String? = null
+
     fun getData(`var`: PostmanVariables): String? {
         return if (body == null || body!!.mode == null) {
             ""

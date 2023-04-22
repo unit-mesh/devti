@@ -8,6 +8,8 @@ class PostmanCollection {
     var item: List<PostmanFolder>? = null
     var folderLookup: MutableMap<String?, PostmanFolder> = HashMap()
     var variable: List<PostmanVariable>? = null
+    var auth: PostmanAuth? = null
+    var event: List<PostmanEvent>? = null
 
     fun init() {
         for (f in item!!) {

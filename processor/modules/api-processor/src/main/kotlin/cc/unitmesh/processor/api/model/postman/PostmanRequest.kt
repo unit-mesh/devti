@@ -11,6 +11,7 @@ class PostmanRequest {
     var body: PostmanBody? = null
     var url: PostmanUrl? = null
     var description: String? = null
+    var auth: PostmanAuth? = null
 
     fun getData(`var`: PostmanVariables): String? {
         return if (body == null || body!!.mode == null) {

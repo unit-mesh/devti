@@ -6,4 +6,5 @@ import kotlinx.serialization.Serializable
 class PostmanHeader {
     var key: String? = null
     var value: String? = null
+    var type: String? = null
 }

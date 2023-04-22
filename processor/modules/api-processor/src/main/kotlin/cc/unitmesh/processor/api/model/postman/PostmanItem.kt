@@ -9,4 +9,11 @@ class PostmanItem {
     var event: List<PostmanEvent>? = null
     var request: PostmanRequest? = null
     var response: List<PostmanResponse>? = null
+    var protocolProfileBehavior: PostmanProtocolProfileBehavior? = null
 }
+
+@Serializable
+class PostmanProtocolProfileBehavior {
+    var disableBodyPruning: Boolean? = null
+}
+

@@ -6,7 +6,9 @@ import kotlinx.serialization.Serializable
 class PostmanUrl {
     var raw: String? = null
     var host: List<String>? = null
+    var port: String? = null
     var path: List<String>? = null
     var query: List<PostmanQuery>? = null
     var variable: List<PostmanVariable>? = null
+    var protocol: String? = null
 }

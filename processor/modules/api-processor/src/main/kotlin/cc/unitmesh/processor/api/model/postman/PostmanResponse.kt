@@ -4,14 +4,15 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class PostmanResponse(
-    val name: String,
-    val originalRequest: PostmanRequest,
-    val status: String,
-    val code: Int,
-    val header: List<PostmanHeader>,
-    val cookie: List<String>,
-    val body: String,
-    val _postman_previewlanguage: String,
+    val _postman_previewlanguage: String? = null,
+    val name: String? = null,
+    val originalRequest: PostmanRequest? = null,
+    val status: String? = null,
+    val code: Int? = null,
+    val header: List<PostmanHeader>? = null,
+    val cookie: List<String>? = null,
+    val body: String? = null,
+    val urlencoded: List<PostmanUrlEncoded>? = null,
 //    val data: List<Data>,
 //    val links: Links,
 //    val meta: Meta

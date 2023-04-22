@@ -8,4 +8,5 @@ class PostmanHeader {
     var value: String? = null
     var type: String? = null
     var description: String? = null
+    var disabled: Boolean? = null
 }

@@ -71,9 +71,11 @@ class PostmanParser {
             }
         }
 
+        // {auth type}: {accessToken, tokenType, addTokenTo}
         // description
         // method uri
         // request headers
+        // response body
     }
 }
 

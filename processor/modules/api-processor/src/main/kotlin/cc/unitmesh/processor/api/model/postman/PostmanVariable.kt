@@ -8,4 +8,7 @@ class PostmanVariable {
     var value: String? = null
     var type: String? = null
     var description: String? = null
+    fun format(): String {
+        return "$key=$value"
+    }
 }

@@ -72,6 +72,10 @@ class PostmanParser {
         }
 
         // {auth type}: {accessToken, tokenType, addTokenTo}
+        if (request.auth != null) {
+            val auth = request.auth!!
+            println(auth.format())
+        }
         // description
         // method uri
         // request headers

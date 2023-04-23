@@ -49,6 +49,13 @@ class PostmanParser {
         val folder = folderName
         val item = itemName
 
+        println("folder: $folder - name: $name")
+
+        // simplify the description
+        if (description != null) {
+            println("description: ${description.replace("\n", " ")}")
+        }
+
         var uri = request.getUrl(`var`)
         // if uri startsWith `UNDEFINED` then remove UNDEFINED
         if (uri?.startsWith("UNDEFINED") == true) {

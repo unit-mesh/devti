@@ -38,9 +38,7 @@ class PostmanVariables(val env: PostmanEnvironment) {
      * @return The new string with all dynamic variables replaced
      */
     fun replace(orig: String?): String? {
-        if (orig == null || orig.isEmpty()) {
-            return orig
-        }
+        if (orig.isNullOrEmpty()) return orig
         // Get all the dynamic variables
         val allMatches: MutableList<String> = ArrayList()
         val m = Pattern.compile(POSTMAN_EXP).matcher(orig)

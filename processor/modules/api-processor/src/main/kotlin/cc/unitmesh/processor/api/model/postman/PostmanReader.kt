@@ -10,10 +10,9 @@ import java.io.IOException
 import java.io.InputStream
 
 class PostmanReader {
-    var om: ObjectMapper
+    var om: ObjectMapper = ObjectMapper()
 
     init {
-        om = ObjectMapper()
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
     }
 

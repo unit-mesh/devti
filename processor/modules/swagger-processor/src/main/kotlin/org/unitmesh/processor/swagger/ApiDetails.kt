@@ -27,9 +27,6 @@ data class ApiDetails(
     val outputs: List<Parameter> = listOf(),
 ) {
     companion object {
-        // Login
-        // POST /users/login Login with REST API
-        // POST /users/register Register with REST API
         fun formatApiDetailsByTag(apiDetails: List<ApiDetails>): List<ApiTagOutput> {
             val result: MutableList<ApiTagOutput> = mutableListOf()
             apiDetails.groupBy { it.tags }.forEach { (tags, apiDetails) ->

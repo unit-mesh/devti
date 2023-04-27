@@ -116,7 +116,7 @@ class UnitConnector : CliktCommand() {
                     .replace("{bankName}", bank.name)
                     .replace("{serviceName}", it.name)
                     .replace("{serviceDescription}", it.description)
-                val outputFile = File(markdownApiOutputDir, "$index-${bank.name}-${it.name}.md")
+                val outputFile = File(markdownApiOutputDir, "$index-${bank.name}-${it.name}.csv")
 
                 if (outputFile.exists()) {
                     return@forEach

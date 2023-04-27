@@ -41,14 +41,12 @@ class OpenAiProxyPrompter(val openAiKey: String, val openAiProxy: String) {
 
         val completionRequest = ChatCompletionRequest.builder()
             .model(openAiVersion)
-            .temperature(0.0)
             .messages(messages)
             .build()
 
         val completion = service.createChatCompletion(completionRequest)
-        val output = completion
-            .choices[0].message.content
 
-        return output
+        return completion
+            .choices[0].message.content
     }
 }

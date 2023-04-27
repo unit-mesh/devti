@@ -119,7 +119,7 @@ class UnitConnector : CliktCommand() {
                 val outputFile = File(markdownApiOutputDir, "$index-${bank.name}-${it.name}.md")
 
                 if (outputFile.exists()) {
-                    return@forEachIndexed
+                    return@forEach
                 }
 
                 try {

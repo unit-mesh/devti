@@ -38,9 +38,9 @@ class UnitConnector : CliktCommand() {
 
         val columnNames = frame.columnNames()
 
-        if (outputDir.exists()) {
-            outputDir.deleteRecursively()
-        }
+//        if (outputDir.exists()) {
+//            outputDir.deleteRecursively()
+//        }
         outputDir.mkdirs()
 
         val promptDir = File(outputDir.absolutePath, "prepare")

@@ -5,7 +5,7 @@ import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.default
 import com.github.ajalt.clikt.parameters.arguments.help
 import com.github.ajalt.clikt.parameters.types.file
-import com.github.ajalt.clikt.parameters.types.int
+import io.github.cdimascio.dotenv.Dotenv
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.rows
 import org.jetbrains.kotlinx.dataframe.io.read
@@ -25,6 +25,13 @@ class UnitConnector : CliktCommand() {
     private val outputDir by argument().file().default(File("output"))
 
     override fun run() {
+        logger.info("loading dotenv")
+        val dotenv = Dotenv.load()
+        val proxy = dotenv.get("OPEN_AI_PROXY")
+        val key = dotenv.get("OPEN_AI_KEY")
+
+        logger.info("key: $key, proxy: $proxy")
+
         logger.info("Unit Connector Started")
         val frame = DataFrame.read(source.absolutePath)
         val items = frame.rows().toList()
@@ -52,6 +59,23 @@ class UnitConnector : CliktCommand() {
             outputFile.writeText(newPrompt)
         }
 
+        val prompter = OpenAiProxyPrompter(key, proxy)
+        val prompterOutputDir = File(outputDir.absolutePath, "prompter")
+        prompterOutputDir.mkdirs()
 
+        actualPrompts.forEachIndexed { index, prompt ->
+            val outputFile = File(prompterOutputDir, "output-$index.txt")
+            if (outputFile.exists()) {
+                return@forEachIndexed
+            }
+
+            try {
+                val output = prompter.prompt(prompt)
+                outputFile.writeText(output)
+            } catch (e: Exception) {
+                Thread.sleep(1000)
+                logger.error("Error sleeping", e)
+            }
+        }
     }
 }

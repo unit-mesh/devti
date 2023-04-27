@@ -16,7 +16,7 @@ class OpenAiProxyPrompter(val openAiKey: String, val openAiProxy: String) {
     private val timeout = Duration.ofSeconds(600)
 
     init {
-        if (openAiProxy.isNotEmpty()) {
+        if (openAiProxy.isEmpty()) {
             service = OpenAiService(openAiKey, timeout)
         } else {
             val mapper = OpenAiService.defaultObjectMapper()
@@ -34,7 +34,7 @@ class OpenAiProxyPrompter(val openAiKey: String, val openAiProxy: String) {
         }
     }
 
-    private fun prompt(instruction: String): String {
+    fun prompt(instruction: String): String {
         val messages: MutableList<ChatMessage> = ArrayList()
         val systemMessage = ChatMessage(ChatMessageRole.USER.value(), instruction)
         messages.add(systemMessage)

@@ -94,7 +94,7 @@ class UnitConnector : CliktCommand() {
                 try {
                     val output = Json.decodeFromString<Bank>(text)
                     banks.add(output)
-                    jsonlFile.appendText(Json { isLenient = true } .encodeToString(output))
+                    jsonlFile.appendText(Json { isLenient = true }.encodeToString(output))
                     jsonlFile.appendText("\n")
                 } catch (e: Exception) {
                     logger.error("Error parsing $file", e)
@@ -116,7 +116,14 @@ class UnitConnector : CliktCommand() {
                     .replace("{serviceName}", it.name)
                     .replace("{serviceDescription}", it.description)
 
-                println(newPrompt)
+                try {
+                    val output = prompter.prompt(newPrompt)
+                    val outputFile = File(markdownApiOutputDir, "$index-${bank.name}-${it.name}.md")
+                    outputFile.writeText(output)
+                } catch (e: Exception) {
+                    Thread.sleep(1000)
+                    logger.error("Error sleeping", e)
+                }
             }
         }
     }

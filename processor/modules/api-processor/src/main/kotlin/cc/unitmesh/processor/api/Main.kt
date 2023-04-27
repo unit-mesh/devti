@@ -39,6 +39,7 @@ class UnitConnector : CliktCommand() {
         val promptDir = File(outputDir.absolutePath, "prepare")
         promptDir.mkdirs()
         val promptText = prompt.readText()
+        val actualPrompts = mutableListOf<String>()
         items.forEachIndexed { index, row ->
             var newPrompt = ""
             columnNames.forEach { columnName ->
@@ -46,8 +47,11 @@ class UnitConnector : CliktCommand() {
                 newPrompt = promptText.replace("{$columnName}", value.toString())
             }
 
+            actualPrompts.add(newPrompt)
             val outputFile = File(promptDir, "prompt-$index.txt")
             outputFile.writeText(newPrompt)
         }
+
+
     }
 }

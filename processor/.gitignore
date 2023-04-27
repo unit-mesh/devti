@@ -49,3 +49,4 @@ processor.yml
 prompt.txt
 source.csv
 output
+.env

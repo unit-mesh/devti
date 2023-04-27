@@ -1,5 +1,6 @@
-你现在作为 Deutsche Bank 银行的架构师，帮我设计的一个 Account Information API。要求如下：
+你现在作为 {bankName} 银行的架构师，帮我设计的一个 {serviceName}。要求如下：
 
-1. 根据该银行的技术栈特点，来设计 Open API。
-2. 只使用表格返回 API 列表，不做解释。
-3. 需要包含：API 名称、API 描述、API 请求 URL、API 请求方法、API 请求参数、API 返回结果、失败状态码列表。
+1. {serviceName} 的功能是 {serviceDescription}。
+2. 根据该银行的技术栈特点，来设计 Open API。
+3. 只使用表格返回 API 列表，不做解释。
+4. 需要包含：API 名称、API 描述、API 请求 URL、API 请求方法、API 请求参数、API 返回结果、失败状态码列表。

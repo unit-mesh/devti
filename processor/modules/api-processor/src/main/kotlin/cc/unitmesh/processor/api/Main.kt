@@ -26,6 +26,7 @@ val logger: Logger = LoggerFactory.getLogger(UnitConnector::class.java)
 class UnitConnector : CliktCommand() {
     private val source by argument().file().help("Source CSV file").default(File("source.csv"))
     private val prompt by argument().file().default(File("prompt.txt"))
+    private val prompt2 by argument().file().default(File("prompt2.txt"))
     private val outputDir by argument().file().default(File("output"))
 
     override fun run() {
@@ -86,16 +87,36 @@ class UnitConnector : CliktCommand() {
         // walkdir prompterOutputDir and merge to jsonl
         val jsonlFile = File(outputDir.absolutePath, "prompter.jsonl")
         jsonlFile.writeText("")
+        val banks = mutableListOf<Bank>()
         prompterOutputDir.walk().forEach { file ->
             if (file.isFile) {
                 val text = file.readText()
                 try {
                     val output = Json.decodeFromString<Bank>(text)
+                    banks.add(output)
                     jsonlFile.appendText(Json { isLenient = true } .encodeToString(output))
                     jsonlFile.appendText("\n")
                 } catch (e: Exception) {
                     logger.error("Error parsing $file", e)
+                    throw e
                 }
+            }
+        }
+
+        // prompt with new
+        val markdownApiOutputDir = File(outputDir.absolutePath, "apis")
+        markdownApiOutputDir.mkdirs()
+
+        val prompt2 = prompt2.readText()
+        banks.forEachIndexed { index, bank ->
+            bank.openApiService.forEach {
+                // replace {bankName} with bank.name, replace {serviceName} with service.name, replace {serviceDescription} with service.description
+                val newPrompt = prompt2
+                    .replace("{bankName}", bank.name)
+                    .replace("{serviceName}", it.name)
+                    .replace("{serviceDescription}", it.description)
+
+                println(newPrompt)
             }
         }
     }

@@ -28,6 +28,13 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
 
+    // java parser
+    implementation(libs.swagger.parser)
+    implementation(libs.swagger.parser.v3)
+    implementation(libs.javaparser)
+    implementation(libs.javaparser.serialization)
+    implementation(libs.javaparser.symbol.solver.core)
+
     testImplementation(kotlin("test"))
 
     testImplementation(libs.bundles.test)

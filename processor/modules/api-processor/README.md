@@ -4,6 +4,8 @@ Todos:
 
 - [ ] Generate extends information
     - [ ] protocol information by specification (Empowered by OpenAI) 
+- [ ] CLI for prompting
+- [ ] API to Domains
 
 ## Postman
 

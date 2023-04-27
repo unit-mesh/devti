@@ -47,12 +47,12 @@ class Swagger2Processor(private val api: OpenAPI) : SwaggerProcessor {
     }
 
     companion object {
-        fun fromFile(it: File): OpenAPI? {
-            val result: SwaggerParseResult =
-                OpenAPIParser().readContents(it.readText(), null, null)
-            val openAPI = result.openAPI
-            if (result.messages != null) result.messages.forEach(System.err::println); // validation errors and warnings
-            return openAPI
-        }
+//        fun fromFile(it: File): OpenAPI? {
+//            val result: SwaggerParseResult =
+//                OpenAPIParser().readContents(it.readText(), null, null)
+//            val openAPI = result.openAPI
+//            if (result.messages != null) result.messages.forEach(System.err::println); // validation errors and warnings
+//            return openAPI
+//        }
     }
 }

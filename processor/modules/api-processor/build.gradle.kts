@@ -28,6 +28,8 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
 
+    implementation("org.jetbrains.kotlinx:dataframe:0.10.0")
+
     // java parser
     implementation(libs.swagger.parser)
     implementation(libs.swagger.parser.v3)

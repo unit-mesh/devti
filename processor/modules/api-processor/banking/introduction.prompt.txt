@@ -1,0 +1,22 @@
+你被要求请根据下面的 5 个银行名字，丰富银行相关的信息。要求如下：
+
+1. 精炼银行的介绍，只介绍其核心业务。
+2. 当你不知道某个银行的信息时，请不要返回。
+3. 返回格式为 JSON，不返回的字段请填写 null。
+4. 总结该银行的 Open API 服务。
+5. 使用中文返回。
+6. 返回的格式如下：
+
+###
+[
+ { name: "", fullName: "", description: "", services: "", bankType: "" }
+]
+###
+
+下面是 5 个银行的名称：
+
+BBVA
+Barclays
+Bank of America
+JPMorgan Chase
+Capital One

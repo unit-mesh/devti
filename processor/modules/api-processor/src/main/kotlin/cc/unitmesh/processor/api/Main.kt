@@ -6,6 +6,10 @@ import com.github.ajalt.clikt.parameters.arguments.default
 import com.github.ajalt.clikt.parameters.arguments.help
 import com.github.ajalt.clikt.parameters.types.file
 import io.github.cdimascio.dotenv.Dotenv
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.rows
 import org.jetbrains.kotlinx.dataframe.io.read
@@ -78,5 +82,43 @@ class UnitConnector : CliktCommand() {
                 logger.error("Error sleeping", e)
             }
         }
+
+        // walkdir prompterOutputDir and merge to jsonl
+        val jsonlFile = File(outputDir.absolutePath, "prompter.jsonl")
+        jsonlFile.writeText("")
+        prompterOutputDir.walk().forEach { file ->
+            if (file.isFile) {
+                val text = file.readText()
+                try {
+                    val output = Json.decodeFromString<Bank>(text)
+                    jsonlFile.appendText(Json { isLenient = true } .encodeToString(output))
+                    jsonlFile.appendText("\n")
+                } catch (e: Exception) {
+                    logger.error("Error parsing $file", e)
+                }
+            }
+        }
     }
 }
+
+@Serializable
+class Bank(
+    val name: String,
+    val fullName: String,
+    val description: String,
+    val openApiService: List<OpenApiService>,
+    val otherService: List<OtherService>? = null,
+    val bankType: String
+)
+
+@Serializable
+class OpenApiService(
+    val name: String,
+    val description: String
+)
+
+@Serializable
+class OtherService(
+    val name: String,
+    val description: String
+)

@@ -116,10 +116,14 @@ class UnitConnector : CliktCommand() {
                     .replace("{bankName}", bank.name)
                     .replace("{serviceName}", it.name)
                     .replace("{serviceDescription}", it.description)
+                val outputFile = File(markdownApiOutputDir, "$index-${bank.name}-${it.name}.md")
+
+                if (outputFile.exists()) {
+                    return@forEachIndexed
+                }
 
                 try {
                     val output = prompter.prompt(newPrompt)
-                    val outputFile = File(markdownApiOutputDir, "$index-${bank.name}-${it.name}.md")
                     outputFile.writeText(output)
                 } catch (e: Exception) {
                     Thread.sleep(1000)

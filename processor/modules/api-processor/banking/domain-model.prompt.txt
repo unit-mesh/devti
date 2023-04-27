@@ -1,0 +1,12 @@
+请你使用 DDD 的思想，设计 API，返回 API 列表。要求如下：
+
+1. 目标是：Barclays 银行的 Standing Orders API，其用途是 Manages standing orders for recurring payments.
+2. 尽可能围绕 Barclays 银行的业务进行设计，但不要求完全符合现实情况。
+3. 使用标准 markdown 对应的 API 列表，需要包含 Success 和 Error 的状态码和对应结果。
+4. 返回示例如下：
+
+###
+| API | Method | Description | Request | Response | Error Response |
+| --- | --- | --- | --- | --- |--- |
+| /standing-orders | GET | Get all standing orders | | 200 {"id": String, ...} | 400: { "error": String, ...} |
+###

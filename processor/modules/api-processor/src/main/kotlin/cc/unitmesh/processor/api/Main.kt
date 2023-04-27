@@ -69,6 +69,7 @@ class UnitConnector : CliktCommand() {
                 return@forEachIndexed
             }
 
+            logger.info("Prompting $index")
             try {
                 val output = prompter.prompt(prompt)
                 outputFile.writeText(output)

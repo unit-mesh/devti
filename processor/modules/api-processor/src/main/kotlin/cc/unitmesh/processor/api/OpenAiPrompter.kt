@@ -49,8 +49,6 @@ class OpenAiProxyPrompter(val openAiKey: String, val openAiProxy: String) {
         val output = completion
             .choices[0].message.content
 
-        logger.warn("output: $output")
-
         return output
     }
 }

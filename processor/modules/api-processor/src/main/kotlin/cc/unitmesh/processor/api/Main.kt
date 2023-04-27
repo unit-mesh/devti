@@ -110,6 +110,7 @@ class UnitConnector : CliktCommand() {
         val prompt2 = prompt2.readText()
         banks.forEachIndexed { index, bank ->
             bank.openApiService.forEach {
+                logger.info("Prompting Step 2 ${bank.name} ${it.name}")
                 // replace {bankName} with bank.name, replace {serviceName} with service.name, replace {serviceDescription} with service.description
                 val newPrompt = prompt2
                     .replace("{bankName}", bank.name)

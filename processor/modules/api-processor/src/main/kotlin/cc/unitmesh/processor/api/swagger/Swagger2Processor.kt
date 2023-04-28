@@ -4,6 +4,9 @@ import cc.unitmesh.processor.api.base.ApiProcessor
 import cc.unitmesh.processor.api.base.ApiDetails
 import cc.unitmesh.processor.api.base.Parameter
 import io.swagger.oas.models.OpenAPI
+import io.swagger.parser.OpenAPIParser
+import io.swagger.parser.models.SwaggerParseResult
+import java.io.File
 
 
 class Swagger2Processor(private val api: OpenAPI) : ApiProcessor {
@@ -45,12 +48,12 @@ class Swagger2Processor(private val api: OpenAPI) : ApiProcessor {
     }
 
     companion object {
-//        fun fromFile(it: File): OpenAPI? {
-//            val result: SwaggerParseResult =
-//                OpenAPIParser().readContents(it.readText(), null, null)
-//            val openAPI = result.openAPI
-//            if (result.messages != null) result.messages.forEach(System.err::println); // validation errors and warnings
-//            return openAPI
-//        }
+        fun fromFile(it: File): OpenAPI? {
+            val result: SwaggerParseResult =
+                OpenAPIParser().readContents(it.readText(), null, null)
+            val openAPI = result.openAPI
+            if (result.messages != null) result.messages.forEach(System.err::println); // validation errors and warnings
+            return openAPI
+        }
     }
 }

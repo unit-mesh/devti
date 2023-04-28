@@ -15,13 +15,13 @@ object ApiProcessorDetector {
             }
         }
 
-        return getProcessor(file)?.let {
+        return getSwaggerProcessor(file)?.let {
             return it
         }
     }
 }
 
-private fun getProcessor(it: File): ApiProcessor? {
+private fun getSwaggerProcessor(it: File): ApiProcessor? {
     try {
         val openAPI = Swagger3Processor.fromFile(it)!!
         return Swagger3Processor(openAPI)

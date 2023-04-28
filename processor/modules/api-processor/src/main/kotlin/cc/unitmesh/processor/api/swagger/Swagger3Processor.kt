@@ -7,6 +7,7 @@ import cc.unitmesh.processor.api.base.Request
 import cc.unitmesh.processor.api.base.Response
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import io.swagger.v3.oas.models.OpenAPI
+import io.swagger.v3.oas.models.Operation
 import java.io.File
 
 class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
@@ -23,27 +24,46 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
                         summary = operation.summary ?: "",
                         operationId = operation.operationId ?: "",
                         tags = operation.tags ?: listOf(),
-                        request = operation.parameters?.map {
-                            Parameter(
-                                name = it.name,
-                                type = it.schema?.type ?: ""
-                            )
-                        }?.let { Request(it) },
-                        response = operation.responses?.values?.flatMap { response ->
-                            response.content?.values?.flatMap { content ->
-                                content.schema?.properties?.map { (name, schema) ->
-                                    Parameter(
-                                        name = name,
-                                        type = schema.type ?: ""
-                                    )
-                                } ?: listOf()
-                            } ?: listOf()
-                        }?.let { Response(it) }
+                        request = convertRequest(operation),
+                        response = convertResponse(operation)
                     )
                 )
             }
         }
         return result
+    }
+
+    private fun convertResponse(operation: Operation): Response? {
+        return operation.responses?.values?.flatMap { response ->
+            response.content?.values?.flatMap { content ->
+                content.schema?.properties?.map { (name, schema) ->
+                    Parameter(
+                        name = name,
+                        type = schema.type ?: ""
+                    )
+                } ?: listOf()
+            } ?: listOf()
+        }?.let { Response(it) }
+    }
+
+    private fun convertRequest(operation: Operation): Request? {
+        val parameters = operation.parameters?.map {
+            Parameter(
+                name = it.name,
+                type = it.schema?.type ?: ""
+            )
+        }
+
+        val request = operation.requestBody?.content?.values?.flatMap { content ->
+            content.schema?.properties?.map { (name, schema) ->
+                Parameter(
+                    name = name,
+                    type = schema.type ?: ""
+                )
+            } ?: listOf()
+        } ?: listOf()
+
+        return Request(parameters ?: listOf(), request)
     }
 
     companion object {

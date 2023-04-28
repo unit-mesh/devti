@@ -17,12 +17,25 @@ data class Parameter(
 }
 
 @Serializable
-data class Request(val parameters: List<Parameter> = listOf()) {
-    override fun toString() = parameters.joinToString(", ") { it.toString() }
+data class Request(
+    val parameters: List<Parameter> = listOf(),
+    val body: List<Parameter> = listOf(),
+) {
+    override fun toString(): String {
+        val params = parameters.joinToString(", ") { it.toString() }
+        val body = body.joinToString(", ") { it.toString() }
+        if (params.isEmpty() && body.isEmpty()) return ""
+        if (params.isEmpty()) return body
+        if (body.isEmpty()) return params
+
+        return "$params, ($body)"
+    }
 }
 
 @Serializable
-data class Response(val parameters: List<Parameter> = listOf()) {
+data class Response(
+    val parameters: List<Parameter> = listOf()
+) {
     override fun toString() = parameters.joinToString(", ") { it.toString() }
 }
 

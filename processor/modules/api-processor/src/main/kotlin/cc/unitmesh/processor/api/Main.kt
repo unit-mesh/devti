@@ -1,7 +1,7 @@
 package cc.unitmesh.processor.api
 
+import cc.unitmesh.processor.api.base.Instruction
 import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.core.subcommands
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.default
 import com.github.ajalt.clikt.parameters.arguments.help
@@ -17,6 +17,7 @@ import org.jetbrains.kotlinx.dataframe.io.read
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
+import kotlin.random.Random
 
 fun main(args: Array<String>) = Prompting()
 //    .subcommands(Prompting())
@@ -129,7 +130,7 @@ class Prompting : CliktCommand() {
                     .replace("{bankName}", bank.name)
                     .replace("{serviceName}", it.name)
                     .replace("{serviceDescription}", it.description)
-                val outputFile = File(markdownApiOutputDir, "$index-${bank.name}-${it.name}.md")
+                val outputFile = outputMarkdown(markdownApiOutputDir, index, bank, it)
 
                 if (outputFile.exists()) {
                     return@forEach
@@ -144,8 +145,52 @@ class Prompting : CliktCommand() {
                 }
             }
         }
+
+        // prompt to jsonl
+        val jsonlApiFile = File(outputDir.absolutePath, "apis.jsonl")
+        val serviceMap: MutableMap<String, String> = mutableMapOf()
+        val instructions: MutableList<Instruction> = mutableListOf()
+        banks.forEachIndexed { index, bank ->
+            bank.openApiService.forEach { service ->
+                val outputFile = outputMarkdown(markdownApiOutputDir, index, bank, bank.openApiService.first())
+                val output = outputFile.readText()
+
+                val serviceName = service.name
+                    .replace(" Services", "")
+                    .replace(" Service", "")
+                    .replace(" API", "")
+
+                val instruction = "帮我设计一个银行的 $serviceName 服务的 API"
+
+                serviceMap[serviceName] = output
+
+                instructions += Instruction(instruction = instruction, input = "", output = output)
+            }
+        }
+
+        // repeat 500 time, to randomize take 3~5 items from serviceMap
+        repeat(600) {
+            val serviceNames = serviceMap.keys.toList().shuffled().take(Random.nextInt(3, 5))
+            // 帮我设计一组 API，需要包含：{serviceName}、{serviceName}、{serviceName}
+            val instruction = "帮我设计一组 API，需要包含：${serviceNames.joinToString(separator = "、")}"
+            val output = serviceNames.joinToString(separator = "\n") { serviceMap[it]!! }
+            instructions += Instruction(instruction = instruction, input = "", output = output)
+        }
+
+        jsonlApiFile.writeText("")
+        instructions.forEach {
+            jsonlApiFile.appendText(Json { isLenient = true }.encodeToString(it))
+            jsonlApiFile.appendText("\n")
+        }
     }
 }
+
+private fun outputMarkdown(
+    markdownApiOutputDir: File,
+    index: Int,
+    bank: Bank,
+    service: OpenApiService
+) = File(markdownApiOutputDir, "$index-${bank.name}-${service.name}.md")
 
 @Serializable
 class Bank(

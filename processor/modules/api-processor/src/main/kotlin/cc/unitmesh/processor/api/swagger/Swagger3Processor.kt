@@ -1,12 +1,13 @@
 package cc.unitmesh.processor.api.swagger
 
-import cc.unitmesh.processor.api.model.ApiDetails
-import cc.unitmesh.processor.api.model.Parameter
+import cc.unitmesh.processor.api.base.ApiProcessor
+import cc.unitmesh.processor.api.base.ApiDetails
+import cc.unitmesh.processor.api.base.Parameter
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import io.swagger.v3.oas.models.OpenAPI
 import java.io.File
 
-class Swagger3Processor(private val api: OpenAPI) : SwaggerProcessor {
+class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
     override fun convertApi(): List<ApiDetails> {
         val result = mutableListOf<ApiDetails>()
         if (api.paths == null) return result

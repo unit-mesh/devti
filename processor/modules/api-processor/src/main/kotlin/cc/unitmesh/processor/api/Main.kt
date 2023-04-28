@@ -30,6 +30,12 @@ class UnitApi : CliktCommand() {
     }
 }
 
+class Generating : CliktCommand() {
+    override fun run() {
+
+    }
+}
+
 class Prompting : CliktCommand() {
     private val source by argument().file().help("Source CSV file").default(File("source.csv"))
     private val prompt by argument().file().default(File("prompt.txt"))

@@ -1,4 +1,4 @@
-package cc.unitmesh.processor.api.model
+package cc.unitmesh.processor.api.base
 
 import kotlinx.serialization.Serializable
 

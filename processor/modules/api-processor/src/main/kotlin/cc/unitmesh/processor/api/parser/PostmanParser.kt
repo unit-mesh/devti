@@ -15,7 +15,6 @@ class PostmanParser {
     }
 
     private fun parseFolder(item: PostmanFolder, folderName: String?) {
-        println("---------------------------")
         if (item.item != null) {
             for (subItem in item.item!!) {
                 parseItem(subItem, folderName, item.name)

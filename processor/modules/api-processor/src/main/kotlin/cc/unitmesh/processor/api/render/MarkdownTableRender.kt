@@ -17,7 +17,7 @@ class MarkdownTableRender : ApiDetailRender {
         apiDetails.forEach { apiDetails ->
             val api = apiDetails.path
             val method = apiDetails.method
-            val description = apiDetails.summary
+            val description = apiDetails.description
             val request = apiDetails.request!!.toString()
             val response = apiDetails.response.toString()
             val errorResponse = "400: {\"error\": String}"

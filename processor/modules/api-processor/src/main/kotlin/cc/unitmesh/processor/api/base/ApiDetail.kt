@@ -44,7 +44,7 @@ data class Response(
 data class ApiDetail(
     val path: String,
     val method: String,
-    val summary: String,
+    val description: String,
     val operationId: String,
     val tags: List<String>,
     val request: Request? = null,
@@ -53,6 +53,6 @@ data class ApiDetail(
     override fun toString(): String {
         val request = request.toString()
         val response = response.joinToString(", ") { it.toString() }
-        return "$method $path $summary $request $response"
+        return "$method $path $description $request $response"
     }
 }

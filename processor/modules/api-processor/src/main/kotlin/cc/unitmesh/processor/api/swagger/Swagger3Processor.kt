@@ -21,7 +21,7 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
                 val apiDetail = ApiDetail(
                     path = path,
                     method = method.toString(),
-                    summary = operation.summary ?: "",
+                    description = operation.description.replace("\n", " ") ?: "",
                     operationId = operation.operationId ?: "",
                     tags = operation.tags ?: listOf(),
                     request = convertRequest(operation),

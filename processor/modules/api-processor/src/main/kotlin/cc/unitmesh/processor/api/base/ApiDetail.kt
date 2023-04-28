@@ -17,12 +17,22 @@ data class Parameter(
 }
 
 @Serializable
-data class ApiDetails(
+data class Request(val parameters: List<Parameter> = listOf()) {
+    override fun toString() = parameters.joinToString(", ") { it.toString() }
+}
+
+@Serializable
+data class Response(val parameters: List<Parameter> = listOf()) {
+    override fun toString() = parameters.joinToString(", ") { it.toString() }
+}
+
+@Serializable
+data class ApiDetail(
     val path: String,
     val method: String,
     val summary: String,
     val operationId: String,
     val tags: List<String>,
-    val inputs: List<Parameter> = listOf(),
-    val outputs: List<Parameter> = listOf(),
+    val request: Request? = null,
+    val response: Response? = null,
 )

@@ -1,4 +1,4 @@
-请你使用 DDD 的思想，设计 Barclays 银行的 Standing Orders API，并返回 API 列表。要求如下：
+请你使用 DDD 的思想，设计 Barclays 银行的 Standing Orders API 服务的 Open Banking API，并返回 API 列表。要求如下：
 
 1. Standing Orders API 的用途是 Manages standing orders for recurring payments.
 2. 尽可能围绕 Barclays 银行的业务进行设计，但不要求完全符合现实情况。

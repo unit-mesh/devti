@@ -19,7 +19,7 @@ class MarkdownTableRender : ApiDetailRender {
             val method = apiDetails.method
             val description = apiDetails.summary
             val request = apiDetails.request!!.toString()
-            val response = apiDetails.response!!.toString()
+            val response = apiDetails.response.toString()
             val errorResponse = "400: {\"error\": String}"
             result += listOf("| $api | $method | $description | $request | $response | $errorResponse |")
         }

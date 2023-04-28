@@ -34,9 +34,10 @@ data class Request(
 
 @Serializable
 data class Response(
+    val code: Int,
     val parameters: List<Parameter> = listOf()
 ) {
-    override fun toString() = parameters.joinToString(", ") { it.toString() }
+    override fun toString() = "$code: {${parameters.joinToString(", ") { it.toString() }}}"
 }
 
 @Serializable
@@ -47,5 +48,11 @@ data class ApiDetail(
     val operationId: String,
     val tags: List<String>,
     val request: Request? = null,
-    val response: Response? = null,
-)
+    val response: List<Response> = listOf(),
+) {
+    override fun toString(): String {
+        val request = request.toString()
+        val response = response.joinToString(", ") { it.toString() }
+        return "$method $path $summary $request $response"
+    }
+}

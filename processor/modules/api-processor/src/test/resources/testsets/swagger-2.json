@@ -1,0 +1,211 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This API lets you calculate the number of payments provided with the mortgage amount, amortization period, interest details and payment details. The calculator provides a breakdown of how much interest, principal is remaining per payment period.",
+    "version": "2.0",
+    "title": "Amortization Schedule",
+    "contact": {
+      "name": "RBC Mid-Tier Group"
+    },
+    "license": {
+      "name": "RBC intellectual property",
+      "url": "https://www.rbc.com"
+    }
+  },
+  "host": "apisb.rbc.com",
+  "basePath": "/VLH0/AmortizationScheduleAPI/v1",
+  "schemes": [
+    "https"
+  ],
+  "tags": [
+    {
+      "name": "amortization-schedule-controller",
+      "description": "Amortization Schedule Controller"
+    }
+  ],
+  "paths": {
+    "/amortizationSchedule": {
+      "get": {
+        "tags": [
+          "amortization-schedule-controller"
+        ],
+        "summary": "amortizationScheduleByMode",
+        "description": "GET Amortization Schedule",
+        "operationId": "Amortization Schedule By Mode Using GET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Basic Authorization value needed to get access to the API. Use your app's consumer key and consumer secret as username and password respectively.",
+            "required": true,
+            "type": "string",
+            "default": "Basic VXNlcjE6cGFzc3dvcmQxMjM="
+          },
+          {
+            "name": "loanAmount",
+            "in": "query",
+            "description": "String - Loan amount.\n e.g. $12,000 should be passed as '12000'",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "amortizationPeriod",
+            "in": "query",
+            "description": "String - Number of months it'll take or targetted to pay off the entire loan.\n e.g. 3 year amortization period should be passed as '36'",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "interestRate",
+            "in": "query",
+            "description": "String - Interest rate of the loan.\n e.g. 4.1% should be passed as '4.1'",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "payment",
+            "in": "query",
+            "description": "String - Payment amount per payment period.\n e.g. $523.13 should be passed as '523.13'",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "paymentFrequency",
+            "in": "query",
+            "description": "String - Payment frequency code.\n e.g. '04' for monthly payment period.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "interestType",
+            "in": "query",
+            "description": "String - Should pass 'F' for fixed or 'V' for variable interest types.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "description": " String – 'Y' for yearly.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "numberOfPeriod",
+            "in": "query",
+            "description": "Number of years for which an amortization schedule must be generated.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Schedule"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErrorInfo"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Failure",
+            "schema": {
+              "$ref": "#/definitions/ErrorInfo"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Schedule": {
+      "properties": {
+        "interest": {
+          "type": "number",
+          "format": "double"
+        },
+        "newPrincipalOutstanding": {
+          "type": "number",
+          "format": "double"
+        },
+        "numberOfPaymentsPerPeriod": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "numberOfpayment": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "principalAndInterestPayment": {
+          "type": "number",
+          "format": "double"
+        },
+        "principalOutStanding": {
+          "type": "number",
+          "format": "double"
+        },
+        "principalPayment": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "ErrorInfo": {
+      "properties": {
+        "detailedMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DetailedMessage"
+          }
+        },
+        "httpStatusCode": {
+          "type": "string"
+        },
+        "httpStatusMessage": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "DetailedMessage": {
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "object": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

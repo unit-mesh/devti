@@ -8,10 +8,13 @@ import cc.unitmesh.processor.api.base.Response
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.Operation
+import io.swagger.v3.oas.models.media.Schema
 import io.swagger.v3.oas.models.responses.ApiResponse
 import java.io.File
 
 class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
+    private val apiSchemaMutableMap = api.components?.schemas
+
     override fun convertApi(): List<ApiDetail> {
         val result = mutableListOf<ApiDetail>()
         if (api.paths == null) return result
@@ -43,42 +46,30 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
         } ?: listOf()
     }
 
-    private val apiResponseMutableMap = api.components?.responses
-    private val apiSchemaMutableMap = api.components?.schemas
-
     private fun handleResponse(response: ApiResponse): List<Parameter>? {
         val content = response.content?.values
         val refName = content?.firstOrNull()?.schema?.`$ref`
         if (refName != null) {
-            return getFromSchema(refName)
+            return getFromSchemaRef(refName)
         }
 
         val schema = content?.firstOrNull()?.schema
         if (schema != null) {
-            return schema.properties?.map { (name, schema) ->
-                Parameter(
-                    name = name,
-                    type = schema.type ?: ""
-                )
-            }
+            return getFromSchemaItem(schema)
         }
 
         return null
     }
 
-    private fun getFromResponseContent(refName: String): List<Parameter>? {
-        val response = apiResponseMutableMap?.get(refName)
-        return response?.content?.values?.flatMap { content ->
-            content.schema?.properties?.map { (name, schema) ->
-                Parameter(
-                    name = name,
-                    type = schema.type ?: ""
-                )
-            } ?: listOf()
+    private fun getFromSchemaItem(schema: Schema<Any>) =
+        schema.properties?.map { (name, schema) ->
+            Parameter(
+                name = name,
+                type = schema.type ?: ""
+            )
         }
-    }
 
-    private fun getFromSchema(refName: String): List<Parameter>? {
+    private fun getFromSchemaRef(refName: String): List<Parameter>? {
         val name = refName.split("/").last()
         val schema = apiSchemaMutableMap?.get(name)
         return schema?.properties?.map { (name, schema) ->
@@ -89,7 +80,7 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
         }
     }
 
-    private fun convertRequest(operation: Operation): Request? {
+    private fun convertRequest(operation: Operation): Request {
         val parameters = operation.parameters?.map {
             Parameter(
                 name = it.name,

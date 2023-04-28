@@ -1,6 +1,7 @@
 package cc.unitmesh.processor.api
 
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.subcommands
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.default
 import com.github.ajalt.clikt.parameters.arguments.help
@@ -17,13 +18,19 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 
-fun main(args: Array<String>) = UnitConnector()
-//    .subcommands(Prompting())
+fun main(args: Array<String>) = UnitApi()
+    .subcommands(Prompting())
     .main(args)
 
-val logger: Logger = LoggerFactory.getLogger(UnitConnector::class.java)
+val logger: Logger = LoggerFactory.getLogger(UnitApi::class.java)
 
-class UnitConnector : CliktCommand() {
+class UnitApi : CliktCommand() {
+    override fun run() {
+        logger.info("Unit Connector Started")
+    }
+}
+
+class Prompting : CliktCommand() {
     private val source by argument().file().help("Source CSV file").default(File("source.csv"))
     private val prompt by argument().file().default(File("prompt.txt"))
     private val prompt2 by argument().file().default(File("prompt2.txt"))

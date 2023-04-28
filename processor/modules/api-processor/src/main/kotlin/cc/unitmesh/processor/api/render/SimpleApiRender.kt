@@ -15,7 +15,7 @@ class SimpleApiRender : ApiDetailRender {
         apiDetails.groupBy { it.tags }.forEach { (tags, apiDetails) ->
             val tag = tags.joinToString(", ")
             val apiDetailsString = apiDetails.joinToString("\n") {
-                "${it.method}${operationInformation(it)} ${it.path} ${it.summary}"
+                "${it.method} ${it.path} ${operationInformation(it)} ${it.summary}"
             }
             result += listOf(ApiTagOutput("$tag\n$apiDetailsString"))
         }

@@ -47,17 +47,28 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
     private val apiSchemaMutableMap = api.components?.schemas
 
     private fun handleResponse(response: ApiResponse): List<Parameter>? {
-        val refsResponse = response.content?.values?.flatMap { content ->
-            content.schema?.`$ref`?.let { ref ->
-                val refName = ref.substringAfterLast("/")
-                val refResponse = getFromResponseOrSchema(refName)
-                if (refResponse != null) {
-                    handleResponse(refResponse)
-                } else {
-                    listOf()
-                }
-            } ?:
+        val content = response.content?.values
+        val refName = content?.firstOrNull()?.schema?.`$ref`
+        if (refName != null) {
+            return getFromSchema(refName)
+        }
 
+        val schema = content?.firstOrNull()?.schema
+        if (schema != null) {
+            return schema.properties?.map { (name, schema) ->
+                Parameter(
+                    name = name,
+                    type = schema.type ?: ""
+                )
+            }
+        }
+
+        return null
+    }
+
+    private fun getFromResponseContent(refName: String): List<Parameter>? {
+        val response = apiResponseMutableMap?.get(refName)
+        return response?.content?.values?.flatMap { content ->
             content.schema?.properties?.map { (name, schema) ->
                 Parameter(
                     name = name,
@@ -65,11 +76,18 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
                 )
             } ?: listOf()
         }
-
-        return refsResponse
     }
 
-    private fun getFromResponseOrSchema(refName: String): ApiResponse?  = apiResponseMutableMap?.get(refName)
+    private fun getFromSchema(refName: String): List<Parameter>? {
+        val name = refName.split("/").last()
+        val schema = apiSchemaMutableMap?.get(name)
+        return schema?.properties?.map { (name, schema) ->
+            Parameter(
+                name = name,
+                type = schema.type ?: ""
+            )
+        }
+    }
 
     private fun convertRequest(operation: Operation): Request? {
         val parameters = operation.parameters?.map {

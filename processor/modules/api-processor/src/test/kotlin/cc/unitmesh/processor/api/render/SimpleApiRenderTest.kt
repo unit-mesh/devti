@@ -15,17 +15,20 @@ class SimpleApiRenderTest {
         val render = SimpleApiRender()
         val result = render.render(apiDetails)
 
-        val expected = """Cashback campaign
-GET getCashbackCampaign(X-App-Token: string, campaignId: string) /cashback-campaigns/{campaignId} 
+        val expected =
+"""
+Cashback campaign
+GET /cashback-campaigns/{campaignId}  getCashbackCampaign(X-App-Token: string, campaignId: string) : [200: {campaignId: string, campaignName: string, startDate: string, endDate: string, status: string, remainingAmountInCents: integer}, 400: {errors: array}, 401: {errors: array}, 403: {errors: array}, 404: {errors: array}, 500: {errors: array}] 
 
 Cashback
-GET getCashbackList(X-App-Token: string, campaignId: string, pageNumber: integer, pageSize: integer, fromDateTime: string, toDateTime: string, status: string) : cashbacks: array, totalElementCount: integer /cashback-campaigns/{campaignId}/cashbacks 
-POST createCashback(X-App-Token: string, campaignId: string) /cashback-campaigns/{campaignId}/cashbacks 
-GET getCashback(X-App-Token: string, campaignId: string, cashbackId: string) /cashback-campaigns/{campaignId}/cashbacks/{cashbackId} 
+GET /cashback-campaigns/{campaignId}/cashbacks  getCashbackList(X-App-Token: string, campaignId: string, pageNumber: integer, pageSize: integer, fromDateTime: string, toDateTime: string, status: string) : [200: {cashbacks: array, totalElementCount: integer}, 400: {errors: array}, 401: {errors: array}, 403: {errors: array}, 404: {errors: array}, 500: {errors: array}] 
+POST /cashback-campaigns/{campaignId}/cashbacks  createCashback(X-App-Token: string, campaignId: string) : [201: {cashbackId: string, url: string, amountInCents: integer, createdDateTime: string, expiryDateTime: string, redeemedDateTime: string, status: string, referenceId: string, locationId: string, locationAddress: string}, 400: {errors: array}, 401: {errors: array}, 403: {errors: array}, 404: {errors: array}, 500: {errors: array}] 
+GET /cashback-campaigns/{campaignId}/cashbacks/{cashbackId}  getCashback(X-App-Token: string, campaignId: string, cashbackId: string) : [200: {cashbackId: string, url: string, amountInCents: integer, createdDateTime: string, expiryDateTime: string, redeemedDateTime: string, status: string, referenceId: string, locationId: string, locationAddress: string}, 400: {errors: array}, 401: {errors: array}, 403: {errors: array}, 404: {errors: array}, 500: {errors: array}] 
 
 Cashback notification
-POST subscribeCashbackNotifications(X-App-Token: string) : subscriptionId: string /cashback-subscriptions 
-DELETE deleteCashbackNotifications(X-App-Token: string) /cashback-subscriptions """
+POST /cashback-subscriptions  subscribeCashbackNotifications(X-App-Token: string) : [201: {subscriptionId: string}, 400: {errors: array}, 401: {errors: array}, 403: {errors: array}, 500: {errors: array}] 
+DELETE /cashback-subscriptions  deleteCashbackNotifications(X-App-Token: string) : [204: {}, 401: {errors: array}, 403: {errors: array}, 500: {errors: array}] 
+""".trimIndent()
         assertEquals(expected, result)
     }
 }

@@ -6,7 +6,6 @@ import cc.unitmesh.processor.api.model.postman.PostmanReader
 import java.io.File
 
 class PostmanProcessor(val file: File) : ApiProcessor {
-
     override fun convertApi(): List<ApiDetails> {
         val postmanReader = PostmanReader()
         val collection = postmanReader.readCollectionFile(file.absolutePath)

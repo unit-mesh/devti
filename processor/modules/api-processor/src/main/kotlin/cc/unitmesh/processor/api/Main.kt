@@ -18,8 +18,8 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 
-fun main(args: Array<String>) = UnitApi()
-    .subcommands(Prompting())
+fun main(args: Array<String>) = Prompting()
+//    .subcommands(Prompting())
     .main(args)
 
 val logger: Logger = LoggerFactory.getLogger(UnitApi::class.java)
@@ -129,7 +129,7 @@ class Prompting : CliktCommand() {
                     .replace("{bankName}", bank.name)
                     .replace("{serviceName}", it.name)
                     .replace("{serviceDescription}", it.description)
-                val outputFile = File(markdownApiOutputDir, "$index-${bank.name}-${it.name}.csv")
+                val outputFile = File(markdownApiOutputDir, "$index-${bank.name}-${it.name}.md")
 
                 if (outputFile.exists()) {
                     return@forEach

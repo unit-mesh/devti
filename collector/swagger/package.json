@@ -13,6 +13,6 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "octokit": "^2.0.14",
-    "yaml": "^2.2.1"
+    "yaml": "^2.2.2"
   }
 }

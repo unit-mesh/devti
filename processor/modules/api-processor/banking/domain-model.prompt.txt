@@ -5,11 +5,12 @@
 3. 不需要返回 Standing Orders API 之外的 API。
 4. 请详细考虑 Request 和 Response 包含必要的字段。
 5. 需要包含 Success 和 Error 的状态码和对应结果。
-6. 只返回 CSV，示例如下：
+6. 使用 markdown 的表格返回，不需要解释。
+7. 你的返回格式，示例如下：
 
 ###
-```csv
-API,Method,Description,Request,Response,Error Response
-/standing-orders,GET,Get all standing orders,,200 {"id": String },400: { "error": String}
-```
+| API | Method | Description | Request | Response | Error Response |
+| --- | --- | --- | --- | --- | --- |
+| /standing-orders | GET | Get all standing orders |  | 200 {"id": String } | 400: { "error": String} |
 ###
+

@@ -1,0 +1,3 @@
+<configuration>
+    <logger name="io.swagger.v3.parser" level="OFF"/>
+</configuration>

@@ -1,4 +1,4 @@
-package cc.unitmesh.processor.api.swagger.v3
+package cc.unitmesh.processor.api.swagger
 
 import cc.unitmesh.processor.api.base.ApiProcessor
 import cc.unitmesh.processor.api.base.ApiDetails

@@ -2,8 +2,7 @@ package cc.unitmesh.processor.api
 
 import cc.unitmesh.processor.api.base.ApiProcessor
 import cc.unitmesh.processor.api.parser.PostmanProcessor
-import cc.unitmesh.processor.api.swagger.v2.Swagger2Processor
-import cc.unitmesh.processor.api.swagger.v3.Swagger3Processor
+import cc.unitmesh.processor.api.swagger.Swagger3Processor
 import java.io.File
 
 object ApiProcessorDetector {
@@ -24,15 +23,10 @@ object ApiProcessorDetector {
 
 private fun getProcessor(it: File): ApiProcessor? {
     try {
-        val openAPI = Swagger2Processor.fromFile(it)!!
-        return Swagger2Processor(openAPI)
+        val openAPI = Swagger3Processor.fromFile(it)!!
+        return Swagger3Processor(openAPI)
     } catch (e: Exception) {
-        try {
-            val openAPI = Swagger3Processor.fromFile(it)!!
-            return Swagger3Processor(openAPI)
-        } catch (e: Exception) {
-            logger.error("Failed to parse ${it.absolutePath}", e)
-        }
+        logger.error("Failed to parse ${it.absolutePath}", e)
     }
 
     return null

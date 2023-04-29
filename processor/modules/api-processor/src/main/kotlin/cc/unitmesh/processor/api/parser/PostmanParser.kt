@@ -1,5 +1,9 @@
 package cc.unitmesh.processor.api.parser
 
+import cc.unitmesh.processor.api.base.ApiDetail
+import cc.unitmesh.processor.api.base.Parameter
+import cc.unitmesh.processor.api.base.Request
+import cc.unitmesh.processor.api.base.Response
 import cc.unitmesh.processor.api.model.postman.PostmanCollection
 import cc.unitmesh.processor.api.model.postman.PostmanEnvironment
 import cc.unitmesh.processor.api.model.postman.PostmanFolder
@@ -35,13 +39,13 @@ class PostmanParser {
         }
     }
 
-    private fun formatOutput(
+    fun formatOutput(
         subItem: PostmanItem,
         folderName: String?,
         itemName: String?
-    ) {
+    ): ApiDetail {
         val request = subItem.request!!
-//        val url: PostmanUrl = request.url
+        val url: PostmanUrl? = request.url
         val method = request.method!!
         val body = request.body
         val description = request.description
@@ -70,23 +74,36 @@ class PostmanParser {
             }
         }
 
-        val responses = subItem.response
-        // print response in one-line
-        if (responses != null) {
-            for (response in responses) {
-                print("${response.code} ${response.name}\n")
+
+        val responses: MutableList<Response> = mutableListOf()
+        val originResponse = subItem.response
+        if (originResponse != null) {
+            for (resp in originResponse) {
+                val code = resp.code ?: 0
+                val body = resp.body
+                val parameters: MutableList<Parameter> = mutableListOf()
+                if (body != null) {
+
+                }
+                responses.add(Response(code, parameters))
             }
         }
 
-        // {auth type}: {accessToken, tokenType, addTokenTo}
-        if (request.auth != null) {
-            val auth = request.auth!!
-            println(auth.format())
-        }
-        // description
-        // method uri
-        // request headers
-        // response body
+        val req = Request(
+            parameters = url?.query?.map {
+                Parameter(it.key ?: "", it.value ?: "")
+            } ?: listOf(),
+            body = body?.formdata?.map { Parameter(it.key ?: "", it.value ?: "") } ?: listOf(),
+        )
+
+        return ApiDetail(
+            method = method,
+            path = uri ?: "",
+            description = description?.replace("\n", " ") ?: "",
+            operationId = name ?: "",
+            tags = listOf(folder ?: "", item ?: ""),
+            request = req,
+        )
     }
 }
 

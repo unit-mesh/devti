@@ -14,6 +14,7 @@ import kotlinx.serialization.json.Json
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.rows
 import org.jetbrains.kotlinx.dataframe.io.read
+import org.jetbrains.kotlinx.dataframe.io.readCSV
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -41,6 +42,7 @@ class Prompting : CliktCommand() {
     private val source by argument().file().help("Source CSV file").default(File("source.csv"))
     private val prompt by argument().file().default(File("prompt.txt"))
     private val prompt2 by argument().file().default(File("prompt2.txt"))
+    private val domain by argument().file().default(File("domains.csv"))
     private val outputDir by argument().file().default(File("output"))
 
     override fun run() {
@@ -146,17 +148,27 @@ class Prompting : CliktCommand() {
             }
         }
 
-        var serviceNameMap = mutableMapOf<String, Boolean>()
+        val serviceNameMap = mutableMapOf<String, Boolean>()
         // prompt to jsonl
         val jsonlApiFile = File(outputDir.absolutePath, "apis.jsonl")
         val serviceMap: MutableMap<String, String> = mutableMapOf()
         val instructions: MutableList<Instruction> = mutableListOf()
+
+        val domainTranslation = mutableMapOf<String, String>()
+        if (domain.exists()) {
+            val domainFrame = DataFrame.readCSV(domain.absolutePath)
+            domainFrame.rows().forEach { row ->
+                val values = row.values() as List<String>
+                domainTranslation[values[0]] = values[1] + "服务"
+            }
+        }
+
         banks.forEachIndexed { index, bank ->
             bank.openApiService.forEach { service ->
                 val outputFile = outputMarkdown(markdownApiOutputDir, index, bank, bank.openApiService.first())
                 val output = outputFile.readText()
 
-                val serviceName = service.name
+                var serviceName = service.name
                     .replace(" Services", "")
                     .replace(" Service", "")
                     .replace(" API", "")
@@ -165,7 +177,11 @@ class Prompting : CliktCommand() {
 
                 serviceNameMap[serviceName] = true
 
-                val instruction = "帮我设计一个银行的 $serviceName 服务的 API"
+                if (domainTranslation.containsKey(serviceName)) {
+                    serviceName = domainTranslation[serviceName]!!
+                }
+
+                val instruction = "帮我设计一个银行的${serviceName}的 API"
 
                 serviceMap[serviceName] = output
 
@@ -173,19 +189,13 @@ class Prompting : CliktCommand() {
             }
         }
 
-        // write serviceNameMap to csv file
-        val serviceNameMapFile = File(outputDir.absolutePath, "serviceNameMap.csv")
-        serviceNameMapFile.writeText("")
-        serviceNameMap.forEach { (serviceName, _) ->
-            serviceNameMapFile.appendText(serviceName)
-            serviceNameMapFile.appendText("\n")
-        }
+        createServiceNameMap(serviceNameMap)
 
         // repeat 500 time, to randomize take 3~5 items from serviceMap
-        repeat(2000) {
+        repeat(500) {
             val serviceNames = serviceMap.keys.toList().shuffled().take(Random.nextInt(3, 5))
             // 帮我设计一组 API，需要包含：{serviceName}、{serviceName}、{serviceName}
-            val instruction = "帮我设计一组 API，需要包含：${serviceNames.joinToString(separator = "、")}"
+            val instruction = "帮我设计一组银行的 Open Banking API，需要包含：${serviceNames.joinToString(separator = "、")}"
             val output = serviceNames.joinToString(separator = "\n") { serviceMap[it]!! }
             instructions += Instruction(instruction = instruction, input = "", output = output)
         }
@@ -194,6 +204,16 @@ class Prompting : CliktCommand() {
         instructions.forEach {
             jsonlApiFile.appendText(Json { isLenient = true }.encodeToString(it))
             jsonlApiFile.appendText("\n")
+        }
+    }
+
+    private fun createServiceNameMap(serviceNameMap: MutableMap<String, Boolean>) {
+        // write serviceNameMap to csv file
+        val serviceNameMapFile = File(outputDir.absolutePath, "serviceNameMap.csv")
+        serviceNameMapFile.writeText("")
+        serviceNameMap.forEach { (serviceName, _) ->
+            serviceNameMapFile.appendText(serviceName)
+            serviceNameMapFile.appendText("\n")
         }
     }
 }

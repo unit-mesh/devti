@@ -32,11 +32,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:dataframe:0.10.0")
 
     // java parser
-    implementation(libs.swagger.parser)
     implementation(libs.swagger.parser.v3)
-    implementation(libs.javaparser)
-    implementation(libs.javaparser.serialization)
-    implementation(libs.javaparser.symbol.solver.core)
 
     testImplementation(kotlin("test"))
 

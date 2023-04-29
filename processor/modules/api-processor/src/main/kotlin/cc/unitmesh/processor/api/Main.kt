@@ -1,6 +1,8 @@
 package cc.unitmesh.processor.api
 
+import cc.unitmesh.processor.api.base.ApiProcessor
 import cc.unitmesh.processor.api.base.Instruction
+import cc.unitmesh.processor.api.render.MarkdownTableRender
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.default
@@ -20,7 +22,7 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.random.Random
 
-fun main(args: Array<String>) = Prompting()
+fun main(args: Array<String>) = Generating()
 //    .subcommands(Prompting())
     .main(args)
 
@@ -33,8 +35,44 @@ class UnitApi : CliktCommand() {
 }
 
 class Generating : CliktCommand() {
+    private val inputDir by argument().file().help("Input directory").default(File("input"))
     override fun run() {
+        // walkdir inputDir, parse by SwaggerParser, and output to jsonl
+//        val jsonlFile = File("output.jsonl")
 
+        val outputDIr = File("output", "markdown")
+        if (!outputDIr.exists()) {
+            outputDIr.mkdirs()
+        }
+
+        inputDir.walk().forEach { file ->
+            if (file.isFile) {
+                var processor: ApiProcessor? = null
+                try {
+                    processor = ApiProcessorDetector.detectApiProcessor(file)
+                } catch (e: Exception) {
+                    logger.error("Failed to parse ${file.absolutePath}", e)
+                }
+
+                if (processor == null) {
+                    return@forEach
+                }
+
+                // get file parent name
+                val parentName = file.parentFile.name
+
+
+                try {
+                    val instructions = processor.convertApi()
+                    val output = MarkdownTableRender().render(instructions)
+
+                    val outputFile = File(outputDIr, "$parentName-${file.nameWithoutExtension}.md")
+                    outputFile.writeText(output)
+                } catch (e: Exception) {
+                    logger.error("Failed to parse ${file.absolutePath}", e)
+                }
+            }
+        }
     }
 }
 

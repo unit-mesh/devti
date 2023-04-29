@@ -4,6 +4,7 @@ import cc.unitmesh.processor.api.model.postman.PostmanCollection
 import cc.unitmesh.processor.api.model.postman.PostmanEnvironment
 import cc.unitmesh.processor.api.model.postman.PostmanFolder
 import cc.unitmesh.processor.api.model.postman.PostmanItem
+import cc.unitmesh.processor.api.model.postman.PostmanUrl
 import cc.unitmesh.processor.api.model.postman.PostmanVariables
 
 class PostmanParser {
@@ -40,7 +41,7 @@ class PostmanParser {
         itemName: String?
     ) {
         val request = subItem.request!!
-        val url = request.url!!
+//        val url: PostmanUrl = request.url
         val method = request.method!!
         val body = request.body
         val description = request.description

@@ -10,9 +10,10 @@ object ApiProcessorDetector {
         val content = file.readText()
 
         if (file.extension == "json") {
-            if (content.contains("_postman_id") && content.contains("schema")) {
-                return PostmanProcessor(file)
-            }
+//            if (content.contains("_postman_id") && content.contains("schema")) {
+//                return PostmanProcessor(file)
+//            }
+            return null
         }
 
         return getSwaggerProcessor(file)?.let {

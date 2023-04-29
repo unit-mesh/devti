@@ -20,7 +20,11 @@ class PostmanVariables(val env: PostmanEnvironment) {
 
     private fun getVal(name: String): String? {
         if (name.startsWith("{{$")) {
-            return getConstantVal(name)
+            try {
+                return getConstantVal(name)
+            } catch (e: IllegalArgumentException) {
+                // ignore
+            }
         }
         val key = name.substring(2, name.length - 2).trim { it <= ' ' }
         val `val` = env.lookup[key]

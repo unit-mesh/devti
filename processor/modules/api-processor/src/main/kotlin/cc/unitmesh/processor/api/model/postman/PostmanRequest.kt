@@ -38,6 +38,10 @@ class PostmanRequest {
     }
 
     fun getUrl(`var`: PostmanVariables): String? {
+        if (url == null) {
+            return null
+        }
+
         return `var`.replace(url!!.raw)
     }
 

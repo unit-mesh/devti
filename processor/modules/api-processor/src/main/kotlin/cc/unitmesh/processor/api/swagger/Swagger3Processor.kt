@@ -24,7 +24,7 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
                 val apiDetail = ApiDetail(
                     path = path,
                     method = method.toString(),
-                    description = operation.description.replace("\n", " ") ?: "",
+                    description = operation.description?.replace("\n", " ") ?: "",
                     operationId = operation.operationId ?: "",
                     tags = operation.tags ?: listOf(),
                     request = convertRequest(operation),
@@ -40,7 +40,9 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
 
     private fun convertResponses(operation: Operation): List<Response> {
         return operation.responses?.map {
-            val code = it.key.toInt()
+            // use regex to get the status code
+            val regex = Regex("([0-9]+)")
+            val code = regex.find(it.key)?.value?.toInt() ?: 0
             val responseBody = handleResponse(it.value) ?: listOf()
             Response(code, responseBody)
         } ?: listOf()
@@ -83,7 +85,7 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
     private fun convertRequest(operation: Operation): Request {
         val parameters = operation.parameters?.map {
             Parameter(
-                name = it.name,
+                name = it.name?:"",
                 type = it.schema?.type ?: ""
             )
         }

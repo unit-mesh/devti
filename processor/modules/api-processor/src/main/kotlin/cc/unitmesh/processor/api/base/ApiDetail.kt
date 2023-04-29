@@ -43,8 +43,8 @@ data class Request(
 data class Response(
     val code: Int,
     val parameters: List<Parameter> = listOf(),
-    val bodyMode: BodyMode = BodyMode.TYPED,
-    val bodyString: String = ""
+    var bodyMode: BodyMode = BodyMode.TYPED,
+    var bodyString: String = ""
 ) {
     override fun toString() = "$code: {${parameters.joinToString(", ") { it.toString() }}}"
 }

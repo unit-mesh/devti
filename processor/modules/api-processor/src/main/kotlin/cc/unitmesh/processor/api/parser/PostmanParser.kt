@@ -1,6 +1,7 @@
 package cc.unitmesh.processor.api.parser
 
 import cc.unitmesh.processor.api.base.ApiDetail
+import cc.unitmesh.processor.api.base.BodyMode
 import cc.unitmesh.processor.api.base.Parameter
 import cc.unitmesh.processor.api.base.Request
 import cc.unitmesh.processor.api.base.Response
@@ -51,34 +52,20 @@ class PostmanParser {
         val body = request?.body
         val description = request?.description
         val name = subItem.name
-        val folder = folderName
-        val item = itemName
 
         var uri = request?.getUrl(`var`)
         if (uri?.startsWith("UNDEFINED") == true) {
             uri = uri.substring(9)
         }
 
-        println("$method $uri")
-        val headers = request?.getHeaders(`var`)
-        if (headers?.isNotEmpty() == true) {
-            for (header in headers) {
-            }
-        }
-
-        val responses: MutableList<Response> = mutableListOf()
-        val originResponse = subItem.response
-        if (originResponse != null) {
-            for (resp in originResponse) {
-                val code = resp.code ?: 0
-                val body = resp.body
-                val parameters: MutableList<Parameter> = mutableListOf()
-                if (body != null) {
-                    // todo: add parse body
-                }
-                responses.add(Response(code, parameters))
-            }
-        }
+        val responses = subItem.response?.map {
+            Response(
+                code = it.code ?: 0,
+                parameters = listOf(),
+                bodyMode = BodyMode.RAW_TEXT,
+                bodyString = it.body ?: "",
+            )
+        }?.toList() ?: listOf()
 
         val req = Request(
             parameters = url?.query?.map {
@@ -92,8 +79,9 @@ class PostmanParser {
             path = uri ?: "",
             description = description?.replace("\n", " ") ?: "",
             operationId = name ?: "",
-            tags = listOf(folder ?: "", item ?: ""),
+            tags = listOf(folderName ?: "", itemName ?: ""),
             request = req,
+            response = responses,
         )
     }
 }

@@ -169,7 +169,7 @@ class Prompting : CliktCommand() {
         }
 
         // repeat 500 time, to randomize take 3~5 items from serviceMap
-        repeat(600) {
+        repeat(2000) {
             val serviceNames = serviceMap.keys.toList().shuffled().take(Random.nextInt(3, 5))
             // 帮我设计一组 API，需要包含：{serviceName}、{serviceName}、{serviceName}
             val instruction = "帮我设计一组 API，需要包含：${serviceNames.joinToString(separator = "、")}"

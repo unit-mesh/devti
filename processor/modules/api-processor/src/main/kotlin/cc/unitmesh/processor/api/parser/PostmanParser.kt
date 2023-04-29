@@ -24,21 +24,35 @@ class PostmanParser {
         val details: MutableList<ApiDetail> = mutableListOf()
         if (item.item != null) {
             for (subItem in item.item!!) {
-                details += parseItem(subItem, folderName, item.name)
+                parseItem(subItem, folderName, item.name).let {
+                    details.addAll(it)
+                }
             }
         }
 
         return details.toList()
     }
 
-    private fun parseItem(subItem: PostmanItem, folderName: String?, itemName: String?): ApiDetail {
+    private fun parseItem(subItem: PostmanItem, folderName: String?, itemName: String?): List<ApiDetail> {
         if (subItem.item != null) {
-            for (subSubItem in subItem.item) {
-                parseItem(subSubItem, folderName, subSubItem.name)
-            }
+//            for (childItem in subItem.item) {
+//                val items = childItem.item?.let {
+//                    parseItem(childItem, folderName, childItem.name)
+//                }
+//                if (items != null) {
+//                    return items
+//                }
+//            }
+            return subItem.item.map {
+                parseItem(it, folderName, itemName)
+            }.flatten() ?: listOf()
         }
 
-        return formatOutput(subItem, folderName, itemName)
+        if (subItem.request != null) {
+            return listOf(formatOutput(subItem, folderName, itemName))
+        }
+
+        return listOf()
     }
 
     private fun formatOutput(

@@ -1,6 +1,8 @@
 package cc.unitmesh.processor.api.parser
 
 import cc.unitmesh.processor.api.model.postman.PostmanReader
+import cc.unitmesh.processor.api.render.SimpleApiRender
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import java.io.File
 
@@ -11,7 +13,13 @@ class PostmanParserTest {
         val postmanReader = PostmanReader()
         val collection = postmanReader.readCollectionFile(File(file.toURI()).absolutePath)
         val postmanParser = PostmanParser()
-        postmanParser.parse(collection)
+        val listList = postmanParser.parse(collection)!!
+
+        val apiDetails = listList.flatten()
+//        apiDetails.size shouldBe 11
+
+        val output = SimpleApiRender().render(apiDetails)
+        println(output)
     }
 
     @Test

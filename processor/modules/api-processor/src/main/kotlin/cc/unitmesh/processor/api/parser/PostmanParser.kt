@@ -35,14 +35,6 @@ class PostmanParser {
 
     private fun parseItem(subItem: PostmanItem, folderName: String?, itemName: String?): List<ApiDetail> {
         if (subItem.item != null) {
-//            for (childItem in subItem.item) {
-//                val items = childItem.item?.let {
-//                    parseItem(childItem, folderName, childItem.name)
-//                }
-//                if (items != null) {
-//                    return items
-//                }
-//            }
             return subItem.item.map {
                 parseItem(it, folderName, itemName)
             }.flatten() ?: listOf()
@@ -82,9 +74,7 @@ class PostmanParser {
         }?.toList() ?: listOf()
 
         val req = Request(
-            parameters = url?.query?.map {
-                Parameter(it.key ?: "", it.value ?: "")
-            } ?: listOf(),
+            parameters = urlParameters(url),
             body = body?.formdata?.map { Parameter(it.key ?: "", it.value ?: "") } ?: listOf(),
         )
 
@@ -97,6 +87,18 @@ class PostmanParser {
             request = req,
             response = responses,
         )
+    }
+
+    private fun urlParameters(url: PostmanUrl?): List<Parameter> {
+        val variable = url?.variable?.map {
+            Parameter(it.key ?: "", it.value ?: "")
+        }
+
+        val queries = url?.query?.map {
+            Parameter(it.key ?: "", it.value ?: "")
+        }
+
+        return (variable ?: listOf()) + (queries ?: listOf())
     }
 }
 

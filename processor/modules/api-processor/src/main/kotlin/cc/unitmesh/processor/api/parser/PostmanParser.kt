@@ -13,67 +13,58 @@ import cc.unitmesh.processor.api.model.postman.PostmanVariables
 
 class PostmanParser {
     private val `var`: PostmanVariables = PostmanVariables(PostmanEnvironment())
-    fun parse(collection: PostmanCollection) {
-        for (item in collection.item!!) {
-            parseFolder(item, item.name)
+    fun parse(collection: PostmanCollection): List<List<ApiDetail>>? {
+        return collection.item?.map {
+            parseFolder(it, it.name)
         }
     }
 
-    private fun parseFolder(item: PostmanFolder, folderName: String?) {
+    private fun parseFolder(item: PostmanFolder, folderName: String?): List<ApiDetail> {
+        val details: MutableList<ApiDetail> = mutableListOf()
         if (item.item != null) {
             for (subItem in item.item!!) {
-                parseItem(subItem, folderName, item.name)
+                details += parseItem(subItem, folderName, item.name)
             }
         }
+
+        return details.toList()
     }
 
-    private fun parseItem(subItem: PostmanItem, folderName: String?, itemName: String?) {
+    private fun parseItem(subItem: PostmanItem, folderName: String?, itemName: String?): ApiDetail {
         if (subItem.item != null) {
             for (subSubItem in subItem.item) {
                 parseItem(subSubItem, folderName, subSubItem.name)
             }
         }
 
-        if (subItem.request != null) {
-            formatOutput(subItem, folderName, itemName)
-        }
+        return formatOutput(subItem, folderName, itemName)
     }
 
-    fun formatOutput(
+    private fun formatOutput(
         subItem: PostmanItem,
         folderName: String?,
         itemName: String?
     ): ApiDetail {
-        val request = subItem.request!!
-        val url: PostmanUrl? = request.url
-        val method = request.method!!
-        val body = request.body
-        val description = request.description
+        val request = subItem.request
+        val url: PostmanUrl? = request?.url
+        val method = request?.method
+        val body = request?.body
+        val description = request?.description
         val name = subItem.name
         val folder = folderName
         val item = itemName
 
-        println("folder: $folder - name: $name")
-
-        // simplify the description
-        if (description != null) {
-            println("description: ${description.replace("\n", " ")}")
-        }
-
-        var uri = request.getUrl(`var`)
-        // if uri startsWith `UNDEFINED` then remove UNDEFINED
+        var uri = request?.getUrl(`var`)
         if (uri?.startsWith("UNDEFINED") == true) {
             uri = uri.substring(9)
         }
 
         println("$method $uri")
-        val headers = request.getHeaders(`var`)
-        if (headers.isNotEmpty()) {
+        val headers = request?.getHeaders(`var`)
+        if (headers?.isNotEmpty() == true) {
             for (header in headers) {
-                print("${header.key}: ${header.value}\n")
             }
         }
-
 
         val responses: MutableList<Response> = mutableListOf()
         val originResponse = subItem.response
@@ -83,7 +74,7 @@ class PostmanParser {
                 val body = resp.body
                 val parameters: MutableList<Parameter> = mutableListOf()
                 if (body != null) {
-
+                    // todo: add parse body
                 }
                 responses.add(Response(code, parameters))
             }
@@ -97,7 +88,7 @@ class PostmanParser {
         )
 
         return ApiDetail(
-            method = method,
+            method = method ?: "",
             path = uri ?: "",
             description = description?.replace("\n", " ") ?: "",
             operationId = name ?: "",

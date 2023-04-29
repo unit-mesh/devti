@@ -11,6 +11,6 @@ class PostmanProcessorTest {
         val processor = PostmanProcessor(file)
         val apiDetails = processor.convertApi()
 
-        assertEquals(0, apiDetails.size)
+        assertEquals(5, apiDetails.size)
     }
 }

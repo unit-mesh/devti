@@ -61,7 +61,6 @@ class Generating : CliktCommand() {
                 // get file parent name
                 val parentName = file.parentFile.name
 
-
                 try {
                     val instructions = processor.convertApi()
                     val output = MarkdownTableRender().render(instructions)

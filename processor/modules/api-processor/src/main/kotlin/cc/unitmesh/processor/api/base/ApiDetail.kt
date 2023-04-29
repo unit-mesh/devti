@@ -16,10 +16,17 @@ data class Parameter(
     override fun toString() = "$name: $type"
 }
 
+enum class BodyMode {
+    RAW_TEXT,
+    TYPED,
+}
+
 @Serializable
 data class Request(
     val parameters: List<Parameter> = listOf(),
     val body: List<Parameter> = listOf(),
+    val bodyMode: BodyMode = BodyMode.TYPED,
+    val bodyString: String = ""
 ) {
     override fun toString(): String {
         val params = parameters.joinToString(", ") { it.toString() }
@@ -35,7 +42,9 @@ data class Request(
 @Serializable
 data class Response(
     val code: Int,
-    val parameters: List<Parameter> = listOf()
+    val parameters: List<Parameter> = listOf(),
+    val bodyMode: BodyMode = BodyMode.TYPED,
+    val bodyString: String = ""
 ) {
     override fun toString() = "$code: {${parameters.joinToString(", ") { it.toString() }}}"
 }

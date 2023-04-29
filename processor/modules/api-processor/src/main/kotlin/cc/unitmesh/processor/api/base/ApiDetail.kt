@@ -46,7 +46,12 @@ data class Response(
     var bodyMode: BodyMode = BodyMode.TYPED,
     var bodyString: String = ""
 ) {
-    override fun toString() = "$code: {${parameters.joinToString(", ") { it.toString() }}}"
+    override fun toString(): String {
+        return when (bodyMode) {
+            BodyMode.RAW_TEXT -> "$code: ${bodyString.replace("\n", "\\n")}"
+            BodyMode.TYPED -> "$code: ${parameters.joinToString(", ") { it.toString() }}"
+        }
+    }
 }
 
 @Serializable

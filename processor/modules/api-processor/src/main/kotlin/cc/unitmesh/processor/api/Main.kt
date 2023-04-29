@@ -146,6 +146,7 @@ class Prompting : CliktCommand() {
             }
         }
 
+        var serviceNameMap = mutableMapOf<String, Boolean>()
         // prompt to jsonl
         val jsonlApiFile = File(outputDir.absolutePath, "apis.jsonl")
         val serviceMap: MutableMap<String, String> = mutableMapOf()
@@ -159,6 +160,10 @@ class Prompting : CliktCommand() {
                     .replace(" Services", "")
                     .replace(" Service", "")
                     .replace(" API", "")
+                    .replace("API", "")
+                    .replace("服务", "")
+
+                serviceNameMap[serviceName] = true
 
                 val instruction = "帮我设计一个银行的 $serviceName 服务的 API"
 
@@ -166,6 +171,14 @@ class Prompting : CliktCommand() {
 
                 instructions += Instruction(instruction = instruction, input = "", output = output)
             }
+        }
+
+        // write serviceNameMap to csv file
+        val serviceNameMapFile = File(outputDir.absolutePath, "serviceNameMap.csv")
+        serviceNameMapFile.writeText("")
+        serviceNameMap.forEach { (serviceName, _) ->
+            serviceNameMapFile.appendText(serviceName)
+            serviceNameMapFile.appendText("\n")
         }
 
         // repeat 500 time, to randomize take 3~5 items from serviceMap

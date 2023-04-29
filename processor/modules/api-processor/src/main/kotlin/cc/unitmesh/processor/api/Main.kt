@@ -181,11 +181,12 @@ class Prompting : CliktCommand() {
                     serviceName = domainTranslation[serviceName]!!
                 }
 
-                val instruction = "帮我设计一个银行的${serviceName}的 API"
+                val instruction = "帮我设计一个银行的 API:"
+                val input = serviceName
 
                 serviceMap[serviceName] = output
 
-                instructions += Instruction(instruction = instruction, input = "", output = output)
+                instructions += Instruction(instruction = instruction, input = input, output = output)
             }
         }
 
@@ -195,9 +196,10 @@ class Prompting : CliktCommand() {
         repeat(500) {
             val serviceNames = serviceMap.keys.toList().shuffled().take(Random.nextInt(3, 5))
             // 帮我设计一组 API，需要包含：{serviceName}、{serviceName}、{serviceName}
-            val instruction = "帮我设计一组银行的 Open Banking API，需要包含：${serviceNames.joinToString(separator = "、")}"
+            val instruction = "帮我设计一组银行的 API，需要包含："
+            val input = serviceNames.joinToString(separator = "、")
             val output = serviceNames.joinToString(separator = "\n") { serviceMap[it]!! }
-            instructions += Instruction(instruction = instruction, input = "", output = output)
+            instructions += Instruction(instruction = instruction, input = input, output = output)
         }
 
         jsonlApiFile.writeText("")

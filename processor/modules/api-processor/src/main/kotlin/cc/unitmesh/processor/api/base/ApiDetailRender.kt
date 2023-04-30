@@ -2,17 +2,11 @@ package cc.unitmesh.processor.api.base
 
 interface ApiDetailRender {
     fun render(apiCollections: List<ApiCollection>): String {
-        val apiDetails = apiCollections.flatMap { it.items }
-        return renderCollection(apiDetails)
+        val apiDetailsByTag = apiCollections.map { renderCollection(it) }
+        return apiDetailsByTag.joinToString("\n\n") { it }
     }
 
-    fun renderCollection(apiItems: List<ApiItem>): String
+    fun renderCollection(collection: ApiCollection): String
 
-    fun renderByTag(apiItems: List<ApiItem>): List<ApiTagOutput> {
-        return apiItems.groupBy { it.tags }.map { (tags, apiDetails) ->
-            renderItem(tags, apiDetails)
-        }
-    }
-
-    fun renderItem(tags: List<String>, apiItems: List<ApiItem>): ApiTagOutput
+    fun renderItem(apiItems: List<ApiItem>): ApiTagOutput
 }

@@ -1,16 +1,16 @@
 package cc.unitmesh.processor.api.render
 
+import cc.unitmesh.processor.api.base.ApiCollection
 import cc.unitmesh.processor.api.base.ApiDetailRender
 import cc.unitmesh.processor.api.base.ApiItem
 import cc.unitmesh.processor.api.base.ApiTagOutput
 
 class MarkdownTableRender : ApiDetailRender {
-    override fun renderCollection(apiItems: List<ApiItem>): String {
-        val apiDetailsByTag = renderByTag(apiItems)
-        return apiDetailsByTag.joinToString("\n\n") { it.toString() }
+    override fun renderCollection(collection: ApiCollection): String {
+        return renderItem(collection.items).toString()
     }
 
-    override fun renderItem(tags: List<String>, apiItems: List<ApiItem>): ApiTagOutput {
+    override fun renderItem(apiItems: List<ApiItem>): ApiTagOutput {
         val result: MutableList<String> = mutableListOf()
         result += listOf("| API | Method | Description | Request | Response | Error Response |")
         result += listOf("| --- | --- | --- | --- | --- | --- |")

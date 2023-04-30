@@ -35,17 +35,21 @@ class PostmanParser {
     }
 
     private fun parseItem(subItem: PostmanItem, folderName: String?, itemName: String?): List<ApiItem> {
-        if (subItem.item != null) {
-            return subItem.item.map {
-                parseItem(it, folderName, itemName)
-            }.flatten() ?: listOf()
-        }
+        return when {
+            subItem.item != null -> {
+                subItem.item.map {
+                    parseItem(it, folderName, itemName)
+                }.flatten()
+            }
 
-        if (subItem.request != null) {
-            return listOf(formatOutput(subItem, folderName, itemName))
-        }
+            subItem.request != null -> {
+                listOf(formatOutput(subItem, folderName, itemName))
+            }
 
-        return listOf()
+            else -> {
+                listOf()
+            }
+        }
     }
 
     private fun formatOutput(

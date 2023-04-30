@@ -1,5 +1,5 @@
 package cc.unitmesh.processor.api.base
 
 interface ApiProcessor {
-    fun convertApi(): List<ApiItem>
+    fun convertApi(): List<ApiCollection>
 }

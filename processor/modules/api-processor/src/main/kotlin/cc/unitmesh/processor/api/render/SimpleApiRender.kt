@@ -5,7 +5,7 @@ import cc.unitmesh.processor.api.base.ApiItem
 import cc.unitmesh.processor.api.base.ApiTagOutput
 
 class SimpleApiRender : ApiDetailRender {
-    override fun render(apiItems: List<ApiItem>): String {
+    override fun renderItem(apiItems: List<ApiItem>): String {
         val apiDetailsByTag = renderByTag(apiItems)
         return apiDetailsByTag.joinToString("\n\n") { it.toString() }
     }

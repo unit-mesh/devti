@@ -2,7 +2,6 @@ package cc.unitmesh.processor.api.parser
 
 import cc.unitmesh.processor.api.model.postman.PostmanReader
 import cc.unitmesh.processor.api.render.MarkdownTableRender
-import cc.unitmesh.processor.api.render.SimpleApiRender
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -16,10 +15,9 @@ class PostmanParserTest {
         val postmanParser = PostmanParser()
         val listList = postmanParser.parse(collection)!!
 
-        val apiDetails = listList.flatten()
-        apiDetails.size shouldBe 31
+        listList.size shouldBe 31
 
-        val output = MarkdownTableRender().render(apiDetails)
+        val output = MarkdownTableRender().render(listList)
         println(output)
     }
 
@@ -32,10 +30,9 @@ class PostmanParserTest {
 
         val listList = postmanParser.parse(collection)!!
 
-        val apiDetails = listList.flatten()
-        apiDetails.size shouldBe 5
+        listList.size shouldBe 5
 
-        val output = MarkdownTableRender().render(apiDetails)
+        val output = MarkdownTableRender().render(listList)
         println(output)
     }
 }

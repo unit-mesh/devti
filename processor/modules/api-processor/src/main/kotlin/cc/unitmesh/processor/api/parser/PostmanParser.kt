@@ -1,5 +1,6 @@
 package cc.unitmesh.processor.api.parser
 
+import cc.unitmesh.processor.api.base.ApiCollection
 import cc.unitmesh.processor.api.base.ApiItem
 import cc.unitmesh.processor.api.base.BodyMode
 import cc.unitmesh.processor.api.base.Parameter
@@ -14,13 +15,13 @@ import cc.unitmesh.processor.api.model.postman.PostmanVariables
 
 class PostmanParser {
     private val `var`: PostmanVariables = PostmanVariables(PostmanEnvironment())
-    fun parse(collection: PostmanCollection): List<List<ApiItem>>? {
+    fun parse(collection: PostmanCollection): List<ApiCollection>? {
         return collection.item?.map {
             parseFolder(it, it.name)
         }
     }
 
-    private fun parseFolder(item: PostmanFolder, folderName: String?): List<ApiItem> {
+    private fun parseFolder(item: PostmanFolder, folderName: String?): ApiCollection {
         val details: MutableList<ApiItem> = mutableListOf()
         if (item.item != null) {
             for (subItem in item.item!!) {
@@ -30,7 +31,7 @@ class PostmanParser {
             }
         }
 
-        return details.toList()
+        return ApiCollection(folderName ?: "", item.description ?: "", details)
     }
 
     private fun parseItem(subItem: PostmanItem, folderName: String?, itemName: String?): List<ApiItem> {

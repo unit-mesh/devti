@@ -13,7 +13,7 @@ class SimpleApiRenderTest {
         val apiDetails = processor2.convertApi()
 
         val render = SimpleApiRender()
-        val result = render.render(apiDetails)
+        val result = render.renderItem(apiDetails)
 
         val expected =
 """

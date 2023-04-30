@@ -7,6 +7,7 @@ import cc.unitmesh.processor.api.base.Parameter
 import cc.unitmesh.processor.api.base.Request
 import cc.unitmesh.processor.api.base.Response
 import cc.unitmesh.processor.api.model.postman.*
+import org.jetbrains.kotlin.cli.common.repl.replEscapeLineBreaks
 
 class PostmanParser {
     private val `var`: PostmanVariables = PostmanVariables(PostmanEnvironment())
@@ -86,7 +87,7 @@ class PostmanParser {
         return ApiItem(
             method = method ?: "",
             path = uri ?: "",
-            description = description?.replace("\n", " ") ?: "",
+            description = description.replaceLineBreak() ?: "",
             operationId = name ?: "",
             tags = listOf(folderName ?: "", itemName ?: ""),
             request = req,
@@ -126,5 +127,9 @@ class PostmanParser {
             else -> ""
         }
     }
+}
+
+private fun String?.replaceLineBreak(): String? {
+    return this?.replEscapeLineBreaks()?.replace("\n", "")?.replace("\r", "")
 }
 

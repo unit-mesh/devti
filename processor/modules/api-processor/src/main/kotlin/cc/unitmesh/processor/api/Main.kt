@@ -96,9 +96,6 @@ class Prompting : CliktCommand() {
 
         val columnNames = frame.columnNames()
 
-//        if (outputDir.exists()) {
-//            outputDir.deleteRecursively()
-//        }
         outputDir.mkdirs()
 
         val promptDir = File(outputDir.absolutePath, "prepare")
@@ -193,10 +190,11 @@ class Prompting : CliktCommand() {
 
         val domainTranslation = mutableMapOf<String, String>()
         if (domain.exists()) {
-            val domainFrame = DataFrame.readCSV(domain.absolutePath)
-            domainFrame.rows().forEach { row ->
+            val englishToChinese = DataFrame.readCSV(domain.absolutePath)
+            englishToChinese.rows().forEach { row ->
                 val values = row.values() as List<String>
-                domainTranslation[values[0]] = values[1] + "服务"
+                val english = values[0]
+                domainTranslation[english] = values[1] + "($english)" + "服务"
             }
         }
 

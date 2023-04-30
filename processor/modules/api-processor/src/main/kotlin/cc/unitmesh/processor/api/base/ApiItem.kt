@@ -46,13 +46,11 @@ data class Response(
     var bodyMode: BodyMode = BodyMode.TYPED,
     var bodyString: String = ""
 ) {
-    override fun toString(): String {
-        return when (bodyMode) {
-            BodyMode.RAW_TEXT -> "$code: ${bodyString.replace("\n", "\\n")}"
-            BodyMode.TYPED -> {
-                if (parameters.isEmpty()) "$code: {}"
-                else "$code: {${parameters.joinToString(", ") { it.toString() }}}"
-            }
+    override fun toString(): String = when (bodyMode) {
+        BodyMode.RAW_TEXT -> "$code: ${bodyString.replace("\n", "\\n")}"
+        BodyMode.TYPED -> {
+            if (parameters.isEmpty()) "$code: {}"
+            else "$code: {${parameters.joinToString(", ") { it.toString() }}}"
         }
     }
 }

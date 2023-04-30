@@ -1,7 +1,7 @@
 package cc.unitmesh.processor.api.swagger
 
 import cc.unitmesh.processor.api.base.ApiProcessor
-import cc.unitmesh.processor.api.base.ApiDetail
+import cc.unitmesh.processor.api.base.ApiItem
 import cc.unitmesh.processor.api.base.Parameter
 import cc.unitmesh.processor.api.base.Request
 import cc.unitmesh.processor.api.base.Response
@@ -15,13 +15,13 @@ import java.io.File
 class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
     private val apiSchemaMutableMap = api.components?.schemas
 
-    override fun convertApi(): List<ApiDetail> {
-        val result = mutableListOf<ApiDetail>()
+    override fun convertApi(): List<ApiItem> {
+        val result = mutableListOf<ApiItem>()
         if (api.paths == null) return result
 
         api.paths.forEach { (path, pathItem) ->
             pathItem.readOperationsMap().forEach { (method, operation) ->
-                val apiDetail = ApiDetail(
+                val apiItem = ApiItem(
                     path = path,
                     method = method.toString(),
                     description = operation.description?.replace("\n", " ") ?: "",
@@ -31,7 +31,7 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
                     response = convertResponses(operation)
                 )
 
-                result.add(apiDetail)
+                result.add(apiItem)
             }
         }
 

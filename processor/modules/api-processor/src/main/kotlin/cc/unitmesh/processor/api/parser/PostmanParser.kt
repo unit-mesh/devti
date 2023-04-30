@@ -1,6 +1,6 @@
 package cc.unitmesh.processor.api.parser
 
-import cc.unitmesh.processor.api.base.ApiDetail
+import cc.unitmesh.processor.api.base.ApiItem
 import cc.unitmesh.processor.api.base.BodyMode
 import cc.unitmesh.processor.api.base.Parameter
 import cc.unitmesh.processor.api.base.Request
@@ -14,14 +14,14 @@ import cc.unitmesh.processor.api.model.postman.PostmanVariables
 
 class PostmanParser {
     private val `var`: PostmanVariables = PostmanVariables(PostmanEnvironment())
-    fun parse(collection: PostmanCollection): List<List<ApiDetail>>? {
+    fun parse(collection: PostmanCollection): List<List<ApiItem>>? {
         return collection.item?.map {
             parseFolder(it, it.name)
         }
     }
 
-    private fun parseFolder(item: PostmanFolder, folderName: String?): List<ApiDetail> {
-        val details: MutableList<ApiDetail> = mutableListOf()
+    private fun parseFolder(item: PostmanFolder, folderName: String?): List<ApiItem> {
+        val details: MutableList<ApiItem> = mutableListOf()
         if (item.item != null) {
             for (subItem in item.item!!) {
                 parseItem(subItem, folderName, item.name).let {
@@ -33,7 +33,7 @@ class PostmanParser {
         return details.toList()
     }
 
-    private fun parseItem(subItem: PostmanItem, folderName: String?, itemName: String?): List<ApiDetail> {
+    private fun parseItem(subItem: PostmanItem, folderName: String?, itemName: String?): List<ApiItem> {
         if (subItem.item != null) {
             return subItem.item.map {
                 parseItem(it, folderName, itemName)
@@ -51,7 +51,7 @@ class PostmanParser {
         subItem: PostmanItem,
         folderName: String?,
         itemName: String?
-    ): ApiDetail {
+    ): ApiItem {
         val request = subItem.request
         val url: PostmanUrl? = request?.url
         val method = request?.method
@@ -78,7 +78,7 @@ class PostmanParser {
             body = body?.formdata?.map { Parameter(it.key ?: "", it.value ?: "") } ?: listOf(),
         )
 
-        return ApiDetail(
+        return ApiItem(
             method = method ?: "",
             path = uri ?: "",
             description = description?.replace("\n", " ") ?: "",

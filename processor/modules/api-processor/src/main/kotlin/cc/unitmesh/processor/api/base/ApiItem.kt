@@ -55,7 +55,7 @@ data class Response(
 }
 
 @Serializable
-data class ApiDetail(
+data class ApiItem(
     val path: String,
     val method: String,
     val description: String,
@@ -68,5 +68,17 @@ data class ApiDetail(
         val request = request.toString()
         val response = response.joinToString(", ") { it.toString() }
         return "$method $path $description $request $response"
+    }
+}
+
+
+@Serializable
+data class ApiCollection(
+    val name: String,
+    val description: String,
+    val items: List<ApiItem>,
+) {
+    override fun toString(): String {
+        return "$name: ${items.joinToString(", ") { it.toString() }}"
     }
 }

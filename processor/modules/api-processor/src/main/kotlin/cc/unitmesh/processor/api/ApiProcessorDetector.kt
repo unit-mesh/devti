@@ -26,7 +26,7 @@ private fun getSwaggerProcessor(it: File): ApiProcessor? {
         val openAPI = Swagger3Processor.fromFile(it)!!
         return Swagger3Processor(openAPI)
     } catch (e: Exception) {
-        logger.error("Failed to parse ${it.absolutePath}", e)
+        logger.info("Failed to parse ${it.absolutePath}", e)
     }
 
     return null

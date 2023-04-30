@@ -37,9 +37,6 @@ class UnitApi : CliktCommand() {
 class Generating : CliktCommand() {
     private val inputDir by argument().file().help("Input directory").default(File("input"))
     override fun run() {
-        // walkdir inputDir, parse by SwaggerParser, and output to jsonl
-//        val jsonlFile = File("output.jsonl")
-
         val outputDIr = File("output", "markdown")
         if (!outputDIr.exists()) {
             outputDIr.mkdirs()
@@ -51,7 +48,7 @@ class Generating : CliktCommand() {
                 try {
                     processor = ApiProcessorDetector.detectApiProcessor(file)
                 } catch (e: Exception) {
-                    logger.error("Failed to parse ${file.absolutePath}", e)
+                    logger.info("Failed to parse ${file.absolutePath}", e)
                 }
 
                 if (processor == null) {
@@ -66,6 +63,10 @@ class Generating : CliktCommand() {
                     val output = MarkdownTableRender().render(instructions)
 
                     val outputFile = File(outputDIr, "$parentName-${file.nameWithoutExtension}.md")
+                    val maybeAGoodApi = 256
+                    if (output.length > maybeAGoodApi) {
+                        outputFile.writeText(output)
+                    }
                     outputFile.writeText(output)
                 } catch (e: Exception) {
                     logger.error("Failed to parse ${file.absolutePath}", e)

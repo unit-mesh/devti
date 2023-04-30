@@ -43,7 +43,9 @@ class PostmanParser {
             }
 
             subItem.request != null -> {
-                listOf(formatOutput(subItem, folderName, itemName))
+                parseSubItem(subItem, folderName, itemName)?.let {
+                    listOf(it)
+                } ?: listOf()
             }
 
             else -> {
@@ -52,11 +54,11 @@ class PostmanParser {
         }
     }
 
-    private fun formatOutput(
+    private fun parseSubItem(
         subItem: PostmanItem,
         folderName: String?,
         itemName: String?
-    ): ApiItem {
+    ): ApiItem? {
         val request = subItem.request
         val url: PostmanUrl? = request?.url
         val method = request?.method
@@ -65,9 +67,8 @@ class PostmanParser {
         val name = subItem.name
 
         var uri = request?.getUrl(`var`)
-        if (uri?.startsWith("UNDEFINED") == true) {
-            uri = uri.substring(9)
-        }
+        // remove UNDEFINED and http://UNDEFINED
+        uri = uri?.replace("UNDEFINED", "")?.replace("http://", "")?.replace("https://", "")
 
         val responses = subItem.response?.map {
             Response(
@@ -82,6 +83,10 @@ class PostmanParser {
             parameters = urlParameters(url),
             body = body?.formdata?.map { Parameter(it.key ?: "", it.value ?: "") } ?: listOf(),
         )
+
+        if (uri?.isEmpty() == true) {
+            return null
+        }
 
         return ApiItem(
             method = method ?: "",

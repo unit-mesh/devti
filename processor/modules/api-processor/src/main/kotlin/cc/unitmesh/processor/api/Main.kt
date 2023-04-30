@@ -63,11 +63,10 @@ class Generating : CliktCommand() {
                     val output = MarkdownTableRender().render(instructions)
 
                     val outputFile = File(outputDIr, "$parentName-${file.nameWithoutExtension}.md")
-                    val maybeAGoodApi = 256
+                    val maybeAGoodApi = 128
                     if (output.length > maybeAGoodApi) {
                         outputFile.writeText(output)
                     }
-                    outputFile.writeText(output)
                 } catch (e: Exception) {
                     logger.error("Failed to parse ${file.absolutePath}", e)
                 }

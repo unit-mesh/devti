@@ -13,7 +13,7 @@ class MarkdownTableRenderTest {
         val apiDetails = processor2.convertApi()
 
         val render = MarkdownTableRender()
-        val result = render.renderItem(apiDetails)
+        val result = render.render(apiDetails)
 
         val expected =
 """

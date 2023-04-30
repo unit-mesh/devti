@@ -49,7 +49,10 @@ data class Response(
     override fun toString(): String {
         return when (bodyMode) {
             BodyMode.RAW_TEXT -> "$code: ${bodyString.replace("\n", "\\n")}"
-            BodyMode.TYPED -> "$code: ${parameters.joinToString(", ") { it.toString() }}"
+            BodyMode.TYPED -> {
+                if (parameters.isEmpty()) "$code: {}"
+                else "$code: {${parameters.joinToString(", ") { it.toString() }}}"
+            }
         }
     }
 }

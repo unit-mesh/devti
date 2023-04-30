@@ -1,5 +1,6 @@
 package cc.unitmesh.processor.api.swagger
 
+import cc.unitmesh.processor.api.base.ApiCollection
 import cc.unitmesh.processor.api.base.ApiProcessor
 import cc.unitmesh.processor.api.base.ApiItem
 import cc.unitmesh.processor.api.base.Parameter
@@ -15,9 +16,9 @@ import java.io.File
 class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
     private val apiSchemaMutableMap = api.components?.schemas
 
-    override fun convertApi(): List<ApiItem> {
-        val result = mutableListOf<ApiItem>()
-        if (api.paths == null) return result
+    override fun convertApi(): List<ApiCollection> {
+        if (api.paths == null) return listOf()
+        val allItems = mutableListOf<ApiItem>()
 
         api.paths.forEach { (path, pathItem) ->
             pathItem.readOperationsMap().forEach { (method, operation) ->
@@ -31,11 +32,15 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
                     response = convertResponses(operation)
                 )
 
-                result.add(apiItem)
+                allItems.add(apiItem)
             }
         }
 
-        return result
+        // group by tag
+        val apiDetailsByTag = allItems.groupBy { it.tags.firstOrNull() ?: "" }
+        return apiDetailsByTag.map { (tag, apiItems) ->
+            ApiCollection(tag, "", apiItems)
+        }
     }
 
     private fun convertResponses(operation: Operation): List<Response> {
@@ -85,7 +90,7 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
     private fun convertRequest(operation: Operation): Request {
         val parameters = operation.parameters?.map {
             Parameter(
-                name = it.name?:"",
+                name = it.name ?: "",
                 type = it.schema?.type ?: ""
             )
         }

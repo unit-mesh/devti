@@ -6,12 +6,7 @@ import cc.unitmesh.processor.api.base.BodyMode
 import cc.unitmesh.processor.api.base.Parameter
 import cc.unitmesh.processor.api.base.Request
 import cc.unitmesh.processor.api.base.Response
-import cc.unitmesh.processor.api.model.postman.PostmanCollection
-import cc.unitmesh.processor.api.model.postman.PostmanEnvironment
-import cc.unitmesh.processor.api.model.postman.PostmanFolder
-import cc.unitmesh.processor.api.model.postman.PostmanItem
-import cc.unitmesh.processor.api.model.postman.PostmanUrl
-import cc.unitmesh.processor.api.model.postman.PostmanVariables
+import cc.unitmesh.processor.api.model.postman.*
 
 class PostmanParser {
     private val `var`: PostmanVariables = PostmanVariables(PostmanEnvironment())
@@ -101,14 +96,35 @@ class PostmanParser {
 
     private fun urlParameters(url: PostmanUrl?): List<Parameter> {
         val variable = url?.variable?.map {
-            Parameter(it.key ?: "", it.value ?: "")
+            Parameter(it.key ?: "", formatValue(it.value))
         }
 
         val queries = url?.query?.map {
-            Parameter(it.key ?: "", it.value ?: "")
+            Parameter(it.key ?: "", formatValue(it.value))
         }
 
         return (variable ?: listOf()) + (queries ?: listOf())
+    }
+
+    private fun formatValue(it: String?): String {
+        val regex = Regex("^\\d+$")
+        val boolRegex = Regex("^(true|false)$")
+
+        return when {
+            it?.matches(regex) == true -> {
+                it
+            }
+
+            it?.matches(boolRegex) == true -> {
+                it
+            }
+
+            (it?.length ?: 0) > 0 -> {
+                "\"$it\""
+            }
+
+            else -> ""
+        }
     }
 }
 

@@ -66,6 +66,8 @@ class Generating : CliktCommand() {
                     val maybeAGoodApi = 128
                     if (output.length > maybeAGoodApi) {
                         outputFile.writeText(output)
+                    } else {
+                        logger.info("Skip ${file.absolutePath} because it's too short")
                     }
                 } catch (e: Exception) {
                     logger.error("Failed to parse ${file.absolutePath}", e)
@@ -230,7 +232,6 @@ class Prompting : CliktCommand() {
         // repeat 500 time, to randomize take 3~5 items from serviceMap
         repeat(500) {
             val serviceNames = serviceMap.keys.toList().shuffled().take(Random.nextInt(3, 5))
-            // 帮我设计一组 API，需要包含：{serviceName}、{serviceName}、{serviceName}
             val instruction = "帮我设计一组银行的 API，需要包含："
             val input = serviceNames.joinToString(separator = "、")
             val output = serviceNames.joinToString(separator = "\n") { serviceMap[it]!! }

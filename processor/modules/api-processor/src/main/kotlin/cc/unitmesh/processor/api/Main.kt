@@ -46,7 +46,7 @@ class Generating : CliktCommand() {
             if (file.isFile) {
                 var processor: ApiProcessor? = null
                 try {
-                    processor = ApiProcessorDetector.detectApiProcessor(file)
+                    processor = ApiProcessorDetector.detectApiProcessor(file, withPostman = false)
                 } catch (e: Exception) {
                     logger.info("Failed to parse ${file.absolutePath}", e)
                 }

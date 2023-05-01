@@ -9,7 +9,7 @@ class SimpleApiRenderTest {
     @Test
     fun should_render_api_to_string() {
         val file2 = File("src/test/resources/testsets/swagger-3.yaml")
-        val processor2 = ApiProcessorDetector.detectApiProcessor(file2)!!
+        val processor2 = ApiProcessorDetector.detectApiProcessor(file2, true)!!
         val apiDetails = processor2.convertApi()
 
         val render = SimpleApiRender()

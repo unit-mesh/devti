@@ -9,7 +9,7 @@ class MarkdownTableRenderTest {
     @Test
     fun should_handle_to_table() {
         val file2 = File("src/test/resources/testsets/swagger-3.yaml")
-        val processor2 = ApiProcessorDetector.detectApiProcessor(file2)!!
+        val processor2 = ApiProcessorDetector.detectApiProcessor(file2, true)!!
         val apiDetails = processor2.convertApi()
 
         val render = MarkdownTableRender()

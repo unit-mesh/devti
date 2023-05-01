@@ -8,7 +8,10 @@ class MarkdownTableRender : ApiDetailRender {
     override fun renderCollection(collection: ApiCollection): String {
         val result: MutableList<String> = mutableListOf()
 
-        result += listOf("## ${collection.name}\n")
+        if (collection.name.isNotEmpty()) {
+            result += listOf("# ${collection.name}\n")
+        }
+
         if (collection.description.isNotEmpty()) {
             result += listOf("> ${collection.description}")
         }

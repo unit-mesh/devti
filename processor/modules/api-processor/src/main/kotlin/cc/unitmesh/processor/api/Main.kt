@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.random.Random
 
-fun main(args: Array<String>) = Generating()
+fun main(args: Array<String>) = Prompting()
 //    .subcommands(Prompting())
     .main(args)
 
@@ -225,18 +225,9 @@ class Prompting : CliktCommand() {
                 val outputFile = outputMarkdown(markdownApiOutputDir, index, bank, bank.openApiService.first())
                 val output = outputFile.readText()
 
-                var serviceName = service.name
-                    .replace(" Services", "")
-                    .replace(" Service", "")
-                    .replace(" API", "")
-                    .replace("API", "")
-                    .replace("服务", "")
+                val serviceName = translateName(domainTranslation, service.name)
 
                 serviceNameMap[serviceName] = true
-
-                if (domainTranslation.containsKey(serviceName)) {
-                    serviceName = domainTranslation[serviceName]!!
-                }
 
                 val instruction = "帮我设计一个银行的 API:"
                 val input = serviceName
@@ -250,9 +241,9 @@ class Prompting : CliktCommand() {
         createServiceNameMap(serviceNameMap)
 
         // repeat 500 time, to randomize take 3~5 items from serviceMap
-        repeat(500) {
+        repeat(1000) {
             val serviceNames = serviceMap.keys.toList().shuffled().take(Random.nextInt(3, 5))
-            val instruction = "帮我设计一组银行的 API，需要包含："
+            val instruction = "帮我设计一组银行的 API："
             val input = serviceNames.joinToString(separator = "、")
             val output = serviceNames.joinToString(separator = "\n") { serviceMap[it]!! }
             instructions += Instruction(instruction = instruction, input = input, output = output)
@@ -263,6 +254,23 @@ class Prompting : CliktCommand() {
             jsonlApiFile.appendText(Json { isLenient = true }.encodeToString(it))
             jsonlApiFile.appendText("\n")
         }
+    }
+
+    private fun translateName(
+        domainTranslation: MutableMap<String, String>,
+        name: String
+    ): String {
+        var serviceName = name
+            .replace(" Services", "")
+            .replace(" Service", "")
+            .replace(" API", "")
+            .replace("API", "")
+            .replace("服务", "")
+
+        if (domainTranslation.containsKey(serviceName)) {
+            serviceName = domainTranslation[serviceName]!!
+        }
+        return serviceName
     }
 
     private fun createServiceNameMap(serviceNameMap: MutableMap<String, Boolean>) {

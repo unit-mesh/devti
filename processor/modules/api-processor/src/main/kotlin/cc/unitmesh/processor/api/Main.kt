@@ -34,6 +34,9 @@ class UnitApi : CliktCommand() {
     }
 }
 
+private val GROUP_API_INSTRUCTION = "帮我设计一组 API："
+private val ONE_API_INSTRUCTION = "帮我设计一个银行的 API:"
+
 class Generating : CliktCommand() {
     private val inputDir by argument().file().help("Input directory").default(File("input"))
     private val domain by argument().file().default(File("domains.csv"))
@@ -73,7 +76,7 @@ class Generating : CliktCommand() {
                         }
 
                         instructions += Instruction(
-                            instruction = "帮我设计一个银行的 API:",
+                            instruction = ONE_API_INSTRUCTION,
                             input = it.name,
                             output = single
                         )
@@ -86,7 +89,7 @@ class Generating : CliktCommand() {
                         outputFile.writeText(output)
 
                         instructions += Instruction(
-                            instruction = "帮我设计一组 API：",
+                            instruction = GROUP_API_INSTRUCTION,
                             input = collections.joinToString(", ") { it.name },
                             output = output
                         )
@@ -229,7 +232,7 @@ class Prompting : CliktCommand() {
 
                 serviceNameMap[serviceName] = true
 
-                val instruction = "帮我设计一个银行的 API:"
+                val instruction = ONE_API_INSTRUCTION
                 val input = serviceName
 
                 serviceMap[serviceName] = output
@@ -243,7 +246,7 @@ class Prompting : CliktCommand() {
         // repeat 500 time, to randomize take 3~5 items from serviceMap
         repeat(1000) {
             val serviceNames = serviceMap.keys.toList().shuffled().take(Random.nextInt(3, 5))
-            val instruction = "帮我设计一组银行的 API："
+            val instruction = GROUP_API_INSTRUCTION
             val input = serviceNames.joinToString(separator = "、")
             val output = serviceNames.joinToString(separator = "\n") { serviceMap[it]!! }
             instructions += Instruction(instruction = instruction, input = input, output = output)

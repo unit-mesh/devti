@@ -1,5 +1,7 @@
 # DevTi - 开发钛
 
+[![CI](https://github.com/unit-mesh/devti/actions/workflows/ci.yml/badge.svg)](https://github.com/unit-mesh/devti/actions/workflows/ci.yml)
+
 > DevTi（Development + Titanium）一款基于大语言模型的研发效能提升的开源项目。旨在基于 LLM 的微调来提供全面智能化解决方案，助力开发人员高效完成开发任务，以实现自动化用户任务拆解、用户故事生成、自动化代码生成、自动化测试生成等等。
 
 ## About DevTi

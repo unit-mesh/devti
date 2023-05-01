@@ -36,11 +36,16 @@ class UnitApi : CliktCommand() {
 
 class Generating : CliktCommand() {
     private val inputDir by argument().file().help("Input directory").default(File("input"))
+    private val domain by argument().file().default(File("domains.csv"))
+    private val outputDir by argument().file().default(File("output"))
+
     override fun run() {
         val outputDIr = File("output", "markdown")
         if (!outputDIr.exists()) {
             outputDIr.mkdirs()
         }
+
+        val instructions: MutableList<Instruction> = mutableListOf()
 
         inputDir.walk().forEach { file ->
             if (file.isFile) {
@@ -54,18 +59,37 @@ class Generating : CliktCommand() {
                 if (processor == null) {
                     return@forEach
                 }
-
-                // get file parent name
                 val parentName = file.parentFile.name
 
                 try {
-                    val instructions = processor.convertApi()
-                    val output = MarkdownTableRender().render(instructions)
+                    val collections = processor.convertApi()
+                    val render = MarkdownTableRender()
 
+                    collections.forEach {
+                        val single = render.render(listOf(it))
+                        if (single.length < 128) {
+                            logger.info("Skip ${file.absolutePath} because it's too short")
+                            return@forEach
+                        }
+
+                        instructions += Instruction(
+                            instruction = "帮我设计一个银行的 API:",
+                            input = it.name,
+                            output = single
+                        )
+                    }
+
+                    val output = render.render(collections)
                     val outputFile = File(outputDIr, "$parentName-${file.nameWithoutExtension}.md")
                     val maybeAGoodApi = 128
                     if (output.length > maybeAGoodApi) {
                         outputFile.writeText(output)
+
+                        instructions += Instruction(
+                            instruction = "帮我设计一组 API：",
+                            input = collections.joinToString(", ") { it.name },
+                            output = output
+                        )
                     } else {
                         logger.info("Skip ${file.absolutePath} because it's too short")
                     }
@@ -74,6 +98,10 @@ class Generating : CliktCommand() {
                 }
             }
         }
+
+        // write to jsonl
+        val jsonl = File(outputDir, "instructions.jsonl")
+        jsonl.writeText(instructions.joinToString("\n") { Json.encodeToString(it) })
     }
 }
 
@@ -184,21 +212,13 @@ class Prompting : CliktCommand() {
             }
         }
 
-        val serviceNameMap = mutableMapOf<String, Boolean>()
         // prompt to jsonl
         val jsonlApiFile = File(outputDir.absolutePath, "apis.jsonl")
         val serviceMap: MutableMap<String, String> = mutableMapOf()
         val instructions: MutableList<Instruction> = mutableListOf()
 
-        val domainTranslation = mutableMapOf<String, String>()
-        if (domain.exists()) {
-            val englishToChinese = DataFrame.readCSV(domain.absolutePath)
-            englishToChinese.rows().forEach { row ->
-                val values = row.values() as List<String>
-                val english = values[0]
-                domainTranslation[english] = values[1] + "($english)" + "服务"
-            }
-        }
+        val serviceNameMap = mutableMapOf<String, Boolean>()
+        val domainTranslation = getDomainTranslate(domain)
 
         banks.forEachIndexed { index, bank ->
             bank.openApiService.forEach { service ->
@@ -254,6 +274,20 @@ class Prompting : CliktCommand() {
             serviceNameMapFile.appendText("\n")
         }
     }
+}
+
+
+fun getDomainTranslate(domainFile: File): MutableMap<String, String> {
+    val domainTranslation = mutableMapOf<String, String>()
+    if (domainFile.exists()) {
+        val englishToChinese = DataFrame.readCSV(domainFile.absolutePath)
+        englishToChinese.rows().forEach { row ->
+            val values = row.values() as List<String>
+            val english = values[0]
+            domainTranslation[english] = values[1] + "($english)" + "服务"
+        }
+    }
+    return domainTranslation
 }
 
 private fun outputMarkdown(

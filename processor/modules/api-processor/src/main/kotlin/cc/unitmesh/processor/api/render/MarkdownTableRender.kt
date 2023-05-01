@@ -9,7 +9,7 @@ class MarkdownTableRender : ApiDetailRender {
         val result: MutableList<String> = mutableListOf()
 
         if (collection.name.isNotEmpty()) {
-            result += listOf("# ${collection.name}\n")
+            result += listOf("## ${collection.name}\n")
         }
 
         if (collection.description.isNotEmpty()) {

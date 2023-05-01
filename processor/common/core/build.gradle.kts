@@ -17,6 +17,8 @@ dependencies {
     implementation(libs.logging.slf4j.api)
     implementation(libs.logging.logback.classic)
 
+    implementation(libs.kaml)
+
     testImplementation(kotlin("test"))
 
     testImplementation(libs.bundles.test)

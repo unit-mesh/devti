@@ -2,20 +2,20 @@ package cc.unitmesh.processor.api.render
 
 import cc.unitmesh.processor.api.base.ApiCollection
 import cc.unitmesh.processor.api.base.ApiDetailRender
-import cc.unitmesh.processor.api.base.ApiItem
 import cc.unitmesh.processor.api.base.ApiTagOutput
 
 class MarkdownTableRender : ApiDetailRender {
     override fun renderCollection(collection: ApiCollection): String {
-        return renderItem(collection.items).toString()
-    }
-
-    fun renderItem(apiItems: List<ApiItem>): ApiTagOutput {
         val result: MutableList<String> = mutableListOf()
+
+        result += listOf("## ${collection.name}\n")
+        if (collection.description.isNotEmpty()) {
+            result += listOf("> ${collection.description}")
+        }
+
         result += listOf("| API | Method | Description | Request | Response | Error Response |")
         result += listOf("| --- | --- | --- | --- | --- | --- |")
-
-        apiItems.forEach { detail ->
+        collection.items.forEach { detail ->
             val api = detail.path
             val method = detail.method
             val description = detail.description
@@ -25,7 +25,7 @@ class MarkdownTableRender : ApiDetailRender {
             result += listOf("| $api | $method | $description | $request | $response | $errorResponse |")
         }
 
-        return ApiTagOutput(result.joinToString("\n"))
+        return ApiTagOutput(result.joinToString("\n")).toString()
     }
 
 }

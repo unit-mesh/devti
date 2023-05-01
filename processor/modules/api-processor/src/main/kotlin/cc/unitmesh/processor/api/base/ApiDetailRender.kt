@@ -7,6 +7,4 @@ interface ApiDetailRender {
     }
 
     fun renderCollection(collection: ApiCollection): String
-
-    fun renderItem(apiItems: List<ApiItem>): ApiTagOutput
 }

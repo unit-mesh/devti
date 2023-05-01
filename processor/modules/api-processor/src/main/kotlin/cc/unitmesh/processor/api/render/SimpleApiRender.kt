@@ -14,14 +14,6 @@ class SimpleApiRender : ApiDetailRender {
         return "${collection.name}\n$items"
     }
 
-    override fun renderItem(apiItems: List<ApiItem>): ApiTagOutput {
-        val detail = apiItems.joinToString("\n") {
-            "${it.method} ${it.path} ${operationInformation(it)} "
-        }
-
-        return ApiTagOutput(detail)
-    }
-
     private fun operationInformation(it: ApiItem): String {
         if (it.operationId.isEmpty()) return ""
 

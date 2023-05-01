@@ -10,7 +10,7 @@ class MarkdownTableRender : ApiDetailRender {
         return renderItem(collection.items).toString()
     }
 
-    override fun renderItem(apiItems: List<ApiItem>): ApiTagOutput {
+    fun renderItem(apiItems: List<ApiItem>): ApiTagOutput {
         val result: MutableList<String> = mutableListOf()
         result += listOf("| API | Method | Description | Request | Response | Error Response |")
         result += listOf("| --- | --- | --- | --- | --- | --- |")

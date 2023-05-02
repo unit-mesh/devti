@@ -26,25 +26,36 @@ class PostmanParser {
     private fun parseFolder(item: PostmanFolder, folderName: String?): List<ApiCollection> {
         val details: MutableList<ApiCollection> = mutableListOf()
         if (item.item != null) {
-            val childTypes = item.item!!.map {
+            val childTypes = item.item.map {
                 parseChildItem(it, folderName, item.name)
             }.flatten()
-
-            val items = childTypes.filterIsInstance<ChildType.Item>().map { it.items }.flatten()
 
             childTypes.filterIsInstance<ChildType.Folder>().forEach {
                 details.add(it.collection)
             }
 
+            val items = childTypes.filterIsInstance<ChildType.Item>().map { it.items }.flatten()
             if (items.isNotEmpty()) {
-                details.add(ApiCollection(folderName ?: "", item.name ?: "", items))
+                val descriptionName = if (folderName == item.name) {
+                    ""
+                } else {
+                    item.name ?: ""
+                }
+
+                details.add(ApiCollection(folderName ?: "", descriptionName, items))
             }
         } else if(item.request != null) {
             val apiItems = processApiItem(item as PostmanItem, folderName, item.name)?.let {
                 listOf(it)
             } ?: listOf()
 
-            details.add(ApiCollection(folderName ?: "", item.name ?: "", apiItems))
+            val descriptionName = if (folderName == item.name) {
+                ""
+            } else {
+                item.name ?: ""
+            }
+
+            details.add(ApiCollection(folderName ?: "", descriptionName, apiItems))
         }
 
         return details

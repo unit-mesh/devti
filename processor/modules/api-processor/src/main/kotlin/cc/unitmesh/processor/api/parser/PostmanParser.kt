@@ -8,16 +8,17 @@ import cc.unitmesh.processor.api.base.Request
 import cc.unitmesh.processor.api.base.Response
 import cc.unitmesh.processor.api.model.postman.*
 import org.jetbrains.kotlin.cli.common.repl.replEscapeLineBreaks
+import org.jetbrains.kotlin.psi.returnExpressionVisitor
 
 class PostmanParser {
     private val `var`: PostmanVariables = PostmanVariables(PostmanEnvironment())
     fun parse(collection: PostmanCollection): List<ApiCollection>? {
-        return collection.item?.map {
+        return collection.item?.mapNotNull {
             parseFolder(it, it.name)
         }
     }
 
-    private fun parseFolder(item: PostmanFolder, folderName: String?): ApiCollection {
+    private fun parseFolder(item: PostmanFolder, folderName: String?): ApiCollection? {
         val details: MutableList<ApiItem> = mutableListOf()
         if (item.item != null) {
             for (subItem in item.item!!) {
@@ -25,6 +26,8 @@ class PostmanParser {
                     details.addAll(it)
                 }
             }
+        } else {
+            return null
         }
 
         return ApiCollection(folderName ?: "", item.description ?: "", details)

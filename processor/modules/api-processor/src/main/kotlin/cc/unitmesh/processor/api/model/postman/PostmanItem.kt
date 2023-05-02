@@ -3,12 +3,12 @@ package cc.unitmesh.processor.api.model.postman
 import kotlinx.serialization.Serializable
 
 @Serializable
-class PostmanItem {
-    var name: String? = null
-    val item: List<PostmanItem>? = null
-    var event: List<PostmanEvent>? = null
-    var request: PostmanRequest? = null
-    var response: List<PostmanResponse>? = null
+open class PostmanItem {
+    open var name: String? = null
+    open val item: List<PostmanItem>? = null
+    open var event: List<PostmanEvent>? = null
+    open var request: PostmanRequest? = null
+    open var response: List<PostmanResponse>? = null
     var protocolProfileBehavior: PostmanProtocolProfileBehavior? = null
 }
 

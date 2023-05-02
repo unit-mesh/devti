@@ -8,43 +8,62 @@ import cc.unitmesh.processor.api.base.Request
 import cc.unitmesh.processor.api.base.Response
 import cc.unitmesh.processor.api.model.postman.*
 import org.jetbrains.kotlin.cli.common.repl.replEscapeLineBreaks
-import org.jetbrains.kotlin.psi.returnExpressionVisitor
+
+sealed class ChildType {
+    class Folder(val collection: ApiCollection) : ChildType()
+    class Item(val items: List<ApiItem>) : ChildType()
+
+}
 
 class PostmanParser {
     private val `var`: PostmanVariables = PostmanVariables(PostmanEnvironment())
     fun parse(collection: PostmanCollection): List<ApiCollection>? {
-        return collection.item?.mapNotNull {
+        return collection.item?.map {
             parseFolder(it, it.name)
-        }
+        }?.flatten()
     }
 
-    private fun parseFolder(item: PostmanFolder, folderName: String?): ApiCollection? {
-        val details: MutableList<ApiItem> = mutableListOf()
+    private fun parseFolder(item: PostmanFolder, folderName: String?): List<ApiCollection> {
+        val details: MutableList<ApiCollection> = mutableListOf()
         if (item.item != null) {
-            for (subItem in item.item!!) {
-                parseFolderItem(subItem, folderName, item.name).let {
-                    details.addAll(it)
-                }
+            val childTypes = item.item!!.map {
+                parseChildItem(it, folderName, item.name)
+            }.flatten()
+
+            val items = childTypes.filterIsInstance<ChildType.Item>().map { it.items }.flatten()
+
+            childTypes.filterIsInstance<ChildType.Folder>().forEach {
+                details.add(it.collection)
             }
-        } else {
-            return null
+
+            if (items.isNotEmpty()) {
+                details.add(ApiCollection(folderName ?: "", item.name ?: "", items))
+            }
+        } else if(item.request != null) {
+            val apiItems = processApiItem(item as PostmanItem, folderName, item.name)?.let {
+                listOf(it)
+            } ?: listOf()
+
+            details.add(ApiCollection(folderName ?: "", item.name ?: "", apiItems))
         }
 
-        return ApiCollection(folderName ?: "", item.description ?: "", details)
+        return details
     }
 
-    private fun parseFolderItem(subItem: PostmanItem, folderName: String?, itemName: String?): List<ApiItem> {
+    private fun parseChildItem(subItem: PostmanItem, folderName: String?, itemName: String?): List<ChildType> {
         return when {
             subItem.item != null -> {
-                subItem.item.map {
-                    parseFolderItem(it, folderName, itemName)
+                return subItem.item!!.map {
+                    parseChildItem(it, folderName, itemName)
                 }.flatten()
             }
 
             subItem.request != null -> {
-                processApiItem(subItem, folderName, itemName)?.let {
+                val apiItems = processApiItem(subItem, folderName, itemName)?.let {
                     listOf(it)
                 } ?: listOf()
+
+                listOf(ChildType.Item(apiItems))
             }
 
             else -> {

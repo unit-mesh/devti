@@ -62,9 +62,9 @@ class Generating : CliktCommand() {
     private val outputDir by argument().file().default(File("output"))
 
     override fun run() {
-        val outputDIr = File("output", "markdown")
-        if (!outputDIr.exists()) {
-            outputDIr.mkdirs()
+        val outputDir = File("output", "markdown")
+        if (!outputDir.exists()) {
+            outputDir.mkdirs()
         }
 
         val instructions: MutableList<Instruction> = mutableListOf()
@@ -77,7 +77,7 @@ class Generating : CliktCommand() {
             if (file.isFile) {
                 var processor: ApiProcessor? = null
                 try {
-                    processor = ApiProcessorDetector.detectApiProcessor(file, withPostman = false)
+                    processor = ApiProcessorDetector.detectApiProcessor(file, withPostman = true)
                 } catch (e: Exception) {
                     logger.info("Failed to parse ${file.absolutePath}", e)
                 }
@@ -91,11 +91,10 @@ class Generating : CliktCommand() {
                     val collections = processor.convertApi()
                     val render = MarkdownTableRender()
 
-
                     // create for each api
                     collections.forEach {
                         val single = render.render(listOf(it))
-                        if (single.length < 128) {
+                        if (single.length < 128 || single.length >= 4096) {
                             logger.info("Skip ${file.absolutePath} because it's too short")
                             return@forEach
                         }
@@ -135,7 +134,11 @@ class Generating : CliktCommand() {
 //                        return@forEach
 //                    }
 //
-//                    createForGroup(render, collections, file, instructions, translation)
+                    val output = createForGroup(render, collections, file, instructions, translation)
+                    if (output != null) {
+                        val outputFile = File(outputDir, "$parentName-${file.nameWithoutExtension}.md")
+                        outputFile.writeText(output)
+                    }
                 } catch (e: Exception) {
                     logger.error("Failed to parse ${file.absolutePath}", e)
                 }
@@ -143,11 +146,11 @@ class Generating : CliktCommand() {
         }
 
         // write apiNames to CSV
-        val csv = File(outputDir, "apiNames.csv")
+        val csv = File(this.outputDir, "apiNames.csv")
         csv.writeText(apiNames.joinToString("\n"))
 
         // write to jsonl
-        val jsonl = File(outputDir, "instructions.jsonl")
+        val jsonl = File(this.outputDir, "instructions.jsonl")
         jsonl.writeText(instructions.joinToString("\n") { Json.encodeToString(it) })
     }
 
@@ -157,18 +160,23 @@ class Generating : CliktCommand() {
         file: File,
         instructions: MutableList<Instruction>,
         domainTranslation: MutableMap<String, String>
-    ) {
+    ): String? {
         val output = render.render(collections)
         val maybeAGoodApi = 128
+
         if (output.length > maybeAGoodApi) {
             instructions += Instruction(
                 instruction = GROUP_API_INSTRUCTION,
                 input = collections.joinToString(", ") { domainName(domainTranslation, it) },
                 output = output
             )
+
+            return output
         } else {
             logger.info("Skip ${file.absolutePath} because it's too short")
         }
+
+        return null
     }
 
     private fun domainName(

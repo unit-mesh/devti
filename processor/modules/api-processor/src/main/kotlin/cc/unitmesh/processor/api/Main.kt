@@ -335,12 +335,7 @@ class Prompting : CliktCommand() {
         domainTranslation: MutableMap<String, String>,
         name: String
     ): String {
-        var serviceName = name
-            .replace(" Services", "")
-            .replace(" Service", "")
-            .replace(" API", "")
-            .replace("API", "")
-            .replace("服务", "")
+        var serviceName = name.simplifyApi()
 
         if (domainTranslation.containsKey(serviceName)) {
             serviceName = domainTranslation[serviceName]!!
@@ -359,6 +354,13 @@ class Prompting : CliktCommand() {
     }
 }
 
+private fun String.simplifyApi(): String = this
+    .replace(" Services", "")
+    .replace(" Service", "")
+    .replace(" API", "")
+    .replace("API", "")
+    .replace("服务", "")
+
 
 fun getDomainTranslate(domainFile: File): MutableMap<String, String> {
     val domainTranslation = mutableMapOf<String, String>()
@@ -370,6 +372,7 @@ fun getDomainTranslate(domainFile: File): MutableMap<String, String> {
             domainTranslation[english] = values[1] + "($english)" + "服务"
         }
     }
+
     return domainTranslation
 }
 

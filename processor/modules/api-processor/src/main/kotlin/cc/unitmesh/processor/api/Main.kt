@@ -37,6 +37,24 @@ class UnitApi : CliktCommand() {
 private val GROUP_API_INSTRUCTION = "帮我设计一组 API："
 private val ONE_API_INSTRUCTION = "帮我设计一个银行的 API:"
 
+fun randomInstruction(serviceName: String): String {
+    val instructions = listOf(
+        "展示${serviceName}的 API 应该如何设计？",
+        "如何实现${serviceName}功能的 API？",
+        "设计一个可以查询${serviceName}的 API。",
+        "如何设计一个支持${serviceName}的 API？",
+        "你会如何设计一个可以处理${serviceName}的 API？",
+        "设计一个可以查询${serviceName}的 API。",
+        "如何设计一个可以处理${serviceName}的 API？",
+        "如何设计一个可以处理${serviceName}的 API？",
+        "如何实现${serviceName}的 API？",
+        "设计一个可以${serviceName}的 API。"
+    )
+
+    val random = Random.nextInt(0, instructions.size)
+    return instructions[random]
+}
+
 class Generating : CliktCommand() {
     private val inputDir by argument().file().help("Input directory").default(File("input"))
     private val domain by argument().file().default(File("domains.csv"))
@@ -78,6 +96,12 @@ class Generating : CliktCommand() {
                         instructions += Instruction(
                             instruction = ONE_API_INSTRUCTION,
                             input = it.name,
+                            output = single
+                        )
+
+                        instructions += Instruction(
+                            instruction = randomInstruction(it.name),
+                            input = "",
                             output = single
                         )
                     }
@@ -232,12 +256,15 @@ class Prompting : CliktCommand() {
 
                 serviceNameMap[serviceName] = true
 
-                val instruction = ONE_API_INSTRUCTION
-                val input = serviceName
-
                 serviceMap[serviceName] = output
 
-                instructions += Instruction(instruction = instruction, input = input, output = output)
+                instructions += Instruction(instruction = ONE_API_INSTRUCTION, input = serviceName, output = output)
+
+                instructions += Instruction(
+                    instruction = randomInstruction(serviceName),
+                    input = "",
+                    output = output
+                )
             }
         }
 

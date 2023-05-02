@@ -86,7 +86,8 @@ class PostmanParser {
                 if (folder.isNotEmpty() && items.isNotEmpty()) {
                     return listOf(ChildType.NestedFolder(folder, items))
                 } else if (items.size == subItem.item!!.size) {
-                    val collection = ApiCollection(subItem.name ?: "", "", items.map { it.items }.flatten())
+                    val collection =
+                        ApiCollection(folderName ?: "", subItem.name ?: "", items.map { it.items }.flatten())
                     return listOf(ChildType.Folder(collection))
                 }
 

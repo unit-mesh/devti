@@ -4,12 +4,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 open class PostmanItem {
-    open var name: String? = null
     open val item: List<PostmanItem>? = null
+    open var name: String? = null
+    open var description: String? = null
     open var event: List<PostmanEvent>? = null
     open var request: PostmanRequest? = null
     open var response: List<PostmanResponse>? = null
-    var protocolProfileBehavior: PostmanProtocolProfileBehavior? = null
+    open var protocolProfileBehavior: PostmanProtocolProfileBehavior? = null
 }
 
 @Serializable

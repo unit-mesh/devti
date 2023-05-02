@@ -8,6 +8,7 @@ import cc.unitmesh.processor.api.base.Request
 import cc.unitmesh.processor.api.base.Response
 import cc.unitmesh.processor.api.model.postman.*
 import org.jetbrains.kotlin.cli.common.repl.replEscapeLineBreaks
+import java.net.URI
 
 sealed class ChildType {
     class Folder(val collection: ApiCollection) : ChildType()
@@ -27,6 +28,44 @@ class PostmanParser {
         val details: MutableList<ApiCollection> = mutableListOf()
         if (item.item != null) {
             val childTypes = item.item.map {
+                parseItem(it, folderName, item.name)
+            }.flatten()
+
+            childTypes.filterIsInstance<ChildType.Folder>().forEach {
+                details.add(it.collection)
+            }
+
+            val items = childTypes.filterIsInstance<ChildType.Item>().map { it.items }.flatten()
+            if (items.isNotEmpty()) {
+                val descriptionName = if (folderName == item.name) {
+                    ""
+                } else {
+                    item.name ?: ""
+                }
+
+                details.add(ApiCollection(folderName ?: "", descriptionName, items))
+            }
+        } else if (item.request != null) {
+            val apiItems = processApiItem(item as PostmanItem, folderName, item.name)?.let {
+                listOf(it)
+            } ?: listOf()
+
+            val descriptionName = if (folderName == item.name) {
+                ""
+            } else {
+                item.name ?: ""
+            }
+
+            details.add(ApiCollection(folderName ?: "", descriptionName, apiItems))
+        }
+
+        return details
+    }
+
+    private fun parseItem(item: PostmanItem, folderName: String?, itemName: String?): List<ApiCollection> {
+        val details: MutableList<ApiCollection> = mutableListOf()
+        if (item.item != null) {
+            val childTypes = item.item!!.map {
                 parseChildItem(it, folderName, item.name)
             }.flatten()
 
@@ -44,7 +83,7 @@ class PostmanParser {
 
                 details.add(ApiCollection(folderName ?: "", descriptionName, items))
             }
-        } else if(item.request != null) {
+        } else if (item.request != null) {
             val apiItems = processApiItem(item as PostmanItem, folderName, item.name)?.let {
                 listOf(it)
             } ?: listOf()
@@ -97,7 +136,17 @@ class PostmanParser {
 
         var uri = request?.getUrl(`var`)
         // remove UNDEFINED and http://UNDEFINED
-        uri = uri?.replace("UNDEFINED", "")?.replace("http://", "")?.replace("https://", "")
+        uri = uri?.replace("http://UNDEFINED", "")
+            ?.replace("https://UNDEFINED", "")
+
+        // try parse URI and remove host
+        try {
+            val uriObj = URI(uri)
+            uri = uriObj.path
+        } catch (e: Exception) {
+            // ignore
+        }
+
 
         val responses = subItem.response?.map {
             Response(

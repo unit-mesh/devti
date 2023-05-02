@@ -1,1340 +1,200 @@
 english,chinese
 Account information services,账户信息服务
 Batch transaction details,批量交易明细
-Subscriptions,订阅
-Sandbox,沙盒
-Payment initiation,支付发起
+Subscriptions,订阅服务
+Sandbox,沙盒环境
+Payment initiation,付款初始化
 Check status,检查状态
 Check availability of funds,检查资金可用性
 Consent Information,同意信息
 Cashback campaign,返现活动
 Cashback,返现
 Cashback notification,返现通知
-Payment request,支付请求
-Payment request notification,支付请求通知
-Payment,支付
+Payment request,付款请求
+Payment request notification,付款请求通知
+Payment,付款
 Refund,退款
-Sandbox app,沙盒应用
+Sandbox app,沙盒应用程序
 Transaction bundle,交易捆绑
 Transactions notification,交易通知
-Account information services,账户信息服务
-Check availability of funds,检查资金可用性
-Consent Information,同意信息
-Account Access Consents,账户访问同意
+Account Access Consents,账户访问授权
 Accounts,账户
 Balances,余额
 Transactions,交易
 Beneficiaries,受益人
-Direct Debits,直接扣款
-Standing Orders,定期订单
+Direct Debits,直接借记
+Standing Orders,定期指令
 Offers,优惠
 Parties,参与方
-Future Dated Payments,预定日期支付
-Statements,对账单
+Future Dated Payments,未来日期付款
+Statements,账单
 Supplementary Account Info,补充账户信息
 Account Access,账户访问
-Accounts,账户
-Balances,余额
-Beneficiaries,受益人
-Direct Debits,直接扣款
-Offers,优惠
 Partys,参与方
-Products,产品
-Scheduled Payments,预定支付
-Standing Orders,定期订单
-Statements,对账单
-Transactions,交易
+Products,金融产品
+Scheduled Payments,预定付款
 Funds Confirmations,资金确认
 Event Notification,事件通知
-Domestic Payments,国内支付
-Domestic Scheduled Payments,国内预定支付
-Domestic Standing Orders,国内定期订单
-File Payments,文件支付
-International Payments,国际支付
-International Scheduled Payments,国际预定支付
-International Standing Orders,国际定期订单
-Consentimiento de información sobre cuentas de pago (AIS),支付账户信息授权
-Obtener estado de consentimiento,获取授权状态
-Recuperar información de consentimiento,检索授权信息
-Eliminar consentimiento,取消授权
-Consentimiento de confirmación de fondos (FCS),资金确认授权
-Lectura de listado de cuentas,读取账户列表
-Lectura de detalles de cuenta,读取账户详细信息
-Lectura de transacciones,读取交易明细
-Lectura de balances,读取账户余额
-Obtener listado de beneficiarios de confianza,获取受信任的受益人列表
-Consulta de fondos,查询资金
-Servicios multibanco,多银行服务
-Inicio de pago,发起付款
-Obtener estado del pago,获取付款状态
-Recuperar información del Inicio de pago,检索付款发起信息
-Cancelar Inicio de pago,取消付款发起
-Obtener sub-recursos de la autorización,获取授权子资源
-Inicio del proceso de autorización (explícita),开始明确授权流程
-Obtener estado SCA,获取SCA状态
-Actualizar datos del PSU (seleccionar método SCA),更新PSU数据（选择SCA方法）
+Domestic Payments,国内付款
+Domestic Scheduled Payments,国内预定付款
+Domestic Standing Orders,国内定期指令
+File Payments,文件付款
+International Payments,国际付款
+International Scheduled Payments,国际预定付款
+International Standing Orders,国际定期指令
 Account Information,账户信息
-Account Transactions,账户交易
-AccountValidation,账户验证
-CR - ACHFulfillmentOperatingSession,ACH履约运营会话
-BQ - InboundACH,入账ACH
-BQ - OutboundACH,出账ACH
-BQ - Warehousing,仓储
-BQ - ClearingandSettlement,清算和结算
-BQ - Reconciliation,调节
-CR - ATMNetworkOperatingSession,ATM网络运营会话
-BQ - NetworkOperation,网络运营
-BQ - CashDistribution,现金分配
-BQ - DeviceTracking,设备跟踪
-BQ - FinancialDocumentHandling,财务文件处理
-BQ - FinancialTransactionCapture,财务交易捕捉
-CR - AccountReconciliationProcedure,账户调节程序
-BQ - AccountAssessmentWorkstep,账户评估工作步骤
-BQ - AccountResolutionWorkstep,账户解决工作步骤
-CR - AccountRecoveryProcedure,账户恢复程序
-BQ - Assessment,评估
-BQ - Writedown,减记
-BQ - Planning,规划
-BQ - Negotiation,协商
-BQ - Restructuring,重组
-CR - AccountsReceivableProcedure,应收账款程序
-BQ - CustomerNegotiation,客户协商
-BQ - ReceivablesEvaluation,应收账款评估
-BQ - Payment,支付
-BQ - Resolution,解决
-CR - VoiceChannelManagementPlan,语音通道管理计划
-BQ - CapacityPlanning,容量规划
-BQ - MaintenanceAndUpgrades,维护和升级
-BQ - Troubleshooting,故障排除
-CR - VoiceChannelOperatingSession,语音通道运营会话
-BQ - Inbound,入境
-BQ - Outbound,出境
-CR - AdvertisingCampaignManagementPlan,广告活动管理计划
-BQ - MarketTracking,市场跟踪
-BQ - PerformanceAssessment,绩效评估
-BQ - CampaignDirection,活动方向
-CR - ArchiveOperatingSession,存档运营会话
-BQ - DocumentCaptureFunction,文档捕捉功能
-BQ - DocumentMaintenanceFunction,文档维护功能
-BQ - DocumentRetrievalFunction,文档检索功能
-CR - AssetAndLiabilityPortfolioStrategy,资产和负债组合策略
-BQ - TransactionAlignment,交易对齐
-CR - AssetSecuritizationTransaction,资产证券化交易
-BQ - Placement,发行
-BQ - Securitization,证券化
-BQ - Selection,选择
-CR - BearerDocumentTransaction,不记名文件交易
-BQ - BankGuaranteedPaymentRemittanceTask,银行担保付款汇款任务
-BQ - BankGuaranteedPaymentSpecificationTask,银行担保付款说明任务
-BQ - BearerDocumentCreationandRegistrationTask,不记名文件创建和注册任务
-BQ - CustomerPaymentTask,客户付款任务
-CR - BankGuaranteeTransaction,银行担保交易
-BQ - BankGuaranteeCollectionsTask,银行担保收款任务
-BQ - BankGuaranteeDefinitionandPricingTask,银行担保定义和定价任务
-BQ - BankGuaranteeIssuanceandBookingTask,银行担保发行和预订任务
-BQ - BankGuaranteePayoutTask,银行担保支付任务
-BQ - CustomerCollateralAllocationTask,客户抵押品分配任务
-BQ - CustomerPaymentTask,客户付款任务
-CR - CashDistributionProcedure,现金分配程序
-BQ - DistributionPlanning,分配计划
-BQ - InventoryProvisioning,库存供应
-BQ - DistributionVehicleAdministration,配送车辆管理
-BQ - InventoryDistributionOversight,库存分配监督
-CR - BranchCashAllocation,分行现金分配
-BQ - InventoryAllocation,库存分配
-CR - BranchLocationManagementPlan,分行位置管理计划
-BQ - CustomerLiaison,客户联络
-BQ - ProductandServicePlanning,产品和服务规划
-BQ - StaffandLocationPlanning,员工和位置规划
-BQ - Troubleshooting,故障排除
-CR - BranchLocationAdministrativePlan,分行位置管理计划
-CR - BrandManagementPlan,品牌管理计划
-BQ - BrandAdvice,品牌建议
-BQ - Troubleshooting,故障排除
-CR - BrokeredProductManagementPlan,经纪产品管理计划
-BQ - ProductionPerformanceAssessmentDuty,生产绩效评估职责
-BQ - ProductionTroubleshootingDuty,生产故障排除职责
-BQ - ServiceLevelAgreementOversightDuty,服务水平协议监督职责
-CR - BusinessDevelopmentStrategy,业务发展战略
-BQ - Initiative,倡议
-CR - BusinessUnitManagementPlan,业务单元管理计划
-BQ - Performance,绩效
-BQ - Troubleshooting,故障排除
-CR - CreditCardAuthorizationAssessment,信用卡授权评估
-BQ - DeviceCheck,设备检查
-BQ - Authentication,身份认证
-BQ - CreditCheck,信用评估
-BQ - FraudCheck,欺诈检测
-BQ - StandIn,备用方案
-CR - CreditChargeCardFinancialCaptureTransaction,信用卡金融捕获交易
-BQ - TransactionConsolidation,交易合并
-BQ - TransactionAuthorization,交易授权
-BQ - TransactionCapture,交易捕获
-BQ - TransactionReversal,交易冲销
-CR - CardCaseProcedure,卡片操作程序
-BQ - Consolidation,合并
-BQ - Chargeback,退单
-BQ - Arbitration,仲裁
-BQ - Resolution,解决方案
-CR - CardClearingProcedure,卡片清算程序
-BQ - Capture,捕获
-BQ - Addressing,地址处理
-BQ - FXConversion,外汇兑换
-BQ - Fees,费用
-BQ - Matching,匹配
-BQ - Reconciliation,对账
-BQ - Routing,路由
-CR - CardCollectionsProcedure,卡片收款程序
-BQ - Assignment,分配
-BQ - PaymentTerms,付款条款
-BQ - Payment,付款
-BQ - Resolution,解决方案
-CR - CardFinancialSettlementProcedure,卡片金融结算程序
-BQ - Consolidation,合并
-BQ - Processing,处理
-BQ - Instruction,指令
-BQ - Payment,付款
-CR - CardNetworkParticipantFacility,卡片网络参与者设施
-BQ - ParticipantAccount,参与者账户
-BQ - ParticipantService,参与者服务
-CR - CardPOSDeviceAllocation,卡片POS设备分配
-BQ - Allocation,分配
-CR - CardPOSNetworkOperatingSession,卡片POS网络操作会话
-BQ - Capture,捕获
-BQ - Authorization,授权
-BQ - Batch,批处理
-CR - CardTransactionSwitchOperatingSession,卡交易切换操作会话
-BQ - TransactionCapture,交易捕获
-BQ - TransactionRouting,交易路由
-BQ - CardTransaction,卡交易
-BQ - TransactionBatch,交易批处理
-BQ - CardAuthentication,卡身份认证
-BQ - TransactionAuthorization,交易授权
-CR - CustomerCaseRootCauseAnalysis,客户案例根本原因分析
-BQ - CreditandFraudRelatedIssueAnalysis,与信用和欺诈相关的问题分析
-BQ - OperationsandServicingIssueAnalysis,运营和服务问题分析
-BQ - ProductandServiceIssueAnalysis,产品和服务问题分析
-CR - AccountBalanceSweepingFacility,账户余额清零设施
-BQ - CashConcentrationServiceConfigurationFulfillment,现金集中服务配置实现
-BQ - CashPositionMonitoringandTransferFulfillment,现金头寸监控和转移实现
-CR - CashManagementAndAccountServicesFacility,现金管理和账户服务设施
-BQ - Interest,利息
-BQ - ServiceFees,服务费用
-BQ - AccountLien,账户留置权
-BQ - AccountSweep,账户清零
-BQ - DepositsandWithdrawals,存款和取款
-BQ - Payments,付款
-BQ - IssuedDevice,已发行设备
-BQ - PositivePay,正面支付
-CR - CentralCashAllocation,中央现金拨款
-BQ - ProjectionandAllocation,预测和拨款
-BQ - TrackingandAllocation,跟踪和拨款
-CR - ChannelActivityAnalysis,渠道活动分析
-BQ - CustomerFraud,客户欺诈
-BQ - MerchantFraud,商家欺诈
-BQ - CustomerBehavior,客户行为
-BQ - MerchantBehavior,商家行为
-BQ - Bot,机器人
-BQ - DeviceError,设备错误
-CR - ChannelActivityLog,渠道活动日志
-BQ - Event,事件
-CR - LockBoxFacility,锁箱设施
-BQ - CheckClearingandSettlementFulfillment,支票清算和结算实现
-BQ - LockBoxReportingandIssueResolutionFulfillment,锁箱报告和问题解决实现
-BQ - PaperCheckProcessingFulfillment,纸质支票处理实现
-CR - ChequeProcessingOperatingSession,支票处理操作会话
-BQ - FinancialTransactionInitiation,金融交易启动
-BQ - ChequeExceptionHandling,支票异常处理
-BQ - ChequeExtraction,支票提取
-CR - CollateralAssetAllocation,抵押资产分配
-BQ - Allocation,分配
-CR - CollateralAssetAdministrativePlan,抵押资产行政计划
-BQ - Valuation,估值
-BQ - Maintenance,维护
-CR - CollateralAssetLiquidationProcedure,抵押资产清算程序
-BQ - CollateralLiquidation,抵押品清算
-BQ - CollateralValuation,抵押品估值
-BQ - DebtFactoring：应收账款保理
-BQ - CollectionsAssessment：催收评估
-BQ - CollectionsAccountUpdate：催收账户更新
-CR - EmployeeCommissionAgreement：员工佣金协议
-BQ - CommissionTerms：佣金条款
-CR - CommissionTransaction：佣金交易
-BQ - Calculation：计算
-BQ - Check：检查
-BQ - Payment：支付
-CR - CompetitorAnalysis：竞争对手分析
-CR - ComplianceReportingAdministrativePlan：合规报告行政计划
-BQ - ComplianceAssessment：合规评估
-BQ - Consolidation：合并
-BQ - Remediation：纠正措施
-CR - ConsumerAdviceFacility：消费者建议设施
-BQ - FinancialPlanning：理财规划
-BQ - TaxOptimization：税务优化
-BQ - ProductGuidance：产品指导
-BQ - ServiceFees：服务费用
-CR - ConsumerSecuritiesOrderTransaction：消费者证券订单交易
-BQ - Quote：报价
-BQ - Compliance：合规性
-BQ - FundingCheck：资金核查
-BQ - OrderInitiation：订单启动
-CR - ConsumerLoanFacility：消费者贷款设施
-BQ - Interest：利息
-BQ - ServiceFees：服务费用
-BQ - Disbursement：支付
-BQ - Maintenance：维护
-BQ - Withdrawal：提款
-BQ - Repayment：偿还
-BQ - Restructuring：重组
-CR - ContactCenterManagementPlan：联系中心管理计划
-BQ - Performance：绩效
-BQ - Troubleshooting：故障排除
-CR - ContactCenterAdministrativePlan：联系中心行政计划
-BQ - Assignment：指派
-BQ - PeakLoad：峰值负载
-BQ - Troubleshooting：故障排除
-CR - CustomerContactOperatingSession：客户联系操作会话
-BQ - Authentication：身份验证
-BQ - Routing：路由
-BQ - Session：会话
-BQ - History：历史记录
-CR - CustomerServicingResourceAllocation：客户服务资源分配
-BQ - Allocation：分配
-CR - SupplierAgreement：供应商协议
-BQ - LegalTerm：法律条款
-BQ - PolicyTerm：政策条款
-BQ - RegulatoryTerm：监管条款
-CR - CorporateActionProcedure：公司行动程序
-BQ - SecurityDividendPaymentWorkstep：证券分红支付工作步骤
-BQ - SecurityMergersandAcquisitionActionWorkstep：证券并购行动工作步骤
-BQ - SecurityRightsIssueActionWorkstep：证券权益发行行动工作步骤
-BQ - SecuritySpin-OffActionWorkstep：证券分拆行动工作步骤
-BQ - StockSplitorReversalActionWorkstep：股票分割或撤回行动工作步骤
-CR - CorporateCurrentAccountFacility：企业活期账户设施
-BQ - Interest：利息
-BQ - ServiceFees：服务费用
-BQ - AccountLien：账户留置权
-BQ - AccountSweep：账户清零
-BQ - DepositsandWithdrawals：存取款
-BQ - Payments：付款
-BQ - IssuedDevice：已发行设备
-CR - CorporateFinanceServicesAdvice：企业融资服务建议
-BQ - CapitalStructuringTopic：资本结构主题
-BQ - StrategicFundingTopic：战略融资主题
-BQ - TacticalFundingTopic：战术融资主题
-BQ - TaxOptimizationTopic：税务优化主题
-CR - CorporateLeaseFacility：企业租赁设施
-BQ - Administer：管理
-BQ - Fulfill：履行
-CR - CorporateLoanFacility：企业贷款设施
-BQ - Interest：利息
-BQ - ServiceFees：服务费用
-BQ - Disbursement：支付
-BQ - Maintenance：维护
-BQ - Withdrawal：提款
-BQ - Repayment：偿还
-BQ - Restructuring：重组
-CR - EmployeePaymentServicesFacility：员工支付服务设施
-BQ - CorporatePayrollPaymentsFulfillment：企业工资支付履行
-BQ - EmployeePayrollDetailsMaintenanceFulfillment：员工工资细节维护履行
-BQ - ProductionServiceReportingFulfillment：生产服务报告履行
-CR - CorporateTaxAdvisoryFacility：企业税务咨询设施
-BQ - TaxOptimization：税务优化
-BQ - ServiceFees：服务费用
-CR - CorporateTreasuryManagementPlan：企业财务管理计划
-BQ - Liquidity：流动性
-BQ - TacticalFunding：战术融资
-BQ - StrategicFunding：战略融资
-BQ - Securitization：证券化
-BQ - BankRates：银行利率
-CR - CorporateTrustServicesFacility：企业信托服务设施
-BQ - CorporateDebtIssueOversightFulfillment：企业债务发行监督履行
-BQ - DebtTrusteeFulfillment：债务受托人履行
-BQ - EscrowAccountFulfillment：第三方托管账户履行
-BQ - TrustAssetMaintenanceandManagementFulfillment：信托资产维护和管理履行
-BQ - TrustCourtAdministrationFulfillment：信托法院管理履行
-BQ - TrustEstate_InheritanceandIncomeTaxFulfillment：信托遗产、继承和所得税履行
-BQ - TrustTaxandExpenseFulfillment：信托税务和费用履行
-CR - CorrespondenceOperatingSession：通信操作会话
-BQ - Outbound：外发
-BQ - OutboundWithResponse：带响应的外发
-BQ - Inbound：内部接收
-BQ - BlockMailing：邮件阻挡
-CR - CorrespondentBankDirectoryEntry：对应银行目录条目
-CR - CorrespondentBankOperatingSession：对应银行操作会话
-BQ - InboundPayments：内部接收付款
-BQ - OutboundPayments：外发付款
-BQ - ClearingandSettlement：清算和结算
-BQ - Reconciliation：调节
-CR - CorrepondentBankRelationshipManagementPlan：对应银行关系管理计划
-BQ - IncidentTroubleshootingOversightDuty：事件故障排除监督职责
-BQ - RelationshipDevelopmentDuty：关系发展职责
-BQ - RelationshipReciprocityAssessmentDuty：关系互惠评估职责
-CR - CounterpartyDirectoryEntry：交易对手目录条目
-BQ - CounterpartyEntityReferenceproperty：交易对手实体参考属性
-BQ - CounterpartyPermittedTransactionproperty：交易对手允许的交易属性
-CR - CreditCardFacility：信用卡设施
-BQ - Interest：利息
-BQ - Fees：费用
-BQ - Billing：账单
-BQ - Repayment：偿还
-BQ - CardTransaction：卡交易
-BQ - IssuedDevice：已发行设备
-BQ - CreditPlan：信用计划
-CR - CreditCardPositionLog：信用卡头寸日志
-BQ - CardTransactionEvent：卡交易事件
-CR - CreditLineFacility：信用额度设施
-BQ - ServiceFees：服务费用
-BQ - Maintenance：维护
-BQ - Restructuring：重组
-CR - CreditPricingAssessment：信贷定价评估
-CR - CreditRiskModelSpecification：信贷风险模型规范
-BQ - FunctionalRequirements：功能要求
-BQ - Production：生产
-BQ - Testing：测试
-CR - TradingCreditPositionMeasurement：交易信用头寸测量
-BQ - TradingCounterpartyCreditLimitIndicator：交易对手信用限额指示器
-CR - CurrencyExchangeTransaction：货币兑换交易
-BQ - FXTransactionCapture：外汇交易捕捉
-BQ - DocumentHandling：文档处理
-BQ - FXTransactionPricing：外汇交易定价
-CR - CurrentAccountFacility：活期账户设施
-BQ - Interest：利息
-BQ - ServiceFees：服务费用
-BQ - AccountLien：账户留置权
-BQ - AccountSweep：账户清零
-BQ - DepositsandWithdrawals：存取款
-BQ - Payments：付款
-BQ - IssuedDevice：已发行设备
-CR - CustodyFacility：保管设施
-BQ - SafeKeeping：保管
-BQ - Fees：费用
-BQ - SecuritiesReporting：证券报告
-BQ - Settlement：结算
-BQ - DividendsandInterest：股息和利息
-CR - CustomerAccessProfileAgreement：客户访问配置协议
-BQ - Restrictions：限制
-BQ - Preferences：偏好
-CR - CustomerAgreement：客户协议
-BQ - LegalTerms：法律条款
-BQ - RegulatoryTerms：监管条款
-BQ - PolicyTerms：政策条款
-CR - CustomerBehaviorAnalysis
-BQ - Insight
-CR - CustomerBehaviorModelSpecification
-BQ - FunctionalRequirements
-BQ - Testing
-BQ - Production
-CR - CustomerBillingProcedure
-BQ - Invoicing
-BQ - TrackingandReminders
-BQ - Payments
-CR - CustomerCampaignSpecification
-CR - CustomerCampaignProcedure
-BQ - CandidateSelection
-BQ - Execution
-BQ - AnalysisFeedback
-CR - CustomerCampaignPortfolioManagementPlan
-BQ - MarketTracking
-BQ - PerformanceAssessment
-BQ - CampaignDirection
-CR - CustomerCaseProcedure
-BQ - Analysis
-BQ - Determination
-BQ - Resolution
-CR - CustomerCaseManagementPlan
-BQ - Rules
-BQ - Performance
-CR - CustomerCreditRatingState
-BQ - Alerts
-BQ - InternalReporting
-BQ - ExternalReporting
-CR - CustomerEventLog
-BQ - Relationship
-BQ - Sales
-BQ - Servicing
-BQ - ProductProcessing
-BQ - Fraud
-BQ - Life
-CR - CustomerOfferProcedure
-BQ - FacilityApplication
-BQ - Disclosures
-BQ - Credit
-BQ - Underwriting
-BQ - Compliance
-BQ - Audit
-BQ - Collateral
-BQ - Booking
-BQ - CorrespondenceandDocuments
-BQ - Agreement
-BQ - ProductInitialization
-CR - CustomerSegmentAnalysis
-BQ - PerformanceAnalysis
-CR - CustomerPositionState
-BQ - Cashflow
-BQ - Credit
-BQ - Collateral
-CR - CustomerEligibilityAssessment
-BQ - EligibilityCheck
-BQ - NextBest
-CR - CustomerProductsAndServicesDirectoryEntry
-BQ - In-forceProductproperty
-BQ - In-forceServiceproperty
-CR - CustomerPropositionAgreement
-BQ - BankDefinedProductandServiceTerm
-BQ - CustomerDefinedProductandServiceTerm
-CR - CustomerRelationshipManagementPlan
-BQ - Development
-BQ - Incident
-BQ - Contact
-CR - CustomerSurveyProcedure
-BQ - Definition
-BQ - ReviewerSelection
-BQ - Execution
-BQ - SurveyAnalysis
-CR - CustomerTaxObligationFacility
-BQ - Consolidation
-BQ - Analysis
-BQ - Reporting
-CR - CustomerWorkbenchOperatingSession
-BQ - SWUpdate
-BQ - Broadcast
-BQ - Browsing
-BQ - Contact
-BQ - ProductandServiceAccess
-CR - DealerDeskOperatingSession
-BQ - DealerDeskConsolidatedPositionTrackingFunction
-BQ - DealerDeskTradingAssignmentandLimitsFunction
-BQ - InformationFeedAdministrationFunction
-CR - DelinquentAccountProcedure
-BQ - Assessment
-BQ - Contact
-BQ - Payment
-BQ - Resolution
-CR - DirectDebitFacility
-BQ - PaymentTracking
-BQ - FundsAvailableCheck
-BQ - PaymentInitiation
-BQ - VerifyMandate
-BQ - Reporting
-CR - DirectDebitMandateDirectoryEntry
-BQ - MandateRegistration
-CR - DisbursementTransaction
-CR - DocumentDirectoryEntry
-BQ - DocumentAmendmentProperties
-BQ - DocumentArchivingProperties
-BQ - DocumentReferenceProperties
-BQ - DocumentUpdateHistoryProperties
-BQ - DocumentVerificationProperties
-BQ - DocumentVersionProperties
-CR - DocumentServiceProcedure
-CR - ECMAndDCMFacility
-BQ - InstrumentDefinition
-BQ - Prospectus
-BQ - Placement
-CR - EnterpriseArchitectureSpecification
-BQ - ApplicationArchitecture
-BQ - BusinessArchitecture
-BQ - InformationArchitecture
-BQ - Organization
-BQ - TechnologyInfrastructure
-CR - FactoringFacility
-BQ - AccountReceivableFactoringFulfillment
-BQ - AccountReceivableProcessingFulfillment
-BQ - AccountsReceivableEvaluationFulfillment
-BQ - AccountsReceivablePurchaseFulfillment
-CR - FiduciaryRelationshipFacility
-BQ - Agreement
-BQ - Fees
-BQ - Fulfillment
-BQ - AssessmentandReporting
-CR - FinancialBookingLog
-BQ - LedgerPosting
-CR - FinancialGatewayOperatingSession
-BQ - Inbound
-BQ - Outbound
-CR - FinancialInstrumentDirectoryEntry
-BQ - DebtInstrumentproperty
-BQ - EquityInstrumentproperty
-BQ - FuturesInstrumentproperty
-BQ - OptionInstrumentproperty
-BQ - WarrantInstrumentproperty
-CR - MarketAssetValuationProcedure
-BQ - AssetValuationApproachSelectionWorkstep
-BQ - AssetValuationInformationConsolidationWorkstep
-BQ - AssetValuationWorkstep
-CR - FinancialMarketAnalysis
-BQ - FinancialMarketInsight
-CR - FinancialMarketResearchDirectoryEntry
-CR - FinancialStatementAssessment
-BQ - AssetandLiabilityValuationTest
-BQ - LiquidityandCashFlowTest
-BQ - RiskTest
-BQ - SensitivityTest
-CR - FraudDiagnosisAnalysis
-BQ - CustomerBehavior
-BQ - EconomicModel
-BQ - AnalystReview
-CR - FraudEvaluationAssessment
-BQ - RuleSetsandDecisionTrees
-BQ - Models
-CR - FraudModelSpecification
-BQ - FunctionalRequirements
-BQ - Testing
-BQ - Production
-CR - FraudResolutionProcedure
-BQ - CaseAnalysis
-BQ - CaseDetermination
-BQ - CaseResolution
-CR - GuidelineComplianceAssessment
-CR - HedgeFundAdministrativePlan
-BQ - FundAccountingRoutine
-BQ - FundDevelopmentRoutine
-BQ - FundEnrolmentCertificationRoutine
-BQ - FundFinancialReportingRoutine
-BQ - FundInflowsandOutflowRoutine
-BQ - FundInvestor_MiddleandBackOfficeServiceRoutine
-BQ - FundManagementRoutine
-BQ - FundPerformanceFeeRoutine
-BQ - FundTaxAdministrationRoutine
-CR - TechnologyStandardsSpecification
-BQ - DevelopmentToolingandEnvironment
-BQ - ITPoliciesandGuidelines
-BQ - ProductTestingandDeploymentMechanisms
-BQ - ProductionEnvironmentandSupportServices
-BQ - ProductionPlatformsandInfrastructure
-CR - InformationFeedOperatingSession
-CR - IntellectualPropertyAdministrativePlan
-BQ - Maintenance
-BQ - Assignment
-BQ - HelpServiceSelection
-CR - BankRelationshipManagementPlan
-BQ - Contact
-CR - InternalAuditAssessment
-BQ - Audit
-CR - InternalBankAccountLog
-CR - InvestmentAccountFacility
-BQ - DepositsandWithdrawals
-BQ - CorporateAction
-BQ - ServiceFees
-CR - ManagedInvestmentPortfolioAnalysis
-BQ - PerformanceAnalysis
-CR - ManagedInvestmentPortfolioFacility
-BQ - Track
-BQ - MarketOpportunities
-BQ - TradeInitiation
-CR - ManagedInvestmentPortfolioAgreement
-BQ - InvestmentTerms
-CR - IssuedDeviceAllocation
-BQ - PasswordAssignment
-BQ - QuestionAssignment
-BQ - DeviceAssignment
-BQ - BiometricAssignment
-BQ - ReaderAssignment
-BQ - ChequesAssignment
-BQ - TokenAssignment
-CR - IssuedDeviceState
-BQ - InternalNotification
-BQ - ExternalReport
-CR - IntellectualPropertyExchangeOperatingSession
-BQ - CaptureandClassification
-BQ - IndexingandPublication
-BQ - Review_RefinementandEditing
-BQ - Archiving
-BQ - MaintenanceandAccessAdministration
-CR - LeadandOpportunityProcedure
-BQ - Development
-CR - LeasingFacility
-BQ - Fees
-BQ - Lien
-BQ - Payments
-BQ - Sweep
-BQ - Collateral
-BQ - CorporateAction
-BQ - Deposits
-BQ - FinancialInstrument
-BQ - IssuedDevice
-BQ - Withdrawals
-BQ - Interest
-CR - LeasingItemAdministrativePlan
-BQ - Assurance
-BQ - Registration
-BQ - Valuation
-CR - LegalComplianceAssessment
-CR - LegalEntityDirectoryEntry
-BQ - Reference
-BQ - Profile
-BQ - Associations
-CR - LetterOfCreditTransaction
-BQ - CustomerCollateralAllocationTask
-BQ - CustomerPaymentTask
-BQ - LetterofCreditDefinitionandPricingTask
-BQ - LetterofCreditIssuanceandBookingTask
-BQ - LetterofCreditPayoutTask
-BQ - SellerObligationConfirmationTask
-CR - LoanFacility
-BQ - Interest
-BQ - ServiceFees
-BQ - Disbursement
-BQ - Maintenance
-BQ - Withdrawal
-BQ - Repayment
-BQ - Restructuring
-CR - LocationDirectoryEntry
-BQ - Location
-BQ - Use
-BQ - Occupancy
-CR - ManagementManualSpecification
-BQ - CompanyMissionandPolicies
-BQ - EmploymentRelatedProceduresandGuidelines
-BQ - LegalandRegulatoryObligationsandGuidelines
-BQ - OperationalSecurityProceduresandGuidelines
-BQ - OperationalandProductionProceduresandGuidelines
-BQ - StaffManagementProceduresandGuidelines
-CR - GeneralMarketResearchAnalysis
-CR - InformationFeedSwitchOperatingSession
-BQ - FeedUpload
-BQ - InternalPublication
-BQ - Distribution
-CR - FinancialMarketInformationAdministrativePlan
-BQ - Consolidation
-BQ - Improvement
-BQ - Reporting
-CR - MarketMakingFacility
-BQ - MarketMakingBuyandSellOrderFulfillment
-BQ - MarketMakingQuoteFulfillment
-BQ - MarketMakingSecurityTradedPositionFulfillment
-CR - MarketOrderTransaction
-BQ - Compliance
-BQ - FundingCheck
-BQ - CustomerProcessing
-BQ - TradeInitiation
-CR - MarketTradeTransaction
-BQ - Quote
-BQ - TradeInitiation
-BQ - Position
-CR - GeneralMarketResearchDirectoryEntry
-CR - MerchandisingLoanFacility
-BQ - Billing
-BQ - ServiceFees
-BQ - Lien
-BQ - Payments
-BQ - Sweep
-BQ - Collateral
-BQ - Deposits
-BQ - FinancialInstrument
-BQ - IssuedDevice
-BQ - Withdrawals
-BQ - FinancialAccounting
-BQ - Interest
-CR - MerchantAcquiringFacility
-BQ - MerchantAccount
-BQ - Clearing
-BQ - Chargeback
-BQ - Settlement
-BQ - ServiceFees
-CR - MerchantRelationshipAgreement
-BQ - LegalTerm
-BQ - OperationalTerm
-BQ - RegulatoryTerm
-CR - MergersAndAcquisitionAdvice
-BQ - M&ACandidateSelectionandEvaluationTopic
-CR - MortgageLoanFacility
-BQ - Billing
-BQ - Fees
-BQ - Lien
-BQ - Payments
-BQ - Sweep
-BQ - Collateral
-BQ - Deposits
-BQ - FinancialInstrument
-BQ - IssuedDevice
-BQ - Withdrawals
-BQ - FinancialAccounting
-BQ - Interest
-CR - MutualFundAdministrativePlan
-BQ - FundAccountingRoutine
-BQ - FundDevelopmentRoutine
-BQ - FundEnrolmentRoutine
-BQ - FundFinancialReportingRoutine
-BQ - FundInflowsandOutflowRoutine
-BQ - FundInvestor_MiddleandBackOfficeServiceRoutine
-BQ - FundManagementFeeRoutine
-BQ - FundTaxAdministrationRoutine
-CR - NotionalPoolingFacility
-BQ - NotionalAccountArrangementFulfillment
-BQ - NotionalAccountConsolidatedPositionFulfillment
-BQ - NotionalAccountInterestAllocationFulfillment
-CR - OpenItemProcedure
-BQ - Tracking
-BQ - Repayment
-CR - OperationalGatewayOperatingSession
-BQ - InboundMessageFunction
-BQ - OutboundMessageFunction
-BQ - OutboundWithResponseFunction
-CR - SecuritiesAllocationProcedure
-BQ - ApplyOrderAllocationRulesWorkstep
-BQ - Update(PartiallyCompleted)MarketOrderWorkstep
-CR - PartyAuthenticationAssessment
-BQ - Password
-BQ - Question
-BQ - Document
-BQ - Device
-BQ - Biometric
-BQ - Behavior
-CR - PartyRelationshipProcedure
-BQ - Authentication
-BQ - Qualification
-BQ - Documentation
-BQ - Precedents
-CR - PartyReferenceDataDirectoryEntry
-BQ - Reference
-BQ - Associations
-BQ - Demographics
-BQ - BankRelations
-CR - PartyState
-BQ - Status
-BQ - Rating
-BQ - Alert
-CR - PaymentExecutionProcedure
-BQ - PaymentMechanism
-BQ - PaymentExecutionWorkstep
-CR - PaymentInitiationTransaction
-BQ - Compliance
-BQ - FundingCheck
-BQ - OrderInitiation
-CR - PaymentInstructionProcedure
-BQ - AgreementConfirmationWorkstep
-BQ - ComplianceCheckWorkstep
-BQ - PaymentInstructionWorkstep
-CR - PaymentOrderProcedure
-BQ - OrderConfirmation
-BQ - ExecutionInitiation
-CR - PaymentRailOperatingSession
-BQ - InboundTransactionFunction
-BQ - OutboundTransactionFunction
-BQ - PaymentAccountReconciliationFunction
-BQ - PaymentClearingandSettlementFunction
-CR - PointofServiceOperatingSession
-BQ - Assisted
-BQ - Automated
-BQ - Interaction
-BQ - Inventory
-BQ - CashPosition
-CR - FinancialPositionLog
-BQ - FinancialTransactionCapture
-CR - FinancialPositionState
-BQ - TrialTransaction
-BQ - TransactionApplication
-CR - PrivatePlacementFacility
-BQ - PrivatePlacementFulfillment
-BQ - PrivatePlacementInstrumentMaintenanceFulfillment
-BQ - PrivatePlacementInstrumentSpecificationFulfillment
-CR - BrokerAgreement
-BQ - LegalTerms
-BQ - RegulatoryTerms
-BQ - PolicyTerms
-CR - ProductCombinationFacility
-BQ - Fulfillment
-BQ - TransferPricing
-BQ - EmbeddedProductControl
-CR - ProductandServiceDeploymentDevelopment
-BQ - Systems
-BQ - ITOperations
-BQ - HROperations
-BQ - SalesandMarketing
-BQ - Servicing
-BQ - Production
-BQ - ProductionSupport
-CR - ProductorServiceSpecification
-BQ - FunctionalRequirements
-BQ - Testing
-BQ - Production
-CR - ProductDirectoryEntry
-BQ - Operations
-BQ - SalesandMarketing
-BQ - Servicing
-BQ - Production
-CR - SalesSpecialistSupportAdministrativePlan
-BQ - Assignment
-CR - ProductInventoryDistributionAdministrativePlan
-BQ - Distribution
-BQ - Mailing
-BQ - Oversight
-BQ - Provisioning
-CR - ProductInventoryAllocation
-BQ - Assignment
-CR - ProductCustomerCombinationAssessment
-BQ - BankandCampaignAlignment
-BQ - ContextCriteria
-BQ - ProductEligibility
-BQ - ProductTypeSelection
-CR - ProductPortfolioAnalysis
-BQ - PerformanceAnalysis
-CR - ProductandServiceAssessment
-BQ - FunctionalConsistencyChecks
-BQ - ProcessingErrorandIntegrityChecks
-BQ - ResiliencyandPerformanceChecks
-BQ - UsabilityChecks
-CR - ProductSalesSupportAdministrativePlan
-BQ - StaffAssignmentRoutine
-BQ - StaffAvailabilityTrackingRoutine
-CR - ServiceProviderAgreement
-BQ - LegalTerm
-BQ - PolicyTerm
-BQ - RegulatoryTerm
-CR - ProductTrainingProcedure
-BQ - ContentDevelopment
-BQ - ServiceDelivery
-BQ - ServiceEvaluation
-BQ - ServiceScheduling
-CR - ProductionSystemAssessment
-BQ - FunctionalRisk
-BQ - ProductionRisk
-BQ - BusinessRisk
-BQ - OperationalRisk
-CR - ProgramTradingOperatingSession
-BQ - ProgramTradeExecutionFunction
-BQ - ProgramTradedPortfolioAlgorithmFunction
-BQ - ProgramTradedPortfolioMaintenanceFunction
-CR - ProjectFinanceFacility
-BQ - ProjectFinanceArrangementFulfillment
-BQ - ProjectFinancePlacementFulfillment
-BQ - ProjectFinanceRepaymentFulfillment
-BQ - ProjectFinanceSPVFulfillment
-CR - PromotionalEventManagementPlan
-BQ - MarketTracking
-BQ - ImpactAssessment
-BQ - Participation
-CR - ProspectCampaignSpecification
-CR - ProspectCampaignProcedure
-BQ - CandidateSelection
-BQ - Execution
-BQ - AnalysisFeedback
-CR - ProspectCampaignPortfolioManagementPlan
-BQ - MarketTracking
-BQ - PerformanceAssessment
-BQ - CampaignDirection
-CR - PublicOfferingFacility
-BQ - PublicPlacementFinancialAssessmentandAuditFulfillment
-BQ - PublicPlacementIPOandUnderwritingFulfillment
-BQ - PublicPlacementInstrumentRegistrationFulfillment
-BQ - PublicPlacementInstrumentSpecificationFulfillment
-BQ - PublicPlacementProspectusFulfillment
-BQ - PublicPlacementRoadshowandMarketingFulfillment
-CR - GlobalStandardSpecification
-BQ - GlobalReferenceData
-CR - QuotationProcedure
-BQ - MarketQuoteRequestWorkstep
-BQ - MarketQuoteSelectionWorkstep
-CR - RegulatoryAndLegalAuthorityRelationshipManagementPlan
-BQ - Troubleshooting
-BQ - EstablishRelations
-BQ - MaintainRelations
-BQ - RepresentBankInterests
-CR - RegulatoryComplianceAssessment
-CR - RegulatoryComplianceAdministrativePlan
-BQ - Authoring
-BQ - Consolidation
-BQ - Enquiries
-CR - RewardPointsLog
-BQ - Capture
-BQ - Expiration
-CR - RewardPointsTransaction
-BQ - Award
-BQ - Redemption
-CR - ProductandServiceAgreement
-BQ - OperationalTerm
-CR - SalesProductAgreement
-BQ - LegalTerms
-BQ - RegulatoryTerms
-BQ - PolicyTerms
-CR - SavingsAccountFacility
-BQ - Interest
-BQ - ServiceFees
-BQ - AccountLien
-BQ - AccountSweep
-BQ - DepositsandWithdrawals
-BQ - Payments
-BQ - IssuedDevice
-CR - SecurityTradingFailsProcedure
-BQ - SecuritiesFailAnalysisWorkstep
-BQ - SecuritiesFailDeterminationWorkstep
-CR - SecuritiesPositionLog
-BQ - SecuritiesTransactionCapture
-CR - SegmentStrategy
-BQ - Initiative
-CR - ServiceDirectoryEntry
-BQ - AccessControlServicingProperties
-BQ - ArrangementServicingProperties
-BQ - ProductAccessServicingProperties
-BQ - RelationshipServicingProperties
-BQ - SalesServicingProperties
-BQ - ServiceDeliveryServicingProperties
-CR - ServicingRootCauseAnalysis
-BQ - RootCauseAlgorithm
-CR - ServicingEventLog
-BQ - Assignment
-BQ - Session
-BQ - Issue
-BQ - ServicingFacility
-CR - ServicingIssueProcedure
-BQ - ProductionIssueAnalysisWorkstep
-BQ - ProductionIssueDeterminationWorkstep
-BQ - ProductionIssueResolutionWorkstep
-CR - ServicingMandateAgreement
-BQ - CustomerMandate
-CR - ServicingOrderProcedure
-CR - CustomerContactSessionProcedure
-BQ - Query
-BQ - Authentication
-BQ - Sales
-BQ - Offer
-BQ - ProductorService
-BQ - Case
-BQ - Order
-BQ - Intelligence
-BQ - History
-CR - SpecialPricingConditionsDirectoryEntry
-BQ - PricingTerms
-CR - StandingOrderFacility
-BQ - StandingOrderPayment
-CR - RepoTransaction
-BQ - RepoTransactionCashTransferTask
-BQ - RepoTransactionInitiationTask
-BQ - RepoTransactionSecurityTransferTask
-CR - SubCustodianAgreement
-BQ - LegalTerm
-BQ - PolicyTerm
-BQ - RegulatoryTerm
-CR - SuitabilityAssessment
-CR - SyndicateMembership
-BQ - SyndicateComplianceClauses
-BQ - SyndicateEligibilityClauses
-CR - SyndicatedLoanFacility
-BQ - Fulfillment
-BQ - Origination
-BQ - Structuring
-BQ - SyndicateAssembly
-CR - ITSystemDevelopment
-BQ - FunctionalSpecification
-BQ - TechnicalSpecification
-BQ - SoftwareandDataSpecification
-BQ - TestingSpecification
-BQ - UsageSpecification
-CR - ITSystemAdministrativePlan
-BQ - Assurance
-BQ - CapacityPlanningandResilience
-BQ - Configuration
-BQ - Inventory
-CR - TermDepositFacility
-BQ - Interest
-BQ - ServiceFees
-BQ - AccountLien
-BQ - AccountSweep
-BQ - DepositsandWithdrawals
-BQ - Payments
-BQ - IssuedDevice
-CR - TradeClearingProcedure
-BQ - MarketTradeConfirmationWorkstep
-BQ - MarketTradeFundsandSecurityAvailabilityAssuranceWorkstep
-BQ - MarketTradeMatchingWorkstep
-BQ - MarketTradeOutTradeResolutionWorkstep
-BQ - MarketTradeSettlementInitiationWorkstep
-CR - TradeMatchingOperatingSession
-BQ - TransactionConfirmationAffirmationFunction
-BQ - TransactionReportingFunction
-BQ - UnmatchedMarketTradeEscalationFunction
-CR - TradeSettlementProcedure
-BQ - MarketTradeCashSettlementWorkstep
-BQ - MarketTradeSecuritiesSettlementWorkstep
-BQ - MarketTradeSettlementConfirmationWorkstep
-CR - MarketTradeReportingOperatingSession
-BQ - TransactionReportingFunction
-CR - TradedPositionOperatingSession
-BQ - TradeCaptureandReportingFunction
-BQ - TradeDealBlotterFunction
-BQ - TradeQuoteandPricingFunction
-BQ - TraderSecurityPositionManagementandAnalysisFunction
-BQ - TraderTradingPermissionsandLimitsFunction
-CR - TradingPositionManagementPlan
-BQ - TradingBookAnalysisandReportingDuty
-BQ - TradingBookRiskMitigationDuty
-CR - InteractiveTransactionAssessment
-CR - TransactionScheduleFacility
-CR - CorporateTrustServicesFacility
-BQ - TrustAssetMaintenanceandManagementFulfillment
-BQ - TrustCourtAdministrationFulfillment
-BQ - TrustEstate_InheritanceandIncomeTaxFulfillment
-BQ - TrustTaxandExpenseFulfillment
-CR - UnderwritingAssessment
-CR - UnitTrustAdministrativePlan
-BQ - FundAccountingRoutine
-BQ - FundEnrolmentRoutine
-BQ - FundFinancialReportingRoutine
-BQ - FundInvestor_MiddleandBackOfficeServiceRoutine
-BQ - FundManagementFeeRoutine
-BQ - FundTaxAdministrationRoutine
-CR - VirtualAccountFacility
-BQ - DirectDebit
-BQ - StandingOrder
-BQ - ServiceFees
-BQ - Interest
-BQ - Statement
-CR - eBranchChannelManagementPlan
-BQ - CapacityPlanning
-BQ - MaintenanceAndUpgrades
-BQ - Troubleshooting
-CR - eBranchChannelOperatingSession
-BQ - Inbound
-BQ - Outbound
-CR - eTradingWorkbenchOperatingSession
-BQ - InvestmentPortfolioValuationFunction
-BQ - MarketOrderInitiationFunction
-BQ - MarketOrderQuotationFunction
-BQ - MarketPriceAnalysisFunction
-Funds Confirmations
-DynamicClientRegistration
-Operations Eligibility - Eligibility
-Operations Eligibility - Queries
-Operations Eligibility - Service Information
-Platform Identity - Authentication
-Platform Identity - Service Information
-Operations Payments - Cashplus Payment
-Operations Payments - Service Information
-Operations Products - Product
-Operations Products - Service Information
-Account Access
-Accounts
-Balances
-Beneficiaries
-Direct Debits
-Scheduled Payments
-Standing Orders
-Statements
-Transactions
-
-Accounts
-account
-customer
-Cards
-OfferAndDecisionManagement
-cards
-Customer Foundational
-accounts
-
-Customers
-Customer Service
-customers
-Customer
-OfferAndDecisionManagement
-Communications
-CustomerFoundational
-
-Offer&DecisionManagement
-Onboarding
-ProductPricingBundlingAndRewards
-RetrieveProductDirectoryEntryList
-Utilities
-AnalyticsAndInformationManagement
-CrossProductUtilities
-VERIFICATION & AUTHORIZATIONS
-
-Accounts
-account
-customer
-Cards
-OfferAndDecisionManagement
-cards
-Customer Foundational
-accounts
-
-Customers
-Customer Service
-customers
-Customer
-OfferAndDecisionManagement
-Communications
-CustomerFoundational
-
-
-Customer Profile
-Statements
-Banking
-Common
-Client Registration
-Register
-Funds Confirmations
-Client Registration
-Statements
-Account Access
-Balances
-Transactions
-Accounts
-AISP Accounts
-AISP Consents Management
-PIISP
-PISP
-Account Information
-Account Balances
-Transactions
-Currencies v1
-Currencies v2
-Payment Initiation Service (PIS)
-Confirmation of Funds Service (PIIS)
-Account Information Service (AIS)
-Callback
-Authorization
-Alias
-Apple Pay
-eScore
-Forms
-Google Pay
-Headless 3-D Secure
-iFrame
-Info
-Managed Mandate
-Payment
-Payment Link
-Risk Management
-Addresses
-Age Certificate
-Cash Account Openings
-Cash account opening status
-Cash Accounts
-CreditCardTransactions
-Credit Cards
-Customer Solvency
-Assets
-Assets
-Order Details
-Order Entry
-Order Expense report
-Security Statics
-Order Change
-Order Delete
-Support
-Order Details
-Order Entry
-Order Expense report
-Security Statics
-Order Change
-Order Delete
-Support
-Performances
-Instant Payments
-Payments
-Security Accounts
-Transaction Analysis
-Transactions
-Transaction
-Authentication
-Connect 🔗
-Customers
-Consumers
-Accounts
-Accounts (Simple)
-Transactions
-Payments
-App Registration
-Institutions
-Verify Assets
-Verify Income and Employment
-Bank Statements
-Pay Statements
-Portfolios
-TxPush
-Reports
-Assets
-Cash Flow
-Balance Analytics
-Cash Flow Analytics
-Third Party Access
-Account Information Service
-Funds Confirmation Service
-Payment Initiation Service
-Account Details
-Account Balance
-Account Transactions
-Card Account Transactions
-
-Single payment initiation
-Periodic payment initiation
-Bulk payment initiation
-Payment Request
-Registration
-Payments
-Periodic Payment Service
-Payment Initiation Service
-XML Payment Initiation Service
-Authorisations Service
-Funds Confirmation Service
-Consent Service
-Funds Confirmation Consent Service
-Certificate Validation And Registration Service
-Accounts Service
-Account Access
-Accounts
-Balances
-Beneficiaries
-Direct Debits
-Products
-Scheduled Payments
-Standing Orders
-Transactions
-Offers
-Statements
-Parties
-Events
-File Payments
-Funds Confirmations
-Branch
-ATM
-PCA
-BCA
-SME
-CCC
-Domestic Payments
-Domestic Payments
-International Payment Consents
-International Payments
-Domestic VRP Consents
-Domestic VRPs
-ASPSPs
-AI Consents
-AI Consents Authorizations
-AI Consents Raw
-List of Accounts
-Account Details
-Account Balances
-Transactions
-Transaction Details
-Standing Orders
-AI Consent Delete
-Health
-ASPSPs
-Domestic Payments Consent
-Domestic Payments
-Domestic Payments Status
-SEPA Payments Consent
-SEPA Payments
-SEPA Payments Status
-Cross border Payments Consent
-Cross border Payments
-Cross border Payments Status
-Domestic VRP Consents
-Domestic VRPs
-PI Consents Raw
-Health
-biller-service-controller
-Link
-Card Payments
-Payment Instructions
-Buyer Registration
-Buyer Profiles
-Suppliers
-Real Card
-Virtual Card
+Account Transactions,账户交易AccountValidation, 账户验证
+DynamicClientRegistration, 动态客户端注册
+Operations Eligibility - Eligibility, 运营资格 - 资格
+Operations Eligibility - Queries, 运营资格 - 查询
+Operations Eligibility - Service Information, 运营资格 - 服务信息
+Platform Identity - Authentication, 平台身份 - 认证
+Platform Identity - Service Information, 平台身份 - 服务信息
+Operations Payments - Cashplus Payment, 运营付款 - Cashplus付款
+Operations Payments - Service Information, 运营付款 - 服务信息
+Operations Products - Product, 运营产品 - 产品
+Operations Products - Service Information, 运营产品 - 服务信息
+account, 账户
+customer, 客户
+Cards, 卡片
+OfferAndDecisionManagement, 提供和决策管理
+cards, 卡片
+Customer Foundational, 客户基础
+accounts, 账户
+Customers, 客户
+Customer Service, 客户服务
+customers, 客户
+Customer Communications, 客户沟通
+CustomerFoundational, 客户基础
+Offer&DecisionManagement, 提供和决策管理
+Onboarding, 入职
+ProductPricingBundlingAndRewards, 产品定价捆绑和奖励
+RetrieveProductDirectoryEntryList, 检索产品目录条目列表
+Utilities, 实用工具
+AnalyticsAndInformationManagement, 分析和信息管理
+CrossProductUtilities, 跨产品实用工具
+VERIFICATION & AUTHORIZATIONS, 验证和授权
+Customer Profile, 客户档案
+Banking, 银行业务
+Common, 共同的
+Client Registration, 客户端注册
+Register, 注册
+AISP Accounts, AISP账户
+AISP Consents Management, AISP同意管理
+PIISP, PIISP
+PISP, PISP
+Account Balances, 账户余额
+Currencies v1, 货币v1
+Currencies v2, 货币v2
+Payment Initiation Service (PIS), 付款初始化服务（PIS）
+Confirmation of Funds Service (PIIS), 资金确认服务（PIIS）
+Account Information Service (AIS), 账户信息服务（AIS）
+Callback, 回调
+Authorization, 授权
+Alias, 别名
+Apple Pay, Apple支付
+eScore, 电子积分
+Forms, 表格
+Google Pay, Google支付
+Headless 3-D Secure, 无头3-D安全
+iFrame, iFrame
+Info, 信息
+Managed Mandate, 托管授权
+Payment Link, 付款链接
+Risk Management, 风险管理
+Addresses, 地址
+Age Certificate, 年龄证书
+Cash Account Openings, 现金账户开户
+Cash account opening status, 现金账户开户状态
+Cash Accounts, 现金账户
+CreditCardTransactions, 信用卡交易
+Credit Cards, 信用卡
+Customer Solvency, 客户偿付能力
+Assets, 资产
+Order Details, 订单详情
+Order Entry, 订单录入
+Order Expense report, 订单费用报告
+Security Statics, 安全统计
+Order Change, 订单更改
+Order Delete, 订单删除
+Support, 支持
+Performances, 表现
+Instant Payments, 即时付款
+Payments, 付款
+Security Accounts, 安全账户
+Transaction Analysis, 交易分析
+Transaction, 交易
+Authentication, 身份验证
+Connect 🔗, 连接
+Consumers, 消费者
+Accounts (Simple), 账户（简单）
+App Registration, 应用注册
+Institutions, 机构
+Verify Assets, 验证资产
+Verify Income and Employment, 验证收入和就业
+Bank Statements, 银行对账单
+Pay Statements, 工资单
+Portfolios, 投资组合
+TxPush, 交易推送
+Reports, 报告
+Cash Flow, 现金流量
+Balance Analytics, 余额分析
+Cash Flow Analytics, 现金流量分析
+Third Party Access, 第三方访问
+Account Information Service, 账户信息服务
+Funds Confirmation Service, 资金确认服务
+Payment Initiation Service, 付款初始化服务
+Account Details, 账户详细信息
+Account Balance, 账户余额
+Card Account Transactions, 卡账户交易
+Single payment initiation, 单笔付款初始化
+Periodic payment initiation, 定期付款初始化
+Bulk payment initiation, 批量付款初始化
+Payment Request, 付款请求
+Registration, 注册
+Periodic Payment Service, 定期付款服务
+XML Payment Initiation Service, XML付款初始化服务
+Authorisations Service, 授权服务
+Consent Service, 同意服务
+Funds Confirmation Consent Service, 资金确认同意服务
+Certificate Validation And Registration Service, 证书验证和注册服务
+Accounts Service, 账户服务
+Events, 事件
+Branch, 分行
+ATM, 自动取款机
+PCA, 个人银行授权
+BCA, 企业银行授权
+SME, 中小企业
+CCC, 客户服务中心
+International Payment Consents, 国际付款同意
+Domestic VRP Consents, 国内VRP同意
+Domestic VRPs, 国内VRP
+ASPSPs, ASPSP（账户服务提供商）
+AI Consents, AI同意
+AI Consents Authorizations, AI同意授权
+AI Consents Raw, AI同意原始数据
+List of Accounts, 账户列表
+Transaction Details, 交易明细
+AI Consent Delete, 删除AI同意
+Health, 健康
+Domestic Payments Consent, 国内付款同意
+Domestic Payments Status, 国内付款状态
+SEPA Payments Consent, SEPA付款同意
+SEPA Payments, SEPA付款
+SEPA Payments Status, SEPA付款状态
+Cross border Payments Consent, 跨境付款同意
+Cross border Payments, 跨境付款
+Cross border Payments Status, 跨境付款状态
+PI Consents Raw, PI同意原始数据
+biller-service-controller, 账单服务控制器
+Link, 链接
+Card Payments, 卡支付
+Payment Instructions, 付款指令
+Buyer Registration, 买家注册
+Buyer Profiles, 买家档案
+Suppliers, 供应商
+Real Card, 实体卡
+Virtual Card, 虚拟卡
 Funding Source
 Contact
 Authorization Report
@@ -1347,36 +207,6 @@ Cancel Payment
 Carded Rate
 Retrieve Payment
 Quotes
-Payment
-Retrieve Account Balances
-Retrieve Accounts Balances by Account Id
-Cancel Payment
-Carded Rate
-Retrieve Payment
-Quotes
-Payment
-Authentication
-Connect 🔗
-Customers
-Consumers
-Accounts
-Accounts (Simple)
-Transactions
-Payments
-App Registration
-Institutions
-Verify Assets
-Verify Income and Employment
-Bank Statements
-Pay Statements
-Portfolios
-TxPush
-Reports
-Assets
-Cash Flow
-Balance Analytics
-Cash Flow Analytics
-Third Party Access
 Case Filing
 Chargebacks
 Chargebacks (Debit MasterCard and Europe Dual Acquirer)
@@ -1389,7 +219,6 @@ Queues
 Reconciliation
 Retrievals
 Retrievals (Debit MasterCard and Europe Dual Acquirer)
-Transactions
 Transactions (Debit MasterCard and Europe Dual Acquirer)
 Request Activation Methods
 Deliver Activation Code
@@ -1405,144 +234,53 @@ Merchant Point of Interest
 Place By Location Id
 Providers
 Provider
-Suppliers
 Supplier
-Payments
-Payment
 Reconciliation Record
 merchant match
 merchant metrics
 catalogs
-Banking
-Account Access
-Accounts
-Balances
-Beneficiaries
-Direct Debits
-Offers
-Parties
-Products
-Scheduled Payments
-Standing Orders
-Statements
-Transactions
 ATMs
 Branches
 Personal Current Accounts
 FCA Service Quality Metrics
-Domestic Payments
 Payment Details
-Domestic Scheduled Payments
-Domestic Standing Orders
-Domestic VRP Consents
-Domestic VRPs
-Account Access Consents
-Accounts
-Balances
-Statements
 Party
-Offers
 products
-Transactions
-Direct Debits
-Standing Orders
 accounts-v3
 authorize-v2
 Customer accounts
 Dynamic Sandbox Api
-Assets
-Authorization
 Token revocation
 Decoupled authentication and authorization
-payments-v4
 payments-v4
 own-transfer-v4
 salary-pension-v4
-payments-v4
 payments-v2
-Customer accounts
 cards-v5
-Assets
-Authorization
-Token revocation
 commercial-cards-v1
-Assets
-Authorization
-Token revocation
 Confirmation of funds
-Dynamic Sandbox Api
-Assets
-Authorization
-Token revocation
-Decoupled authentication and authorization
-payments-v4
-payments-v4
-payments-v5
 payments-v5
 own-transfer
 single-sca-payments
-Addresses
-Age Certificate
-Cash Account Openings
-Cash account opening status
-Cash Accounts
-CreditCardTransactions
-Credit Cards
 One-Time Passwords
 Partners
 Subscription
-Transaction Analysis
 transaction authorization
-Transactions
-Transaction
-Account Access
-Accounts
-Balances
-Beneficiaries
-Direct Debits
-Offers
-Parties
-Products
-Scheduled Payments
-Standing Orders
-Statements
-Transactions
-ATM
-BCA
-Branch
-CCC
-Funds Confirmations
-PCA
-Domestic Payments
-Payment Details
-Domestic Scheduled Payments
-Domestic Standing Orders
-File Payments
-International Payments
-International Scheduled Payments
-International Standing Orders
-SME
 plaid
-Cash Account Openings
-Cash account opening status
 Loan Offers
 Developer Tools
 Other
-Beneficiaries
-Cards
 Compliance
 Direct Debit
 Endusers
 Ledgers
 Customer Configuration
 Webhooks
-Transactions
 Credit
 Rewards
 Documents
 amortization-schedule-controller
 min-down-payment-calculator-contoller
-
 inventory
 Sentiment
 Emotion
@@ -1558,15 +296,6 @@ Virality Detection
 Filters
 Phrase Extractor
 Language
-Funds Confirmations
-Domestic Payments
-Domestic Scheduled Payments
-Domestic Standing Orders
-File Payments
-International Payments
-International Scheduled Payments
-Domestic VRP Consents
-Domestic VRPs
 MobileAuthorization
 OAuth
 V1Transactions
@@ -1574,10 +303,8 @@ ApplePay
 BankAccounts
 Bookings
 BookingCustomAttributes
-Cards
 CashDrawers
 Catalog
-Customers
 CustomerCustomAttributes
 CustomerGroups
 CustomerSegments
@@ -1592,17 +319,14 @@ Labor
 Locations
 LocationCustomAttributes
 Checkout
-Transactions
 Loyalty
 Merchants
 Orders
 OrderCustomAttributes
-Payments
 Payouts
 Refunds
 Sites
 Snippets
-Subscriptions
 Team
 Terminal
 Vendors
@@ -1611,60 +335,22 @@ Retail Account Services
 Open Banking Accounts API
 Open Banking Payments API
 Domestic Standing Orders Consents
-Domestic Standing Orders
 Account and Transactions
 Payment Services
-OAuth
 Account Services
 Bank Service
 PISP Service
-Account Access
-Accounts
-Balances
-Beneficiaries
-Direct Debits
-Products
-Scheduled Payments
-Standing Orders
-Statements
-Transactions
-Client Registration
-Funds Confirmations
-Domestic Payments
-Domestic Scheduled Payments
-Domestic Standing Orders
-International Payments
 Authorization Endpoint
 Configuration Endpoint
 Client Registration Endpoint
 Token Endpoint
 UserInfo Endpoint
 Initial Access Token Service
-Account Information Service
-Payment Initiation Service
 Confirmation of Funds Service
-Accounts
-Balances
-Beneficiaries
-Parties
-Transactions
-Domestic Payments
-Domestic Scheduled Payments
-International Payments
-International Scheduled Payments
 Retrieve account balances
 Originate an ACH Payment
 Check Individual ACH Payment Status
-Funds Confirmations
 Retrieve product pricing
-
-Domestic Payments
-Domestic Scheduled Payments
-Domestic Standing Orders
-File Payments
-International Payments
-International Scheduled Payments
-International Standing Orders
 Create Payment
 Create Tokenized Payment
 Create a credit transfer
@@ -1681,18 +367,6 @@ Create a request for payment
 Cancel a request for payment
 Send payment acknowledgement
 Search all RTP messages
-Account Access
-Accounts
-Balances
-Beneficiaries
-Direct Debits
-Offers
-Partys
-Products
-Scheduled Payments
-Standing Orders
-Statements
-Transactions
 Search for transactions
 Generate transaction reports
 location
@@ -1701,9 +375,6 @@ payment
 templated payment
 Authorisations
 Financial Data
-Payments
-Consents
-Institutions
 Application
 Users
 Financial Profile
@@ -1714,25 +385,18 @@ Virtual Accounts Payments
 Virtual Accounts Clients
 Virtual Accounts Refunds
 Variable Recurring Payments
-Transactions
-Accounts
 Verification
 Cobrand
 DataExtracts
-Providers
 Configs
 Derived
 User
-Documents
 Payment Processor
-Consents
 ProviderAccounts
 Auth
 Holdings
 Verify Account
 Account Token
-Institutions
-Statements
 E账通
 摩贝模式
 批量开户

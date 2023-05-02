@@ -195,222 +195,222 @@ Buyer Profiles, 买家档案
 Suppliers, 供应商
 Real Card, 实体卡
 Virtual Card, 虚拟卡
-Funding Source
-Contact
-Authorization Report
-Clearing Report
-Clearing Summary Report
-Consents
-Retrieve Account Balances
-Retrieve Accounts Balances by Account Id
-Cancel Payment
-Carded Rate
-Retrieve Payment
-Quotes
-Case Filing
-Chargebacks
-Chargebacks (Debit MasterCard and Europe Dual Acquirer)
-Claims
-Fees
-Fees (Debit MasterCard and Europe Dual Acquirer)
-Fraud
-Health Check
-Queues
-Reconciliation
-Retrievals
-Retrievals (Debit MasterCard and Europe Dual Acquirer)
-Transactions (Debit MasterCard and Europe Dual Acquirer)
-Request Activation Methods
-Deliver Activation Code
-Notify Service Activated
-Authorize Service
-Notify Token Updated
-Validate Activation Code
-Get Account Information
-Notify Suspicious Events
-Merchant Category Codes
-Merchant Industries
-Merchant Point of Interest
-Place By Location Id
-Providers
-Provider
-Supplier
-Reconciliation Record
-merchant match
-merchant metrics
-catalogs
-ATMs
-Branches
-Personal Current Accounts
-FCA Service Quality Metrics
-Payment Details
-Party
-products
-accounts-v3
-authorize-v2
-Customer accounts
-Dynamic Sandbox Api
-Token revocation
-Decoupled authentication and authorization
-payments-v4
-own-transfer-v4
-salary-pension-v4
-payments-v2
-cards-v5
-commercial-cards-v1
-Confirmation of funds
-payments-v5
-own-transfer
-single-sca-payments
-One-Time Passwords
-Partners
-Subscription
-transaction authorization
-plaid
-Loan Offers
-Developer Tools
-Other
-Compliance
-Direct Debit
-Endusers
-Ledgers
-Customer Configuration
-Webhooks
-Credit
-Rewards
-Documents
-amortization-schedule-controller
-min-down-payment-calculator-contoller
-inventory
-Sentiment
-Emotion
-Semantic Similarity
-Name Entity Recognition
-Keywords
-Taxonomy
-Intent
-Abuse
-Text Parser
-Classification
-Virality Detection
-Filters
-Phrase Extractor
-Language
-MobileAuthorization
-OAuth
-V1Transactions
-ApplePay
-BankAccounts
-Bookings
-BookingCustomAttributes
-CashDrawers
-Catalog
-CustomerCustomAttributes
-CustomerGroups
-CustomerSegments
-Devices
-Disputes
-Employees
-GiftCards
-GiftCardActivities
-Inventory
-Invoices
-Labor
-Locations
-LocationCustomAttributes
-Checkout
-Loyalty
-Merchants
-Orders
-OrderCustomAttributes
-Payouts
-Refunds
-Sites
-Snippets
-Team
-Terminal
-Vendors
-WebhookSubscriptions
-Retail Account Services
-Open Banking Accounts API
-Open Banking Payments API
-Domestic Standing Orders Consents
-Account and Transactions
-Payment Services
-Account Services
-Bank Service
-PISP Service
-Authorization Endpoint
-Configuration Endpoint
-Client Registration Endpoint
-Token Endpoint
-UserInfo Endpoint
-Initial Access Token Service
-Confirmation of Funds Service
-Retrieve account balances
-Originate an ACH Payment
-Check Individual ACH Payment Status
-Retrieve product pricing
-Create Payment
-Create Tokenized Payment
-Create a credit transfer
-Create a request for information
-Verify a routing number
-Create a response to a request for information
-Retrieve a credit transfer
-Retrieve a request for information
-Retrieve a response to a request for information
-Retrieve a request for payment
-Create a response to a request for payment
-Retrieve a response to a request for payment
-Create a request for payment
-Cancel a request for payment
-Send payment acknowledgement
-Search all RTP messages
-Search for transactions
-Generate transaction reports
-location
-status
-payment
-templated payment
-Authorisations
-Financial Data
-Application
-Users
-Financial Profile
-Notifications
-Virtual Accounts Beneficiaries
-Virtual Accounts Accounts
-Virtual Accounts Payments
-Virtual Accounts Clients
-Virtual Accounts Refunds
-Variable Recurring Payments
-Verification
-Cobrand
-DataExtracts
-Configs
-Derived
-User
-Payment Processor
-ProviderAccounts
-Auth
-Holdings
-Verify Account
-Account Token
-E账通
-摩贝模式
-批量开户
-收单产品
-客户成长体系
-新客福利
-礼遇抽奖
-II/III类混合账户体系
-III类账户体系
-II类账户体系
-借记卡公共服务
-账户公共服务
-风险评估
-外汇来报服务补录
-网点信息查询
-零贷产品
-零贷公共服务
+Funding Source, 资金来源
+Contact, 联系人
+Authorization Report, 授权报告
+Clearing Report, 清算报告
+Clearing Summary Report, 清算摘要报告
+Consents, 同意
+Retrieve Account Balances, 检索账户余额
+Retrieve Accounts Balances by Account Id, 按账户ID检索账户余额
+Cancel Payment, 取消付款
+Carded Rate, 指定利率
+Retrieve Payment, 检索付款
+Quotes, 报价
+Case Filing, 案件立案
+Chargebacks, 拒付
+Chargebacks (Debit MasterCard and Europe Dual Acquirer), 拒付（借记MasterCard和欧洲双重收购者）
+Claims, 索赔
+Fees, 费用
+Fees (Debit MasterCard and Europe Dual Acquirer), 费用（借记MasterCard和欧洲双重收购者）
+Fraud, 欺诈
+Health Check, 健康检查
+Queues, 队列
+Reconciliation, 对账
+Retrievals, 检索
+Retrievals (Debit MasterCard and Europe Dual Acquirer), 检索（借记MasterCard和欧洲双重收购者）
+Transactions (Debit MasterCard and Europe Dual Acquirer), 交易（借记MasterCard和欧洲双重收购者）
+Request Activation Methods, 请求激活方法
+Deliver Activation Code, 提供激活代码
+Notify Service Activated, 通知服务已激活
+Authorize Service, 授权服务
+Notify Token Updated, 通知令牌已更新
+Validate Activation Code, 验证激活代码
+Get Account Information, 获取账户信息
+Notify Suspicious Events, 通知可疑事件
+Merchant Category Codes, 商家类别代码
+Merchant Industries, 商家行业
+Merchant Point of Interest, 商家兴趣点
+Place By Location Id, 按位置ID放置
+Providers, 供应商
+Provider, 提供者
+Supplier, 供应商
+Reconciliation Record, 对账记录
+merchant match, 商家匹配
+merchant metrics, 商家指标
+catalogs, 目录
+ATMs, 自动取款机
+Branches, 分行
+Personal Current Accounts, 个人活期账户
+FCA Service Quality Metrics, FCA服务质量指标
+Payment Details, 付款详情
+Party, 参与方
+products, 产品
+accounts-v3, 账户
+authorize-v2, 授权
+Customer accounts, 客户账户
+Dynamic Sandbox Api, 动态沙盒API
+Token revocation, 令牌撤销
+Decoupled authentication and authorization, 解耦身份验证和授权
+payments-v4, 付款
+own-transfer-v4, 自有转账
+salary-pension-v4, 工资养老金
+payments-v2, 付款
+cards-v5, 卡
+commercial-cards-v1, 商业卡
+Confirmation of funds, 确认资金
+payments-v5, 付款
+own-transfer, 自有转账
+single-sca-payments, 单一SCA付款
+One-Time Passwords, 一次性密码
+Partners, 合作伙伴
+Subscription, 订阅
+transaction authorization, 交易授权
+plaid, 斑纹
+Loan Offers, 贷款报价
+Developer Tools, 开发者工具
+Other, 其他
+Compliance, 合规
+Direct Debit, 直接借记
+Endusers, 最终用户
+Ledgers, 分类账
+Customer Configuration, 客户配置
+Webhooks, Web钩子
+Credit, 信用
+Rewards, 奖励
+Documents, 文档
+amortization-schedule-controller, 分期偿还计划控制器
+min-down-payment-calculator-contoller, 最低首付款计算器控制器
+inventory, 库存
+Sentiment, 情感
+Emotion, 情绪
+Semantic Similarity, 语义相似度
+Name Entity Recognition, 命名实体识别
+Keywords, 关键词
+Taxonomy, 分类
+Intent, 意图
+Abuse, 滥用
+Text Parser, 文本解析器
+Classification, 分类
+Virality Detection, 传播率检测
+Filters, 过滤器
+Phrase Extractor, 短语提取器
+Language, 语言
+MobileAuthorization, 移动授权
+OAuth, OAuth
+V1Transactions, 交易
+ApplePay, 苹果支付
+BankAccounts, 银行账户
+Bookings, 预订
+BookingCustomAttributes, 预订自定义属性
+CashDrawers, 现金抽屉
+Catalog, 目录
+CustomerCustomAttributes, 客户自定义属性
+CustomerGroups, 客户组
+CustomerSegments, 客户细分
+Devices, 设备
+Disputes, 争议
+Employees, 员工
+GiftCards, 礼品卡
+GiftCardActivities, 礼品卡活动
+Inventory, 库存
+Invoices, 发票
+Labor, 劳动力
+Locations, 位置
+LocationCustomAttributes, 位置自定义属性
+Checkout, 支付
+Loyalty, 忠诚度
+Merchants, 商家
+Orders, 订单
+OrderCustomAttributes, 订单自定义属性
+Payouts, 支付
+Refunds, 退款
+Sites, 网站
+Snippets, 片段
+Team, 团队
+Terminal, 终端
+Vendors, 供应商
+WebhookSubscriptions, Webhook订阅
+Retail Account Services, 零售账户服务
+Open Banking Accounts API, 开放银行账户API
+Open Banking Payments API, 开放银行支付API
+Domestic Standing Orders Consents, 国内常规付款同意书
+Account and Transactions, 账户和交易
+Payment Services, 付款服务
+Account Services, 账户服务
+Bank Service, 银行服务
+PISP Service, PISP服务
+Authorization Endpoint, 授权端点
+Configuration Endpoint, 配置端点
+Client Registration Endpoint, 客户端注册端点
+Token Endpoint, 令牌端点
+UserInfo Endpoint, 用户信息端点
+Initial Access Token Service, 初始访问令牌服务
+Confirmation of Funds Service, 确认资金服务
+Retrieve account balances, 检索账户余额
+Originate an ACH Payment, 发起ACH付款
+Check Individual ACH Payment Status, 检查个人ACH付款状态
+Retrieve product pricing, 检索产品定价
+Create Payment, 创建付款
+Create Tokenized Payment, 创建令牌化付款
+Create a credit transfer, 创建信用转账
+Create a request for information, 创建信息请求
+Verify a routing number, 验证路由号码
+Create a response to a request for information, 创建信息请求的响应
+Retrieve a credit transfer, 检索信用转账
+Retrieve a request for information, 检索信息请求
+Retrieve a response to a request for information, 检索信息请求的响应
+Retrieve a request for payment, 检索付款请求
+Create a response to a request for payment, 创建付款请求的响应
+Retrieve a response to a request for payment, 检索付款请求的响应
+Create a request for payment, 创建付款请求
+Cancel a request for payment, 取消付款请求
+Send payment acknowledgement, 发送付款确认
+Search all RTP messages, 搜索所有RTP消息
+Search for transactions, 搜索交易
+Generate transaction reports, 生成交易报告
+location, 位置
+status, 状态
+payment, 付款
+templated payment, 模板付款
+Authorisations, 授权
+Financial Data, 金融数据
+Application, 应用程序
+Users, 用户
+Financial Profile, 金融配置文件
+Notifications, 通知
+Virtual Accounts Beneficiaries, 虚拟账户受益人
+Virtual Accounts Accounts, 虚拟账户账户
+Virtual Accounts Payments, 虚拟账户付款
+Virtual Accounts Clients, 虚拟账户客户
+Virtual Accounts Refunds, 虚拟账户退款
+Variable Recurring Payments, 可变循环付款
+Verification, 验证
+Cobrand, Cobrand
+DataExtracts, 数据提取
+Configs, 配置
+Derived, 派生
+User, 用户
+Payment Processor, 付款处理器
+ProviderAccounts, 提供商账户
+Auth, 授权
+Holdings, 持有
+Verify Account, 验证账户
+Account Token, 账户令牌
+E账通,E账通
+摩贝模式,摩贝模式
+批量开户,批量开户
+收单产品,收单产品
+客户成长体系,客户成长体系
+新客福利,新客福利
+礼遇抽奖,礼遇抽奖
+II/III类混合账户体系,II/III类混合账户体系
+III类账户体系,III类账户体系
+II类账户体系,II类账户体系
+借记卡公共服务,借记卡公共服务
+账户公共服务,账户公共服务
+风险评估,风险评估
+外汇来报服务补录,外汇来报服务补录
+网点信息查询,网点信息查询
+零贷产品,零贷产品
+零贷公共服务,零贷公共服务

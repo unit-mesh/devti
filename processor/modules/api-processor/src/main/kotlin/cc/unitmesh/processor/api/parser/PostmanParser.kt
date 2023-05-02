@@ -11,7 +11,10 @@ import org.jetbrains.kotlin.cli.common.repl.replEscapeLineBreaks
 import java.net.URI
 
 sealed class ChildType {
+    class NestedFolder(val folders: List<Folder>, val items: List<Item>) : ChildType()
+
     class Folder(val collection: ApiCollection) : ChildType()
+
     class Item(val items: List<ApiItem>) : ChildType()
 
 }
@@ -33,6 +36,14 @@ class PostmanParser {
 
             childTypes.filterIsInstance<ChildType.Folder>().forEach {
                 details.add(it.collection)
+            }
+
+            childTypes.filterIsInstance<ChildType.NestedFolder>().forEach {
+                val folder = it.folders.map { it.collection }
+                details.addAll(folder)
+
+                val items = it.items.map { it.items }.flatten()
+                details.add(ApiCollection(folderName ?: "", "", items))
             }
 
             val items = childTypes.filterIsInstance<ChildType.Item>().map { it.items }.flatten()
@@ -65,10 +76,23 @@ class PostmanParser {
     private fun parseChildItem(subItem: PostmanItem, folderName: String?, itemName: String?): List<ChildType> {
         return when {
             subItem.item != null -> {
-                return subItem.item!!.map {
+                val childTypes = subItem.item!!.map {
                     parseChildItem(it, folderName, itemName)
                 }.flatten()
+
+                val folder = childTypes.filterIsInstance<ChildType.Folder>()
+                val items = childTypes.filterIsInstance<ChildType.Item>()
+
+                if (folder.isNotEmpty() && items.isNotEmpty()) {
+                    return listOf(ChildType.NestedFolder(folder, items))
+                } else if (items.size == subItem.item!!.size) {
+                    val collection = ApiCollection(subItem.name ?: "", "", items.map { it.items }.flatten())
+                    return listOf(ChildType.Folder(collection))
+                }
+
+                return childTypes
             }
+
 
             subItem.request != null -> {
                 val apiItems = processApiItem(subItem, folderName, itemName)?.let {

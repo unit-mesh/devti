@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.random.Random
 
-fun main(args: Array<String>) = Prompting()
+fun main(args: Array<String>) = Generating()
 //    .subcommands(Prompting())
     .main(args)
 
@@ -68,6 +68,8 @@ class Generating : CliktCommand() {
 
         val instructions: MutableList<Instruction> = mutableListOf()
 
+        val apiNames = mutableListOf<String>()
+
         inputDir.walk().forEach { file ->
             if (file.isFile) {
                 var processor: ApiProcessor? = null
@@ -92,6 +94,8 @@ class Generating : CliktCommand() {
                             logger.info("Skip ${file.absolutePath} because it's too short")
                             return@forEach
                         }
+
+                        apiNames += it.name
 
                         instructions += Instruction(
                             instruction = ONE_API_INSTRUCTION,
@@ -125,6 +129,10 @@ class Generating : CliktCommand() {
                 }
             }
         }
+
+        // write apiNames to CSV
+        val csv = File(outputDir, "apiNames.csv")
+        csv.writeText(apiNames.joinToString("\n"))
 
         // write to jsonl
         val jsonl = File(outputDir, "instructions.jsonl")

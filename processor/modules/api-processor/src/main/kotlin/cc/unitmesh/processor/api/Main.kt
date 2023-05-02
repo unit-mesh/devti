@@ -68,7 +68,7 @@ class Generating : CliktCommand() {
 
         val instructions: MutableList<Instruction> = mutableListOf()
 
-        val apiNames = mutableListOf<String>()
+        val apiNames = mutableSetOf<String>()
 
         inputDir.walk().forEach { file ->
             if (file.isFile) {

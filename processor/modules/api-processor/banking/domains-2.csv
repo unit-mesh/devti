@@ -1,7 +1,7 @@
 english,chinese
-Account information services,账户信息服务
+Account information services,账户信息
 Batch transaction details,批量交易明细
-Subscriptions,订阅服务
+Subscriptions,订阅
 Sandbox,沙盒环境
 Payment initiation,付款初始化
 Check status,检查状态
@@ -51,7 +51,7 @@ Operations Eligibility - Queries, 运营资格 - 查询
 Operations Eligibility - Service Information, 运营资格 - 服务信息
 Platform Identity - Authentication, 平台身份 - 认证
 Platform Identity - Service Information, 平台身份 - 服务信息
-Operations Payments - Cashplus Payment, 运营付款 - Cashplus付款
+Operations Payments - Cashplus Payment, 运营付款 - Cashplus 付款
 Operations Payments - Service Information, 运营付款 - 服务信息
 Operations Products - Product, 运营产品 - 产品
 Operations Products - Service Information, 运营产品 - 服务信息
@@ -63,7 +63,7 @@ cards, 卡片
 Customer Foundational, 客户基础
 accounts, 账户
 Customers, 客户
-Customer Service, 客户服务
+Customer Service, 客户
 customers, 客户
 Customer Communications, 客户沟通
 CustomerFoundational, 客户基础
@@ -142,9 +142,9 @@ Cash Flow, 现金流量
 Balance Analytics, 余额分析
 Cash Flow Analytics, 现金流量分析
 Third Party Access, 第三方访问
-Account Information Service, 账户信息服务
-Funds Confirmation Service, 资金确认服务
-Payment Initiation Service, 付款初始化服务
+Account Information Service, 账户信息
+Funds Confirmation Service, 资金确认
+Payment Initiation Service, 付款初始化
 Account Details, 账户详细信息
 Account Balance, 账户余额
 Card Account Transactions, 卡账户交易
@@ -153,13 +153,13 @@ Periodic payment initiation, 定期付款初始化
 Bulk payment initiation, 批量付款初始化
 Payment Request, 付款请求
 Registration, 注册
-Periodic Payment Service, 定期付款服务
-XML Payment Initiation Service, XML付款初始化服务
-Authorisations Service, 授权服务
-Consent Service, 同意服务
-Funds Confirmation Consent Service, 资金确认同意服务
-Certificate Validation And Registration Service, 证书验证和注册服务
-Accounts Service, 账户服务
+Periodic Payment Service, 定期付款
+XML Payment Initiation Service, XML付款初始化
+Authorisations Service, 授权
+Consent Service, 同意
+Funds Confirmation Consent Service, 资金确认同意
+Certificate Validation And Registration Service, 证书验证和注册
+Accounts Service, 账户
 Events, 事件
 Branch, 分行
 ATM, 自动取款机
@@ -224,7 +224,7 @@ Transactions (Debit MasterCard and Europe Dual Acquirer), 交易（借记MasterC
 Request Activation Methods, 请求激活方法
 Deliver Activation Code, 提供激活代码
 Notify Service Activated, 通知服务已激活
-Authorize Service, 授权服务
+Authorize Service, 授权
 Notify Token Updated, 通知令牌已更新
 Validate Activation Code, 验证激活代码
 Get Account Information, 获取账户信息
@@ -332,22 +332,22 @@ Team, 团队
 Terminal, 终端
 Vendors, 供应商
 WebhookSubscriptions, Webhook订阅
-Retail Account Services, 零售账户服务
+Retail Account Services, 零售账户
 Open Banking Accounts API, 开放银行账户API
 Open Banking Payments API, 开放银行支付API
 Domestic Standing Orders Consents, 国内常规付款同意书
 Account and Transactions, 账户和交易
-Payment Services, 付款服务
-Account Services, 账户服务
-Bank Service, 银行服务
-PISP Service, PISP服务
+Payment Services, 付款
+Account Services, 账户
+Bank Service, 银行
+PISP Service, PISP
 Authorization Endpoint, 授权端点
 Configuration Endpoint, 配置端点
 Client Registration Endpoint, 客户端注册端点
 Token Endpoint, 令牌端点
 UserInfo Endpoint, 用户信息端点
-Initial Access Token Service, 初始访问令牌服务
-Confirmation of Funds Service, 确认资金服务
+Initial Access Token Service, 初始访问令牌
+Confirmation of Funds Service, 确认资金
 Retrieve account balances, 检索账户余额
 Originate an ACH Payment, 发起ACH付款
 Check Individual ACH Payment Status, 检查个人ACH付款状态
@@ -408,8 +408,8 @@ E账通,E账通
 II/III类混合账户体系,II/III类混合账户体系
 III类账户体系,III类账户体系
 II类账户体系,II类账户体系
-借记卡公共服务,借记卡公共服务
-账户公共服务,账户公共服务
+借记卡公共服务,借记卡公共
+账户公共服务,账户公共
 风险评估,风险评估
 外汇来报服务补录,外汇来报服务补录
 网点信息查询,网点信息查询

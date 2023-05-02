@@ -124,6 +124,7 @@ class PostmanParser {
         // remove UNDEFINED and http://UNDEFINED
         uri = uri?.replace("http://UNDEFINED", "")
             ?.replace("https://UNDEFINED", "")
+            ?.replace("UNDEFINED", "{}")
 
         try {
             val uriObj = URI(uri)

@@ -1,5 +1,6 @@
 package cc.unitmesh.processor.api
 
+import cc.unitmesh.processor.api.base.ApiCollection
 import cc.unitmesh.processor.api.base.ApiProcessor
 import cc.unitmesh.processor.api.base.Instruction
 import cc.unitmesh.processor.api.render.MarkdownTableRender
@@ -68,6 +69,8 @@ class Generating : CliktCommand() {
 
         val instructions: MutableList<Instruction> = mutableListOf()
 
+        val domainTranslation = getDomainTranslate(domain)
+
         val apiNames = mutableSetOf<String>()
 
         inputDir.walk().forEach { file ->
@@ -95,16 +98,17 @@ class Generating : CliktCommand() {
                             return@forEach
                         }
 
-                        apiNames += it.name
+                        val serviceName = domainName(domainTranslation, it)
+                        apiNames += serviceName
 
                         instructions += Instruction(
                             instruction = ONE_API_INSTRUCTION,
-                            input = it.name,
+                            input = serviceName,
                             output = single
                         )
 
                         instructions += Instruction(
-                            instruction = randomInstruction(it.name),
+                            instruction = randomInstruction(serviceName),
                             input = "",
                             output = single
                         )
@@ -118,7 +122,7 @@ class Generating : CliktCommand() {
 
                         instructions += Instruction(
                             instruction = GROUP_API_INSTRUCTION,
-                            input = collections.joinToString(", ") { it.name },
+                            input = collections.joinToString(", ") { domainName(domainTranslation, it) },
                             output = output
                         )
                     } else {
@@ -138,6 +142,11 @@ class Generating : CliktCommand() {
         val jsonl = File(outputDir, "instructions.jsonl")
         jsonl.writeText(instructions.joinToString("\n") { Json.encodeToString(it) })
     }
+
+    private fun domainName(
+        domainTranslation: MutableMap<String, String>,
+        it: ApiCollection
+    ) = domainTranslation[it.name] ?: it.name
 }
 
 class Prompting : CliktCommand() {

@@ -9,7 +9,7 @@ object ApiProcessorDetector {
     fun detectApiProcessor(file: File, withPostman: Boolean = false, postmanOnly: Boolean = false): ApiProcessor? {
         val content = file.readText()
 
-        if (withPostman) {
+        if (withPostman || postmanOnly) {
             if (file.extension == "json") {
                 if (content.contains("_postman_id") && content.contains("schema")) {
                     return PostmanProcessor(file)

@@ -28,44 +28,6 @@ class PostmanParser {
         val details: MutableList<ApiCollection> = mutableListOf()
         if (item.item != null) {
             val childTypes = item.item.map {
-                parseItem(it, folderName, item.name)
-            }.flatten()
-
-            childTypes.filterIsInstance<ChildType.Folder>().forEach {
-                details.add(it.collection)
-            }
-
-            val items = childTypes.filterIsInstance<ChildType.Item>().map { it.items }.flatten()
-            if (items.isNotEmpty()) {
-                val descriptionName = if (folderName == item.name) {
-                    ""
-                } else {
-                    item.name ?: ""
-                }
-
-                details.add(ApiCollection(folderName ?: "", descriptionName, items))
-            }
-        } else if (item.request != null) {
-            val apiItems = processApiItem(item as PostmanItem, folderName, item.name)?.let {
-                listOf(it)
-            } ?: listOf()
-
-            val descriptionName = if (folderName == item.name) {
-                ""
-            } else {
-                item.name ?: ""
-            }
-
-            details.add(ApiCollection(folderName ?: "", descriptionName, apiItems))
-        }
-
-        return details
-    }
-
-    private fun parseItem(item: PostmanItem, folderName: String?, itemName: String?): List<ApiCollection> {
-        val details: MutableList<ApiCollection> = mutableListOf()
-        if (item.item != null) {
-            val childTypes = item.item!!.map {
                 parseChildItem(it, folderName, item.name)
             }.flatten()
 
@@ -139,14 +101,16 @@ class PostmanParser {
         uri = uri?.replace("http://UNDEFINED", "")
             ?.replace("https://UNDEFINED", "")
 
-        // try parse URI and remove host
         try {
             val uriObj = URI(uri)
             uri = uriObj.path
         } catch (e: Exception) {
             // ignore
         }
-
+        // if uri is not start with /, remove until /
+        if (uri?.startsWith("/") == false) {
+            uri = uri.substring(uri.indexOf("/"))
+        }
 
         val responses = subItem.response?.map {
             Response(

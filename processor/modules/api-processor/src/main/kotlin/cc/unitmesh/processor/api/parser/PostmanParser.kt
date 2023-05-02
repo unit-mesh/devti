@@ -121,7 +121,6 @@ class PostmanParser {
         val name = subItem.name
 
         var uri = request?.getUrl(`var`)
-        // remove UNDEFINED and http://UNDEFINED
         uri = uri?.replace("http://UNDEFINED", "")
             ?.replace("https://UNDEFINED", "")
             ?.replace("UNDEFINED", "{}")
@@ -132,7 +131,7 @@ class PostmanParser {
         } catch (e: Exception) {
             // ignore
         }
-        // if uri is not start with /, remove until /
+
         if (uri?.startsWith("/") == false) {
             uri = uri.substring(uri.indexOf("/"))
         }

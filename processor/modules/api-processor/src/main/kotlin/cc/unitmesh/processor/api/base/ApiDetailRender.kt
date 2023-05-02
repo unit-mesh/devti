@@ -2,7 +2,9 @@ package cc.unitmesh.processor.api.base
 
 interface ApiDetailRender {
     fun render(apiCollections: List<ApiCollection>): String {
-        val apiDetailsByTag = apiCollections.map { renderCollection(it) }
+        val apiDetailsByTag = apiCollections.map { renderCollection(it) }.filter {
+            it.isNotBlank()
+        }
         return apiDetailsByTag.joinToString("\n\n") { it }
     }
 

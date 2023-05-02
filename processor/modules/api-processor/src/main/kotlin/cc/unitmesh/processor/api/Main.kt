@@ -116,26 +116,26 @@ class Generating : CliktCommand() {
                         )
                     }
 
-                    logger.error("collections size: ${collections.size}")
-                    if (collections.size > 10) {
-                        repeat(5) {
-                            val newCollections = collections.shuffled().take(3)
-                            createForGroup(render, newCollections, file, instructions, translation)
-                        }
-
-                        return@forEach
-                    }
-                    if (collections.size > 6) {
-                        // repeat two random select 5 apis
-                        repeat(3) {
-                            val newCollections = collections.shuffled().take(3)
-                            createForGroup(render, newCollections, file, instructions, translation)
-                        }
-
-                        return@forEach
-                    }
-
-                    createForGroup(render, collections, file, instructions, translation)
+//                    logger.error("collections size: ${collections.size}")
+//                    if (collections.size > 10) {
+//                        repeat(5) {
+//                            val newCollections = collections.shuffled().take(3)
+//                            createForGroup(render, newCollections, file, instructions, translation)
+//                        }
+//
+//                        return@forEach
+//                    }
+//                    if (collections.size > 6) {
+//                        // repeat two random select 5 apis
+//                        repeat(3) {
+//                            val newCollections = collections.shuffled().take(3)
+//                            createForGroup(render, newCollections, file, instructions, translation)
+//                        }
+//
+//                        return@forEach
+//                    }
+//
+//                    createForGroup(render, collections, file, instructions, translation)
                 } catch (e: Exception) {
                     logger.error("Failed to parse ${file.absolutePath}", e)
                 }

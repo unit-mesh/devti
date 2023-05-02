@@ -6,7 +6,7 @@ import cc.unitmesh.processor.api.swagger.Swagger3Processor
 import java.io.File
 
 object ApiProcessorDetector {
-    fun detectApiProcessor(file: File, withPostman: Boolean = false): ApiProcessor? {
+    fun detectApiProcessor(file: File, withPostman: Boolean = false, postmanOnly: Boolean = false): ApiProcessor? {
         val content = file.readText()
 
         if (withPostman) {
@@ -15,6 +15,10 @@ object ApiProcessorDetector {
                     return PostmanProcessor(file)
                 }
             }
+        }
+
+        if (postmanOnly) {
+            return null
         }
 
         return getSwaggerProcessor(file)?.let {

@@ -69,7 +69,7 @@ class Generating : CliktCommand() {
 
         val instructions: MutableList<Instruction> = mutableListOf()
 
-        val domainTranslation = getDomainTranslate(domain)
+        val translation = getDomainTranslate(domain)
 
         val apiNames = mutableSetOf<String>()
 
@@ -91,6 +91,8 @@ class Generating : CliktCommand() {
                     val collections = processor.convertApi()
                     val render = MarkdownTableRender()
 
+
+                    // create for each api
                     collections.forEach {
                         val single = render.render(listOf(it))
                         if (single.length < 128) {
@@ -98,7 +100,7 @@ class Generating : CliktCommand() {
                             return@forEach
                         }
 
-                        val serviceName = domainName(domainTranslation, it)
+                        val serviceName = domainName(translation, it)
                         apiNames += serviceName
 
                         instructions += Instruction(
@@ -114,20 +116,26 @@ class Generating : CliktCommand() {
                         )
                     }
 
-                    val output = render.render(collections)
-                    val outputFile = File(outputDIr, "$parentName-${file.nameWithoutExtension}.md")
-                    val maybeAGoodApi = 128
-                    if (output.length > maybeAGoodApi) {
-                        outputFile.writeText(output)
+                    logger.error("collections size: ${collections.size}")
+                    if (collections.size > 10) {
+                        repeat(5) {
+                            val newCollections = collections.shuffled().take(3)
+                            createForGroup(render, newCollections, file, instructions, translation)
+                        }
 
-                        instructions += Instruction(
-                            instruction = GROUP_API_INSTRUCTION,
-                            input = collections.joinToString(", ") { domainName(domainTranslation, it) },
-                            output = output
-                        )
-                    } else {
-                        logger.info("Skip ${file.absolutePath} because it's too short")
+                        return@forEach
                     }
+                    if (collections.size > 6) {
+                        // repeat two random select 5 apis
+                        repeat(3) {
+                            val newCollections = collections.shuffled().take(3)
+                            createForGroup(render, newCollections, file, instructions, translation)
+                        }
+
+                        return@forEach
+                    }
+
+                    createForGroup(render, collections, file, instructions, translation)
                 } catch (e: Exception) {
                     logger.error("Failed to parse ${file.absolutePath}", e)
                 }
@@ -141,6 +149,26 @@ class Generating : CliktCommand() {
         // write to jsonl
         val jsonl = File(outputDir, "instructions.jsonl")
         jsonl.writeText(instructions.joinToString("\n") { Json.encodeToString(it) })
+    }
+
+    private fun createForGroup(
+        render: MarkdownTableRender,
+        collections: List<ApiCollection>,
+        file: File,
+        instructions: MutableList<Instruction>,
+        domainTranslation: MutableMap<String, String>
+    ) {
+        val output = render.render(collections)
+        val maybeAGoodApi = 128
+        if (output.length > maybeAGoodApi) {
+            instructions += Instruction(
+                instruction = GROUP_API_INSTRUCTION,
+                input = collections.joinToString(", ") { domainName(domainTranslation, it) },
+                output = output
+            )
+        } else {
+            logger.info("Skip ${file.absolutePath} because it's too short")
+        }
     }
 
     private fun domainName(

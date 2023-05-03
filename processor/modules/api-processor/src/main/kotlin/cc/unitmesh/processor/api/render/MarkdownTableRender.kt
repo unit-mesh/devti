@@ -1,8 +1,8 @@
 package cc.unitmesh.processor.api.render
 
 import cc.unitmesh.core.model.ApiCollection
-import cc.unitmesh.processor.api.base.ApiDetailRender
 import cc.unitmesh.core.model.ApiTagOutput
+import cc.unitmesh.processor.api.base.ApiDetailRender
 
 class MarkdownTableRender : ApiDetailRender {
     override fun renderCollection(collection: ApiCollection): String {
@@ -41,5 +41,4 @@ class MarkdownTableRender : ApiDetailRender {
 
         return ApiTagOutput(result.joinToString("\n")).toString()
     }
-
 }

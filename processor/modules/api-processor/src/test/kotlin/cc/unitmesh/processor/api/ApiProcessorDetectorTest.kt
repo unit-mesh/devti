@@ -14,12 +14,12 @@ class ApiProcessorDetectorTest {
         val processor = ApiProcessorDetector.detectApiProcessor(file, true)!!
         processor.javaClass shouldBe PostmanProcessor::class.java
 
-        //swagger-3.json
+        // swagger-3.json
         val file2 = File("src/test/resources/testsets/swagger-3.json")
         val processor2 = ApiProcessorDetector.detectApiProcessor(file2, true)!!
         processor2.javaClass shouldBe Swagger3Processor::class.java
 
-        //swagger-3.yaml
+        // swagger-3.yaml
         val file3 = File("src/test/resources/testsets/swagger-3.yaml")
         val processor3 = ApiProcessorDetector.detectApiProcessor(file3, true)!!
         processor3.javaClass shouldBe Swagger3Processor::class.java

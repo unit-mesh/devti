@@ -1,10 +1,10 @@
 package cc.unitmesh.processor.api
 
-import cc.unitmesh.core.model.ApiCollection
-import cc.unitmesh.processor.api.base.ApiProcessor
 import cc.unitmesh.core.Instruction
-import cc.unitmesh.processor.api.render.MarkdownTableRender
+import cc.unitmesh.core.model.ApiCollection
 import cc.unitmesh.core.prompter.OpenAiProxyPrompter
+import cc.unitmesh.processor.api.base.ApiProcessor
+import cc.unitmesh.processor.api.render.MarkdownTableRender
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.default
@@ -50,7 +50,7 @@ fun randomInstruction(serviceName: String): String {
         "如何设计一个可以处理${serviceName}的 API？",
         "如何设计一个可以处理${serviceName}的 API？",
         "如何实现${serviceName}的 API？",
-        "设计一个可以${serviceName}的 API。"
+        "设计一个可以${serviceName}的 API。",
     )
 
     val random = Random.nextInt(0, instructions.size)
@@ -106,13 +106,13 @@ class Generating : CliktCommand() {
                         instructions += Instruction(
                             instruction = ONE_API_INSTRUCTION,
                             input = serviceName,
-                            output = single
+                            output = single,
                         )
 
                         instructions += Instruction(
                             instruction = randomInstruction(serviceName),
                             input = "",
-                            output = single
+                            output = single,
                         )
                     }
 
@@ -160,7 +160,7 @@ class Generating : CliktCommand() {
         collections: List<ApiCollection>,
         file: File,
         instructions: MutableList<Instruction>,
-        domainTranslation: MutableMap<String, String>
+        domainTranslation: MutableMap<String, String>,
     ): String? {
         val output = render.render(collections)
         val maybeAGoodApi = 128
@@ -169,7 +169,7 @@ class Generating : CliktCommand() {
             instructions += Instruction(
                 instruction = GROUP_API_INSTRUCTION,
                 input = collections.joinToString(", ") { domainName(domainTranslation, it) },
-                output = output
+                output = output,
             )
 
             return output
@@ -182,7 +182,7 @@ class Generating : CliktCommand() {
 
     private fun domainName(
         domainTranslation: MutableMap<String, String>,
-        it: ApiCollection
+        it: ApiCollection,
     ) = domainTranslation[it.name] ?: it.name
 }
 
@@ -317,7 +317,7 @@ class Prompting : CliktCommand() {
                 instructions += Instruction(
                     instruction = randomInstruction(serviceName),
                     input = "",
-                    output = output
+                    output = output,
                 )
             }
         }
@@ -342,7 +342,7 @@ class Prompting : CliktCommand() {
 
     private fun translateName(
         domainTranslation: MutableMap<String, String>,
-        name: String
+        name: String,
     ): String {
         var serviceName = name.simplifyApi()
 
@@ -370,7 +370,6 @@ private fun String.simplifyApi(): String = this
     .replace("API", "")
     .replace("服务", "")
 
-
 fun getDomainTranslate(domainFile: File): MutableMap<String, String> {
     val domainTranslation = mutableMapOf<String, String>()
     if (domainFile.exists()) {
@@ -389,7 +388,7 @@ private fun outputMarkdown(
     markdownApiOutputDir: File,
     index: Int,
     bank: Bank,
-    service: OpenApiService
+    service: OpenApiService,
 ) = File(markdownApiOutputDir, "$index-${bank.name}-${service.name}.md")
 
 @Serializable
@@ -399,17 +398,17 @@ class Bank(
     val description: String,
     val openApiService: List<OpenApiService>,
     val otherService: List<OtherService>? = null,
-    val bankType: String
+    val bankType: String,
 )
 
 @Serializable
 class OpenApiService(
     val name: String,
-    val description: String
+    val description: String,
 )
 
 @Serializable
 class OtherService(
     val name: String,
-    val description: String
+    val description: String,
 )

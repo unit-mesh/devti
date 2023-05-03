@@ -1,22 +1,22 @@
 package cc.unitmesh.processor
 
+import cc.unitmesh.core.cli.PreProcessorConfig
 import cc.unitmesh.core.cli.ProcessorUtils
+import cc.unitmesh.core.java.JavaProcessor
+import cc.unitmesh.core.java.ShortClass
+import cc.unitmesh.core.java.TestProcessor
 import com.github.ajalt.clikt.core.CliktCommand
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.slf4j.Logger
-import cc.unitmesh.core.java.JavaProcessor
-import cc.unitmesh.core.java.ShortClass
-import cc.unitmesh.core.java.TestProcessor
-import cc.unitmesh.core.cli.PreProcessorConfig
 import org.slf4j.LoggerFactory
 import java.io.File
 
 @Serializable
 data class TestFilePrompt(
     val classInfo: String,
-    val testMethod: String
+    val testMethod: String,
 )
 
 fun main(args: Array<String>) = Runner().main(args)
@@ -107,7 +107,7 @@ class Runner : CliktCommand(help = "Action Runner") {
                             .splitTests().forEachIndexed { index, test ->
                                 TestFilePrompt(
                                     classInfo = shortClass.toString(),
-                                    testMethod = test
+                                    testMethod = test,
                                 ).let { prompt ->
                                     val output = Json.encodeToString(prompt)
                                     // https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them
@@ -120,7 +120,6 @@ class Runner : CliktCommand(help = "Action Runner") {
                                 }
                             }
                     }
-
                 }
             }
         }
@@ -149,16 +148,14 @@ class Runner : CliktCommand(help = "Action Runner") {
                     .removeLicenseInfoBeforeImport()
 
                 testProcessor.splitTests().forEachIndexed { index, test ->
-                        File("$targetPath$index.${it.extension}").writeText(test)
-                    }
+                    File("$targetPath$index.${it.extension}").writeText(test)
+                }
             }
         }
         val targetFileCount = File("datasets").walkTopDown().count { it.isFile }
 
-
         logger.info("Origin file count: $originFileCount")
         logger.info("Target file count: $targetFileCount")
-
     }
 
     private fun getTargetPath(fileName: String, targetType: String) =

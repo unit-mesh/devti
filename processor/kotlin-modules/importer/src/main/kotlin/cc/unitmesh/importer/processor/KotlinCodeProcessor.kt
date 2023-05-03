@@ -48,9 +48,8 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
             }
         }.toList()
 
-
     fun getMethodByAnnotationName(annotationName: String): List<ASTNode> {
-        if (!sourceCode.contains("@${annotationName}")) {
+        if (!sourceCode.contains("@$annotationName")) {
             return listOf()
         }
 
@@ -75,7 +74,7 @@ class KotlinCodeProcessor(private val rootNode: FileASTNode, private val sourceC
 
     private fun splitMethods(
         methods: List<ASTNode>,
-        classNode: ASTNode
+        classNode: ASTNode,
     ): List<ASTNode> {
         return methods.map { method ->
             val newClassNode = classNode.clone() as ASTNode

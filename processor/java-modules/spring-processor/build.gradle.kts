@@ -42,7 +42,6 @@ kotlin {
     jvmToolchain(11)
 }
 
-
 application {
     mainClass.set("cc.unitmesh.spring.MainKt")
 }

@@ -3,7 +3,7 @@ package cc.unitmesh.core.git
 class GitCommandManager(var workingDirectory: String = ".") {
     private val gitEnv: MutableMap<String, String> = mutableMapOf(
         "GIT_TERMINAL_PROMPT" to "0", // Disable git prompt
-        "GCM_INTERACTIVE" to "Never" // Disable prompting for git credential manager
+        "GCM_INTERACTIVE" to "Never", // Disable prompting for git credential manager
     )
 
     private var gitPath = "git"
@@ -33,7 +33,7 @@ class GitCommandManager(var workingDirectory: String = ".") {
             env = env,
             silent = silent,
             ignoreReturnCode = allowAllExitCodes,
-            listeners = StringListExecListeners(stdout, stderr)
+            listeners = StringListExecListeners(stdout, stderr),
         )
 
         result.exitCode = exec.exec(gitPath, args, options)
@@ -45,5 +45,5 @@ class GitCommandManager(var workingDirectory: String = ".") {
 
 data class GitOutput(
     var stdout: String = "",
-    var exitCode: Int = 0
+    var exitCode: Int = 0,
 )

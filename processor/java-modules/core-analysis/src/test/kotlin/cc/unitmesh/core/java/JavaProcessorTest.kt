@@ -43,7 +43,7 @@ org.unitmesh.processor.java.JavaProcessor()
                 void test2() {
                 }
             }
-         """.trimIndent()
+        """.trimIndent()
 
         val processor = JavaProcessor(code)
         val methods = processor.splitMethods()
@@ -68,5 +68,4 @@ org.unitmesh.processor.java.JavaProcessor()
             
         """.trimIndent()
     }
-
 }

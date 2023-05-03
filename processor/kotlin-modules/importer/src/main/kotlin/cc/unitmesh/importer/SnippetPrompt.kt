@@ -9,5 +9,4 @@ class SnippetPrompt(
     val requiredType: List<String>,
     val content: String,
     val prompt: String,
-) {
-}
+)

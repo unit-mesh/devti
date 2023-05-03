@@ -48,7 +48,7 @@ data class Request(
     val parameters: List<Parameter> = listOf(),
     val body: List<Parameter> = listOf(),
     val bodyMode: BodyMode = BodyMode.TYPED,
-    val bodyString: String = ""
+    val bodyString: String = "",
 ) {
     override fun toString(): String {
         val params = parameters.joinToString(", ") { it.toString() }
@@ -66,13 +66,16 @@ data class Response(
     val code: Int,
     val parameters: List<Parameter> = listOf(),
     var bodyMode: BodyMode = BodyMode.TYPED,
-    var bodyString: String = ""
+    var bodyString: String = "",
 ) {
     override fun toString(): String = when (bodyMode) {
         BodyMode.RAW_TEXT -> "$code: ${bodyString.replace("\r\n", "").replace("\n", "")}"
         BodyMode.TYPED -> {
-            if (parameters.isEmpty()) "$code: {}"
-            else "$code: {${parameters.joinToString(", ") { it.toString() }}}"
+            if (parameters.isEmpty()) {
+                "$code: {}"
+            } else {
+                "$code: {${parameters.joinToString(", ") { it.toString() }}}"
+            }
         }
     }
 }

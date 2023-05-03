@@ -15,7 +15,6 @@ sealed class ChildType {
     class Folder(val collection: ApiCollection) : ChildType()
 
     class Item(val items: List<ApiItem>) : ChildType()
-
 }
 
 class PostmanParser {
@@ -93,7 +92,6 @@ class PostmanParser {
                 return childTypes
             }
 
-
             subItem.request != null -> {
                 val apiItems = processApiItem(subItem, folderName, itemName)?.let {
                     listOf(it)
@@ -111,7 +109,7 @@ class PostmanParser {
     private fun processApiItem(
         subItem: PostmanItem,
         folderName: String?,
-        itemName: String?
+        itemName: String?,
     ): ApiItem? {
         val request = subItem.request
         val url: PostmanUrl? = request?.url
@@ -202,4 +200,3 @@ class PostmanParser {
 private fun String?.replaceLineBreak(): String? {
     return this?.replace("\n", "")?.replace("\r", "")
 }
-

@@ -149,5 +149,4 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 - methods: findById(Long): Optional<Post>, updatePostCommentsSize(int, Long): void, findAllByPostTopics(String): List<Post>, findDistinctByPostTopics(String): List<Post>"""
         assertEquals(expected, toShortClass.toString())
     }
-
 }

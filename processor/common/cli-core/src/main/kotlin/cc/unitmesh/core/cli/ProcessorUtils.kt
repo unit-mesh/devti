@@ -41,5 +41,4 @@ object ProcessorUtils {
         val content = file.readText()
         return Yaml.default.decodeFromString(deserializer = PreProcessorConfig.serializer(), content)
     }
-
 }

@@ -8,7 +8,7 @@ data class ShortClass(
     val packageName: String?,
     val fields: List<ShortField> = listOf(),
     val methods: List<ShortMethod> = listOf(),
-    val constructors: List<ShortParameter> = listOf()
+    val constructors: List<ShortParameter> = listOf(),
 ) {
     val name = packageName?.let { "$it.$className" } ?: className
 
@@ -16,11 +16,17 @@ data class ShortClass(
         val classInfo =
             """${packageName?.let { "$it." } ?: ""}$className(${constructors.joinToString(", ") { it.dataType }})"""
         val fieldInfo =
-            if (fields.isNotEmpty()) "\n- fields: ${fields.joinToString(", ") { it.fieldName + ":" + it.dataType }}"
-            else ""
+            if (fields.isNotEmpty()) {
+                "\n- fields: ${fields.joinToString(", ") { it.fieldName + ":" + it.dataType }}"
+            } else {
+                ""
+            }
         val methodInfo =
-            if (methods.isNotEmpty()) "\n- methods: ${methods.joinToString(", ") { it.toString() }}"
-            else ""
+            if (methods.isNotEmpty()) {
+                "\n- methods: ${methods.joinToString(", ") { it.toString() }}"
+            } else {
+                ""
+            }
 
         return classInfo + fieldInfo + methodInfo
     }

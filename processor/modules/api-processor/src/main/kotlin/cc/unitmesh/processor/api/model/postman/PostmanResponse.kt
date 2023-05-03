@@ -16,6 +16,4 @@ class PostmanResponse(
 //    val data: List<Data>,
 //    val links: Links,
 //    val meta: Meta
-) {
-
-}
+)

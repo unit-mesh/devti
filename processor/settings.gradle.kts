@@ -20,5 +20,5 @@ include(
     ":java-modules:spring-processor",
     ":java-modules:test-processor",
 
-    ":modules:api-processor"
+    ":modules:api-processor",
 )

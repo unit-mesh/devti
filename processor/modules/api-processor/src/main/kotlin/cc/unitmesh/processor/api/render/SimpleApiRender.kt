@@ -1,8 +1,8 @@
 package cc.unitmesh.processor.api.render
 
 import cc.unitmesh.core.model.ApiCollection
-import cc.unitmesh.processor.api.base.ApiDetailRender
 import cc.unitmesh.core.model.ApiItem
+import cc.unitmesh.processor.api.base.ApiDetailRender
 
 class SimpleApiRender : ApiDetailRender {
     override fun renderCollection(collection: ApiCollection): String {
@@ -26,6 +26,6 @@ class SimpleApiRender : ApiDetailRender {
         if (inputs.isEmpty()) return "(): $outputs"
         if (outputs.isEmpty()) return "($inputs)"
 
-        return "(${inputs}) : $outputs"
+        return "($inputs) : $outputs"
     }
 }

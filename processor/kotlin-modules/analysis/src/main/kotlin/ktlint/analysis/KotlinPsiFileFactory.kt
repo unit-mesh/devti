@@ -75,7 +75,7 @@ internal fun initPsiFileFactory(isFromCli: Boolean): PsiFileFactory {
 /**
  * Note: this only works in CLI shadowed jar! 'extensions/compiler.xml' is absent in non-shadowed jar.
  */
-//private fun extractCompilerExtension(): Path {
+// private fun extractCompilerExtension(): Path {
 //    KtLintRuleEngine::class.java.getResourceAsStream("/META-INF/extensions/compiler.xml").use { input ->
 //        val tempDir = Files.createTempDirectory("ktlint")
 //        tempDir.toFile().deleteOnExit()
@@ -90,7 +90,7 @@ internal fun initPsiFileFactory(isFromCli: Boolean): PsiFileFactory {
 //
 //        return tempDir
 //    }
-//}
+// }
 
 /**
  * Do not print anything to the stderr when lexer is unable to match input.

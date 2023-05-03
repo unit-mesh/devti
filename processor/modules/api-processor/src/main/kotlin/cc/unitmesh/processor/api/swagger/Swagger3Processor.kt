@@ -1,16 +1,16 @@
 package cc.unitmesh.processor.api.swagger
 
 import cc.unitmesh.core.model.ApiCollection
-import cc.unitmesh.processor.api.base.ApiProcessor
 import cc.unitmesh.core.model.ApiItem
 import cc.unitmesh.core.model.Parameter
 import cc.unitmesh.core.model.Request
 import cc.unitmesh.core.model.Response
-import io.swagger.v3.parser.OpenAPIV3Parser;
+import cc.unitmesh.processor.api.base.ApiProcessor
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.Operation
 import io.swagger.v3.oas.models.media.Schema
 import io.swagger.v3.oas.models.responses.ApiResponse
+import io.swagger.v3.parser.OpenAPIV3Parser
 import java.io.File
 
 class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
@@ -29,7 +29,7 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
                     operationId = operation.operationId ?: "",
                     tags = operation.tags ?: listOf(),
                     request = convertRequest(operation),
-                    response = convertResponses(operation)
+                    response = convertResponses(operation),
                 )
 
                 allItems.add(apiItem)
@@ -72,7 +72,7 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
         schema.properties?.map { (name, schema) ->
             Parameter(
                 name = name,
-                type = schema.type ?: ""
+                type = schema.type ?: "",
             )
         }
 
@@ -82,7 +82,7 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
         return schema?.properties?.map { (name, schema) ->
             Parameter(
                 name = name,
-                type = schema.type ?: ""
+                type = schema.type ?: "",
             )
         }
     }
@@ -91,7 +91,7 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
         val parameters = operation.parameters?.map {
             Parameter(
                 name = it.name ?: "",
-                type = it.schema?.type ?: ""
+                type = it.schema?.type ?: "",
             )
         }
 
@@ -99,7 +99,7 @@ class Swagger3Processor(private val api: OpenAPI) : ApiProcessor {
             content.schema?.properties?.map { (name, schema) ->
                 Parameter(
                     name = name,
-                    type = schema.type ?: ""
+                    type = schema.type ?: "",
                 )
             } ?: listOf()
         } ?: listOf()

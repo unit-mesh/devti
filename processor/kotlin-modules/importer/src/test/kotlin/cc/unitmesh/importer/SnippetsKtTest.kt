@@ -55,7 +55,7 @@ class SnippetsKtTest {
 
         val prompts = Snippets.toLLMPrompts(
             types,
-            snippets
+            snippets,
         )
 
         assertEquals(4, prompts.size)

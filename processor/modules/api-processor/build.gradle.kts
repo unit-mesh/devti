@@ -48,7 +48,6 @@ kotlin {
     jvmToolchain(11)
 }
 
-
 application {
     mainClass.set("cc.unitmesh.processor.swagger.MainKt")
 }

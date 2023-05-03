@@ -60,6 +60,5 @@ class ExecOptions(
     val env: MutableMap<String, String> = mutableMapOf(),
     val silent: Boolean = false,
     val ignoreReturnCode: Boolean = false,
-    val listeners: ExecListeners = object : ExecListeners {}
+    val listeners: ExecListeners = object : ExecListeners {},
 )
-

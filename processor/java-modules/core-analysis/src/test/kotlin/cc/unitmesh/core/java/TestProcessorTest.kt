@@ -31,7 +31,7 @@ class TestProcessorTest {
             
             class TestProcessorTest {
             }
-         """.trimIndent()
+        """.trimIndent()
 
         val processor = TestProcessor(code)
         processor.removeLicenseInfoBeforeImport()
@@ -45,7 +45,7 @@ class TestProcessorTest {
             class TestProcessorTest {
             }
 
-         """.trimIndent()
+        """.trimIndent()
     }
 
     @Test
@@ -66,7 +66,7 @@ class TestProcessorTest {
                 void test2() {
                 }
             }
-         """.trimIndent()
+        """.trimIndent()
 
         val processor = TestProcessor(code)
         val tests = processor.splitTests()
@@ -85,7 +85,7 @@ class TestProcessorTest {
                 }
             }
 
-         """.trimIndent()
+        """.trimIndent()
 
         tests[1] shouldBe """
             package com.thoughtworks.go.server.messaging.scheduling;
@@ -101,7 +101,7 @@ class TestProcessorTest {
                 }
             }
 
-         """.trimIndent()
+        """.trimIndent()
     }
 
     @Test
@@ -122,7 +122,7 @@ class TestProcessorTest {
                 void test2() {
                 }
             }
-         """.trimIndent()
+        """.trimIndent()
 
         val processor = TestProcessor(code)
         processor.removeAllImport()
@@ -179,5 +179,4 @@ class TestProcessorTest {
 
         """.trimIndent()
     }
-
 }

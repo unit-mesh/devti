@@ -1,16 +1,15 @@
 package cc.unitmesh.importer
 
-import cc.unitmesh.importer.processor.KotlinParserWrapper
-import cc.unitmesh.importer.processor.KotlinCodeProcessor
-import cc.unitmesh.importer.processor.allMethods
 import cc.unitmesh.importer.model.CodeSnippet
 import cc.unitmesh.importer.model.RawDump
+import cc.unitmesh.importer.processor.KotlinCodeProcessor
+import cc.unitmesh.importer.processor.KotlinParserWrapper
+import cc.unitmesh.importer.processor.allMethods
 import cc.unitmesh.importer.processor.classToConstructorText
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import ktlint.analysis.KtLintParseException
 import java.io.File
-
 
 object Snippets {
     private fun promptForOpenAI(code: String): String {
@@ -19,11 +18,11 @@ object Snippets {
 ###
 $code
 ###
-""".trimMargin()
+            """.trimMargin()
     }
 
     fun fromFile(outputFile: File): MutableList<CodeSnippet> {
-        val results: MutableList<CodeSnippet> = mutableListOf();
+        val results: MutableList<CodeSnippet> = mutableListOf()
         val dumpList = Json.decodeFromString<List<RawDump>>(outputFile.readText())
         dumpList.forEach { rawDump ->
             val snippet: KotlinParserWrapper
@@ -62,10 +61,9 @@ $code
                                 size = size,
                                 imports = imports,
                                 requiredType = requiredType,
-                            )
+                            ),
                         )
                     }
-
                 }
             }
         }
@@ -75,7 +73,7 @@ $code
 
     fun toLLMPrompts(
         typesDump: List<RawDump>,
-        snippets: List<CodeSnippet>
+        snippets: List<CodeSnippet>,
     ): List<SnippetPrompt> {
         val typeMapByIdentifier: MutableMap<String, RawDump> = mutableMapOf()
         typesDump.forEach { type ->
@@ -111,7 +109,7 @@ $code
     }
 
     fun toOpenAIPrompts(
-        snippets: List<CodeSnippet>
+        snippets: List<CodeSnippet>,
     ): List<SnippetPrompt> {
         val typeMapByIdentifier: MutableMap<String, RawDump> = mutableMapOf()
 
@@ -135,6 +133,4 @@ $code
             )
         }
     }
-
 }
-

@@ -12,7 +12,7 @@ val LICENSES = listOf(
     "Licensed under the Apache License,",
     "Licensed to the Apache Software Foundation (ASF) under one",
     "under the terms of the MIT License.",
-    "Mozilla Public License"
+    "Mozilla Public License",
 )
 
 open class JavaProcessor(open val code: String) : JvmProcessor {
@@ -37,7 +37,8 @@ open class JavaProcessor(open val code: String) : JvmProcessor {
             ShortMethod(
                 method.nameAsString,
                 method.typeAsString,
-                method.parameters.map { ShortParameter(it.nameAsString, it.typeAsString) })
+                method.parameters.map { ShortParameter(it.nameAsString, it.typeAsString) },
+            )
         }
         val constructors = cls.constructors.map { ShortParameter(it.nameAsString, it.typeAsString) }
         return ShortClass(cls.nameAsString, packageName, fields, methods, constructors)

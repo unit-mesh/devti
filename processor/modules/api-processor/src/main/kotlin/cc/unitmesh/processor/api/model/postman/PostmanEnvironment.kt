@@ -16,7 +16,7 @@ class PostmanEnvironment {
     fun setEnvironmentVariable(key: String, value: String?) {
         val existingVar = lookup[key]
         if (existingVar != null) {
-            //Update existing value if any
+            // Update existing value if any
             existingVar.value = value
         } else {
             val newVar = PostmanEnvValue()

@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 class Instruction(
     val instruction: String,
     val input: String,
-    val output: String
+    val output: String,
 )

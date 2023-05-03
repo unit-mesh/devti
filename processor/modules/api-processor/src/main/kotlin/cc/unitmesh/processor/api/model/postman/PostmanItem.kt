@@ -17,4 +17,3 @@ open class PostmanItem {
 class PostmanProtocolProfileBehavior {
     var disableBodyPruning: Boolean? = null
 }
-

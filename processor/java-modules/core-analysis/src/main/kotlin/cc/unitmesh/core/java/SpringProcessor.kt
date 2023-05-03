@@ -29,7 +29,7 @@ class SpringProcessor(code: String) : JavaProcessor(code) {
     fun splitControllerMethods(): List<String> {
         val methods = mutableListOf<String>()
         unit.findAll(ClassOrInterfaceDeclaration::class.java).forEach { cls ->
-            cls.methods.filter{
+            cls.methods.filter {
                 it.annotations.any { annotation ->
                     annotation.nameAsString == "RequestMapping"
                 }

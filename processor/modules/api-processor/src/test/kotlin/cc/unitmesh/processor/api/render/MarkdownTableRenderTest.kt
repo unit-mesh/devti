@@ -40,5 +40,4 @@ class MarkdownTableRenderTest {
 """.trimIndent()
         assertEquals(expected, result)
     }
-
 }

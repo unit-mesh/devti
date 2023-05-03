@@ -1,15 +1,15 @@
 package cc.unitmesh.processor.codegen
 
+import cc.unitmesh.core.cli.PreProcessorConfig
 import cc.unitmesh.core.cli.ProcessorUtils
-import com.github.ajalt.clikt.core.CliktCommand
-import kotlinx.serialization.Serializable
-import org.slf4j.Logger
 import cc.unitmesh.core.java.JavaProcessor
 import cc.unitmesh.core.java.ShortClass
 import cc.unitmesh.core.java.TestProcessor
-import cc.unitmesh.core.cli.PreProcessorConfig
+import com.github.ajalt.clikt.core.CliktCommand
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
 
@@ -17,7 +17,7 @@ import java.io.File
 data class CodegenPrompt(
     val instruction: String,
     val input: String,
-    val output: String
+    val output: String,
 )
 
 fun main(args: Array<String>) = Runner().main(args)
@@ -103,10 +103,10 @@ class Runner : CliktCommand(help = "Action Runner") {
                         CodegenPrompt(
                             instruction = "Implement the method $key",
                             input = shotClass.toString(),
-                            output = value
+                            output = value,
                         ).let { prompt ->
                             val output = Json.encodeToString(prompt)
-                            File("$targetPath${key}.json").writeText(output)
+                            File("$targetPath$key.json").writeText(output)
                         }
                     }
                 }
@@ -143,10 +143,8 @@ class Runner : CliktCommand(help = "Action Runner") {
         }
         val targetFileCount = File("datasets").walkTopDown().count { it.isFile }
 
-
         logger.info("Origin file count: $originFileCount")
         logger.info("Target file count: $targetFileCount")
-
     }
 
     private fun getTargetPath(fileName: String, targetType: String) =

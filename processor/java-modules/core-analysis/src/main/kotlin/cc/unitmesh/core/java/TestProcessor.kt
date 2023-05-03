@@ -7,7 +7,7 @@ class TestProcessor(code: String) : JavaProcessor(code) {
     fun splitTests(): List<String> {
         val tests = mutableListOf<String>()
         unit.findAll(ClassOrInterfaceDeclaration::class.java).forEach { cls ->
-            cls.methods.filter{
+            cls.methods.filter {
                 it.annotations.any { annotation ->
                     annotation.nameAsString == "Test"
                 }

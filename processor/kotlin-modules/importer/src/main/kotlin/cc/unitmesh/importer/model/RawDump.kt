@@ -13,7 +13,7 @@ data class RawDump(
     val copies: String,
     var size: Int,
     var content: String,
-    val license: String
+    val license: String,
 ) {
     fun identifierName(): String {
         // match the package name by regex `package com.cognifide.gradle.aem.instance.tasks`
@@ -29,7 +29,7 @@ data class RawDump(
             filePath = Path(path),
             fileName = path.substringAfterLast("/"),
             script = path.endsWith(".kts", ignoreCase = true),
-            isStdIn = false
+            isStdIn = false,
         )
     }
 

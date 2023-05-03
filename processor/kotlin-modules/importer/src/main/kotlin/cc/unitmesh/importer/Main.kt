@@ -44,7 +44,6 @@ class Analysis : CliktCommand(help = "Action Runner") {
 
         val outputFile = File(filteredFile)
         if (!outputFile.exists()) {
-
             val codes: List<RawDump> = readDumpLists()
 
             val outputs = codes.filter { code ->
@@ -72,7 +71,6 @@ class Analysis : CliktCommand(help = "Action Runner") {
     }
 }
 
-
 private val typeFile = "datasets" + File.separator + "types.json"
 
 class Type : CliktCommand(help = "Generate Type Items") {
@@ -97,7 +95,6 @@ class Type : CliktCommand(help = "Generate Type Items") {
         File(typeFile).writeText(Json.Default.encodeToString(typeItems))
     }
 }
-
 
 class Prompt : CliktCommand(help = "Generate Prompt") {
     override fun run() {

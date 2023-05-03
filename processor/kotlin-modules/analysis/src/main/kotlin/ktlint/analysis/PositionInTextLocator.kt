@@ -1,6 +1,5 @@
 package ktlint.analysis
 
-
 typealias LineAndColumn = Pair<Int, Int>
 
 const val UTF8_BOM = "\uFEFF"

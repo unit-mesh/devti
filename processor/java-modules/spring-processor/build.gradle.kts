@@ -12,7 +12,7 @@ repositories {
 
 dependencies {
     implementation(projects.javaModules.coreAnalysis)
-    implementation(projects.common.core)
+    implementation(projects.common.cliCore)
     implementation(libs.clikt)
     implementation(libs.kotlin.compiler)
 

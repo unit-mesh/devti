@@ -10,7 +10,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.time.Duration
 
-class OpenAiProxyPrompter(val openAiKey: String, val openAiProxy: String) {
+class OpenAiPrompter(val openAiKey: String, val openAiProxy: String) {
     private val openAiVersion: String = "gpt-3.5-turbo"
     private var service: OpenAiService
     private val timeout = Duration.ofSeconds(600)

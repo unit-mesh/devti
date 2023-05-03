@@ -3,7 +3,6 @@ package cc.unitmesh.core.java
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
 
 class TestProcessor(code: String) : JavaProcessor(code) {
-
     fun splitTests(): List<String> {
         val tests = mutableListOf<String>()
         unit.findAll(ClassOrInterfaceDeclaration::class.java).forEach { cls ->

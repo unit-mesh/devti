@@ -2,7 +2,7 @@ package cc.unitmesh.processor.api
 
 import cc.unitmesh.core.Instruction
 import cc.unitmesh.core.model.ApiCollection
-import cc.unitmesh.core.prompter.OpenAiProxyPrompter
+import cc.unitmesh.core.prompter.OpenAiPrompter
 import cc.unitmesh.processor.api.base.ApiProcessor
 import cc.unitmesh.processor.api.render.MarkdownTableRender
 import com.github.ajalt.clikt.core.CliktCommand
@@ -225,7 +225,7 @@ class Prompting : CliktCommand() {
             outputFile.writeText(newPrompt)
         }
 
-        val prompter = OpenAiProxyPrompter(key, proxy)
+        val prompter = OpenAiPrompter(key, proxy)
         val prompterOutputDir = File(outputDir.absolutePath, "prompter")
         prompterOutputDir.mkdirs()
 

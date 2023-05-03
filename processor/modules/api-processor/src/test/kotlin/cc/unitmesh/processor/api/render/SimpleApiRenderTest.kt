@@ -1,7 +1,7 @@
 package cc.unitmesh.processor.api.render
 
 import cc.unitmesh.processor.api.ApiProcessorDetector
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.io.File
 
@@ -29,6 +29,7 @@ Cashback notification
 POST /cashback-subscriptions  subscribeCashbackNotifications(X-App-Token: string) : [201: {subscriptionId: string}, 400: {errors: array}, 401: {errors: array}, 403: {errors: array}, 500: {errors: array}] 
 DELETE /cashback-subscriptions  deleteCashbackNotifications(X-App-Token: string) : [204: {}, 401: {errors: array}, 403: {errors: array}, 500: {errors: array}] 
 """.trimIndent()
+
         assertEquals(expected, result)
     }
 }

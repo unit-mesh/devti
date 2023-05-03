@@ -1,7 +1,7 @@
 package cc.unitmesh.processor.api.render
 
 import cc.unitmesh.processor.api.ApiProcessorDetector
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.io.File
 

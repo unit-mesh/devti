@@ -26,7 +26,7 @@ open class JavaProcessor(open val code: String) : JvmProcessor {
         }
     }
 
-    fun toShortClass(): ShortClass? {
+    override fun toShortClass(): ShortClass? {
         val cls = unit.findFirst(ClassOrInterfaceDeclaration::class.java).orElse(null) ?: return null
 
         val packageName = unit.packageDeclaration.map { it.nameAsString }.orElse(null)

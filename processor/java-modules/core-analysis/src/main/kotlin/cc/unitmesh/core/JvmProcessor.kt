@@ -1,4 +1,7 @@
 package cc.unitmesh.core
 
-interface JvmProcessor
+import cc.unitmesh.core.java.ShortClass
 
+interface JvmProcessor {
+    fun toShortClass(): ShortClass?
+}

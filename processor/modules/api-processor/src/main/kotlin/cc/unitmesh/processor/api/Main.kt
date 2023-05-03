@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.random.Random
 
-fun main(args: Array<String>) = Generating()
+fun main(args: Array<String>) = Prompting()
 //    .subcommands(Prompting())
     .main(args)
 
@@ -306,14 +306,14 @@ class Prompting : CliktCommand() {
 
         createServiceNameMap(serviceNameMap)
 
-        // repeat 500 time, to randomize take 3~5 items from serviceMap
-        repeat(1000) {
-            val serviceNames = serviceMap.keys.toList().shuffled().take(Random.nextInt(3, 5))
-            val instruction = GROUP_API_INSTRUCTION
-            val input = serviceNames.joinToString(separator = "、")
-            val output = serviceNames.joinToString(separator = "\n") { serviceMap[it]!! }
-            instructions += Instruction(instruction = instruction, input = input, output = output)
-        }
+        // repeat 1000 time, to randomize take 3~5 items from serviceMap
+//        repeat(1000) {
+//            val serviceNames = serviceMap.keys.toList().shuffled().take(Random.nextInt(3, 5))
+//            val instruction = GROUP_API_INSTRUCTION
+//            val input = serviceNames.joinToString(separator = "、")
+//            val output = serviceNames.joinToString(separator = "\n") { serviceMap[it]!! }
+//            instructions += Instruction(instruction = instruction, input = input, output = output)
+//        }
 
         jsonlApiFile.writeText("")
         instructions.forEach {

@@ -295,12 +295,6 @@ class Prompting : CliktCommand() {
                 serviceMap[serviceName] = output
 
                 instructions += Instruction(instruction = ONE_API_INSTRUCTION, input = serviceName, output = output)
-
-                instructions += Instruction(
-                    instruction = randomInstruction(serviceName),
-                    input = "",
-                    output = output,
-                )
             }
         }
 

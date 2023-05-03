@@ -1,9 +1,8 @@
 package cc.unitmesh.processor.api.render
 
-import cc.unitmesh.processor.api.base.ApiCollection
+import cc.unitmesh.core.model.ApiCollection
 import cc.unitmesh.processor.api.base.ApiDetailRender
-import cc.unitmesh.processor.api.base.ApiItem
-import cc.unitmesh.processor.api.base.ApiTagOutput
+import cc.unitmesh.core.model.ApiItem
 
 class SimpleApiRender : ApiDetailRender {
     override fun renderCollection(collection: ApiCollection): String {

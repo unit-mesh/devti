@@ -1,11 +1,11 @@
 package cc.unitmesh.processor.api.parser
 
-import cc.unitmesh.processor.api.base.ApiCollection
-import cc.unitmesh.processor.api.base.ApiItem
-import cc.unitmesh.processor.api.base.BodyMode
-import cc.unitmesh.processor.api.base.Parameter
-import cc.unitmesh.processor.api.base.Request
-import cc.unitmesh.processor.api.base.Response
+import cc.unitmesh.core.model.ApiCollection
+import cc.unitmesh.core.model.ApiItem
+import cc.unitmesh.core.model.BodyMode
+import cc.unitmesh.core.model.Parameter
+import cc.unitmesh.core.model.Request
+import cc.unitmesh.core.model.Response
 import cc.unitmesh.processor.api.model.postman.*
 import java.net.URI
 

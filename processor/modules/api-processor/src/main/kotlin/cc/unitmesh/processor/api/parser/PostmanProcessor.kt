@@ -1,7 +1,6 @@
 package cc.unitmesh.processor.api.parser
 
-import cc.unitmesh.processor.api.base.ApiCollection
-import cc.unitmesh.processor.api.base.ApiItem
+import cc.unitmesh.core.model.ApiCollection
 import cc.unitmesh.processor.api.base.ApiProcessor
 import cc.unitmesh.processor.api.model.postman.PostmanReader
 import java.io.File

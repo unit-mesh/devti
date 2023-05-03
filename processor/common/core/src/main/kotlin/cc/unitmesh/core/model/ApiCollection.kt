@@ -1,11 +1,33 @@
-package cc.unitmesh.processor.api.base
+package cc.unitmesh.core.model
 
 import kotlinx.serialization.Serializable
 
+@Serializable
+data class ApiCollection(
+    val name: String,
+    val description: String,
+    val items: List<ApiItem>,
+) {
+    override fun toString(): String {
+        return "$name: ${items.joinToString(", ") { it.toString() }}"
+    }
+}
 
 @Serializable
-data class ApiTagOutput(val string: String) {
-    override fun toString() = string
+data class ApiItem(
+    val path: String,
+    val method: String,
+    val description: String,
+    val operationId: String,
+    val tags: List<String>,
+    val request: Request? = null,
+    val response: List<Response> = listOf(),
+) {
+    override fun toString(): String {
+        val request = request.toString()
+        val response = response.joinToString(", ") { it.toString() }
+        return "$method $path $description $request $response"
+    }
 }
 
 @Serializable
@@ -56,30 +78,6 @@ data class Response(
 }
 
 @Serializable
-data class ApiItem(
-    val path: String,
-    val method: String,
-    val description: String,
-    val operationId: String,
-    val tags: List<String>,
-    val request: Request? = null,
-    val response: List<Response> = listOf(),
-) {
-    override fun toString(): String {
-        val request = request.toString()
-        val response = response.joinToString(", ") { it.toString() }
-        return "$method $path $description $request $response"
-    }
-}
-
-
-@Serializable
-data class ApiCollection(
-    val name: String,
-    val description: String,
-    val items: List<ApiItem>,
-) {
-    override fun toString(): String {
-        return "$name: ${items.joinToString(", ") { it.toString() }}"
-    }
+data class ApiTagOutput(val string: String) {
+    override fun toString() = string
 }

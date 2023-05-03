@@ -6,6 +6,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "UnitProcessor"
 
 include(
+    ":common:core",
     ":common:cli-core",
     ":common:prompter",
 

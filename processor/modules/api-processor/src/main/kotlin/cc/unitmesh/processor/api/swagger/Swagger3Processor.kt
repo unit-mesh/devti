@@ -1,11 +1,11 @@
 package cc.unitmesh.processor.api.swagger
 
-import cc.unitmesh.processor.api.base.ApiCollection
+import cc.unitmesh.core.model.ApiCollection
 import cc.unitmesh.processor.api.base.ApiProcessor
-import cc.unitmesh.processor.api.base.ApiItem
-import cc.unitmesh.processor.api.base.Parameter
-import cc.unitmesh.processor.api.base.Request
-import cc.unitmesh.processor.api.base.Response
+import cc.unitmesh.core.model.ApiItem
+import cc.unitmesh.core.model.Parameter
+import cc.unitmesh.core.model.Request
+import cc.unitmesh.core.model.Response
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.Operation

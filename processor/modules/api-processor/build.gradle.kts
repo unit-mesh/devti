@@ -11,6 +11,7 @@ repositories {
 }
 
 dependencies {
+    implementation(projects.common.core)
     implementation(projects.common.prompter)
 
     implementation(libs.clikt)

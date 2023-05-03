@@ -1,8 +1,8 @@
 package cc.unitmesh.processor.api
 
-import cc.unitmesh.processor.api.base.ApiCollection
+import cc.unitmesh.core.model.ApiCollection
 import cc.unitmesh.processor.api.base.ApiProcessor
-import cc.unitmesh.processor.api.base.Instruction
+import cc.unitmesh.core.Instruction
 import cc.unitmesh.processor.api.render.MarkdownTableRender
 import cc.unitmesh.core.prompter.OpenAiProxyPrompter
 import com.github.ajalt.clikt.core.CliktCommand

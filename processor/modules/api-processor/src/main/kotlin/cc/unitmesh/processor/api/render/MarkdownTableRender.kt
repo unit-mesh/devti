@@ -1,8 +1,8 @@
 package cc.unitmesh.processor.api.render
 
-import cc.unitmesh.processor.api.base.ApiCollection
+import cc.unitmesh.core.model.ApiCollection
 import cc.unitmesh.processor.api.base.ApiDetailRender
-import cc.unitmesh.processor.api.base.ApiTagOutput
+import cc.unitmesh.core.model.ApiTagOutput
 
 class MarkdownTableRender : ApiDetailRender {
     override fun renderCollection(collection: ApiCollection): String {

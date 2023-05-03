@@ -116,25 +116,7 @@ class Generating : CliktCommand() {
                         )
                     }
 
-//                    logger.error("collections size: ${collections.size}")
-//                    if (collections.size > 10) {
-//                        repeat(5) {
-//                            val newCollections = collections.shuffled().take(3)
-//                            createForGroup(render, newCollections, file, instructions, translation)
-//                        }
-//
-//                        return@forEach
-//                    }
-//                    if (collections.size > 6) {
-//                        // repeat two random select 5 apis
-//                        repeat(3) {
-//                            val newCollections = collections.shuffled().take(3)
-//                            createForGroup(render, newCollections, file, instructions, translation)
-//                        }
-//
-//                        return@forEach
-//                    }
-//
+                    // todo: spike better way to group APIs
                     val output = createForGroup(render, collections, file, instructions, translation)
                     if (output != null) {
                         val outputFile = File(outputDir, "$parentName-${file.nameWithoutExtension}.md")
@@ -245,7 +227,7 @@ class Prompting : CliktCommand() {
             }
         }
 
-        // walkdir prompterOutputDir and merge to jsonl
+        // walk-dir prompterOutputDir and merge to jsonl
         val jsonlFile = File(outputDir.absolutePath, "prompter.jsonl")
         jsonlFile.writeText("")
         val banks = mutableListOf<Bank>()

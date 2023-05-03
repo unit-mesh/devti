@@ -4,6 +4,7 @@ import cc.unitmesh.processor.api.base.ApiCollection
 import cc.unitmesh.processor.api.base.ApiProcessor
 import cc.unitmesh.processor.api.base.Instruction
 import cc.unitmesh.processor.api.render.MarkdownTableRender
+import cc.unitmesh.core.prompter.OpenAiProxyPrompter
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.default

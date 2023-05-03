@@ -1,4 +1,4 @@
-package cc.unitmesh.processor.api
+package cc.unitmesh.core.prompter
 
 import com.theokanning.openai.OpenAiApi
 import com.theokanning.openai.completion.chat.ChatCompletionRequest

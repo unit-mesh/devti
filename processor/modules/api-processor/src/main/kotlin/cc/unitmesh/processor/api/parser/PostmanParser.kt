@@ -7,7 +7,6 @@ import cc.unitmesh.processor.api.base.Parameter
 import cc.unitmesh.processor.api.base.Request
 import cc.unitmesh.processor.api.base.Response
 import cc.unitmesh.processor.api.model.postman.*
-import org.jetbrains.kotlin.cli.common.repl.replEscapeLineBreaks
 import java.net.URI
 
 sealed class ChildType {
@@ -201,6 +200,6 @@ class PostmanParser {
 }
 
 private fun String?.replaceLineBreak(): String? {
-    return this?.replEscapeLineBreaks()?.replace("\n", "")?.replace("\r", "")
+    return this?.replace("\n", "")?.replace("\r", "")
 }
 

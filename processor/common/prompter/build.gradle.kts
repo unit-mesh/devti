@@ -11,9 +11,8 @@ repositories {
 }
 
 dependencies {
-    implementation(projects.common.prompter)
-
     implementation(libs.clikt)
+
     implementation(libs.serialization.json)
 
     // Logging
@@ -28,11 +27,6 @@ dependencies {
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
-
-    implementation("org.jetbrains.kotlinx:dataframe:0.10.0")
-
-    // java parser
-    implementation(libs.swagger.parser.v3)
 
     testImplementation(kotlin("test"))
 

@@ -7,6 +7,7 @@ rootProject.name = "UnitProcessor"
 
 include(
     ":common:core",
+    ":common:prompter",
 
     ":examples:unit-demo",
 
@@ -18,5 +19,5 @@ include(
     ":java-modules:spring-processor",
     ":java-modules:test-processor",
 
-    ":modules:swagger-processor"
+    ":modules:api-processor"
 )

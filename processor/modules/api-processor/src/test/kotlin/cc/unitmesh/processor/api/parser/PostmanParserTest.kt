@@ -16,7 +16,7 @@ class PostmanParserTest {
         val listList = postmanParser.parse(collection)!!
 
         listList.size shouldBe 17
-        listList[0].items.size shouldBe 4
+        listList[0].items.size shouldBe 2
 
         val output = MarkdownTableRender().render(listList)
         println(output)

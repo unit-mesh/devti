@@ -1,4 +1,4 @@
-package cc.unitmesh.processor.api.model.postman
+package cc.unitmesh.processor.api.postman
 
 class PostmanEnvironment {
     var id: String? = null

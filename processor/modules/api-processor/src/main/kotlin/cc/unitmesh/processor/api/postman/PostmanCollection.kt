@@ -1,4 +1,4 @@
-package cc.unitmesh.processor.api.model.postman
+package cc.unitmesh.processor.api.postman
 
 import kotlinx.serialization.Serializable
 
@@ -8,7 +8,7 @@ class PostmanCollection {
     var item: List<PostmanFolder>? = null
     var folderLookup: MutableMap<String?, PostmanFolder> = HashMap()
     var variable: List<PostmanVariable>? = null
-    var auth: PostmanAuth? = null
+    var auth: cc.unitmesh.processor.api.postman.PostmanAuth? = null
     var event: List<PostmanEvent>? = null
 
     fun init() {

@@ -2,7 +2,7 @@ package cc.unitmesh.processor.api.parser
 
 import cc.unitmesh.core.model.ApiCollection
 import cc.unitmesh.processor.api.base.ApiProcessor
-import cc.unitmesh.processor.api.model.postman.PostmanReader
+import cc.unitmesh.processor.api.postman.PostmanReader
 import java.io.File
 
 class PostmanProcessor(val file: File) : ApiProcessor {

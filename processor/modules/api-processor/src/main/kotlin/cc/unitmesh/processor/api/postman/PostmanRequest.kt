@@ -1,4 +1,4 @@
-package cc.unitmesh.processor.api.model.postman
+package cc.unitmesh.processor.api.postman
 
 import kotlinx.serialization.Serializable
 import java.net.URLEncoder
@@ -11,7 +11,7 @@ class PostmanRequest {
     var body: PostmanBody? = null
     var url: PostmanUrl? = null
     var description: String? = null
-    var auth: PostmanAuth? = null
+    var auth: cc.unitmesh.processor.api.postman.PostmanAuth? = null
 
     fun getData(`var`: PostmanVariables): String? {
         return if (body == null || body!!.mode == null) {

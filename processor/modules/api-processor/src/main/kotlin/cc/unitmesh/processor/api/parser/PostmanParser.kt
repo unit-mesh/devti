@@ -6,7 +6,7 @@ import cc.unitmesh.core.model.BodyMode
 import cc.unitmesh.core.model.Parameter
 import cc.unitmesh.core.model.Request
 import cc.unitmesh.core.model.Response
-import cc.unitmesh.processor.api.model.postman.*
+import cc.unitmesh.processor.api.postman.*
 import java.net.URI
 
 sealed class ChildType {

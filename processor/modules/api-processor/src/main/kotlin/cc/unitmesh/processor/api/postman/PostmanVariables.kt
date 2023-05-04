@@ -1,4 +1,4 @@
-package cc.unitmesh.processor.api.model.postman
+package cc.unitmesh.processor.api.postman
 
 import java.util.*
 import java.util.regex.Pattern

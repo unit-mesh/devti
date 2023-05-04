@@ -1,7 +1,7 @@
 package cc.unitmesh.processor.api
 
-import cc.unitmesh.processor.api.model.postman.PostmanCollection
-import cc.unitmesh.processor.api.model.postman.PostmanReader
+import cc.unitmesh.processor.api.postman.PostmanCollection
+import cc.unitmesh.processor.api.postman.PostmanReader
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Test

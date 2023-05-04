@@ -1,6 +1,6 @@
 package cc.unitmesh.processor.api.parser
 
-import cc.unitmesh.processor.api.model.postman.PostmanReader
+import cc.unitmesh.processor.api.postman.PostmanReader
 import cc.unitmesh.processor.api.render.MarkdownTableRender
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test

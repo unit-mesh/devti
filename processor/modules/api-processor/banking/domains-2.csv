@@ -44,374 +44,357 @@ International Scheduled Payments,国际预定付款
 International Standing Orders,国际定期指令
 Account Information,账户信息
 Account Transactions,账户交易
-AccountValidation, 账户验证
-DynamicClientRegistration, 动态客户端注册
-Operations Eligibility - Eligibility, 运营资格 - 资格
-Operations Eligibility - Queries, 运营资格 - 查询
-Operations Eligibility - Service Information, 运营资格 - 服务信息
-Platform Identity - Authentication, 平台身份 - 认证
-Platform Identity - Service Information, 平台身份 - 服务信息
-Operations Payments - Cashplus Payment, 运营付款 - Cashplus 付款
-Operations Payments - Service Information, 运营付款 - 服务信息
-Operations Products - Product, 运营产品 - 产品
-Operations Products - Service Information, 运营产品 - 服务信息
-account, 账户
-customer, 客户
-Cards, 卡片
-OfferAndDecisionManagement, 提供和决策管理
-cards, 卡片
-Customer Foundational, 客户基础
-accounts, 账户
-Customers, 客户
-Customer Service, 客户
-customers, 客户
-Customer Communications, 客户沟通
-CustomerFoundational, 客户基础
-Offer&DecisionManagement, 提供和决策管理
-Onboarding, 入职
-ProductPricingBundlingAndRewards, 产品定价捆绑和奖励
-RetrieveProductDirectoryEntryList, 检索产品目录条目列表
-Utilities, 实用工具
-AnalyticsAndInformationManagement, 分析和信息管理
-CrossProductUtilities, 跨产品实用工具
-VERIFICATION & AUTHORIZATIONS, 验证和授权
-Customer Profile, 客户档案
-Banking, 银行业务
-Common, 共同的
-Client Registration, 客户端注册
-Register, 注册
-AISP Accounts, AISP账户
-AISP Consents Management, AISP同意管理
-PIISP, PIISP
-PISP, PISP
-Account Balances, 账户余额
-Currencies v1, 货币v1
-Currencies v2, 货币v2
-Payment Initiation Service (PIS), 付款初始化服务（PIS）
-Confirmation of Funds Service (PIIS), 资金确认服务（PIIS）
-Account Information Service (AIS), 账户信息服务（AIS）
-Callback, 回调
-Authorization, 授权
-Alias, 别名
-Apple Pay, Apple支付
-eScore, 电子积分
-Forms, 表格
-Google Pay, Google支付
-Headless 3-D Secure, 无头3-D安全
-iFrame, iFrame
-Info, 信息
-Managed Mandate, 托管授权
-Payment Link, 付款链接
-Risk Management, 风险管理
-Addresses, 地址
-Age Certificate, 年龄证书
-Cash Account Openings, 现金账户开户
-Cash account opening status, 现金账户开户状态
-Cash Accounts, 现金账户
-CreditCardTransactions, 信用卡交易
-Credit Cards, 信用卡
-Customer Solvency, 客户偿付能力
-Assets, 资产
-Order Details, 订单详情
-Order Entry, 订单录入
-Order Expense report, 订单费用报告
-Security Statics, 安全统计
-Order Change, 订单更改
-Order Delete, 订单删除
-Support, 支持
-Performances, 表现
-Instant Payments, 即时付款
-Payments, 付款
-Security Accounts, 安全账户
-Transaction Analysis, 交易分析
-Transaction, 交易
-Authentication, 身份验证
-Connect 🔗, 连接
-Consumers, 消费者
-Accounts (Simple), 账户（简单）
-App Registration, 应用注册
-Institutions, 机构
-Verify Assets, 验证资产
-Verify Income and Employment, 验证收入和就业
-Bank Statements, 银行对账单
-Pay Statements, 工资单
-Portfolios, 投资组合
-TxPush, 交易推送
-Reports, 报告
-Cash Flow, 现金流量
-Balance Analytics, 余额分析
-Cash Flow Analytics, 现金流量分析
-Third Party Access, 第三方访问
-Account Information Service, 账户信息
-Funds Confirmation Service, 资金确认
-Payment Initiation Service, 付款初始化
-Account Details, 账户详细信息
-Account Balance, 账户余额
-Card Account Transactions, 卡账户交易
-Single payment initiation, 单笔付款初始化
-Periodic payment initiation, 定期付款初始化
-Bulk payment initiation, 批量付款初始化
-Payment Request, 付款请求
-Registration, 注册
-Periodic Payment Service, 定期付款
-XML Payment Initiation Service, XML付款初始化
-Authorisations Service, 授权
-Consent Service, 同意
-Funds Confirmation Consent Service, 资金确认同意
-Certificate Validation And Registration Service, 证书验证和注册
-Accounts Service, 账户
-Events, 事件
-Branch, 分行
-ATM, 自动取款机
-PCA, 个人银行授权
-BCA, 企业银行授权
-SME, 中小企业
-CCC, 客户服务中心
-International Payment Consents, 国际付款同意
-Domestic VRP Consents, 国内VRP同意
-Domestic VRPs, 国内VRP
-ASPSPs, ASPSP（账户服务提供商）
-AI Consents, AI同意
-AI Consents Authorizations, AI同意授权
-AI Consents Raw, AI同意原始数据
-List of Accounts, 账户列表
-Transaction Details, 交易明细
-AI Consent Delete, 删除AI同意
-Health, 健康
-Domestic Payments Consent, 国内付款同意
-Domestic Payments Status, 国内付款状态
-SEPA Payments Consent, SEPA付款同意
-SEPA Payments, SEPA付款
-SEPA Payments Status, SEPA付款状态
-Cross border Payments Consent, 跨境付款同意
-Cross border Payments, 跨境付款
-Cross border Payments Status, 跨境付款状态
-PI Consents Raw, PI同意原始数据
-biller-service-controller, 账单服务控制器
-Link, 链接
-Card Payments, 卡支付
-Payment Instructions, 付款指令
-Buyer Registration, 买家注册
-Buyer Profiles, 买家档案
-Suppliers, 供应商
-Real Card, 实体卡
-Virtual Card, 虚拟卡
-Funding Source, 资金来源
-Contact, 联系人
-Authorization Report, 授权报告
-Clearing Report, 清算报告
-Clearing Summary Report, 清算摘要报告
-Consents, 同意
-Retrieve Account Balances, 检索账户余额
-Retrieve Accounts Balances by Account Id, 按账户ID检索账户余额
-Cancel Payment, 取消付款
-Carded Rate, 指定利率
-Retrieve Payment, 检索付款
-Quotes, 报价
-Case Filing, 案件立案
-Chargebacks, 拒付
-Chargebacks (Debit MasterCard and Europe Dual Acquirer), 拒付（借记MasterCard和欧洲双重收购者）
-Claims, 索赔
-Fees, 费用
-Fees (Debit MasterCard and Europe Dual Acquirer), 费用（借记MasterCard和欧洲双重收购者）
-Fraud, 欺诈
-Health Check, 健康检查
-Queues, 队列
-Reconciliation, 对账
-Retrievals, 检索
-Retrievals (Debit MasterCard and Europe Dual Acquirer), 检索（借记MasterCard和欧洲双重收购者）
-Transactions (Debit MasterCard and Europe Dual Acquirer), 交易（借记MasterCard和欧洲双重收购者）
-Request Activation Methods, 请求激活方法
-Deliver Activation Code, 提供激活代码
-Notify Service Activated, 通知服务已激活
-Authorize Service, 授权
-Notify Token Updated, 通知令牌已更新
-Validate Activation Code, 验证激活代码
-Get Account Information, 获取账户信息
-Notify Suspicious Events, 通知可疑事件
-Merchant Category Codes, 商家类别代码
-Merchant Industries, 商家行业
-Merchant Point of Interest, 商家兴趣点
-Place By Location Id, 按位置ID放置
-Providers, 供应商
-Provider, 提供者
-Supplier, 供应商
-Reconciliation Record, 对账记录
-merchant match, 商家匹配
-merchant metrics, 商家指标
-catalogs, 目录
-ATMs, 自动取款机
-Branches, 分行
-Personal Current Accounts, 个人活期账户
-FCA Service Quality Metrics, FCA服务质量指标
-Payment Details, 付款详情
-Party, 参与方
-products, 产品
-accounts-v3, 账户
-authorize-v2, 授权
-Customer accounts, 客户账户
-Dynamic Sandbox Api, 动态沙盒API
-Token revocation, 令牌撤销
-Decoupled authentication and authorization, 解耦身份验证和授权
-payments-v4, 付款
-own-transfer-v4, 自有转账
-salary-pension-v4, 工资养老金
-payments-v2, 付款
-cards-v5, 卡
-commercial-cards-v1, 商业卡
-Confirmation of funds, 确认资金
-payments-v5, 付款
-own-transfer, 自有转账
-single-sca-payments, 单一SCA付款
-One-Time Passwords, 一次性密码
-Partners, 合作伙伴
-Subscription, 订阅
-transaction authorization, 交易授权
-plaid, 斑纹
-Loan Offers, 贷款报价
-Developer Tools, 开发者工具
-Other, 其他
-Compliance, 合规
-Direct Debit, 直接借记
-Endusers, 最终用户
-Ledgers, 分类账
-Customer Configuration, 客户配置
-Webhooks, Web钩子
-Credit, 信用
-Rewards, 奖励
-Documents, 文档
-amortization-schedule-controller, 分期偿还计划控制器
-min-down-payment-calculator-contoller, 最低首付款计算器控制器
-inventory, 库存
-Sentiment, 情感
-Emotion, 情绪
-Semantic Similarity, 语义相似度
-Name Entity Recognition, 命名实体识别
-Keywords, 关键词
-Taxonomy, 分类
-Intent, 意图
-Abuse, 滥用
-Text Parser, 文本解析器
-Classification, 分类
-Virality Detection, 传播率检测
-Filters, 过滤器
-Phrase Extractor, 短语提取器
-Language, 语言
-MobileAuthorization, 移动授权
-OAuth, OAuth
-V1Transactions, 交易
-ApplePay, 苹果支付
-BankAccounts, 银行账户
-Bookings, 预订
-BookingCustomAttributes, 预订自定义属性
-CashDrawers, 现金抽屉
-Catalog, 目录
-CustomerCustomAttributes, 客户自定义属性
-CustomerGroups, 客户组
-CustomerSegments, 客户细分
-Devices, 设备
-Disputes, 争议
-Employees, 员工
-GiftCards, 礼品卡
-GiftCardActivities, 礼品卡活动
-Inventory, 库存
-Invoices, 发票
-Labor, 劳动力
-Locations, 位置
-LocationCustomAttributes, 位置自定义属性
-Checkout, 支付
-Loyalty, 忠诚度
-Merchants, 商家
-Orders, 订单
-OrderCustomAttributes, 订单自定义属性
-Payouts, 支付
-Refunds, 退款
-Sites, 网站
-Snippets, 片段
-Team, 团队
-Terminal, 终端
-Vendors, 供应商
-WebhookSubscriptions, Webhook订阅
-Retail Account Services, 零售账户
-Open Banking Accounts API, 开放银行账户API
-Open Banking Payments API, 开放银行支付API
-Domestic Standing Orders Consents, 国内常规付款同意书
-Account and Transactions, 账户和交易
-Payment Services, 付款
-Account Services, 账户
-Bank Service, 银行
-PISP Service, PISP
-Authorization Endpoint, 授权端点
-Configuration Endpoint, 配置端点
-Client Registration Endpoint, 客户端注册端点
-Token Endpoint, 令牌端点
-UserInfo Endpoint, 用户信息端点
-Initial Access Token Service, 初始访问令牌
-Confirmation of Funds Service, 确认资金
-Retrieve account balances, 检索账户余额
-Originate an ACH Payment, 发起ACH付款
-Check Individual ACH Payment Status, 检查个人ACH付款状态
-Retrieve product pricing, 检索产品定价
-Create Payment, 创建付款
-Create Tokenized Payment, 创建令牌化付款
-Create a credit transfer, 创建信用转账
-Create a request for information, 创建信息请求
-Verify a routing number, 验证路由号码
-Create a response to a request for information, 创建信息请求的响应
-Retrieve a credit transfer, 检索信用转账
-Retrieve a request for information, 检索信息请求
-Retrieve a response to a request for information, 检索信息请求的响应
-Retrieve a request for payment, 检索付款请求
-Create a response to a request for payment, 创建付款请求的响应
-Retrieve a response to a request for payment, 检索付款请求的响应
-Create a request for payment, 创建付款请求
-Cancel a request for payment, 取消付款请求
-Send payment acknowledgement, 发送付款确认
-Search all RTP messages, 搜索所有RTP消息
-Search for transactions, 搜索交易
-Generate transaction reports, 生成交易报告
-location, 位置
-status, 状态
-payment, 付款
-templated payment, 模板付款
-Authorisations, 授权
-Financial Data, 金融数据
-Application, 应用程序
-Users, 用户
-Financial Profile, 金融配置文件
-Notifications, 通知
-Virtual Accounts Beneficiaries, 虚拟账户受益人
-Virtual Accounts Accounts, 虚拟账户账户
-Virtual Accounts Payments, 虚拟账户付款
-Virtual Accounts Clients, 虚拟账户客户
-Virtual Accounts Refunds, 虚拟账户退款
-Variable Recurring Payments, 可变循环付款
-Verification, 验证
-Cobrand, Cobrand
-DataExtracts, 数据提取
-Configs, 配置
-Derived, 派生
-User, 用户
-Payment Processor, 付款处理器
-ProviderAccounts, 提供商账户
-Auth, 授权
-Holdings, 持有
-Verify Account, 验证账户
-Account Token, 账户令牌
-E账通,E账通
-摩贝模式,摩贝模式
-批量开户,批量开户
-收单产品,收单产品
-客户成长体系,客户成长体系
-新客福利,新客福利
-礼遇抽奖,礼遇抽奖
-II/III类混合账户体系,II/III类混合账户体系
-III类账户体系,III类账户体系
-II类账户体系,II类账户体系
-借记卡公共服务,借记卡公共
-账户公共服务,账户公共
-风险评估,风险评估
-外汇来报服务补录,外汇来报服务补录
-网点信息查询,网点信息查询
-零贷产品,零贷产品
-零贷公共服务,零贷公共服务
+AccountValidation,账户验证
+DynamicClientRegistration,动态客户端注册
+Operations Eligibility - Eligibility,运营资格 - 资格
+Operations Eligibility - Queries,运营资格 - 查询
+Operations Eligibility - Service Information,运营资格 - 服务信息
+Platform Identity - Authentication,平台身份 - 认证
+Platform Identity - Service Information,平台身份 - 服务信息
+Operations Payments - Cashplus Payment,运营付款 - Cashplus 付款
+Operations Payments - Service Information,运营付款 - 服务信息
+Operations Products - Product,运营产品 - 产品
+Operations Products - Service Information,运营产品 - 服务信息
+account,账户
+customer,客户
+Cards,卡片
+OfferAndDecisionManagement,提供和决策管理
+cards,卡片
+Customer Foundational,客户基础
+accounts,账户
+Customers,客户
+Customer Service,客户
+customers,客户
+Customer Communications,客户沟通
+CustomerFoundational,客户基础
+Offer&DecisionManagement,提供和决策管理
+Onboarding,入职
+ProductPricingBundlingAndRewards,产品定价捆绑和奖励
+RetrieveProductDirectoryEntryList,检索产品目录条目列表
+Utilities,实用工具
+AnalyticsAndInformationManagement,分析和信息管理
+CrossProductUtilities,跨产品实用工具
+VERIFICATION & AUTHORIZATIONS,验证和授权
+Customer Profile,客户档案
+Banking,银行业务
+Common,共同的
+Client Registration,客户端注册
+Register,注册
+AISP Accounts,AISP账户
+AISP Consents Management,AISP同意管理
+PIISP,PIISP
+PISP,PISP
+Account Balances,账户余额
+Currencies v1,货币v1
+Currencies v2,货币v2
+Payment Initiation Service (PIS),付款初始化服务（PIS）
+Confirmation of Funds Service (PIIS),资金确认服务（PIIS）
+Account Information Service (AIS),账户信息服务（AIS）
+Callback,回调
+Authorization,授权
+Alias,别名
+Apple Pay,Apple支付
+eScore,电子积分
+Forms,表格
+Google Pay,Google支付
+Headless 3-D Secure,无头3-D安全
+iFrame,iFrame
+Info,信息
+Managed Mandate,托管授权
+Payment Link,付款链接
+Risk Management,风险管理
+Addresses,地址
+Age Certificate,年龄证书
+Cash Account Openings,现金账户开户
+Cash account opening status,现金账户开户状态
+Cash Accounts,现金账户
+CreditCardTransactions,信用卡交易
+Credit Cards,信用卡
+Customer Solvency,客户偿付能力
+Assets,资产
+Order Details,订单详情
+Order Entry,订单录入
+Order Expense report,订单费用报告
+Security Statics,安全统计
+Order Change,订单更改
+Order Delete,订单删除
+Support,支持
+Performances,表现
+Instant Payments,即时付款
+Payments,付款
+Security Accounts,安全账户
+Transaction Analysis,交易分析
+Transaction,交易
+Authentication,身份验证
+Connect 🔗,连接
+Consumers,消费者
+Accounts (Simple),账户（简单）
+App Registration,应用注册
+Institutions,机构
+Verify Assets,验证资产
+Verify Income and Employment,验证收入和就业
+Bank Statements,银行对账单
+Pay Statements,工资单
+Portfolios,投资组合
+TxPush,交易推送
+Reports,报告
+Cash Flow,现金流量
+Balance Analytics,余额分析
+Cash Flow Analytics,现金流量分析
+Third Party Access,第三方访问
+Account Information Service,账户信息
+Funds Confirmation Service,资金确认
+Payment Initiation Service,付款初始化
+Account Details,账户详细信息
+Account Balance,账户余额
+Card Account Transactions,卡账户交易
+Single payment initiation,单笔付款初始化
+Periodic payment initiation,定期付款初始化
+Bulk payment initiation,批量付款初始化
+Payment Request,付款请求
+Registration,注册
+Periodic Payment Service,定期付款
+XML Payment Initiation Service,XML付款初始化
+Authorisations Service,授权
+Consent Service,同意
+Funds Confirmation Consent Service,资金确认同意
+Certificate Validation And Registration Service,证书验证和注册
+Accounts Service,账户
+Events,事件
+Branch,分行
+ATM,自动取款机
+PCA,个人银行授权
+BCA,企业银行授权
+SME,中小企业
+CCC,客户服务中心
+International Payment Consents,国际付款同意
+Domestic VRP Consents,国内VRP同意
+Domestic VRPs,国内VRP
+ASPSPs,ASPSP（账户服务提供商）
+AI Consents,AI同意
+AI Consents Authorizations,AI同意授权
+AI Consents Raw,AI同意原始数据
+List of Accounts,账户列表
+Transaction Details,交易明细
+AI Consent Delete,删除AI同意
+Health,健康
+Domestic Payments Consent,国内付款同意
+Domestic Payments Status,国内付款状态
+SEPA Payments Consent,SEPA付款同意
+SEPA Payments,SEPA付款
+SEPA Payments Status,SEPA付款状态
+Cross border Payments Consent,跨境付款同意
+Cross border Payments,跨境付款
+Cross border Payments Status,跨境付款状态
+PI Consents Raw,PI同意原始数据
+biller-service-controller,账单服务控制器
+Link,链接
+Card Payments,卡支付
+Payment Instructions,付款指令
+Buyer Registration,买家注册
+Buyer Profiles,买家档案
+Suppliers,供应商
+Real Card,实体卡
+Virtual Card,虚拟卡
+Funding Source,资金来源
+Contact,联系人
+Authorization Report,授权报告
+Clearing Report,清算报告
+Clearing Summary Report,清算摘要报告
+Consents,同意
+Retrieve Account Balances,检索账户余额
+Retrieve Accounts Balances by Account Id,按账户ID检索账户余额
+Cancel Payment,取消付款
+Carded Rate,指定利率
+Retrieve Payment,检索付款
+Quotes,报价
+Case Filing,案件立案
+Chargebacks,拒付
+Chargebacks (Debit MasterCard and Europe Dual Acquirer),拒付（借记MasterCard和欧洲双重收购者）
+Claims,索赔
+Fees,费用
+Fees (Debit MasterCard and Europe Dual Acquirer),费用（借记MasterCard和欧洲双重收购者）
+Fraud,欺诈
+Health Check,健康检查
+Queues,队列
+Reconciliation,对账
+Retrievals,检索
+Retrievals (Debit MasterCard and Europe Dual Acquirer),检索（借记MasterCard和欧洲双重收购者）
+Transactions (Debit MasterCard and Europe Dual Acquirer),交易（借记MasterCard和欧洲双重收购者）
+Request Activation Methods,请求激活方法
+Deliver Activation Code,提供激活代码
+Notify Service Activated,通知服务已激活
+Authorize Service,授权
+Notify Token Updated,通知令牌已更新
+Validate Activation Code,验证激活代码
+Get Account Information,获取账户信息
+Notify Suspicious Events,通知可疑事件
+Merchant Category Codes,商家类别代码
+Merchant Industries,商家行业
+Merchant Point of Interest,商家兴趣点
+Place By Location Id,按位置ID放置
+Providers,供应商
+Provider,提供者
+Supplier,供应商
+Reconciliation Record,对账记录
+merchant match,商家匹配
+merchant metrics,商家指标
+catalogs,目录
+ATMs,自动取款机
+Branches,分行
+Personal Current Accounts,个人活期账户
+FCA Service Quality Metrics,FCA服务质量指标
+Payment Details,付款详情
+Party,参与方
+products,产品
+accounts-v3,账户
+authorize-v2,授权
+Customer accounts,客户账户
+Dynamic Sandbox Api,动态沙盒API
+Token revocation,令牌撤销
+Decoupled authentication and authorization,解耦身份验证和授权
+payments-v4,付款
+own-transfer-v4,自有转账
+salary-pension-v4,工资养老金
+payments-v2,付款
+cards-v5,卡
+commercial-cards-v1,商业卡
+Confirmation of funds,确认资金
+payments-v5,付款
+own-transfer,自有转账
+single-sca-payments,单一SCA付款
+One-Time Passwords,一次性密码
+Partners,合作伙伴
+Subscription,订阅
+transaction authorization,交易授权
+plaid,斑纹
+Loan Offers,贷款报价
+Developer Tools,开发者工具
+Other,其他
+Compliance,合规
+Direct Debit,直接借记
+Endusers,最终用户
+Ledgers,分类账
+Customer Configuration,客户配置
+Webhooks,Web钩子
+Credit,信用
+Rewards,奖励
+Documents,文档
+amortization-schedule-controller,分期偿还计划控制器
+min-down-payment-calculator-contoller,最低首付款计算器控制器
+inventory,库存
+Sentiment,情感
+Emotion,情绪
+Semantic Similarity,语义相似度
+Name Entity Recognition,命名实体识别
+Keywords,关键词
+Taxonomy,分类
+Intent,意图
+Abuse,滥用
+Text Parser,文本解析器
+Classification,分类
+Virality Detection,传播率检测
+Filters,过滤器
+Phrase Extractor,短语提取器
+Language,语言
+MobileAuthorization,移动授权
+OAuth,OAuth
+V1Transactions,交易
+ApplePay,苹果支付
+BankAccounts,银行账户
+Bookings,预订
+BookingCustomAttributes,预订自定义属性
+CashDrawers,现金抽屉
+Catalog,目录
+CustomerCustomAttributes,客户自定义属性
+CustomerGroups,客户组
+CustomerSegments,客户细分
+Devices,设备
+Disputes,争议
+Employees,员工
+GiftCards,礼品卡
+GiftCardActivities,礼品卡活动
+Inventory,库存
+Invoices,发票
+Labor,劳动力
+Locations,位置
+LocationCustomAttributes,位置自定义属性
+Checkout,支付
+Loyalty,忠诚度
+Merchants,商家
+Orders,订单
+OrderCustomAttributes,订单自定义属性
+Payouts,支付
+Refunds,退款
+Sites,网站
+Snippets,片段
+Team,团队
+Terminal,终端
+Vendors,供应商
+WebhookSubscriptions,Webhook订阅
+Retail Account Services,零售账户
+Open Banking Accounts API,开放银行账户API
+Open Banking Payments API,开放银行支付API
+Domestic Standing Orders Consents,国内常规付款同意书
+Account and Transactions,账户和交易
+Payment Services,付款
+Account Services,账户
+Bank Service,银行
+PISP Service,PISP
+Authorization Endpoint,授权端点
+Configuration Endpoint,配置端点
+Client Registration Endpoint,客户端注册端点
+Token Endpoint,令牌端点
+UserInfo Endpoint,用户信息端点
+Initial Access Token Service,初始访问令牌
+Confirmation of Funds Service,确认资金
+Retrieve account balances,检索账户余额
+Originate an ACH Payment,发起ACH付款
+Check Individual ACH Payment Status,检查个人ACH付款状态
+Retrieve product pricing,检索产品定价
+Create Payment,创建付款
+Create Tokenized Payment,创建令牌化付款
+Create a credit transfer,创建信用转账
+Create a request for information,创建信息请求
+Verify a routing number,验证路由号码
+Create a response to a request for information,创建信息请求的响应
+Retrieve a credit transfer,检索信用转账
+Retrieve a request for information,检索信息请求
+Retrieve a response to a request for information,检索信息请求的响应
+Retrieve a request for payment,检索付款请求
+Create a response to a request for payment,创建付款请求的响应
+Retrieve a response to a request for payment,检索付款请求的响应
+Create a request for payment,创建付款请求
+Cancel a request for payment,取消付款请求
+Send payment acknowledgement,发送付款确认
+Search all RTP messages,搜索所有RTP消息
+Search for transactions,搜索交易
+Generate transaction reports,生成交易报告
+location,位置
+status,状态
+payment,付款
+templated payment,模板付款
+Authorisations,授权
+Financial Data,金融数据
+Application,应用程序
+Users,用户
+Financial Profile,金融配置文件
+Notifications,通知
+Virtual Accounts Beneficiaries,虚拟账户受益人
+Virtual Accounts Accounts,虚拟账户账户
+Virtual Accounts Payments,虚拟账户付款
+Virtual Accounts Clients,虚拟账户客户
+Virtual Accounts Refunds,虚拟账户退款
+Variable Recurring Payments,可变循环付款
+Verification,验证
+Cobrand,Cobrand
+DataExtracts,数据提取
+Configs,配置
+Derived,派生
+User,用户
+Payment Processor,付款处理器
+ProviderAccounts,提供商账户
+Auth,授权
+Holdings,持有
+Verify Account,验证账户
+Account Token,账户令牌

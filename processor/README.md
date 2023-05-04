@@ -7,7 +7,7 @@
 - common
     - Prompter. LLM prompter
     - Core. core models
-    - Cli-Core. core cli 
+    - Cli-Core. core cli
 - Java
     - Core Analysis, Java Syntax Analysis
     - Spring Processor, Controller, Service, Model, Repository, etc.

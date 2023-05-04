@@ -37,10 +37,10 @@ class PostmanParser {
             }
 
             childTypes.filterIsInstance<ChildType.NestedFolder>().forEach {
-                val folder = it.folders.map { it.collection }
+                val folder = it.folders.map(ChildType.Folder::collection)
                 details.addAll(folder)
 
-                val items = it.items.map { it.items }.flatten()
+                val items = it.items.map(ChildType.Item::items).flatten()
                 details.add(ApiCollection(folderName ?: "", "", items))
             }
 
@@ -155,7 +155,7 @@ class PostmanParser {
         return ApiItem(
             method = method ?: "",
             path = uri ?: "",
-            description = description.replaceLineBreak() ?: "",
+            description = description.clean() ?: "",
             operationId = name ?: "",
             tags = listOf(folderName ?: "", itemName ?: ""),
             request = req,
@@ -195,6 +195,13 @@ class PostmanParser {
             else -> ""
         }
     }
+}
+
+private fun String?.clean(): String? {
+    return this
+        ?.replace("<[^>]*>".toRegex(), "")
+        ?.replaceLineBreak()
+        ?.replace("  ", " ")
 }
 
 private fun String?.replaceLineBreak(): String? {

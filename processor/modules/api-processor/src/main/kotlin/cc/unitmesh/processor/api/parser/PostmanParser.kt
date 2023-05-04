@@ -180,19 +180,9 @@ class PostmanParser {
         val boolRegex = Regex("^(true|false)$")
 
         return when {
-            it?.matches(regex) == true -> {
-                it
-            }
-
-            it?.matches(boolRegex) == true -> {
-                it
-            }
-
-            (it?.length ?: 0) > 0 -> {
-                "\"$it\""
-            }
-
-            else -> ""
+            it?.matches(regex) == true -> it
+            it?.matches(boolRegex) == true -> it
+            else -> it ?: ""
         }
     }
 }

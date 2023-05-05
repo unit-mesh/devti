@@ -276,24 +276,25 @@ class Modeling : CliktCommand() {
                     val collections = processor.convertApi()
                     val render = MarkdownTableRender()
 
-                    // file.name without extension
-                    val domainFile = domain + "-" + file.nameWithoutExtension.trim() + ".puml"
-                    val outputFile = File(domainDir, domainFile)
 
-                    if (outputFile.exists()) {
-                        return@forEachIndexed
-                    }
-
-                    collections.forEach {
+                    collections.forEachIndexed { subIndex, it ->
                         val collection = it
                         collection.items.forEach { item ->
                             item.description = ""
                         }
 
+                        // file.name without extension
+                        val domainFile = "$domain-${file.nameWithoutExtension.trim()}-$subIndex.puml"
+                        val outputFile = File(domainDir, domainFile)
+
+                        if (outputFile.exists()) {
+                            return@forEachIndexed
+                        }
+
                         val single = render.render(listOf(collection))
                         if (single.length < 128 || single.length >= maxLength) {
                             logger.debug("Skip ${file.absolutePath} because it's too short")
-                            return@forEach
+                            return@forEachIndexed
                         }
                         val newPrompt = promptText.replace("{code}", it.name)
 
@@ -313,7 +314,7 @@ class Modeling : CliktCommand() {
                         }
 
                         if (output.isEmpty()) {
-                            return@forEach
+                            return@forEachIndexed
                         }
 
                         instructions += Instruction(

@@ -1,3 +1,7 @@
 <configuration>
     <logger name="io.swagger.v3.parser" level="OFF"/>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
 </configuration>

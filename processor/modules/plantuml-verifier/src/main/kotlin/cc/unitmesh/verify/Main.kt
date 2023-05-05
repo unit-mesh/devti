@@ -7,6 +7,7 @@ import com.github.ajalt.clikt.parameters.types.file
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.File
+import java.io.IOException
 
 fun main(args: Array<String>) = PlantUmlVerifier()
     .main(args)
@@ -18,6 +19,7 @@ class PlantUmlVerifier : CliktCommand() {
 
     override fun run() {
         logger.info("Unit Connector Started")
+        File(sourceDir, "svg").mkdirs()
         // walkdir in source dir
         sourceDir.walkTopDown().forEach {
             if (it.isFile && it.extension == "puml") {
@@ -26,7 +28,7 @@ class PlantUmlVerifier : CliktCommand() {
                     if (!isCorrect) {
                         logger.error("failed to verify ${it.absolutePath}")
                     }
-                } catch (e: Exception) {
+                } catch (e: IOException) {
                     logger.error("failed to verify ${it.absolutePath}", e)
                 }
             }

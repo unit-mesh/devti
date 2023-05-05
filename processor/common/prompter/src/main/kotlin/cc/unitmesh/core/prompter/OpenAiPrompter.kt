@@ -16,7 +16,7 @@ class OpenAiPrompter(val openAiKey: String, val openAiProxy: String) {
     private val timeout = Duration.ofSeconds(600)
 
     init {
-        if (openAiProxy.isEmpty()) {
+        if (openAiProxy.trim().isEmpty()) {
             service = OpenAiService(openAiKey, timeout)
         } else {
             val mapper = OpenAiService.defaultObjectMapper()

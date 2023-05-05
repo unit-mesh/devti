@@ -276,8 +276,11 @@ class Modeling : CliktCommand() {
                     val collections = processor.convertApi()
                     val render = MarkdownTableRender()
 
-
                     collections.forEachIndexed { subIndex, it ->
+                        if (it.items.size < 2) {
+                            return@forEachIndexed
+                        }
+
                         val collection = it
                         collection.items.forEach { item ->
                             item.description = ""

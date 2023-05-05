@@ -270,17 +270,21 @@ class Modeling : CliktCommand() {
                 }
 
                 try {
+                    val parentDir = file.parentFile
+                    val domain = parentDir.name
+
                     val collections = processor.convertApi()
                     val render = MarkdownTableRender()
 
-                    val outputFile = File(domainDir, file.name.replace(".yaml", ".puml"))
+                    // file.name without extension
+                    val domainFile = domain + "-" + file.nameWithoutExtension.trim() + ".puml"
+                    val outputFile = File(domainDir, domainFile)
 
                     if (outputFile.exists()) {
                         return@forEachIndexed
                     }
 
                     collections.forEach {
-                        // remove all items description
                         val collection = it
                         collection.items.forEach { item ->
                             item.description = ""
@@ -295,8 +299,8 @@ class Modeling : CliktCommand() {
 
                         var output = ""
                         try {
+                            logger.debug("start prompt to: ${outputFile.absolutePath}")
                             output = prompter.prompt(newPrompt)
-                            logger.debug("Write to ${outputFile.absolutePath}")
                             // if output starsWith ```uml and endsWith ```, remove it
                             if (output.startsWith("```uml") && output.endsWith("```")) {
                                 output = output.substring(6, output.length - 3)

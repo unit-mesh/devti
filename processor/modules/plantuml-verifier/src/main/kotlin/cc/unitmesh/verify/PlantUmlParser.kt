@@ -22,6 +22,8 @@ class PlantUmlParser(private val file: File) {
 
             if (svg.contains("Syntax Error?")) {
                 logger.error("failed to parse ${file.absolutePath}")
+                // remove file
+                file.delete()
                 return false
             }
 

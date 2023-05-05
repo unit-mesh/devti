@@ -49,7 +49,7 @@ kotlin {
 }
 
 application {
-    mainClass.set("cc.unitmesh.processor.swagger.MainKt")
+    mainClass.set("cc.unitmesh.processor.api.MainKt")
 }
 
 tasks {

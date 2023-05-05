@@ -297,7 +297,10 @@ class Modeling : CliktCommand() {
                         try {
                             output = prompter.prompt(newPrompt)
                             logger.info("Write to ${outputFile.absolutePath}")
-                            outputFile.writeText(output)
+                            // if output starsWith ```uml and endsWith ```, remove it
+                            if (output.startsWith("```uml") && output.endsWith("```")) {
+                                output = output.substring(6, output.length - 3)
+                            }
                         } catch (e: Exception) {
                             Thread.sleep(1000)
                             logger.error("Error sleeping", e)

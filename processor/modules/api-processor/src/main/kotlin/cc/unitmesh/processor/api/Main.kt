@@ -235,12 +235,12 @@ class Modeling : CliktCommand() {
     private val maxLength by argument().int().default(4092)
 
     override fun run() {
-        logger.info("loading dotenv")
+        logger.debug("loading dotenv")
         val dotenv = Dotenv.load()
         val proxy = dotenv.get("OPEN_AI_PROXY")
         val key = dotenv.get("OPEN_AI_KEY")
 
-        logger.info("key: $key, proxy: $proxy")
+        logger.debug("key: $key, proxy: $proxy")
 
         val outputDir = File("output")
         if (!outputDir.exists()) {
@@ -288,7 +288,7 @@ class Modeling : CliktCommand() {
 
                         val single = render.render(listOf(collection))
                         if (single.length < 128 || single.length >= maxLength) {
-                            logger.info("Skip ${file.absolutePath} because it's too short")
+                            logger.debug("Skip ${file.absolutePath} because it's too short")
                             return@forEach
                         }
                         val newPrompt = promptText.replace("{code}", it.name)
@@ -296,7 +296,7 @@ class Modeling : CliktCommand() {
                         var output = ""
                         try {
                             output = prompter.prompt(newPrompt)
-                            logger.info("Write to ${outputFile.absolutePath}")
+                            logger.debug("Write to ${outputFile.absolutePath}")
                             // if output starsWith ```uml and endsWith ```, remove it
                             if (output.startsWith("```uml") && output.endsWith("```")) {
                                 output = output.substring(6, output.length - 3)
@@ -305,7 +305,7 @@ class Modeling : CliktCommand() {
                             outputFile.writeText(output)
                         } catch (e: Exception) {
                             Thread.sleep(1000)
-                            logger.error("Error sleeping", e)
+                            logger.debug("Error sleeping", e)
                         }
 
                         if (output.isEmpty()) {

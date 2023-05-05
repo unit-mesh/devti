@@ -21,6 +21,11 @@ object ApiProcessorDetector {
             return null
         }
 
+        // if not json, yaml, yml file, skip
+        if (!file.extension.matches(Regex("json|yaml|yml"))) {
+            return null
+        }
+
         return getSwaggerProcessor(file)?.let {
             return it
         }

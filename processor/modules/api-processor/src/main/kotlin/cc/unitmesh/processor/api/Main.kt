@@ -296,7 +296,10 @@ class Modeling : CliktCommand() {
                             logger.debug("Skip ${file.absolutePath} because it's too short")
                             return@forEachIndexed
                         }
-                        val newPrompt = promptText.replace("{code}", it.name)
+
+                        val newPrompt = promptText.replace("{code}", single)
+
+                        logger.info("newPrompt: ${newPrompt}")
 
                         var output = ""
                         try {

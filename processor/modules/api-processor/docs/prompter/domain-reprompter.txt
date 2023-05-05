@@ -22,9 +22,5 @@ Consent -> ConsentService
 API 信息：
 
 ###
-| API                           | Method | Request               | Response                                                                                                                                                                                                    | Error Response         |
-|-------------------------------|--------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------|
-| /features                     | GET    |                       | [200: {meta: , data: array, links: object, forwardedData: array, raw: array, paging: , tracingId: string}, 0: {error: , monitoring: array, raw: array}]                                                     | 400: {"error": String} |
-| /institutions                 | GET    |                       | [200: {meta: , data: array, links: object, forwardedData: array, raw: array, paging: , tracingId: string}, 0: {error: , monitoring: array, raw: array}]                                                     | 400: {"error": String} |
-| /institutions/{institutionId} | GET    | institutionId: string | [200: {id: string, name: string, fullName: string, countries: array, environmentType: , credentialsType: , media: array, features: array, monitoring: object}, 0: {error: , monitoring: array, raw: array}] | 400: {"error": String} |
+{code}
 ###

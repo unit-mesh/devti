@@ -21,9 +21,13 @@ class PlantUmlVerifier : CliktCommand() {
         // walkdir in source dir
         sourceDir.walkTopDown().forEach {
             if (it.isFile && it.extension == "puml") {
-                val isCorrect = PlantUmlParser(it).isCorrect()
-                if (!isCorrect) {
-                    logger.error("failed to verify ${it.absolutePath}")
+                try {
+                    val isCorrect = PlantUmlParser(it).isCorrect()
+                    if (!isCorrect) {
+                        logger.error("failed to verify ${it.absolutePath}")
+                    }
+                } catch (e: Exception) {
+                    logger.error("failed to verify ${it.absolutePath}", e)
                 }
             }
         }

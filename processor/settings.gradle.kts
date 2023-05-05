@@ -21,4 +21,5 @@ include(
     ":java-modules:test-processor",
 
     ":modules:api-processor",
+    ":modules:plantuml-verifier",
 )

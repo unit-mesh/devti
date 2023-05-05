@@ -10,6 +10,7 @@ import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.default
 import com.github.ajalt.clikt.parameters.arguments.help
 import com.github.ajalt.clikt.parameters.types.file
+import com.github.ajalt.clikt.parameters.types.int
 import io.github.cdimascio.dotenv.Dotenv
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
@@ -24,7 +25,7 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.random.Random
 
-fun main(args: Array<String>) = Prompting()
+fun main(args: Array<String>) = Generating()
 //    .subcommands(Prompting())
     .main(args)
 
@@ -61,6 +62,7 @@ class Generating : CliktCommand() {
     private val inputDir by argument().file().help("Input directory").default(File("input"))
     private val domain by argument().file().default(File("domains.csv"))
     private val outputDir by argument().file().default(File("output"))
+    private val maxLength by argument().int().default(4092)
 
     override fun run() {
         val outputDir = File("output", "markdown")
@@ -95,7 +97,7 @@ class Generating : CliktCommand() {
                     // create for each api
                     collections.forEach {
                         val single = render.render(listOf(it))
-                        if (single.length < 128 || single.length >= 4096) {
+                        if (single.length < 128 || single.length >= maxLength) {
                             logger.info("Skip ${file.absolutePath} because it's too short")
                             return@forEach
                         }

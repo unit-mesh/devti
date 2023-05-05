@@ -301,6 +301,8 @@ class Modeling : CliktCommand() {
                             if (output.startsWith("```uml") && output.endsWith("```")) {
                                 output = output.substring(6, output.length - 3)
                             }
+
+                            outputFile.writeText(output)
                         } catch (e: Exception) {
                             Thread.sleep(1000)
                             logger.error("Error sleeping", e)

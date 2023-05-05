@@ -254,6 +254,10 @@ class Modeling : CliktCommand() {
         val domainDir = File(outputDir.absolutePath, "domain")
         domainDir.mkdirs()
 
+        // prompt with new
+        val domainJsonDir = File(outputDir.absolutePath, "domain-json")
+        domainJsonDir.mkdirs()
+
         val prompter = OpenAiPrompter(key, proxy)
 
         inputDir.walk().forEachIndexed { index, file ->
@@ -302,8 +306,6 @@ class Modeling : CliktCommand() {
 
                         val newPrompt = promptText.replace("{code}", single)
 
-                        logger.info("newPrompt: ${newPrompt}")
-
                         var output = ""
                         try {
                             logger.debug("start prompt to: ${outputFile.absolutePath}")
@@ -319,15 +321,15 @@ class Modeling : CliktCommand() {
                             logger.debug("Error sleeping", e)
                         }
 
-                        if (output.isEmpty()) {
-                            return@forEachIndexed
-                        }
-
-                        instructions += Instruction(
-                            instruction = newPrompt,
-                            input = newPrompt,
+                        val instruction = Instruction(
+                            instruction = promptText,
+                            input = single,
                             output = output,
                         )
+                        instructions += instruction
+                        val instructFile = File(domainJsonDir, outputFile.name.replace("puml", "json"))
+                        logger.debug("output to json: ${instructFile.absolutePath}")
+                        instructFile.writeText(Json.encodeToString(instruction))
                     }
                 } catch (e: Exception) {
                     logger.error("Failed to parse ${file.absolutePath}", e)

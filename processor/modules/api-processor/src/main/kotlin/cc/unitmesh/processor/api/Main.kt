@@ -273,7 +273,7 @@ class Modeling : CliktCommand() {
                     val collections = processor.convertApi()
                     val render = MarkdownTableRender()
 
-                    val outputFile = File(domainDir, file.name)
+                    val outputFile = File(domainDir, file.name.replace(".yaml", ".puml"))
 
                     if (outputFile.exists()) {
                         return@forEachIndexed

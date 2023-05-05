@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.random.Random
 
-fun main(args: Array<String>) = Generating()
+fun main(args: Array<String>) = Modeling()
 //    .subcommands(Prompting())
     .main(args)
 
@@ -229,7 +229,6 @@ class Prompting : CliktCommand() {
 }
 
 class Modeling : CliktCommand() {
-    private val instructions by argument().file().help("Instructions JSONL").default(File("instructions.jsonl"))
     private val prompt by argument().file().default(File("domain-prompt.txt"))
     private val inputDir by argument().file().help("Input directory").default(File("input"))
     private val outputDir by argument().file().default(File("output"))

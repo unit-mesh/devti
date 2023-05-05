@@ -17,7 +17,7 @@ data class ApiCollection(
 data class ApiItem(
     val path: String,
     val method: String,
-    val description: String,
+    var description: String,
     val operationId: String,
     val tags: List<String>,
     val request: Request? = null,

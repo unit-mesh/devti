@@ -242,7 +242,7 @@ class Modeling : CliktCommand() {
 
         logger.info("key: $key, proxy: $proxy")
 
-        val outputDir = File("output", "markdown")
+        val outputDir = File("output")
         if (!outputDir.exists()) {
             outputDir.mkdirs()
         }
@@ -251,7 +251,7 @@ class Modeling : CliktCommand() {
         val instructions: MutableList<Instruction> = mutableListOf()
 
         // prompt with new
-        val domainDir = File(outputDir.absolutePath, "apis")
+        val domainDir = File(outputDir.absolutePath, "domain")
         domainDir.mkdirs()
 
         val prompter = OpenAiPrompter(key, proxy)
@@ -280,7 +280,13 @@ class Modeling : CliktCommand() {
                     }
 
                     collections.forEach {
-                        val single = render.render(listOf(it))
+                        // remove all items description
+                        val collection = it
+                        collection.items.forEach { item ->
+                            item.description = ""
+                        }
+
+                        val single = render.render(listOf(collection))
                         if (single.length < 128 || single.length >= maxLength) {
                             logger.info("Skip ${file.absolutePath} because it's too short")
                             return@forEach
@@ -290,6 +296,7 @@ class Modeling : CliktCommand() {
                         var output = ""
                         try {
                             output = prompter.prompt(newPrompt)
+                            logger.info("Write to ${outputFile.absolutePath}")
                             outputFile.writeText(output)
                         } catch (e: Exception) {
                             Thread.sleep(1000)

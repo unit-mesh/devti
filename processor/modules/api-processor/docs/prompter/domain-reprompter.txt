@@ -1,16 +1,16 @@
 请根据下面的 API 信息，设计出更合理的领域模型。
 
 1. 使用领域驱动设计的思想
-2. 使用 PlantUML 表示核心的模型和行为
-3. 对于重复的参数，请使用值对象进行封装
-4. 如果原始的 API 有问题，请按照你的理解进行修正
-5. 只返回模型，不做解释
-6. 只展示核心的模型和行为，不做过多的展开
-7. 如果原 API 包含特定的组织、公司信息，请忽略这部分信息
-8. 返回示例格式如下：
+2. 使用 PlantUML 表示核心的模型和行为，对关键的模型进行解释
+3. 如果原有模型不完整，请补充完整
+4. 对于重复的参数，请使用值对象进行封装
+5. 如果原始的 API 有问题，请按照你的理解进行修正
+6. 只返回 PlantUML，不做解释
+7. 返回示例格式如下：
 ###
-```kotlin
+```uml
 @startuml
+' Consent（同意书）是指用户在使用某个金融服务时，需要先同意某些服务条款和隐私政策等内容，以便于金融机构可以合法地处理用户的数据和账户信息。
 class Consent {...}
 class ConsentService {...}
 ...
@@ -22,9 +22,9 @@ Consent -> ConsentService
 API 信息：
 
 ###
-| API | Method | Description | Request | Response | Error Response |
-| --- | --- | --- | --- | --- | --- |
-| /features | GET | Used to retrieve all features available from Yapily. Each `Institution` supports a one, many or all of these features and can be seen in the features field of the `Institution` object.<br><br>Note: Every `Institution` does not necessarily support every feature. To see which features are available for a particular Institution, use either the [Get Institutions](https://docs.yapily.com/api/reference/#operation/getInstitutions) or [Get Institution](https://docs.yapily.com/api/reference/#operation/getInstitution) endpoint and check the features array within the `Institution` payload. |  | [200: {meta: , data: array, links: object, forwardedData: array, raw: array, paging: , tracingId: string}, 0: {error: , monitoring: array, raw: array}] | 400: {"error": String} |
-| /institutions | GET | Used to retrieve all `Institutions` within an application |  | [200: {meta: , data: array, links: object, forwardedData: array, raw: array, paging: , tracingId: string}, 0: {error: , monitoring: array, raw: array}] | 400: {"error": String} |
-| /institutions/{institutionId} | GET | Used to retrieves details of a specific `Institution` within an application | institutionId: string | [200: {id: string, name: string, fullName: string, countries: array, environmentType: , credentialsType: , media: array, features: array, monitoring: object}, 0: {error: , monitoring: array, raw: array}] | 400: {"error": String} |
+| API                           | Method | Request               | Response                                                                                                                                                                                                    | Error Response         |
+|-------------------------------|--------|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------|
+| /features                     | GET    |                       | [200: {meta: , data: array, links: object, forwardedData: array, raw: array, paging: , tracingId: string}, 0: {error: , monitoring: array, raw: array}]                                                     | 400: {"error": String} |
+| /institutions                 | GET    |                       | [200: {meta: , data: array, links: object, forwardedData: array, raw: array, paging: , tracingId: string}, 0: {error: , monitoring: array, raw: array}]                                                     | 400: {"error": String} |
+| /institutions/{institutionId} | GET    | institutionId: string | [200: {id: string, name: string, fullName: string, countries: array, environmentType: , credentialsType: , media: array, features: array, monitoring: object}, 0: {error: , monitoring: array, raw: array}] | 400: {"error": String} |
 ###

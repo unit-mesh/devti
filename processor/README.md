@@ -18,9 +18,12 @@
     - Importer（Text to Repository）
 - Modules
     - API Processor (Swagger, Postman)
+    - PlantUML Verifier
+    - SQL Verifier
 
 ## LICENSE
 
-API Processor module postman based on [https://github.com/poynt/postman-runner](https://github.com/poynt/postman-runner) with Apache 2.0 license. 
+API Processor module postman based on [https://github.com/poynt/postman-runner](https://github.com/poynt/postman-runner)
+with Apache 2.0 license.
 
 This code is distributed under the MPL 2.0 license. See `LICENSE` in this directory.

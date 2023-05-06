@@ -73,6 +73,7 @@ class Usecase : CliktCommand() {
                     output = prompter.prompt(newPrompt)
                 } catch (e: Exception) {
                     logger.info("Failed to prompt ${file.absolutePath}", e)
+                    return@forEachIndexed
                 }
 
                 output = handleOutput(output)

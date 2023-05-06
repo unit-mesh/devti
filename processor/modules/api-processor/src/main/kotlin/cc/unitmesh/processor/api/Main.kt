@@ -74,7 +74,7 @@ class Usecase : CliktCommand() {
                     return@forEachIndexed
                 }
 
-                output = handleOutput(output)
+                output = clearOutput(output)
 
                 val instruction = Instruction(
                     instruction = "分析下面遗留代码的业务需求，并使用用户视角来编写需求用例。",
@@ -92,9 +92,10 @@ class Usecase : CliktCommand() {
         jsonl.writeText(instructions.joinToString("\n") { Json.encodeToString(it) })
     }
 
-    private fun handleOutput(output: String): String {
-        // if content starts with ### or ends with ###, remove it, and remove start and end \n
+    private fun clearOutput(output: String): String {
+        // if content starts with ### or ends with ###, remove it
         var newOutput = output
+
         if (newOutput.startsWith("###")) {
             newOutput = newOutput.substring(3)
         }
@@ -103,13 +104,8 @@ class Usecase : CliktCommand() {
             newOutput = newOutput.substring(0, newOutput.length - 3)
         }
 
-        if (newOutput.startsWith("\n")) {
-            newOutput = newOutput.substring(1)
-        }
-
-        if (newOutput.endsWith("\n")) {
-            newOutput = newOutput.substring(0, newOutput.length - 1)
-        }
+        // remove continues empty line
+        newOutput = newOutput.replace("\n\n\n", "\n\n")
 
         return newOutput
     }

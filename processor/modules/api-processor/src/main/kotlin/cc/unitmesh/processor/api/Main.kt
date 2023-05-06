@@ -228,6 +228,8 @@ class Prompting : CliktCommand() {
     }
 }
 
+private val MIN_OUTPUT_LENGTH = 128
+
 class Modeling : CliktCommand() {
     private val prompt by argument().file().default(File("domain-prompt.txt"))
     private val inputDir by argument().file().help("Input directory").default(File("input"))
@@ -307,9 +309,19 @@ class Modeling : CliktCommand() {
                         }
 
                         val single = render.render(listOf(collection))
-                        if (single.length < 128 || single.length >= maxLength) {
+                        if (single.length < MIN_OUTPUT_LENGTH) {
                             logger.debug("Skip ${file.absolutePath} because it's too short")
                             return@forEachIndexed
+                        }
+
+                        if (single.length >= maxLength) {
+                            // reduce collection.items to 8
+                            val newCollection = collection.copy(items = collection.items.take(8))
+                            val newSingle = render.render(listOf(newCollection))
+                            if (newSingle.length > maxLength) {
+                                logger.debug("Try reduce items but more than 4092, Skip ${file.absolutePath} - ${it.name} because it's too short")
+                                return@forEachIndexed
+                            }
                         }
 
                         val newPrompt = promptText.replace("{code}", single)

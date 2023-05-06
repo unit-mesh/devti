@@ -1,11 +1,15 @@
 package cc.unitmesh.processor.api
 
 import cc.unitmesh.processor.api.base.ApiProcessor
+import cc.unitmesh.processor.api.command.Command
 import cc.unitmesh.processor.api.parser.PostmanProcessor
 import cc.unitmesh.processor.api.swagger.Swagger3Processor
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.io.File
 
 object ApiProcessorDetector {
+    val logger: Logger = LoggerFactory.getLogger(Command::class.java)
     fun detectApiProcessor(file: File, withPostman: Boolean = false, postmanOnly: Boolean = false): ApiProcessor? {
         val content = file.readText()
 
@@ -30,15 +34,15 @@ object ApiProcessorDetector {
             return it
         }
     }
-}
 
-private fun getSwaggerProcessor(it: File): ApiProcessor? {
-    try {
-        val openAPI = Swagger3Processor.fromFile(it)!!
-        return Swagger3Processor(openAPI)
-    } catch (e: Exception) {
-        logger.info("Failed to parse ${it.absolutePath}", e)
+    private fun getSwaggerProcessor(it: File): ApiProcessor? {
+        try {
+            val openAPI = Swagger3Processor.fromFile(it)!!
+            return Swagger3Processor(openAPI)
+        } catch (e: Exception) {
+            logger.info("Failed to parse ${it.absolutePath}", e)
+        }
+
+        return null
     }
-
-    return null
 }

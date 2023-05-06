@@ -1,7 +1,8 @@
-package cc.unitmesh.processor.api
+package cc.unitmesh.processor.api.command
 
 import cc.unitmesh.core.Instruction
 import cc.unitmesh.core.model.ApiCollection
+import cc.unitmesh.processor.api.ApiProcessorDetector
 import cc.unitmesh.processor.api.base.ApiProcessor
 import cc.unitmesh.processor.api.render.MarkdownTableRender
 import com.github.ajalt.clikt.core.CliktCommand

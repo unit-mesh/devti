@@ -294,7 +294,11 @@ class Modeling : CliktCommand() {
                         val domainFile = "$domain-${file.nameWithoutExtension.trim()}-$subIndex.puml"
                         val outputFile = File(domainDir, domainFile)
 
-                        if (outputFile.exists()) {
+                        val instructFile = File(domainJsonDir, outputFile.name.replace("puml", "json"))
+                        if (instructFile.exists()) {
+                            // read instruction from file
+                            val instruction = Json.decodeFromString<Instruction>(instructFile.readText())
+                            instructions += instruction
                             return@forEachIndexed
                         }
 
@@ -327,7 +331,6 @@ class Modeling : CliktCommand() {
                             output = output,
                         )
                         instructions += instruction
-                        val instructFile = File(domainJsonDir, outputFile.name.replace("puml", "json"))
                         logger.debug("output to json: ${instructFile.absolutePath}")
                         instructFile.writeText(Json.encodeToString(instruction))
                     }

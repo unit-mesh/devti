@@ -51,7 +51,6 @@ class Usecase : CliktCommand() {
         // load all uml files under output/domain/*.puml
         pumlDir.walk().forEachIndexed { index, file ->
             if (file.isFile && file.name.endsWith(".puml")) {
-                logger.info("Processing ${file.absolutePath}")
                 val content = file.readText()
 
                 val newPrompt = promptText.replace("{code}", content)

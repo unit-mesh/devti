@@ -75,6 +75,9 @@ class Usecase : CliktCommand() {
                     logger.info("Failed to prompt ${file.absolutePath}", e)
                 }
 
+                output = handleOutput(output)
+
+
                 val instruction = Instruction(
                     instruction = "分析下面遗留代码的业务需求，并使用用户视角来编写需求用例。",
                     input = content,
@@ -89,5 +92,27 @@ class Usecase : CliktCommand() {
 
         val jsonl = File(this.outputDir, "usecase.jsonl")
         jsonl.writeText(instructions.joinToString("\n") { Json.encodeToString(it) })
+    }
+
+    private fun handleOutput(output: String): String {
+        // if content starts with ### or ends with ###, remove it, and remove start and end \n
+        var newOutput = output
+        if (newOutput.startsWith("###")) {
+            newOutput = newOutput.substring(3)
+        }
+
+        if (newOutput.endsWith("###")) {
+            newOutput = newOutput.substring(0, newOutput.length - 3)
+        }
+
+        if (newOutput.startsWith("\n")) {
+            newOutput = newOutput.substring(1)
+        }
+
+        if (newOutput.endsWith("\n")) {
+            newOutput = newOutput.substring(0, newOutput.length - 1)
+        }
+
+        return newOutput
     }
 }

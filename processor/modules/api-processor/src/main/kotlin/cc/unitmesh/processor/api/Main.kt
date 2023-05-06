@@ -323,12 +323,15 @@ class Modeling : CliktCommand() {
                                 val fourCollection = collection.copy(items = collection.items.take(4))
                                 val fourItemStr = render.render(listOf(fourCollection))
                                 if (fourItemStr.length > maxLength) {
-                                    logger.debug("Try reduce and reduce items but more than 4092, Skip ${file.absolutePath} - ${it.name} because it's too short")
+                                    logger.debug(
+                                        "Try reduce and reduce items but more than 4092, Skip ${file.absolutePath} - ${it.name} because it's too short",
+                                    )
                                     return@forEachIndexed
                                 }
 
-
-                                logger.debug("Try reduce items but more than 4092, Skip ${file.absolutePath} - ${it.name} because it's too short")
+                                logger.debug(
+                                    "Try reduce items but more than 4092, Skip ${file.absolutePath} - ${it.name} because it's too short",
+                                )
                                 return@forEachIndexed
                             }
                         }

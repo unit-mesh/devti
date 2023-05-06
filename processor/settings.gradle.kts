@@ -22,4 +22,5 @@ include(
 
     ":modules:api-processor",
     ":modules:plantuml-verifier",
+    ":modules:sql-verifier",
 )

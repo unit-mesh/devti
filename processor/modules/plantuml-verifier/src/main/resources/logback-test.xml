@@ -7,7 +7,7 @@
     </appender>
 
     <logger name="io.swagger.v3.parser" level="ERROR"/>
-    <logger name="cc.unitmesh.verify.PlantUmlParser" level="TRACE"/>
+    <logger name="cc.unitmesh.verifier.uml.PlantUmlParser" level="TRACE"/>
     　
     <root level="DEBUG">
         <appender-ref ref="STDOUT"/>

@@ -1,4 +1,4 @@
-package cc.unitmesh.verify
+package cc.unitmesh.verifier.uml
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument

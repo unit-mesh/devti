@@ -316,9 +316,18 @@ class Modeling : CliktCommand() {
 
                         if (single.length >= maxLength) {
                             // reduce collection.items to 8
-                            val newCollection = collection.copy(items = collection.items.take(8))
-                            val newSingle = render.render(listOf(newCollection))
-                            if (newSingle.length > maxLength) {
+                            val eightCollection = collection.copy(items = collection.items.take(8))
+                            val eightString = render.render(listOf(eightCollection))
+                            if (eightString.length > maxLength) {
+                                // reduce collection.items to 4
+                                val fourCollection = collection.copy(items = collection.items.take(4))
+                                val fourItemStr = render.render(listOf(fourCollection))
+                                if (fourItemStr.length > maxLength) {
+                                    logger.debug("Try reduce and reduce items but more than 4092, Skip ${file.absolutePath} - ${it.name} because it's too short")
+                                    return@forEachIndexed
+                                }
+
+
                                 logger.debug("Try reduce items but more than 4092, Skip ${file.absolutePath} - ${it.name} because it's too short")
                                 return@forEachIndexed
                             }

@@ -69,7 +69,15 @@ data class Response(
     var bodyString: String = "",
 ) {
     override fun toString(): String = when (bodyMode) {
-        BodyMode.RAW_TEXT -> "$code: ${bodyString.replace("\r\n", "").replace("\n", "")}"
+        BodyMode.RAW_TEXT -> {
+            // TODO: 256 is a magic number
+            if (bodyString.length > 256) {
+                "$code: {}"
+            } else {
+                "$code: ${bodyString.replace("\r\n", "").replace("\n", "")}"
+            }
+        }
+
         BodyMode.TYPED -> {
             if (parameters.isEmpty()) {
                 "$code: {}"

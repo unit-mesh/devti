@@ -40,7 +40,6 @@ class Usecase : CliktCommand() {
         val pumlDir = File(inputDir.absolutePath, "domain")
         pumlDir.mkdirs()
 
-
         // prompt with new
         val usecaseDir = File(inputDir.absolutePath, "usecases")
         usecaseDir.mkdirs()
@@ -77,7 +76,6 @@ class Usecase : CliktCommand() {
                 }
 
                 output = handleOutput(output)
-
 
                 val instruction = Instruction(
                     instruction = "分析下面遗留代码的业务需求，并使用用户视角来编写需求用例。",

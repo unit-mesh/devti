@@ -1,6 +1,5 @@
 package cc.unitmesh.processor.api.command
 
-import cc.unitmesh.processor.api.UnitApi
 import kotlinx.serialization.Serializable
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.rows

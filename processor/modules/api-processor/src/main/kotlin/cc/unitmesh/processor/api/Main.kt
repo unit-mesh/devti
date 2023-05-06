@@ -40,19 +40,24 @@ class Usecase : CliktCommand() {
         val pumlDir = File(inputDir.absolutePath, "domain")
         pumlDir.mkdirs()
 
+
+        // prompt with new
+        val usecaseDir = File(inputDir.absolutePath, "usecases")
+        usecaseDir.mkdirs()
+
         val promptText = prompt.readText()
 
         val instructions: MutableList<Instruction> = mutableListOf()
 
         // load all uml files under output/domain/*.puml
         pumlDir.walk().forEachIndexed { index, file ->
-            if (file.isFile) {
+            if (file.isFile && file.name.endsWith(".puml")) {
                 logger.info("Processing ${file.absolutePath}")
                 val content = file.readText()
 
                 val newPrompt = promptText.replace("{code}", content)
 
-                val outputFile = File(file.parentFile, file.name.replace("puml", "txt"))
+                val outputFile = File(usecaseDir, file.name.replace("puml", "md"))
                 if (outputFile.exists()) {
                     instructions += Instruction(
                         instruction = "分析下面遗留代码的业务需求，并使用用户视角来编写需求用例。",
@@ -77,7 +82,7 @@ class Usecase : CliktCommand() {
                 )
                 instructions += instruction
 
-                logger.debug("output to json: ${outputFile.absolutePath}")
+                logger.debug("output to text: ${outputFile.absolutePath}")
                 outputFile.writeText(output)
             }
         }

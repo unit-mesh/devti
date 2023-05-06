@@ -131,7 +131,10 @@ class PostmanParser {
         }
 
         if (uri?.startsWith("/") == false) {
-            uri = uri.substring(uri.indexOf("/"))
+            val startIndex = uri.indexOf("/")
+            if (startIndex > 0) {
+                uri = uri.substring(startIndex)
+            }
         }
 
         val responses = subItem.response?.map {

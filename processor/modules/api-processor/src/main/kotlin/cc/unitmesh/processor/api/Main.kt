@@ -288,6 +288,10 @@ class Modeling : CliktCommand() {
                         val collection = it
                         collection.items.forEach { item ->
                             item.description = ""
+                            // if item.body length > 512, we remove it
+                            if ((item.request?.bodyString?.length ?: 0) > 512) {
+                                item.request!!.bodyString = ""
+                            }
                         }
 
                         val domainFile = "$domain-${file.nameWithoutExtension.trim()}-$subIndex.puml"

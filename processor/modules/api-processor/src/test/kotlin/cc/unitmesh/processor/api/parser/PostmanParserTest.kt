@@ -37,4 +37,20 @@ class PostmanParserTest {
         val output = MarkdownTableRender().render(listList)
         println(output)
     }
+
+    @Test
+    fun should_hande_description() {
+        val boxJson = javaClass.getResource("/postman/Wechat-Simple.postman_collection.json")!!
+        val postmanReader = PostmanReader()
+        val collection = postmanReader.readCollectionFile(File(boxJson.toURI()).absolutePath)
+        val postmanParser = PostmanParser()
+
+        val listList = postmanParser.parse(collection)!!
+
+        listList.size shouldBe 1
+        listList[0].items.size shouldBe 10
+
+        val output = MarkdownTableRender().render(listList)
+        println(output)
+    }
 }

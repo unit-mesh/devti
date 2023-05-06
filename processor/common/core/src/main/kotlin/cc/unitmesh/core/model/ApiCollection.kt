@@ -48,7 +48,7 @@ data class Request(
     val parameters: List<Parameter> = listOf(),
     val body: List<Parameter> = listOf(),
     val bodyMode: BodyMode = BodyMode.TYPED,
-    val bodyString: String = "",
+    var bodyString: String = "",
 ) {
     override fun toString(): String {
         val params = parameters.joinToString(", ") { it.toString() }

@@ -5,14 +5,14 @@
 对源码进行语法分析，分解出不同的 API Unit
 
 - common
+    - Cli-Core. core cli
     - Prompter. LLM prompter
     - Core. core models
-    - Cli-Core. core cli
 - Java
-    - Core Analysis, Java Syntax Analysis
-    - Spring Processor, Controller, Service, Model, Repository, etc.
-    - Codegen
-    - Test
+    - Codegen Processor.
+    - Core Analysis. Java Syntax Analysis
+    - Spring Processor. Controller, Service, Model, Repository, etc.
+    - Test Processor.
 - Kotlin
     - Syntax Analysis
     - Importer（Text to Repository）

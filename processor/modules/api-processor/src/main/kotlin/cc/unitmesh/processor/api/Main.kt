@@ -290,12 +290,12 @@ class Modeling : CliktCommand() {
                             item.description = ""
                         }
 
-                        // file.name without extension
                         val domainFile = "$domain-${file.nameWithoutExtension.trim()}-$subIndex.puml"
                         val outputFile = File(domainDir, domainFile)
 
                         val instructFile = File(domainJsonDir, outputFile.name.replace("puml", "json"))
-                        if (instructFile.exists()) {
+                        // we use puml check because it's faster
+                        if (outputFile.exists()) {
                             // read instruction from file
                             val instruction = Json.decodeFromString<Instruction>(instructFile.readText())
                             instructions += instruction

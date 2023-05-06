@@ -1,0 +1,54 @@
+从纯业务视角，仔细分析下面遗留代码的业务需求，并使用用户故事描述。要求：
+
+1. 不使用技术词汇，如 token
+2. 用户故事之间应该是独立的，需求不应该重复，不应该有依赖关系
+3. 你返回的格式如下所示：
+
+###
+```markdown
+1. 作为一个用户，我可以xxx，以便于xxx
+```
+###
+
+###
+
+@startuml
+' PaymentRequest (付款请求)
+class PaymentRequest {
+    -token: string
+    -amount: integer
+    -description: string
+    -createdDateTime: string
+    -status: string
+    +getPayments(pageNumber: integer, pageSize: integer, fromDateTime: string, toDateTime: string, includeRefunds: boolean): PaymentList
+    +getPayment(paymentToken: string): Payment
+}
+' Payment (付款)
+class Payment {
+    -token: string
+    -tikkieId: string
+    -counterPartyName: string
+    -counterPartyAccountNumber: string
+    -amountInCents: integer
+    -description: string
+    -createdDateTime: string
+    -refunds: array
+}
+' PaymentList (付款列表)
+class PaymentList {
+    -payments: array
+    -totalElementCount: integer
+}
+' PaymentService (付款服务)
+class PaymentService {
+    -appToken: string
+    +getPayments(paymentRequestToken: string, pageNumber: integer, pageSize: integer, fromDateTime: string, toDateTime: string, includeRefunds: boolean): PaymentList
+    +getPayment(paymentRequestToken: string, paymentToken: string): Payment
+}
+PaymentRequest -> Payment : 包含多个 Payment
+PaymentRequest -> PaymentList : 组成 PaymentList
+PaymentList <|-- Payment : 由多个 Payment 组成
+PaymentService -> PaymentRequest : 根据 PaymentRequestToken 获取 PaymentList 和 Payment
+@enduml
+###
+

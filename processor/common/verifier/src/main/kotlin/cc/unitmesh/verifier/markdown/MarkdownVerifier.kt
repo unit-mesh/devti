@@ -7,12 +7,8 @@ import org.commonmark.node.*
 import org.commonmark.parser.Parser
 
 
-class MarkdownVerifier() {
-    val parser: Parser = MarkdownVerifier.createParser()
-
-    init {
-        // clean up
-    }
+class MarkdownVerifier {
+    private val parser: Parser = createParser()
 
     fun tableVerifier(markdown: String, header: List<String>): Boolean {
         var content = markdown
@@ -37,6 +33,7 @@ class MarkdownVerifier() {
             return false
         }
 
+        // 4. verify table header
         tableHeader.forEachIndexed { index, s ->
             if (s != header[index]) {
                 return false
@@ -105,9 +102,5 @@ internal class CodeFilter(val lang: String) : AbstractVisitor() {
                 this.code += fencedCodeBlock.literal
             }
         }
-    }
-
-    override fun visit(indentedCodeBlock: IndentedCodeBlock?) {
-        super.visit(indentedCodeBlock)
     }
 }

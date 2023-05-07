@@ -1,4 +1,4 @@
-package cc.unitmesh.verfier.sql
+package cc.unitmesh.verifier.sql
 
 import net.sf.jsqlparser.parser.CCJSqlParserUtil
 

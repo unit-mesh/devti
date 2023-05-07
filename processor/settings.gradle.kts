@@ -8,6 +8,7 @@ rootProject.name = "UnitProcessor"
 include(
     ":common:core",
     ":common:cli-core",
+    ":common:verifier",
     ":common:prompter",
 
     ":examples:unit-demo",

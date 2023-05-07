@@ -1,4 +1,4 @@
-package cc.unitmesh.verifier.uml
+package cc.unitmesh.verifier.plantuml
 
 import net.sourceforge.plantuml.FileFormat
 import net.sourceforge.plantuml.FileFormatOption

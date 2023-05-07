@@ -12,6 +12,8 @@ repositories {
 
 dependencies {
     implementation(projects.common.core)
+    implementation(projects.common.verifier)
+
     implementation(libs.clikt)
     implementation(libs.serialization.json)
 

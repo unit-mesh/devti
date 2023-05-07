@@ -1,5 +1,6 @@
 package cc.unitmesh.verfier.sql
 
+import cc.unitmesh.verifier.sql.SqlParser
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.default

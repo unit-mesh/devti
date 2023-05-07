@@ -1,5 +1,6 @@
 package cc.unitmesh.verifier.uml
 
+import cc.unitmesh.verifier.plantuml.PlantUmlParser
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.default

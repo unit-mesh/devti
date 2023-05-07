@@ -14,7 +14,6 @@ dependencies {
     implementation(libs.serialization.json)
 
     testImplementation(kotlin("test"))
-
     testImplementation(libs.bundles.test)
 }
 

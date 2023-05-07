@@ -20,7 +20,6 @@ dependencies {
     implementation(libs.kaml)
 
     testImplementation(kotlin("test"))
-
     testImplementation(libs.bundles.test)
 }
 

@@ -19,7 +19,7 @@ class MarkdownVerifier() {
         // 1. if there is inside code block, remove block, like: ```markdown xxx ```
         if (markdown.contains("```")) {
             val code = parseMarkdownCodeBlock(markdown)
-            if (code.isNotEmpty()) {
+            if (code.isEmpty()) {
                 return false
             }
 
@@ -71,9 +71,10 @@ class MarkdownVerifier() {
 
 internal class TableHeaderVisitor : AbstractVisitor() {
     val header = mutableListOf<String>()
+
     // | a | b | c |
     // |---|---|---| <--- head line
-    var isBeforeHeadLine = true
+    private var isBeforeHeadLine = true
     override fun visit(customNode: CustomNode?) {
         super.visit(customNode)
 

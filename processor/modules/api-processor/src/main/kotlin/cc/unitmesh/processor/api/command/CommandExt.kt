@@ -1,5 +1,7 @@
 package cc.unitmesh.processor.api.command
 
+import cc.unitmesh.core.prompter.OpenAiPrompter
+import io.github.cdimascio.dotenv.Dotenv
 import kotlinx.serialization.Serializable
 import org.jetbrains.kotlinx.dataframe.DataFrame
 import org.jetbrains.kotlinx.dataframe.api.rows
@@ -82,3 +84,11 @@ class OtherService(
     val name: String,
     val description: String,
 )
+
+fun createOpenAiPrompter(): OpenAiPrompter {
+    logger.debug("loading dotenv")
+    val dotenv = Dotenv.load()
+    val proxy = dotenv.get("OPEN_AI_PROXY")
+    val key = dotenv.get("OPEN_AI_KEY")
+    return OpenAiPrompter(key, proxy)
+}

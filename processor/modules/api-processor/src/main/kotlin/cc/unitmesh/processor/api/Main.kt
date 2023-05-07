@@ -1,14 +1,13 @@
 package cc.unitmesh.processor.api
 
 import cc.unitmesh.core.Instruction
-import cc.unitmesh.core.prompter.OpenAiPrompter
+import cc.unitmesh.processor.api.command.createOpenAiPrompter
 import cc.unitmesh.processor.api.command.logger
 import cc.unitmesh.verifier.markdown.MarkdownVerifier
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.default
 import com.github.ajalt.clikt.parameters.types.file
-import io.github.cdimascio.dotenv.Dotenv
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -30,14 +29,8 @@ class Usecase : CliktCommand() {
 
     override fun run() {
         logger.info("Usecases Started")
+        val prompter = createOpenAiPrompter()
 
-        logger.debug("loading dotenv")
-        val dotenv = Dotenv.load()
-        val proxy = dotenv.get("OPEN_AI_PROXY")
-        val key = dotenv.get("OPEN_AI_KEY")
-        val prompter = OpenAiPrompter(key, proxy)
-
-        // prompt with new
         val pumlDir = File(inputDir.absolutePath, "domain")
         pumlDir.mkdirs()
 
@@ -66,22 +59,19 @@ class Usecase : CliktCommand() {
                     return@forEachIndexed
                 }
 
-                var output = ""
-                try {
-                    output = prompter.prompt(newPrompt)
+                var output: String = try {
+                    prompter.prompt(newPrompt)
                 } catch (e: Exception) {
                     logger.info("Failed to prompt ${file.absolutePath}", e)
                     return@forEachIndexed
                 }
-
                 output = clearOutput(output)
 
-                val instruction = Instruction(
+                instructions += Instruction(
                     instruction = "分析下面遗留代码的业务需求，并使用用户视角来编写需求用例。",
                     input = content,
                     output = output,
                 )
-                instructions += instruction
 
                 logger.debug("output to text: ${outputFile.absolutePath}")
                 outputFile.writeText(output)
@@ -91,7 +81,7 @@ class Usecase : CliktCommand() {
         val markdownVerifier = MarkdownVerifier()
         val headers = listOf("用例名称", "前置条件", "后置条件", "主成功场景", "扩展场景")
 
-        // walkdir under usecaseDir filer all *.md
+        // walk dir under usecaseDir filer all *.md
         usecaseDir.walk().forEachIndexed { index, file ->
             if (file.isFile && file.name.endsWith(".md")) {
                 val content = file.readText()

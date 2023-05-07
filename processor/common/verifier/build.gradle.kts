@@ -24,6 +24,7 @@ dependencies {
     // Logging
     implementation(libs.logging.slf4j.api)
     implementation(libs.logging.logback.classic)
+    implementation("org.testng:testng:7.1.0")
 
     testImplementation(kotlin("test"))
     testImplementation(libs.bundles.test)

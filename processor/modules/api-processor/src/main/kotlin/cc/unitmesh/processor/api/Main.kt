@@ -37,8 +37,8 @@ class Bundling : CliktCommand() {
             val usecasesNames = usecasesName(usecase)
             usecaseFileNamesMap[it.name] = usecasesNames.joinToString(separator = ",")
             Instruction(
-                instruction = "使用 markdown 编写用例: ${usecasesNames.joinToString(separator = ",")}",
-                input = "",
+                instruction = "编写用例: ",
+                input = usecasesNames.joinToString(separator = ","),
                 output = usecase
             )
         } ?: emptyList()
@@ -67,8 +67,8 @@ class Bundling : CliktCommand() {
             val oldInstruction =
                 Json.decodeFromString(Instruction.serializer(), File(domainModelJsonDir, oldInstructionFile).readText())
             val instruction = Instruction(
-                instruction = "根据下面的信息设计 API：${it.value}",
-                input = "",
+                instruction = "设计 API：",
+                input = it.value,
                 output = oldInstruction.input
             )
             println(instruction)
@@ -100,8 +100,8 @@ private fun createDomainModel(file: File, pumlDir: File): Instruction? {
         val content = file.readText()
         val model = pumlFile.readText()
         return Instruction(
-            instruction = "分析下面的业务需求，设计领域模型：" + usecasesName(content).joinToString(separator = ","),
-            input = "",
+            instruction = "设计领域模型：",
+            input = usecasesName(content).joinToString(separator = ","),
             output = model,
         )
     }

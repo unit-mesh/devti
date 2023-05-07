@@ -12,6 +12,7 @@ import java.io.File
 import kotlin.random.Random
 
 class Command
+
 val logger: Logger = LoggerFactory.getLogger(Command::class.java)
 
 val GROUP_API_INSTRUCTION = "帮我设计一组 API："
@@ -91,4 +92,9 @@ fun createOpenAiPrompter(): OpenAiPrompter {
     val proxy = dotenv.get("OPEN_AI_PROXY")
     val key = dotenv.get("OPEN_AI_KEY")
     return OpenAiPrompter(key, proxy)
+}
+
+object Workspace {
+    fun usecases(dir: String) = File(dir, "usecases")
+    fun puml(dir: String) = File(dir, "domain")
 }

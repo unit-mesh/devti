@@ -19,10 +19,10 @@ class Usecase : CliktCommand() {
         logger.info("Usecases Started")
         val prompter = createOpenAiPrompter()
 
-        val pumlDir = File(inputDir.absolutePath, "domain")
+        val pumlDir = Workspace.puml(inputDir.absolutePath)
         pumlDir.mkdirs()
 
-        val usecaseDir = File(inputDir.absolutePath, "usecases")
+        val usecaseDir = Workspace.usecases(inputDir.absolutePath)
         usecaseDir.mkdirs()
 
         val promptText = prompt.readText()

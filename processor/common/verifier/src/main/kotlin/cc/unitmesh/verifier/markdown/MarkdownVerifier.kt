@@ -10,7 +10,7 @@ import org.commonmark.parser.Parser
 class MarkdownVerifier {
     private val parser: Parser = createParser()
 
-    fun tableVerifier(markdown: String, header: List<String>): Boolean {
+    fun tableVerifier(markdown: String, headers: List<String>): Boolean {
         var content = markdown
         // 1. if there is inside code block, remove block, like: ```markdown xxx ```
         if (markdown.contains("```")) {
@@ -29,13 +29,13 @@ class MarkdownVerifier {
 
         // 3. parse table header and verify table header
         val tableHeader = parseTableHeader(content)
-        if (tableHeader.size != header.size) {
+        if (tableHeader.size != headers.size) {
             return false
         }
 
         // 4. verify table header
         tableHeader.forEachIndexed { index, s ->
-            if (s != header[index]) {
+            if (s != headers[index]) {
                 return false
             }
         }

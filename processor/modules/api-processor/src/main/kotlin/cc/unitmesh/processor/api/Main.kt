@@ -3,6 +3,7 @@ package cc.unitmesh.processor.api
 import cc.unitmesh.core.Instruction
 import cc.unitmesh.core.prompter.OpenAiPrompter
 import cc.unitmesh.processor.api.command.logger
+import cc.unitmesh.verifier.markdown.MarkdownVerifier
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.default
@@ -85,6 +86,24 @@ class Usecase : CliktCommand() {
 
                 logger.debug("output to text: ${outputFile.absolutePath}")
                 outputFile.writeText(output)
+            }
+        }
+
+        val markdownVerifier = MarkdownVerifier()
+        val headers = listOf("用例名称", "前置条件", "后置条件", "主成功场景", "扩展场景")
+
+        // walkdir under usecaseDir filer all *.md
+        usecaseDir.walk().forEachIndexed { index, file ->
+            if (file.isFile && file.name.endsWith(".md")) {
+                val content = file.readText()
+
+                val isCorrect = markdownVerifier.tableVerifier(content, headers = headers)
+                if (!isCorrect) {
+                    logger.warn("Failed to verify ${file.absolutePath}")
+                    logger.info("content: $content")
+                    // remove file
+                    file.delete()
+                }
             }
         }
 

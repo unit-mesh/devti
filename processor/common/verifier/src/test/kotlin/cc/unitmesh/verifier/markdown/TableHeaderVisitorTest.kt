@@ -12,13 +12,13 @@ class TableHeaderVisitorTest {
             | 1 | 2 | 3 |
         """.trimIndent()
 
-        val node = MarkdownVerifier.createParser().parse(markdown)
+        val node = createParser().parse(markdown)
         val visitor = TableHeaderVisitor()
         node.accept(visitor)
 
-        assertEquals(3, visitor.header.size)
-        assertEquals("a", visitor.header[0])
-        assertEquals("b", visitor.header[1])
-        assertEquals("c", visitor.header[2])
+        assertEquals(3, visitor.headers.size)
+        assertEquals("a", visitor.headers[0])
+        assertEquals("b", visitor.headers[1])
+        assertEquals("c", visitor.headers[2])
     }
 }

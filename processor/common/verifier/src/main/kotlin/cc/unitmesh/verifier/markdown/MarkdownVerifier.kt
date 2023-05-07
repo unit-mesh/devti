@@ -2,10 +2,8 @@ package cc.unitmesh.verifier.markdown
 
 import org.commonmark.ext.gfm.tables.TableCell
 import org.commonmark.ext.gfm.tables.TableHead
-import org.commonmark.ext.gfm.tables.TablesExtension
 import org.commonmark.node.*
 import org.commonmark.parser.Parser
-
 
 class MarkdownVerifier {
     private val parser: Parser = createParser()
@@ -47,7 +45,7 @@ class MarkdownVerifier {
         val node = parser.parse(content)
         val visitor = TableHeaderVisitor()
         node.accept(visitor)
-        return visitor.header
+        return visitor.headers
     }
 
     private fun parseMarkdownCodeBlock(markdown: String): List<String> {
@@ -56,18 +54,10 @@ class MarkdownVerifier {
         node.accept(visitor)
         return visitor.code
     }
-
-    companion object {
-        fun createParser(): Parser {
-            return Parser.builder()
-                .extensions(listOf(TablesExtension.create()))
-                .build()
-        }
-    }
 }
 
 internal class TableHeaderVisitor : AbstractVisitor() {
-    val header = mutableListOf<String>()
+    val headers = mutableListOf<String>()
 
     // | a | b | c |
     // |---|---|---| <--- head line
@@ -82,7 +72,7 @@ internal class TableHeaderVisitor : AbstractVisitor() {
 
             is TableCell -> {
                 if (isBeforeHeadLine) {
-                    header += (customNode.firstChild as Text).literal
+                    headers += (customNode.firstChild as Text).literal
                 }
             }
         }

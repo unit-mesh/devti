@@ -41,7 +41,6 @@ class Usecase : CliktCommand() {
         val pumlDir = File(inputDir.absolutePath, "domain")
         pumlDir.mkdirs()
 
-        // prompt with new
         val usecaseDir = File(inputDir.absolutePath, "usecases")
         usecaseDir.mkdirs()
 
@@ -101,7 +100,6 @@ class Usecase : CliktCommand() {
                 if (!isCorrect) {
                     logger.warn("Failed to verify ${file.absolutePath}")
                     logger.info("content: $content")
-                    // remove file
                     file.delete()
                 }
             }

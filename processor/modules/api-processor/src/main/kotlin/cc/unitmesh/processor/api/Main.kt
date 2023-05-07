@@ -1,7 +1,6 @@
 package cc.unitmesh.processor.api
 
 import cc.unitmesh.core.Instruction
-import cc.unitmesh.processor.api.command.Usecase
 import cc.unitmesh.processor.api.command.Workspace
 import cc.unitmesh.processor.api.command.logger
 import cc.unitmesh.verifier.markdown.UsecaseParser
@@ -30,11 +29,16 @@ class Bundling : CliktCommand() {
 
         val instructions: MutableList<Instruction> = mutableListOf()
 
-        val dir = Workspace.usecases(outputDir.absolutePath)
-        val usecases = dir.listFiles()?.filter { it.isFile }?.map { it.readText() } ?: emptyList()
+        val usecaseDir = Workspace.usecases(outputDir.absolutePath)
+        val usecases = usecaseDir.listFiles()?.filter { it.isFile }?.map { it.readText() } ?: emptyList()
         instructions += usecases.map(::createUsecasePrompt)
 
-
+        val pumlDir = Workspace.puml(outputDir.absolutePath)
+        instructions += usecaseDir.walk().map { file ->
+            val instruction = createDomainModel(file, pumlDir)
+            println(instruction)
+            instruction
+        }.filterNotNull()
     }
 }
 
@@ -50,3 +54,24 @@ fun createUsecasePrompt(markdown: String): Instruction {
 }
 
 private fun usecasesName(markdown: String) = UsecaseParser().filterTableColumn(markdown, USECASE_NAME)
+
+private fun createDomainModel(file: File, pumlDir: File): Instruction? {
+    if (file.isFile && file.name.endsWith(".md")) {
+        // get origin puml file from pumlDir
+        val pumlFile = File(pumlDir, file.name.replace("md", "puml"))
+        if (!pumlFile.exists()) {
+            logger.info("Skipping ${file.absolutePath}")
+            return null
+        }
+
+        val content = file.readText()
+        val model = pumlFile.readText()
+        return Instruction(
+            instruction = "分析下面的业务需求，设计领域模型：" + usecasesName(content).joinToString(separator = ","),
+            input = "",
+            output = model,
+        )
+    }
+
+    return null
+}

@@ -1,6 +1,7 @@
 package cc.unitmesh.processor.api.command
 
 import cc.unitmesh.core.Instruction
+import cc.unitmesh.core.model.ApiCollection
 import cc.unitmesh.core.prompter.OpenAiPrompter
 import cc.unitmesh.processor.api.ApiProcessorDetector
 import cc.unitmesh.processor.api.base.ApiProcessor
@@ -49,16 +50,12 @@ class Modeling : CliktCommand() {
 
         val prompter = OpenAiPrompter(key, proxy)
 
-        inputDir.walk().forEachIndexed { index, file ->
+        inputDir.walk().forEachIndexed { _, file ->
             if (file.isFile) {
-                var processor: ApiProcessor? = null
-                try {
-                    processor = ApiProcessorDetector.detectApiProcessor(file, withPostman = true)
+                val processor: ApiProcessor = try {
+                    ApiProcessorDetector.detectApiProcessor(file, withPostman = true)!!
                 } catch (e: Exception) {
                     logger.info("Failed to parse ${file.absolutePath}", e)
-                }
-
-                if (processor == null) {
                     return@forEachIndexed
                 }
 
@@ -95,35 +92,9 @@ class Modeling : CliktCommand() {
                             return@forEachIndexed
                         }
 
-                        val single = render.render(listOf(collection))
-                        if (single.length < MIN_OUTPUT_LENGTH) {
-                            logger.debug("Skip ${file.absolutePath} because it's too short")
-                            return@forEachIndexed
-                        }
+                        val inputContent = tryFetchCorrectSizeInput(render, collection, file) ?: return@forEachIndexed
 
-                        if (single.length >= maxLength) {
-                            // reduce collection.items to 8
-                            val eightCollection = collection.copy(items = collection.items.take(8))
-                            val eightString = render.render(listOf(eightCollection))
-                            if (eightString.length > maxLength) {
-                                // reduce collection.items to 4
-                                val fourCollection = collection.copy(items = collection.items.take(4))
-                                val fourItemStr = render.render(listOf(fourCollection))
-                                if (fourItemStr.length > maxLength) {
-                                    logger.debug(
-                                        "Try reduce and reduce items but more than 4092, Skip ${file.absolutePath} - ${it.name} because it's too short",
-                                    )
-                                    return@forEachIndexed
-                                }
-
-                                logger.debug(
-                                    "Try reduce items but more than 4092, Skip ${file.absolutePath} - ${it.name} because it's too short",
-                                )
-                                return@forEachIndexed
-                            }
-                        }
-
-                        val newPrompt = promptText.replace("{code}", single)
+                        val newPrompt = promptText.replace("{code}", inputContent)
 
                         var output = ""
                         try {
@@ -142,7 +113,7 @@ class Modeling : CliktCommand() {
 
                         val instruction = Instruction(
                             instruction = promptText,
-                            input = single,
+                            input = inputContent,
                             output = output,
                         )
                         instructions += instruction
@@ -158,5 +129,39 @@ class Modeling : CliktCommand() {
         // write to jsonl
         val jsonl = File(this.outputDir, "domains-instructions.jsonl")
         jsonl.writeText(instructions.joinToString("\n") { Json.encodeToString(it) })
+    }
+
+    private fun tryFetchCorrectSizeInput(
+        render: MarkdownTableRender,
+        collection: ApiCollection,
+        file: File,
+    ): String? {
+        val inputContent = render.render(listOf(collection))
+        if (inputContent.length < MIN_OUTPUT_LENGTH) {
+            logger.debug("Skip ${file.absolutePath} because it's too short")
+            return null
+        }
+
+        val fileNameInfo = "${file.absolutePath} - ${collection.name}"
+
+        if (inputContent.length >= maxLength) {
+            // reduce collection.items to 8
+            val eightCollection = collection.copy(items = collection.items.take(8))
+            val eightString = render.render(listOf(eightCollection))
+
+            if (eightString.length > maxLength) {
+                // reduce collection.items to 4
+                val fourCollection = collection.copy(items = collection.items.take(4))
+                val fourItemStr = render.render(listOf(fourCollection))
+                if (fourItemStr.length > maxLength) {
+                    logger.debug("Try reduce items but more than 4092, Skip $fileNameInfo because it's too short")
+                    return null
+                }
+
+                logger.debug("Try reduce items but more than 4092, Skip $fileNameInfo because it's too short")
+            }
+        }
+
+        return inputContent
     }
 }

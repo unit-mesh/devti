@@ -9,7 +9,8 @@ import org.slf4j.LoggerFactory
 import java.io.File
 
 object ApiProcessorDetector {
-    val logger: Logger = LoggerFactory.getLogger(Command::class.java)
+    private val logger: Logger = LoggerFactory.getLogger(Command::class.java)
+
     fun detectApiProcessor(file: File, withPostman: Boolean = false, postmanOnly: Boolean = false): ApiProcessor? {
         val content = file.readText()
 

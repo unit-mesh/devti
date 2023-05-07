@@ -8,6 +8,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.default
 import com.github.ajalt.clikt.parameters.types.file
+import kotlinx.serialization.json.Json
 import java.io.File
 
 fun main(args: Array<String>) = Bundling()
@@ -28,30 +29,62 @@ class Bundling : CliktCommand() {
         logger.info("Bundling Started")
 
         val instructions: MutableList<Instruction> = mutableListOf()
+        val usecaseFileNamesMap = mutableMapOf<String, String>()
 
         val usecaseDir = Workspace.usecases(outputDir.absolutePath)
-        val usecases = usecaseDir.listFiles()?.filter { it.isFile }?.map { it.readText() } ?: emptyList()
-        instructions += usecases.map(::createUsecasePrompt)
+        val usecasesInstruction: List<Instruction> = usecaseDir.listFiles()?.filter { it.isFile }?.map {
+            val usecase = it.readText()
+            val usecasesNames = usecasesName(usecase)
+            usecaseFileNamesMap[it.name] = usecasesNames.joinToString(separator = ",")
+            Instruction(
+                instruction = "使用 markdown 编写用例: ${usecasesNames.joinToString(separator = ",")}",
+                input = "",
+                output = usecase
+            )
+        } ?: emptyList()
+
+        instructions += usecasesInstruction
 
         val pumlDir = Workspace.puml(outputDir.absolutePath)
-        instructions += usecaseDir.walk().map { file ->
-            val instruction = createDomainModel(file, pumlDir)
+        val modelInstructions = usecaseDir.walk().mapNotNull { file -> createDomainModel(file, pumlDir) }
+        instructions += modelInstructions
+
+        // merge from instructions.jsonl
+        val instructionsFile = File(outputDir, "instructions.jsonl")
+        if (instructionsFile.exists()) {
+            val json = Json { ignoreUnknownKeys = true }
+            val instructionsFromFile =
+                instructionsFile.readLines().map { json.decodeFromString(Instruction.serializer(), it) }
+            instructions += instructionsFromFile
+        }
+
+        val domainModelJsonDir = File(outputDir, "domain-json")
+
+        // read domains-instructions.jsonl and replace instructions
+        val apisInstructions = usecaseFileNamesMap.map {
+            // get puml file name by it.key replace .md to .puml
+            val oldInstructionFile = it.key.replace("md", "json")
+            val oldInstruction =
+                Json.decodeFromString(Instruction.serializer(), File(domainModelJsonDir, oldInstructionFile).readText())
+            val instruction = Instruction(
+                instruction = "根据下面的信息设计 API：${it.value}",
+                input = "",
+                output = oldInstruction.input
+            )
             println(instruction)
             instruction
-        }.filterNotNull()
+        }
+        instructions += apisInstructions
+
+        // write instructions to bundling.jsonl
+        val bundlingFile = File(outputDir, "bundling.jsonl")
+        bundlingFile.writeText(instructions.joinToString(separator = "\n") {
+            Json.encodeToString(Instruction.serializer(), it)
+        })
     }
 }
 
 private val USECASE_NAME = "用例名称"
-
-fun createUsecasePrompt(markdown: String): Instruction {
-    val strings = usecasesName(markdown)
-    return Instruction(
-        instruction = "使用 markdown 编写用例: ${strings.joinToString(separator = ",")}",
-        input = "",
-        output = markdown
-    )
-}
 
 private fun usecasesName(markdown: String) = UsecaseParser().filterTableColumn(markdown, USECASE_NAME)
 

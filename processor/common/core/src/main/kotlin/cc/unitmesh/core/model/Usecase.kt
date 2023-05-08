@@ -11,7 +11,7 @@ data class Usecase(
     val preCondition: String,
     val postCondition: String,
     val mainSuccessScenario: String,
-    val extensionScenario: String
+    val extensionScenario: String,
 )
 
 object Usecases {

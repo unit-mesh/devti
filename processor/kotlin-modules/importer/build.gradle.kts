@@ -23,14 +23,7 @@ repositories {
 dependencies {
     implementation(projects.kotlinModules.analysis)
 
-    implementation("com.google.devtools.ksp:symbol-processing-api:1.8.20-1.0.10")
-
-//    implementation("org.jetbrains.exposed", "exposed-core", "0.40.1")
-//    implementation("org.jetbrains.exposed", "exposed-dao", "0.40.1")
-//    implementation("org.jetbrains.exposed", "exposed-jdbc", "0.40.1")
-
-//    implementation("org.xerial:sqlite-jdbc:3.41.2.1")
-//    implementation(libs.dataframe)
+    implementation(libs.ksp)
 
     implementation(libs.clikt)
     implementation(libs.kotlin.compiler)

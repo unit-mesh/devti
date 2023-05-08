@@ -25,9 +25,8 @@ dependencies {
     implementation(libs.bundles.openai)
 
     implementation(libs.bundles.markdown)
-    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
-
-    implementation("org.jetbrains.kotlinx:dataframe:0.10.0")
+    implementation(libs.dotenv)
+    implementation(libs.dataframe)
 
     // java parser
     implementation(libs.swagger.parser.v3)

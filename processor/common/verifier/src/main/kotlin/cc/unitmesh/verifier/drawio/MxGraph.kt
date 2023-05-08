@@ -4,54 +4,53 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MxFileRoot(
-    val mxfile: Mxfile
+    val mxfile: Mxfile,
 )
 
 @Serializable
 data class Mxfile(
     val diagram: Diagram,
-    val attributes: Attributes?
+    val attributes: Attributes?,
 )
 
 @Serializable
 data class Diagram(
     val _text: String,
-    val attributes: Attributes?
+    val attributes: Attributes?,
 )
 
 @Serializable
 data class MxGraph(
-    val mxGraphModel: MxGraphModel
+    val mxGraphModel: MxGraphModel,
 )
 
 @Serializable
 data class MxGraphModel(
     val root: RootNode,
-    val attributes: Attributes?
+    val attributes: Attributes?,
 )
 
 @Serializable
-
 data class RootNode(
-    val mxCell: List<MXCell>
+    val mxCell: List<MXCell>,
 )
 
 @Serializable
 data class MXCell(
     val mxGeometry: MXGeometry?,
-    val attributes: Attributes?
+    val attributes: Attributes?,
 )
 
 @Serializable
 data class MXGeometry(
     val mxPoint: List<MxPoint>?,
     val Array: MXGeometry?,
-    val attributes: Attributes?
+    val attributes: Attributes?,
 )
 
 @Serializable
 data class MxPoint(
-    val attributes: Attributes?
+    val attributes: Attributes?,
 )
 
 @Serializable
@@ -81,5 +80,5 @@ data class Attributes(
     val `as`: String?,
     val width: Double?,
     val height: Double?,
-    val offset: List<MxPoint>?
+    val offset: List<MxPoint>?,
 )

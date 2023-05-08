@@ -1,5 +1,3 @@
 package cc.unitmesh.verifier.drawio
 
-class DrawioVerifier {
-
-}
+class DrawioVerifier

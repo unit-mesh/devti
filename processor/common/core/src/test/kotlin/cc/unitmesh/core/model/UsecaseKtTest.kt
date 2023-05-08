@@ -1,7 +1,5 @@
 package cc.unitmesh.core.model
 
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -23,7 +21,7 @@ class UsecaseKtTest {
             preCondition = "pre condition",
             postCondition = "post condition",
             mainSuccessScenario = "main success scenario",
-            extensionScenario = "extension scenario"
+            extensionScenario = "extension scenario",
         )
 
         assertEquals(listOf(usecase), Usecases.fromString(json))
@@ -37,8 +35,8 @@ class UsecaseKtTest {
                 preCondition = "pre condition",
                 postCondition = "post condition",
                 mainSuccessScenario = "main success scenario",
-                extensionScenario = "extension scenario"
-            )
+                extensionScenario = "extension scenario",
+            ),
         )
 
         val markdown = """
@@ -46,7 +44,7 @@ class UsecaseKtTest {
 | --- | --- | --- | --- | --- |
 | usecase name | pre condition | post condition | main success scenario | extension scenario |
 
-""".trimIndent()
+        """.trimIndent()
 
         Usecases.toMarkdown(usecases).also {
             assertEquals(markdown, it)

@@ -15,7 +15,6 @@ fun main(args: Array<String>) = Bundling()
 //    .subcommands(Prompting())
     .main(args)
 
-
 class UnitApi : CliktCommand() {
     override fun run() {
         logger.info("Unit Connector Started")
@@ -39,7 +38,7 @@ class Bundling : CliktCommand() {
             Instruction(
                 instruction = "根据下面内容编写需求用例，返回格式：| 用例名称 | 前置条件 | 后置条件 | 主成功场景 | 扩展场景 |",
                 input = usecasesNames.joinToString(separator = ","),
-                output = usecase
+                output = usecase,
             )
         } ?: emptyList()
 
@@ -69,7 +68,7 @@ class Bundling : CliktCommand() {
             val instruction = Instruction(
                 instruction = "根据下面信息，设计 API，返回格式：| API | Method | Description | Request | Response | Error Response |",
                 input = it.value,
-                output = oldInstruction.input
+                output = oldInstruction.input,
             )
 
             instruction
@@ -78,9 +77,11 @@ class Bundling : CliktCommand() {
 
         // write instructions to bundling.jsonl
         val bundlingFile = File(outputDir, "bundling.jsonl")
-        bundlingFile.writeText(instructions.joinToString(separator = "\n") {
-            Json.encodeToString(Instruction.serializer(), it)
-        })
+        bundlingFile.writeText(
+            instructions.joinToString(separator = "\n") {
+                Json.encodeToString(Instruction.serializer(), it)
+            },
+        )
     }
 }
 

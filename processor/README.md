@@ -8,6 +8,7 @@
     - Cli-Core. core cli
     - Prompter. LLM prompter
     - Core. core models
+    - Verifier. UML, SQL, Markdown, etc.
 - Java
     - Codegen Processor.
     - Core Analysis. Java Syntax Analysis

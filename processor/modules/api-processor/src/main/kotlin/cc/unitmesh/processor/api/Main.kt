@@ -35,17 +35,21 @@ class Bundling : CliktCommand() {
             val usecase = it.readText()
             val usecasesNames = usecasesName(usecase)
             usecaseFileNamesMap[it.name] = usecasesNames.joinToString(separator = ",")
-            Instruction(
-                instruction = "根据下面内容编写需求用例，返回格式：| 用例名称 | 前置条件 | 后置条件 | 主成功场景 | 扩展场景 |",
-                input = usecasesNames.joinToString(separator = ","),
-                output = usecase,
-            )
-        } ?: emptyList()
+            usecaseInstruction().map { instruction ->
+                Instruction(
+                    instruction = instruction,
+                    input = usecase,
+                    output = usecasesNames.joinToString(separator = "\n"),
+                )
+            }
+        }?.flatten() ?: emptyList()
 
         instructions += usecasesInstruction
 
         val pumlDir = Workspace.puml(outputDir.absolutePath)
-        val modelInstructions = usecaseDir.walk().mapNotNull { file -> createDomainModel(file, pumlDir) }
+        val modelInstructions = usecaseDir.walk().mapNotNull { file ->
+            createDomainModel(file, pumlDir)
+        }.flatten()
         instructions += modelInstructions
 
         // merge from instructions.jsonl
@@ -60,18 +64,19 @@ class Bundling : CliktCommand() {
         val domainModelJsonDir = File(outputDir, "domain-json")
 
         // read domains-instructions.jsonl and replace instructions
-        val apisInstructions = usecaseFileNamesMap.map {
+        val apisInstructions = usecaseFileNamesMap.flatMap {
             // get puml file name by it.key replace .md to .puml
             val oldInstructionFile = it.key.replace("md", "json")
             val oldInstruction =
                 Json.decodeFromString(Instruction.serializer(), File(domainModelJsonDir, oldInstructionFile).readText())
-            val instruction = Instruction(
-                instruction = "根据下面信息，设计 API，返回格式：| API | Method | Description | Request | Response | Error Response |",
-                input = it.value,
-                output = oldInstruction.input,
-            )
 
-            instruction
+            apiInstruction().map { instruction ->
+                Instruction(
+                    instruction = instruction,
+                    input = it.value,
+                    output = oldInstruction.input,
+                )
+            }
         }
         instructions += apisInstructions
 
@@ -89,7 +94,7 @@ private val USECASE_NAME = "用例名称"
 
 private fun usecasesName(markdown: String) = UsecaseParser().filterTableColumn(markdown, USECASE_NAME)
 
-private fun createDomainModel(file: File, pumlDir: File): Instruction? {
+private fun createDomainModel(file: File, pumlDir: File): List<Instruction>? {
     if (file.isFile && file.name.endsWith(".md")) {
         // get origin puml file from pumlDir
         val pumlFile = File(pumlDir, file.name.replace("md", "puml"))
@@ -100,12 +105,39 @@ private fun createDomainModel(file: File, pumlDir: File): Instruction? {
 
         val content = file.readText()
         val model = pumlFile.readText()
-        return Instruction(
-            instruction = "根据下面信息设计领域模型，并使用 PlantUML 返回",
-            input = usecasesName(content).joinToString(separator = ","),
-            output = model,
-        )
+        return domainInstructions().map {
+            Instruction(
+                instruction = it,
+                input = usecasesName(content).joinToString(separator = ","),
+                output = model,
+            )
+        }
     }
 
     return null
+}
+
+private fun domainInstructions(): List<String> {
+    return listOf(
+        "根据下面信息设计领域模型，并使用 PlantUML 返回",
+        "请使用 PlantUML 根据下面的信息设计领域模型并返回。",
+        "基于下面的需求，使用 PlantUML 设计类图并返回。"
+    )
+}
+
+
+private fun usecaseInstruction(): List<String> {
+    return listOf(
+        "根据下面内容编写需求用例，返回格式：| 用例名称 | 前置条件 | 后置条件 | 主成功场景 | 扩展场景 |",
+        "请根据下列场景编写用例，并使用指定格式返回：| 用例名称 | 前置条件 | 后置条件 | 主成功场景 | 扩展场景 |",
+        "根据以下需求编写用例，返回格式：| 用例名称 | 前置条件 | 后置条件 | 主成功场景 | 扩展场景 |",
+    )
+}
+
+private fun apiInstruction(): List<String> {
+    return listOf(
+        "请根据如下的用户需求 API，使用 markdown 表示",
+        "根据用户需求，生成 RESTful API 接口，使用 Markdown 表示，包含 API、Method、Description、Request、Response 和 Error Response 等字段。",
+        "根据如下的信息设计接口，返回格式：| API | Method | Description | Request | Response | Error Response |"
+    )
 }

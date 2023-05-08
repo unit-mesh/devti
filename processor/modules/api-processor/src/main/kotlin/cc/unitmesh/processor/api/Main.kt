@@ -37,7 +37,7 @@ class Bundling : CliktCommand() {
             val usecasesNames = usecasesName(usecase)
             usecaseFileNamesMap[it.name] = usecasesNames.joinToString(separator = ",")
             Instruction(
-                instruction = "编写用例: ",
+                instruction = "根据下面内容编写需求用例，返回格式：| 用例名称 | 前置条件 | 后置条件 | 主成功场景 | 扩展场景 |",
                 input = usecasesNames.joinToString(separator = ","),
                 output = usecase
             )
@@ -50,13 +50,13 @@ class Bundling : CliktCommand() {
         instructions += modelInstructions
 
         // merge from instructions.jsonl
-        val instructionsFile = File(outputDir, "instructions.jsonl")
-        if (instructionsFile.exists()) {
-            val json = Json { ignoreUnknownKeys = true }
-            val instructionsFromFile =
-                instructionsFile.readLines().map { json.decodeFromString(Instruction.serializer(), it) }
-            instructions += instructionsFromFile
-        }
+//        val instructionsFile = File(outputDir, "instructions.jsonl")
+//        if (instructionsFile.exists()) {
+//            val json = Json { ignoreUnknownKeys = true }
+//            val instructionsFromFile =
+//                instructionsFile.readLines().map { json.decodeFromString(Instruction.serializer(), it) }
+//            instructions += instructionsFromFile
+//        }
 
         val domainModelJsonDir = File(outputDir, "domain-json")
 
@@ -67,11 +67,11 @@ class Bundling : CliktCommand() {
             val oldInstruction =
                 Json.decodeFromString(Instruction.serializer(), File(domainModelJsonDir, oldInstructionFile).readText())
             val instruction = Instruction(
-                instruction = "设计 API：",
+                instruction = "根据下面信息，设计 API，返回格式：| API | Method | Description | Request | Response | Error Response |",
                 input = it.value,
                 output = oldInstruction.input
             )
-            println(instruction)
+
             instruction
         }
         instructions += apisInstructions
@@ -100,7 +100,7 @@ private fun createDomainModel(file: File, pumlDir: File): Instruction? {
         val content = file.readText()
         val model = pumlFile.readText()
         return Instruction(
-            instruction = "设计领域模型：",
+            instruction = "根据下面信息设计领域模型，并使用 PlantUML 返回",
             input = usecasesName(content).joinToString(separator = ","),
             output = model,
         )

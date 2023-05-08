@@ -22,14 +22,10 @@ dependencies {
     implementation(libs.logging.slf4j.api)
     implementation(libs.logging.logback.classic)
 
-    implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
-    implementation("com.theokanning.openai-gpt3-java:service:0.12.0")
+    implementation(libs.bundles.openai)
 
-    implementation("org.commonmark:commonmark:0.21.0")
-    implementation("org.commonmark:commonmark-ext-gfm-tables:0.21.0")
+    implementation(libs.bundles.markdown)
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
-
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
 
     implementation("org.jetbrains.kotlinx:dataframe:0.10.0")
 

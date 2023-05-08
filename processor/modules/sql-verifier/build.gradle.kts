@@ -20,7 +20,7 @@ dependencies {
     implementation(libs.logging.slf4j.api)
     implementation(libs.logging.logback.classic)
 
-    implementation("com.github.jsqlparser:jsqlparser:4.6")
+    implementation(libs.jsqlparser)
 
     testImplementation(kotlin("test"))
 

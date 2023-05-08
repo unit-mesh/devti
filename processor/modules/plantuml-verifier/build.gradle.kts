@@ -21,7 +21,7 @@ dependencies {
     implementation(libs.logging.slf4j.api)
     implementation(libs.logging.logback.classic)
 
-    implementation("net.sourceforge.plantuml:plantuml:1.2023.6")
+    implementation(libs.plantuml)
 
     testImplementation(kotlin("test"))
 

@@ -15,10 +15,7 @@ dependencies {
     implementation(libs.logging.slf4j.api)
     implementation(libs.logging.logback.classic)
 
-    implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
-    implementation("com.theokanning.openai-gpt3-java:service:0.12.0")
-
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    implementation(libs.bundles.openai)
 
     testImplementation(kotlin("test"))
     testImplementation(libs.bundles.test)

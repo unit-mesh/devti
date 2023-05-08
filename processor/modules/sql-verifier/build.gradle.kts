@@ -13,6 +13,7 @@ repositories {
 dependencies {
     implementation(projects.common.core)
     implementation(projects.common.verifier)
+
     implementation(libs.clikt)
     implementation(libs.serialization.json)
 
@@ -23,7 +24,6 @@ dependencies {
     implementation(libs.jsqlparser)
 
     testImplementation(kotlin("test"))
-
     testImplementation(libs.bundles.test)
 }
 

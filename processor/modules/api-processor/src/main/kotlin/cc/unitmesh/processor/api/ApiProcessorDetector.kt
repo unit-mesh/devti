@@ -16,7 +16,8 @@ object ApiProcessorDetector {
 
         if (withPostman || postmanOnly) {
             if (file.extension == "json") {
-                if (content.contains("_postman_id") && content.contains("schema")) {
+                val isPostmanContent = content.contains("_postman_id") && content.contains("schema")
+                if (isPostmanContent) {
                     return PostmanProcessor(file)
                 }
             }
@@ -37,13 +38,12 @@ object ApiProcessorDetector {
     }
 
     private fun getSwaggerProcessor(it: File): ApiProcessor? {
-        try {
-            val openAPI = Swagger3Processor.fromFile(it)!!
-            return Swagger3Processor(openAPI)
+        return try {
+            val openAPI = Swagger3Processor.fromFile(it) ?: return null
+            Swagger3Processor(openAPI)
         } catch (e: Exception) {
             logger.info("Failed to parse ${it.absolutePath}", e)
+            null
         }
-
-        return null
     }
 }

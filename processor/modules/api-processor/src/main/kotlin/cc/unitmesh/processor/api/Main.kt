@@ -38,7 +38,7 @@ class Bundling : CliktCommand() {
             usecaseInstruction().map { instruction ->
                 Instruction(
                     instruction = instruction,
-                    input = usecase,
+                    input = "###$usecase###",
                     output = usecasesNames.joinToString(separator = "\n"),
                 )
             }
@@ -73,7 +73,7 @@ class Bundling : CliktCommand() {
             apiInstruction().map { instruction ->
                 Instruction(
                     instruction = instruction,
-                    input = it.value,
+                    input = "###" + it.value + "###",
                     output = oldInstruction.input,
                 )
             }
@@ -108,7 +108,7 @@ private fun createDomainModel(file: File, pumlDir: File): List<Instruction>? {
         return domainInstructions().map {
             Instruction(
                 instruction = it,
-                input = usecasesName(content).joinToString(separator = ","),
+                input = "###" + usecasesName(content).joinToString(separator = ",") + "###",
                 output = model,
             )
         }

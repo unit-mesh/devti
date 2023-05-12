@@ -2,9 +2,9 @@
 
 > Processor 是一个代码分析和处理引擎，用于在 AI 编程的前半部分的代码分析和处理。
 
-对源码进行语法分析，分解出不同的 API Unit
+对源码进行语法分析，分解出不同的 Unit
 
-- common
+- Common
     - Cli-Core. core cli
     - Prompter. LLM prompter
     - Core. core models
@@ -18,7 +18,7 @@
     - Syntax Analysis
     - Importer（Text to Repository）
 - Modules
-    - API Processor (Swagger, Postman)
+    - API Processor
     - PlantUML Verifier
     - SQL Verifier
 

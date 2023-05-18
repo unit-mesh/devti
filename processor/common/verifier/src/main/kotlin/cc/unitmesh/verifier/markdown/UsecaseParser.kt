@@ -31,7 +31,6 @@ class UsecaseParser {
 
 internal class TableColumnFilter(private val columnIndex: Int) : AbstractVisitor() {
     val values = mutableListOf<String>()
-    val headers = mutableListOf<String>()
 
     // | a | b | c |
     // |---|---|---| <--- head line

@@ -58,9 +58,6 @@ class MarkdownVerifier {
 
 internal class TableHeaderVisitor : AbstractVisitor() {
     val headers = mutableListOf<String>()
-
-    // | a | b | c |
-    // |---|---|---| <--- head line
     private var isBeforeHeadLine = true
     override fun visit(customNode: CustomNode?) {
         super.visit(customNode)

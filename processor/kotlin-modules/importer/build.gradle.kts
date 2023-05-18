@@ -9,8 +9,8 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.shadow)
     alias(libs.plugins.serialization)
-    id("org.jetbrains.kotlinx.dataframe") version "0.9.1"
-    id("com.google.devtools.ksp") version "1.8.20-1.0.10"
+    alias(libs.plugins.dataframe)
+    alias(libs.plugins.ksp)
     application
 }
 

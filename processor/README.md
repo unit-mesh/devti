@@ -20,7 +20,6 @@
 - Modules
     - API Processor
     - PlantUML Verifier
-    - SQL Verifier
 
 ## LICENSE
 
